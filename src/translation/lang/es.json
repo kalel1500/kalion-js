@@ -1,0 +1,23 @@
+{
+    "Ok": "De acuerdo",
+    "Unforeseen error": "Error imprevisto",
+    "Reload Page": "Recargar página",
+    "Loading...": "Cargando...",
+    "Loading": "Cargando",
+    "Search": "Buscar",
+    "Filter": "Filtrar",
+    "Date": "Fecha",
+    "No results": "Sin resultados",
+    "Download completed": "Descarga completada",
+    "Fetch error message:": "Hubo un problema con la petición Fetch:",
+    "Some class does not meet the _INTERFACE_ interface contract": "Alguna Clase no cumple con el contrato de la interfaz \"_INTERFACE_\"",
+    "It has been called a JS component that does not match the current page.": "Se ha llamado un componente JS que no coincide con la pagina actual.",
+    "Need _NUMBER_ characters": "Necesarios \"_NUMBER_\" caracteres",
+    "A loader was expected on the page": "Se esperaba un loader en la página",
+    "Check if the loader was in a div.": "Comprueba si el loader estaba en un div. En ese caso se requiere el id del div.",
+    "You do not have permissions to edit": "No tienes permisos para editar",
+    "test": "Frase con dos variables: _VARIABLE_, _VARIABLE_",
+    "contact_pi_team": "Contacta con el equipo de Herramientas PI",
+
+    "check_if_system_is_locked": "Si el error persiste puedes mirar si el sistema se ha bloqueado en la página de gestión de bloqueos"
+}

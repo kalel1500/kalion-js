@@ -1,0 +1,23 @@
+{
+    "Ok": "Ok",
+    "Unforeseen error": "Unforeseen error",
+    "Reload Page": "Reload Page",
+    "Loading...": "Loading...",
+    "Loading": "Loading",
+    "Search": "Search",
+    "Filter": "Filter",
+    "Date": "Date",
+    "No results": "No results",
+    "Download completed": "Download completed",
+    "Fetch error message:": "There was a problem with the FETCH request:",
+    "Some class does not meet the _INTERFACE_ interface contract": "Some class does not meet the \"_INTERFACE_\" interface contract",
+    "It has been called a JS component that does not match the current page": "It has been called a JS component that does not match the current page",
+    "Need _NUMBER_ characters": "Need \"_NUMBER_\" characters",
+    "A loader was expected on the page": "A loader was expected on the page",
+    "Check if the loader was in a div.": "Check if the loader was in a div. In that case the div ID is required.",
+    "You do not have permissions to edit": "You do not have permissions to edit",
+    "test": "Frase con dos variables: _VARIABLE_, _VARIABLE_",
+    "contact_pi_team": "Contact the PI Tools team",
+
+    "check_if_system_is_locked": "If the error persists you can check if the system has crashed on the crash management page"
+}
