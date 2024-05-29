@@ -3,7 +3,7 @@ import g from "../helpers/global";
 import {route} from "../../../../vendor/tightenco/ziggy";
 import EchoService from "./EchoService";
 import SModal from "../modals/sweetalert/SModal";
-import {_const} from "../../app/config";
+import {_const} from "../helpers/_const";
 import {FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch} from "../index";
 
 export default class Websocket

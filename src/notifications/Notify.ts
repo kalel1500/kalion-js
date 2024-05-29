@@ -1,4 +1,4 @@
-import {_const} from "../../app/config";
+import {_const} from "../helpers/_const";
 import LDate from "../dates/LDate";
 import LStorage from "../storage/LStorage";
 import g from "../helpers/global";
