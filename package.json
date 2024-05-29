@@ -4,14 +4,29 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-      "build": "tsc"
+        "build": "tsc"
     },
     "files": [
-      "dist",
-      "types"
+        "dist",
+        "types"
     ],
     "devDependencies": {
-      "typescript": "5.4.5"
+        "@types/bootstrap": "^5.2.10",
+        "@types/luxon": "^3.4.2",
+        "@types/node": "^20.12.13",
+        "@types/tabulator-tables": "^6.2.0",
+        "typescript": "5.4.5",
+        "vite": "^5.2.12"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.5.2",
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.3",
+        "laravel-echo": "^1.16.1",
+        "luxon": "^3.4.4",
+        "pusher-js": "^8.4.0-rc2",
+        "slim-select": "^2.8.2",
+        "sweetalert2": "^11.11.0",
+        "tabulator-tables": "^6.2.1"
     }
-  }
-  
+}

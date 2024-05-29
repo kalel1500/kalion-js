@@ -1,4 +1,4 @@
-import InvalidValueException from "../../exceptions/InvalidValueException";
+import InvalidValueException from "ddd/domain/exceptions/InvalidValueException";
 
 type EnumVoTypes = string | null | undefined
 

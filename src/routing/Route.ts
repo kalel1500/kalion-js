@@ -1,5 +1,5 @@
 import {route} from "../../../../vendor/tightenco/ziggy";
-import g from "../helpers/global";
+import g from "helpers/global";
 
 type ROUTES = {
     PAGES: {

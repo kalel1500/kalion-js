@@ -1,8 +1,8 @@
-import lang_utils_es from './lang/es.json';
-import lang_utils_en from './lang/en.json';
+import lang_utils_es from 'translation/lang/es.json';
+import lang_utils_en from 'translation/lang/en.json';
 import lang_app_es from '../../app/shared/lang/es.json';
 import lang_app_en from '../../app/shared/lang/en.json';
-import {_const} from "../helpers/_const";
+import {_const} from "helpers/Config";
 
 class Translator
 {

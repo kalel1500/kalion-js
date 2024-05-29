@@ -1,19 +1,20 @@
 import {EventCallBackMethods} from "tabulator-tables";
 
-export interface AppConstants {
+// Define una interfaz para la configuración por defecto
+export interface DefaultConfig {
     token: string | null,
     lang: string,
     langDouble: string,
     defaultZoneName: string,
     appIcon: string,
 
-    VITE_APP_NAME: string
-    VITE_APP_ENV: string
-    VITE_REVERB_APP_KEY: string,
+    VITE_BROADCASTING_ENABLED: boolean,
+    VITE_REVERB_APP_KEY: string|null,
     VITE_REVERB_HOST: string,
     VITE_REVERB_PORT: number,
     VITE_REVERB_SCHEME: string,
-    VITE_BROADCASTING_ENABLED: boolean,
+    VITE_APP_NAME: string
+    VITE_APP_ENV: string
 }
 
 export interface FetchParams {
