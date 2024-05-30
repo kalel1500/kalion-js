@@ -3,15 +3,16 @@
     "target": "es2022",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "dist",
+    "declarationDir": "./dist/types",
+    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src",
-    "types"
+    "src/**/*.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -5,7 +5,7 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         lib: {
-            entry: path.resolve(__dirname, 'src/index.ts'),
+            entry: 'src/index.ts', // path.resolve(__dirname, 'src/index.ts'),
             name: 'LaravelTsUtilities',
             fileName: (format) => `laravel-ts-utilities.${format}.js`
         },
