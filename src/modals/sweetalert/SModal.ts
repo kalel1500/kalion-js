@@ -5,8 +5,8 @@ import Swal, {
     SweetAlertPosition
 } from "sweetalert2";
 import g from "../../helpers/global";
-import CannotOpenModalException from "../../modals/sweetalert/CannotOpenModalException";
-import CannotOpenModalWarning from "../../modals/sweetalert/CannotOpenModalWarning";
+import CannotOpenModalException from "./CannotOpenModalException";
+import CannotOpenModalWarning from "./CannotOpenModalWarning";
 import {FetchResponse, SyncOrAsync} from "../../../types";
 
 type ValueOrThunk<T> = T | (() => T)

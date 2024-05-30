@@ -1,7 +1,7 @@
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import {_const} from "../helpers/Config";
-import Websocket from "../websockets/Websocket";
+import Websocket from "./Websocket";
 
 export default class EchoService
 {
