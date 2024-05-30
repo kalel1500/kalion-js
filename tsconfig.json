@@ -6,15 +6,15 @@
     "declarationDir": "./dist/types",
     "emitDeclarationOnly": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
   },
   "include": [
-    "src/**/*",
-    "types/**/*"
+    "src",
+    "types"
   ],
   "exclude": [
     "node_modules",

@@ -1,9 +1,18 @@
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import path from 'path';
+
 
 export default defineConfig({
+    plugins: [
+        dts({
+            include: ['src', 'types'], // Incluye los directorios src y types para la generación de tipos
+            outDir: 'dist/types/src', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+        }),
+    ],
     build: {
         lib: {
-            entry: 'src/index.ts', // path.resolve(__dirname, 'src/index.ts'),
+            entry: path.resolve(__dirname, 'src/index.ts'),
             name: 'LaravelTsUtilities',
             fileName: (format) => `laravel-ts-utilities.${format}.js`,
             formats: ['es']
