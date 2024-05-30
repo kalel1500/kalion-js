@@ -1,4 +1,4 @@
-import {route} from "../../../../vendor/tightenco/ziggy";
+import {route} from "ziggy-js";
 import g from "helpers/global";
 
 type ROUTES = {

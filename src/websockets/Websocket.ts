@@ -1,6 +1,6 @@
 import LStorage from "../storage/LStorage";
 import g from "../helpers/global";
-import {route} from "../../../../vendor/tightenco/ziggy";
+import {route} from "ziggy-js";
 import EchoService from "./EchoService";
 import SModal from "../modals/sweetalert/SModal";
 import {_const} from "helpers/Config";

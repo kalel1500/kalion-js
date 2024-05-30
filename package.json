@@ -31,6 +31,7 @@
         "pusher-js": "^8.4.0-rc2",
         "slim-select": "^2.8.2",
         "sweetalert2": "^11.11.0",
-        "tabulator-tables": "^6.2.1"
+        "tabulator-tables": "^6.2.1",
+        "ziggy-js": "^2.2.1"
     }
 }
