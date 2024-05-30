@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite';
-import path from 'path';
 
 export default defineConfig({
     build: {
-        outDir: 'dist',
         lib: {
             entry: 'src/index.ts', // path.resolve(__dirname, 'src/index.ts'),
             name: 'LaravelTsUtilities',

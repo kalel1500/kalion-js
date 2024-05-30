@@ -4,15 +4,17 @@
     "module": "commonjs",
     "declaration": true,
     "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src/**/*.ts",
-    "types/**/*.d.ts"
+    "src/**/*",
+    "types/**/*"
   ],
   "exclude": [
     "node_modules",

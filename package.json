@@ -1,7 +1,7 @@
 {
     "name": "laravel-ts-utilities",
     "version": "1.0.0",
-    "main": "dist/index.js",
+    "main": "dist/laravel-ts-utilities.js",
     "module": "dist/index.esm.js",
     "types": "dist/types/index.d.ts",
     "scripts": {
