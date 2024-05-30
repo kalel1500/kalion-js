@@ -2,14 +2,18 @@
     "name": "laravel-ts-utilities",
     "version": "1.0.0",
     "main": "dist/index.js",
+    "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc && vite build"
     },
     "files": [
         "dist",
         "types"
     ],
+    "keywords": [],
+    "author": "kalel1500",
+    "license": "MIT",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
         "@types/luxon": "^3.4.2",
