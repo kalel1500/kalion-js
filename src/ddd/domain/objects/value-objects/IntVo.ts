@@ -1,4 +1,4 @@
-import InvalidValueException from "ddd/domain/exceptions/InvalidValueException";
+import InvalidValueException from "../../exceptions/InvalidValueException";
 
 type IntVoTypes = number | string | null
 

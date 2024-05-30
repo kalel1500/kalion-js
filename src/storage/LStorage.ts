@@ -1,4 +1,4 @@
-import LDate from "dates/LDate";
+import LDate from "../dates/LDate";
 
 export default class LStorage
 {

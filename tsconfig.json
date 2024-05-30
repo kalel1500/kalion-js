@@ -8,12 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "*": [
-        "./types/*",
-        "./src/*"
-      ]
-    }
   },
   "include": [
     "src",

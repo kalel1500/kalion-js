@@ -2,7 +2,7 @@
 // import lang_utils_en from 'translation/lang/en.json';
 // import lang_app_es from '../../app/shared/lang/es.json';
 // import lang_app_en from '../../app/shared/lang/en.json';
-import {_const} from "helpers/Config";
+import {_const} from "../helpers/Config";
 
 class Translator
 {

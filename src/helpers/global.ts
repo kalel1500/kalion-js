@@ -1,7 +1,7 @@
-import {__, lang} from "translation/Translator";
-import SModal from "modals/sweetalert/SModal";
+import {__, lang} from "../translation/Translator";
+import SModal from "../modals/sweetalert/SModal";
 import * as bootstrap from "bootstrap";
-import {_const} from "helpers/Config";
+import {_const} from "./Config";
 import {
     CatchParams,
     FetchParams,
@@ -9,7 +9,7 @@ import {
     ValidationInternalData,
     ValidationResponse,
     ValidationRules
-} from "index";
+} from "../../types";
 
 export default class g
 {
