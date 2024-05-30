@@ -1,17 +1,21 @@
 {
     "name": "laravel-ts-utilities",
     "version": "1.0.0",
-    "main": "dist/laravel-ts-utilities.js",
-    "module": "dist/index.esm.js",
+    "description": "Utilidades de typescript para Laravel",
+    "main": "dist/laravel-ts-utilities.es.js",
     "types": "dist/types/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsc && vite build && npm run copy-types",
         "copy-types": "cpx types/**/* dist/types"
     },
-    "files": [
-        "dist"
-    ],
-    "keywords": [],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kalel1500/laravel-ts-utilities"
+    },
+    "keywords": ["laravel", "ts", "utilities", "typescript"],
     "author": "kalel1500",
     "license": "MIT",
     "devDependencies": {
