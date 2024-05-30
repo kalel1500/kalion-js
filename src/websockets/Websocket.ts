@@ -1,8 +1,8 @@
-import LStorage from "../storage/LStorage";
-import g from "../helpers/global";
+import LStorage from "storage/LStorage";
+import g from "helpers/global";
 import {route} from "ziggy-js";
-import EchoService from "./EchoService";
-import SModal from "../modals/sweetalert/SModal";
+import EchoService from "websockets/EchoService";
+import SModal from "modals/sweetalert/SModal";
 import {_const} from "helpers/Config";
 import {FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch} from "index";
 
