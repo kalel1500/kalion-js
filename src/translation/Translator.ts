@@ -1,15 +1,15 @@
-import lang_utils_es from 'translation/lang/es.json';
-import lang_utils_en from 'translation/lang/en.json';
-import lang_app_es from '../../app/shared/lang/es.json';
-import lang_app_en from '../../app/shared/lang/en.json';
+// import lang_utils_es from 'translation/lang/es.json';
+// import lang_utils_en from 'translation/lang/en.json';
+// import lang_app_es from '../../app/shared/lang/es.json';
+// import lang_app_en from '../../app/shared/lang/en.json';
 import {_const} from "helpers/Config";
 
 class Translator
 {
     static #currentLang = _const.lang;
     static #translations: Record<string,Record<string, string>> = {
-        es: {...lang_utils_es, ...lang_app_es},
-        en: {...lang_utils_en, ...lang_app_en},
+        es: {}, // ...lang_utils_es, ...lang_app_es
+        en: {}, // ...lang_utils_en, ...lang_app_en
     };
 
     static changeLanguage(lang: string): void
