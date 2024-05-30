@@ -5,7 +5,7 @@
     "module": "dist/index.esm.js",
     "types": "dist/types/index.d.ts",
     "scripts": {
-        "build": "vite build && npm run copy-types",
+        "build": "tsc && vite build && npm run copy-types",
         "copy-types": "cpx types/**/* dist/types"
     },
     "files": [
