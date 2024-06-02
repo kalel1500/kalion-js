@@ -3,7 +3,7 @@ import InvalidValueException from "./ddd/domain/exceptions/InvalidValueException
 import EnumVo from "./ddd/domain/objects/value-objects/EnumVo";
 import IntVo from "./ddd/domain/objects/value-objects/IntVo";
 import StringVo from "./ddd/domain/objects/value-objects/StringVo";
-import {_const, Constants, Const} from "./helpers/Constants";
+import {_const, Constants} from "./helpers/Constants";
 import g from "./helpers/global";
 import CannotOpenModalException from "./modals/sweetalert/CannotOpenModalException";
 import CannotOpenModalWarning from "./modals/sweetalert/CannotOpenModalWarning";
@@ -24,7 +24,6 @@ export {
     StringVo,
     _const,
     Constants,
-    Const,
     g,
     CannotOpenModalException,
     CannotOpenModalWarning,

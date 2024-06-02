@@ -51,5 +51,5 @@ export class Constants<T extends DefaultConstants> {
 }
 
 // Exporta una instancia de configuración
-export const Const = Constants.getInstance();
+// export const Const = Constants.getInstance();
 export const _const = Constants.getInstance().getConstants();
