@@ -7,7 +7,7 @@ import Swal, {
 import g from "../../helpers/global";
 import CannotOpenModalException from "./CannotOpenModalException";
 import CannotOpenModalWarning from "./CannotOpenModalWarning";
-import {FetchResponse, SyncOrAsync} from "../../../types";
+import {FetchResponse, SyncOrAsync} from "../../_types";
 
 type ValueOrThunk<T> = T | (() => T)
 

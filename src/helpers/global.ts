@@ -9,7 +9,7 @@ import {
     ValidationInternalData,
     ValidationResponse,
     ValidationRules
-} from "../../types";
+} from "../_types";
 
 export default class g
 {

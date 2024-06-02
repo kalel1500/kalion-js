@@ -37,3 +37,5 @@ export {
     EchoService,
     Websocket,
 }
+
+export * from "./_types"

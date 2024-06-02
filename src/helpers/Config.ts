@@ -1,4 +1,4 @@
-import {DefaultConfig} from "../../types";
+import {DefaultConfig} from "../_types";
 
 // Implementa la clase Config usando la interfaz
 export class Config<T extends DefaultConfig> {

@@ -10,7 +10,7 @@ import {
 } from 'tabulator-tables';
 import g from "../helpers/global";
 import SModal from "../modals/sweetalert/SModal";
-import {FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules} from "../../types";
+import {FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules} from "../_types";
 
 export class Ttable
 {

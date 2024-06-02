@@ -1,4 +1,12 @@
 import {EventCallBackMethods} from "tabulator-tables";
+import Echo from "laravel-echo";
+
+declare global {
+    interface Window {
+        Pusher: any;
+        Echo: Echo;
+    }
+}
 
 // Define una interfaz para la configuración por defecto
 export interface DefaultConfig {
