@@ -8,8 +8,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc && vite build && npm run copy-types",
-        "copy-types": "cpx types/**/* dist/types"
+        "build": "tsc && vite build"
     },
     "repository": {
         "type": "git",
