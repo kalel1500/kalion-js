@@ -1,4 +1,4 @@
-import {_const} from "../helpers/Config";
+import {_const} from "../helpers/Constants";
 import LDate from "../dates/LDate";
 import LStorage from "../storage/LStorage";
 import g from "../helpers/global";

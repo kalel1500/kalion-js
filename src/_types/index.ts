@@ -9,7 +9,7 @@ declare global {
 }
 
 // Define una interfaz para la configuración por defecto
-export interface DefaultConfig {
+export interface DefaultConstants {
     token: string | null,
     lang: string,
     langDouble: string,

@@ -1,13 +1,13 @@
-import {DefaultConfig} from "../_types";
+import {DefaultConstants} from "../_types";
 
-// Implementa la clase Config usando la interfaz
-export class Config<T extends DefaultConfig> {
-    private static instance: Config<DefaultConfig>;
-    public config: T;
+// Implementa la clase Constants usando la interfaz
+export class Constants<T extends DefaultConstants> {
+    private static instance: Constants<DefaultConstants>;
+    public constants: T;
 
     private constructor() {
         // Define valores por defecto
-        this.config = {
+        this.constants = {
             token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? null,
             lang: 'es',
             langDouble: 'es-Es',
@@ -25,31 +25,31 @@ export class Config<T extends DefaultConfig> {
         } as T;
     }
 
-    public static getInstance(): Config<DefaultConfig> {
-        if (!Config.instance) {
-            Config.instance = new Config<DefaultConfig>();
+    public static getInstance(): Constants<DefaultConstants> {
+        if (!Constants.instance) {
+            Constants.instance = new Constants<DefaultConstants>();
         }
-        return Config.instance;
+        return Constants.instance;
     }
 
     public get<K extends keyof T>(key: K): T[K] {
-        return this.config[key];
+        return this.constants[key];
     }
 
     public set<K extends keyof T>(key: K, value: T[K]): void {
-        this.config[key] = value;
+        this.constants[key] = value;
     }
 
     public extend(newConfig: Partial<T>): void {
-        this.config = { ...this.config, ...newConfig };
+        this.constants = { ...this.constants, ...newConfig };
     }
 
     // Función para obtener todas las constantes de configuración
     public getConstants(): T {
-        return this.config;
+        return this.constants;
     }
 }
 
 // Exporta una instancia de configuración
-export const Const = Config.getInstance();
-export const _const = Config.getInstance().getConstants();
+export const Const = Constants.getInstance();
+export const _const = Constants.getInstance().getConstants();
