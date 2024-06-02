@@ -6,8 +6,8 @@ import path from 'path';
 export default defineConfig({
     plugins: [
         dts({
-            include: ['src', 'types'], // Incluye los directorios src y types para la generación de tipos
-            outDir: 'dist/types/src', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+            include: ['src'], // Incluye los directorios src y types para la generación de tipos
+            outDir: 'dist/types', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
         }),
     ],
     build: {
