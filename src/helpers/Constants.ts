@@ -1,7 +1,7 @@
 import {DefaultConstants} from "../_types";
 
 // Implementa la clase Constants usando la interfaz
-export class Constants<T extends DefaultConstants> {
+export default class Constants<T extends DefaultConstants> {
     private static instance: Constants<DefaultConstants>;
     public constants: T;
 

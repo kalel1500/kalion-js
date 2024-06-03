@@ -3,7 +3,7 @@ import InvalidValueException from "./ddd/domain/exceptions/InvalidValueException
 import EnumVo from "./ddd/domain/objects/value-objects/EnumVo";
 import IntVo from "./ddd/domain/objects/value-objects/IntVo";
 import StringVo from "./ddd/domain/objects/value-objects/StringVo";
-import {_const, Constants} from "./helpers/Constants";
+import Constants, {_const} from "./helpers/Constants";
 import g from "./helpers/global";
 import CannotOpenModalException from "./modals/sweetalert/CannotOpenModalException";
 import CannotOpenModalWarning from "./modals/sweetalert/CannotOpenModalWarning";
@@ -12,7 +12,7 @@ import Notify from "./notifications/Notify";
 import Route from "./routing/Route";
 import Url from "./routing/Url";
 import LStorage from "./storage/LStorage";
-import {Ttable} from "./tables/Ttable";
+import Ttable from "./tables/Ttable";
 import Translator, {__} from "./translation/Translator";
 import TranslatorT from "./translation/TranslatorT";
 import EchoService from "./websockets/EchoService";
