@@ -1,5 +1,6 @@
 import {EventCallBackMethods} from "tabulator-tables";
 import Echo from "laravel-echo";
+import {TranslationT} from "../translation/TranslatorT";
 
 declare global {
     interface Window {
@@ -23,6 +24,27 @@ export interface DefaultConstants {
     VITE_REVERB_SCHEME: string,
     VITE_APP_NAME: string
     VITE_APP_ENV: string
+}
+
+export interface DefaultTranslations extends TranslationT {
+    "Ok": string,
+    "Unforeseen error": string,
+    "Reload Page": string,
+    "Loading...": string,
+    "Loading": string,
+    "Search": string,
+    "Filter": string,
+    "Date": string,
+    "No results": string,
+    "Download completed": string,
+    "Fetch error message:": string,
+    "Some class does not meet the _INTERFACE_ interface contract": string,
+    "It has been called a JS component that does not match the current page": string,
+    "Need _NUMBER_ characters": string,
+    "A loader was expected on the page": string,
+    "Check if the loader was in a div.": string,
+    "You do not have permissions to edit": string,
+    "contact_pi_team": string,
 }
 
 export interface FetchParams {

@@ -1,36 +1,15 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
 import {_const} from "../helpers/Constants";
+import {DefaultTranslations} from "../_types";
 
-interface TranslationT {
+export interface TranslationT {
     [key: string]: string;
 }
 
 interface TranslationsT<T extends TranslationT> {
     [key: string]: T;
 }
-
-export interface DefaultTranslations extends TranslationT {
-    "Ok": string,
-    "Unforeseen error": string,
-    "Reload Page": string,
-    "Loading...": string,
-    "Loading": string,
-    "Search": string,
-    "Filter": string,
-    "Date": string,
-    "No results": string,
-    "Download completed": string,
-    "Fetch error message:": string,
-    "Some class does not meet the _INTERFACE_ interface contract": string,
-    "It has been called a JS component that does not match the current page": string,
-    "Need _NUMBER_ characters": string,
-    "A loader was expected on the page": string,
-    "Check if the loader was in a div.": string,
-    "You do not have permissions to edit": string,
-    "contact_pi_team": string,
-}
-
 
 
 export default class TranslatorT<T extends DefaultTranslations>
