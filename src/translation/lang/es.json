@@ -11,7 +11,7 @@
     "Download completed": "Descarga completada",
     "Fetch error message:": "Hubo un problema con la petición Fetch:",
     "Some class does not meet the _INTERFACE_ interface contract": "Alguna Clase no cumple con el contrato de la interfaz \"_INTERFACE_\"",
-    "It has been called a JS component that does not match the current page.": "Se ha llamado un componente JS que no coincide con la pagina actual.",
+    "It has been called a JS component that does not match the current page": "Se ha llamado un componente JS que no coincide con la pagina actual.",
     "Need _NUMBER_ characters": "Necesarios \"_NUMBER_\" caracteres",
     "A loader was expected on the page": "Se esperaba un loader en la página",
     "Check if the loader was in a div.": "Comprueba si el loader estaba en un div. En ese caso se requiere el id del div.",
