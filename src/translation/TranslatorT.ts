@@ -19,6 +19,9 @@ export default class TranslatorT<T extends DefaultTranslations>
     private externalTranslations: TranslationsT<T> = {};
 
     public addTranslations(locale: string, translations: Partial<T>): void {
+        if (!this.externalTranslations[locale]) {
+            this.externalTranslations[locale] = {} as T;
+        }
         this.externalTranslations[locale] = {
             ...this.externalTranslations[locale],
             ...translations

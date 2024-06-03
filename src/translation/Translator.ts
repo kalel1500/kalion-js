@@ -10,6 +10,9 @@ export default class Translator
     static translations: Translations = {};
 
     static registerTranslations(lang: string, newTranslations: Translation): void {
+        if (!this.translations[lang]) {
+            this.translations[lang] = {};
+        }
         Object.assign(this.translations[lang], newTranslations);
     }
 
