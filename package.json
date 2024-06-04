@@ -4,6 +4,7 @@
     "description": "Utilidades de typescript para Laravel",
     "main": "dist/laravel-ts-utilities.es.js",
     "types": "dist/types/index.d.ts",
+    "style": "dist/style.css",
     "files": [
         "dist"
     ],
