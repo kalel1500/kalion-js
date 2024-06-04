@@ -1,6 +1,6 @@
 {
     "name": "laravel-ts-utilities",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Utilidades de typescript para Laravel",
     "main": "dist/laravel-ts-utilities.es.js",
     "types": "dist/types/index.d.ts",
