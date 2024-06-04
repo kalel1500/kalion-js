@@ -1,0 +1,40 @@
+//$sidebarWith: 250px;
+$navbarHeith: 3.45rem;
+$footerHeith: 3.6rem;
+//$sidebarCollapseWith: 4.5rem;
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+-----PLUGIN----------------------------------------------------------------------------------------------------------
+ */
+
+.navbar {
+    //background-color: white !important;
+    //border-bottom: 1px solid #e5e5e5;
+    //padding: 0.3rem 0.5rem;
+    //height: $navbarHeith;
+    --bs-navbar-padding-y: 0.29em;
+}
+
+.footer {
+    height: $footerHeith;
+}
+
+.dropdown-menu {
+    max-height: 82vh;
+}
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+-----CUSTOM----------------------------------------------------------------------------------------------------------
+ */
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto !important;
+}
+
+.main-content {
+    min-height: calc(100vh - #{$footerHeith} - #{$navbarHeith});
+}

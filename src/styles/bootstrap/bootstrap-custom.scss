@@ -1,0 +1,137 @@
+
+.small-small {
+    font-size: 70%;
+    font-weight: 400;
+}
+
+.focus-clear:focus {
+    box-shadow: none !important;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.white-space-normal {
+    white-space: normal !important;
+}
+
+.justify-self-center {
+    justify-self: center;
+}
+
+.justify-self-end {
+    justify-self: end;
+}
+
+
+
+.grid-columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-columns-4 {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.grid-columns-10f-1f {
+    grid-template-columns: 10fr 1fr;
+}
+
+.grid-columns-1f-1f {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
+}
+
+.grid-columns-02f-1f {
+    grid-template-columns: 0.2fr 1fr;
+    grid-gap: 0.5em;
+}
+
+
+.card-header--new {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-header--new::after {
+    content: none;
+}
+
+
+.form-inline {
+    display:flex;
+    flex-flow:row wrap;
+    align-items:center
+}
+.form-inline .form-check {
+    width:100%
+}
+@media (min-width:576px) {
+    .form-inline label {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom:0
+    }
+    .form-inline .form-group {
+        display:flex;
+        flex:0 0 auto;
+        flex-flow:row wrap;
+        align-items:center;
+        margin-bottom:0
+    }
+    .form-inline .form-control {
+        display:inline-block;
+        width:auto;
+        vertical-align:middle
+    }
+    .form-inline .form-control-plaintext {
+        display:inline-block
+    }
+    .form-inline .custom-select,.form-inline .input-group {
+        width:auto
+    }
+    .form-inline .form-check {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:auto;
+        padding-left:0
+    }
+    .form-inline .form-check-input {
+        position:relative;
+        margin-top:0;
+        margin-right:.25rem;
+        margin-left:0
+    }
+    .form-inline .custom-control {
+        align-items:center;
+        justify-content:center
+    }
+    .form-inline .custom-control-label {
+        margin-bottom:0
+    }
+}
+
+.text-inherit {
+    color: inherit;
+}
+
+.badge-normal {
+    font-size: 1em;
+}
+
+.btn-xs, .btn-group-xs>.btn {
+    --bs-btn-padding-y: .1rem;
+    --bs-btn-padding-x: .3rem;
+    --bs-btn-font-size: .8rem;
+    --bs-btn-border-radius: var(--bs-border-radius-sm);
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-size: var(--bs-btn-font-size);
+    border-radius: var(--bs-btn-border-radius);
+}

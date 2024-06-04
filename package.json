@@ -14,7 +14,12 @@
         "type": "git",
         "url": "https://github.com/kalel1500/laravel-ts-utilities"
     },
-    "keywords": ["laravel", "ts", "utilities", "typescript"],
+    "keywords": [
+        "laravel",
+        "ts",
+        "utilities",
+        "typescript"
+    ],
     "author": "kalel1500",
     "license": "MIT",
     "devDependencies": {
@@ -23,6 +28,7 @@
         "@types/node": "^20.12.13",
         "@types/tabulator-tables": "^6.2.0",
         "cpx": "^1.5.0",
+        "sass": "^1.77.4",
         "typescript": "5.4.5",
         "vite": "^5.2.12",
         "vite-plugin-dts": "^3.9.1"

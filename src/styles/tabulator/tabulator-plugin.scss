@@ -1,0 +1,191 @@
+
+/*----- tabulator -----*/
+
+.tabulator {
+    font-size: 0.8rem;
+}
+
+
+/*----- borders y header-----*/
+
+// [table-bordered]: ancho bordes tabla (si no no se ven los bordes horizontales)
+.tabulator.table-bordered > :not(caption) > * > * {
+    border-width: 1px var(--bs-border-width);
+}
+
+// [table-bordered]: cambiar el color de los bordes verticales
+.tabulator.table-bordered .tabulator-header .tabulator-col,
+.tabulator.table-bordered .tabulator-tableholder .tabulator-table .tabulator-row .tabulator-cell{
+    border-right-color: #ddd;
+}
+
+// [table-bordered]: quitar header bordet top para que no haya 2
+.tabulator.table-bordered .tabulator-header {
+    border-top: none !important;
+}
+
+// [NOT table-bordered]: añadir bordes verticales manualmente
+/*.tabulator:not(.table-bordered) .tabulator-col-resize-handle {
+    border-right: 1px solid #ddd;
+}*/
+
+// [NOT table-bordered]: añadir bordes verticales manualmente
+.tabulator:not(.table-bordered) .tabulator-header .tabulator-col,
+.tabulator:not(.table-bordered) .tabulator-tableholder .tabulator-table .tabulator-row .tabulator-cell {
+    border-right: 1px solid #ddd;
+}
+
+.tabulator-row .tabulator-cell.tabulator-editing {
+    border: 1px solid #1D68CD !important;
+}
+
+
+.tabulator .tabulator-header { // Linea separadora header
+    border-bottom: 2px solid #23C596 !important;
+    font-weight: 500 !important;
+}
+
+
+/*----- header-----*/
+
+.tabulator .tabulator-col-title {
+    text-align: center;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-header-filter input {
+    font-size: 0.6rem; // Tamaño fuente filtros
+}
+
+
+/*----- footer -----*/
+
+.tabulator .tabulator-footer {
+    font-weight: 500 !important;
+}
+
+.tabulator .tabulator-footer .tabulator-page.active {
+    color: white;
+}
+
+/*----- rows -----*/
+
+.tabulator .tabulator-row {
+    min-height: 0;
+}
+
+.tabulator .tabulator-row.tabulator-selectable:hover {
+    //background-color: #b9b9b9 !important;  // Con el themes tabulator_bootstrap5 ya no hace falta
+    cursor: initial;
+}
+
+.tabulator .tabulator-row.tabulator-selected:hover {
+    background-color: #769bcc !important;
+    cursor: pointer;
+}
+
+/*.tabulator .tabulator-row.tabulator-row-even { // Con el themes tabulator_bootstrap5 ya no hace falta
+    background-color: inherit;
+}*/
+
+
+/*----- cells -----*/
+
+.tabulator .tabulator-row .tabulator-cell {
+    padding: 0.4rem !important; // roiginalmente son 12px -> 6,4px
+}
+
+
+/*----- editors -----*/ // TODO Canals - falta comprobar
+
+.tabulator-edit-select-list {
+    font-size: 0.8rem;
+}
+
+.tabulator-edit-select-list, .tabulator-edit-select-list-item {
+    font-size: 12px;
+    color:#999;
+}
+
+.tabulator-edit-list {
+    font-size: 0.75rem;
+}
+
+
+/*----- data tree -----*/
+
+.tabulator-row .tabulator-cell .tabulator-data-tree-branch {
+    border-left-color: rgb(100, 100, 100);
+    border-bottom-color: rgb(100, 100, 100);
+}
+
+
+/*.tabulator-headers .headercolor-verde {
+    background-color: #E2EFDA !important;
+}
+.tabulator-headers .headercolor-rojo {
+    background-color: #FCE4D6 !important;
+}
+.tabulator-headers .headercolor-amarillo {
+    background-color: #FFF2CC !important;
+}
+.tabulator-headers .headercolor-azul {
+    background-color: #DDEBF7 !important;
+}
+.tabulator-headers .headercolor-lila {
+    background-color: #F0DDF7 !important;
+}
+.tabulator-headers .headercolor-verde-dark {
+    background-color: #C6E0B4 !important;
+}
+.tabulator-headers .headercolor-rojo-dark {
+    background-color: #F8CBAD !important;
+}
+.tabulator-headers .headercolor-amarillo-dark {
+    background-color: #FFE699 !important;
+}
+.tabulator-headers .headercolor-azul-dark {
+    background-color: #B4C6E7 !important;
+}
+.tabulator-headers .headercolor-lila-dark {
+    background-color: #D9B4E7 !important;
+}
+.scoreCol {
+    background-color: #32363e !important;
+    color: white;
+    border: 1px solid #32363e;
+    font-size: .2rem;
+    font-weight: 300;
+}
+.tabulator-col-group-cols .scoreCol {
+    margin-left: -3px;
+    font-weight: 600;
+}
+.tabulator-headers .titleCol {
+    background-color: #F9F9F9 !important;
+}
+.titlescore>.tabulator-col-content>.tabulator-col-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0px 10px !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// TODO Canals - revisar
+.tabulator input[type=number] {
+    -moz-appearance: textfield;
+}
+
+

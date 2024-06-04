@@ -1,0 +1,28 @@
+
+small, .small {
+    font-size: 80% !important;
+}
+
+.btn-info {
+    --bs-btn-color: white;
+    --bs-btn-hover-color: white;
+    --bs-btn-active-color: white;
+}
+
+.text-bg-info {
+    color: white !important;
+}
+
+/*.btn-danger {
+    color: #fff !important;
+    background-color: #c10000 !important;
+    border-color: #bd1121 !important;
+}*/
+
+.tooltip {
+    --bs-tooltip-max-width: 800px;
+}
+
+.tooltip-inner {
+    text-align:left;
+}

@@ -16,6 +16,7 @@ import Ttable from "./tables/Ttable";
 import Translator from "./translation/Translator";
 import EchoService from "./websockets/EchoService";
 import Websocket from "./websockets/Websocket";
+import './styles/main.scss'
 
 export {
     LDate,

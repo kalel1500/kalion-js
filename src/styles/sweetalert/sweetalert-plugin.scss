@@ -1,0 +1,3 @@
+div:where(.swal2-container) button:where(.swal2-close):focus {
+    box-shadow: none !important;
+}
