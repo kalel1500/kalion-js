@@ -58,12 +58,3 @@ const internalTranslator = Translator.getInstance();
 export const ___ = (key: keyof DefaultTranslations, replacements?: Record<string, string>) => {
     return internalTranslator.get(key, replacements)
 }
-
-/*let INTERNAL: Translator<DefaultTranslations> | null = null;
-export function ___(key: keyof DefaultTranslations, replacements?: Record<string, string>): string
-{
-    if (!INTERNAL) {
-        INTERNAL = new TranslatorT<DefaultTranslations>();
-    }
-    return INTERNAL.get(key, replacements);
-}*/
