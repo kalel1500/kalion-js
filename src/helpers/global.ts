@@ -1,4 +1,4 @@
-import {__} from "../translation/Translator";
+import {___} from "../translation/TranslatorT";
 import SModal from "../modals/sweetalert/SModal";
 import * as bootstrap from "bootstrap";
 import {_const} from "./Constants";
@@ -42,7 +42,7 @@ export default class g
             title: 'Error imprevisto',
             html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? 'Formato error imprevisto')}</span>`,
             cancelButtonText: 'Ok',
-            footer: __('contact_pi_team')
+            footer: ___('contact_pi_team')
         }).then(result => {
             g.errorModalIsShowed = false;
         });
@@ -84,7 +84,7 @@ export default class g
 
     }
 
-    static catchCode({error, message = undefined, clearMessage = true, reloadOnClose = false, footer = __('contact_pi_team'), from = undefined}: CatchParams)
+    static catchCode({error, message = undefined, clearMessage = true, reloadOnClose = false, footer = ___('contact_pi_team'), from = undefined}: CatchParams)
     {
         if (g.errorModalIsShowed) return;
         console.error(error);
@@ -96,7 +96,7 @@ export default class g
         SModal.errorModal({
             icon: 'warning',
             html: `<span class="restriction-message">${errorMessage}</span>`,
-            confirmButtonText: (reloadOnClose) ? __('Reload Page') : __('Ok'),
+            confirmButtonText: (reloadOnClose) ? ___('Reload Page') : ___('Ok'),
             footer: footer
         }, true).then((result) => {
             g.errorModalIsShowed = false;

@@ -14,11 +14,20 @@ interface TranslationsT<T extends TranslationT> {
 
 export default class TranslatorT<T extends DefaultTranslations>
 {
+    private static instance: TranslatorT<DefaultTranslations>;
     private locale: string = _const.lang;
     private translations: TranslationsT<DefaultTranslations> = {en, es};
     private externalTranslations: TranslationsT<T> = {};
 
-    public addTranslations(locale: string, translations: Partial<T>): void {
+    public static getInstance(): TranslatorT<DefaultTranslations>
+    {
+        if (!TranslatorT.instance) {
+            TranslatorT.instance = new TranslatorT<DefaultTranslations>();
+        }
+        return TranslatorT.instance;
+    }
+
+    public registerTranslations(locale: string, translations: Partial<T>): void {
         if (!this.externalTranslations[locale]) {
             this.externalTranslations[locale] = {} as T;
         }
@@ -45,12 +54,15 @@ export default class TranslatorT<T extends DefaultTranslations>
 
 }
 
+export const ___ = (key: keyof DefaultTranslations, replacements?: Record<string, string>) => {
+    return TranslatorT.getInstance().get(key, replacements)
+}
 
-let INTERNAL: TranslatorT<DefaultTranslations> | null = null;
+/*let INTERNAL: TranslatorT<DefaultTranslations> | null = null;
 export function ___(key: keyof DefaultTranslations, replacements?: Record<string, string>): string
 {
     if (!INTERNAL) {
         INTERNAL = new TranslatorT<DefaultTranslations>();
     }
     return INTERNAL.get(key, replacements);
-}
+}*/

@@ -13,7 +13,6 @@ import Route from "./routing/Route";
 import Url from "./routing/Url";
 import LStorage from "./storage/LStorage";
 import Ttable from "./tables/Ttable";
-import Translator, {__} from "./translation/Translator";
 import TranslatorT from "./translation/TranslatorT";
 import EchoService from "./websockets/EchoService";
 import Websocket from "./websockets/Websocket";
@@ -35,9 +34,7 @@ export {
     Url,
     LStorage,
     Ttable,
-    Translator,
     TranslatorT,
-    __,
     EchoService,
     Websocket,
 }
