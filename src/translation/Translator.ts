@@ -54,8 +54,9 @@ export default class Translator<T extends DefaultTranslations>
 
 }
 
+const internalTranslator = Translator.getInstance();
 export const ___ = (key: keyof DefaultTranslations, replacements?: Record<string, string>) => {
-    return Translator.getInstance().get(key, replacements)
+    return internalTranslator.get(key, replacements)
 }
 
 /*let INTERNAL: Translator<DefaultTranslations> | null = null;
