@@ -27,24 +27,24 @@ export interface DefaultConstants {
 }
 
 export interface DefaultTranslations extends Translation {
-    "Ok": string,
-    "Unforeseen error": string,
-    "Reload Page": string,
-    "Loading...": string,
-    "Loading": string,
-    "Search": string,
-    "Filter": string,
-    "Date": string,
-    "No results": string,
-    "Download completed": string,
-    "Fetch error message:": string,
-    "Some class does not meet the _INTERFACE_ interface contract": string,
-    "It has been called a JS component that does not match the current page": string,
-    "Need _NUMBER_ characters": string,
-    "A loader was expected on the page": string,
-    "Check if the loader was in a div.": string,
-    "You do not have permissions to edit": string,
-    "contact_pi_team": string,
+    ok: string,
+    reload_page: string,
+    contact_pi_team: string,
+    unforeseen_error: string,
+    loading: string,
+    loading_dots: string,
+    search: string,
+    filter: string,
+    date: string,
+    no_results: string,
+    download_completed: string,
+    fetch_error_message: string,
+    some_class_does_not_meet_the_INTERFACE_interface_contract: string,
+    it_has_been_called_a_JS_component_that_does_not_match_the_current_page: string,
+    need_NUMBER_characters: string,
+    a_loader_was_expected_on_the_page: string,
+    check_if_the_loader_was_in_a_div: string,
+    you_do_not_have_permissions_to_edit: string
 }
 
 export interface FetchParams {
