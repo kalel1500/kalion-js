@@ -1,3 +1,4 @@
+/*
 import es from './lang/es.json';
 import en from './lang/en.json';
 import {_const} from "../helpers/Constants";
@@ -36,3 +37,4 @@ export default class TranslatorS
 export function __(key: string, params?: Record<string, string>): string {
     return TranslatorS.get(key, params)
 }
+*/
