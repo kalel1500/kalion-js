@@ -2,14 +2,14 @@ import es from './lang/es.json';
 import en from './lang/en.json';
 import {_const} from "../helpers/Constants";
 
-type Translation = Record<string, string>
-type Translations = Record<string, Translation>
+type TranslationS = Record<string, string>
+type TranslationsS = Record<string, TranslationS>
 
-export default class Translator
+export default class TranslatorS
 {
-    static translations: Translations = {};
+    static translations: TranslationsS = {};
 
-    static registerTranslations(lang: string, newTranslations: Translation): void {
+    static registerTranslations(lang: string, newTranslations: TranslationS): void {
         if (!this.translations[lang]) {
             this.translations[lang] = {};
         }
@@ -34,5 +34,5 @@ export default class Translator
 }
 
 export function __(key: string, params?: Record<string, string>): string {
-    return Translator.get(key, params)
+    return TranslatorS.get(key, params)
 }
