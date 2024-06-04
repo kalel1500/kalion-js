@@ -1,6 +1,6 @@
 import {EventCallBackMethods} from "tabulator-tables";
 import Echo from "laravel-echo";
-import {TranslationT} from "../translation/TranslatorT";
+import {Translation} from "../translation/Translator";
 
 declare global {
     interface Window {
@@ -26,7 +26,7 @@ export interface DefaultConstants {
     VITE_APP_ENV: string
 }
 
-export interface DefaultTranslations extends TranslationT {
+export interface DefaultTranslations extends Translation {
     "Ok": string,
     "Unforeseen error": string,
     "Reload Page": string,

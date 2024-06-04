@@ -3,28 +3,28 @@ import en from './lang/en.json';
 import {_const} from "../helpers/Constants";
 import {DefaultTranslations} from "../_types";
 
-export interface TranslationT {
+export interface Translation {
     [key: string]: string;
 }
 
-interface TranslationsT<T extends TranslationT> {
+interface Translations<T extends Translation> {
     [key: string]: T;
 }
 
 
-export default class TranslatorT<T extends DefaultTranslations>
+export default class Translator<T extends DefaultTranslations>
 {
-    private static instance: TranslatorT<DefaultTranslations>;
+    private static instance: Translator<DefaultTranslations>;
     private locale: string = _const.lang;
-    private translations: TranslationsT<DefaultTranslations> = {en, es};
-    private externalTranslations: TranslationsT<T> = {};
+    private translations: Translations<DefaultTranslations> = {en, es};
+    private externalTranslations: Translations<T> = {};
 
-    public static getInstance(): TranslatorT<DefaultTranslations>
+    public static getInstance(): Translator<DefaultTranslations>
     {
-        if (!TranslatorT.instance) {
-            TranslatorT.instance = new TranslatorT<DefaultTranslations>();
+        if (!Translator.instance) {
+            Translator.instance = new Translator<DefaultTranslations>();
         }
-        return TranslatorT.instance;
+        return Translator.instance;
     }
 
     public registerTranslations(locale: string, translations: Partial<T>): void {
@@ -55,10 +55,10 @@ export default class TranslatorT<T extends DefaultTranslations>
 }
 
 export const ___ = (key: keyof DefaultTranslations, replacements?: Record<string, string>) => {
-    return TranslatorT.getInstance().get(key, replacements)
+    return Translator.getInstance().get(key, replacements)
 }
 
-/*let INTERNAL: TranslatorT<DefaultTranslations> | null = null;
+/*let INTERNAL: Translator<DefaultTranslations> | null = null;
 export function ___(key: keyof DefaultTranslations, replacements?: Record<string, string>): string
 {
     if (!INTERNAL) {
