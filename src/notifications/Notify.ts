@@ -1,4 +1,4 @@
-import {_const} from "../helpers/Constants";
+import {__const} from "../helpers/Constants";
 import LDate from "../dates/LDate";
 import LStorage from "../storage/LStorage";
 import g from "../helpers/global";
@@ -62,7 +62,7 @@ export default class Notify
 
     #createNotification()
     {
-        const notification = new Notification(this.#title, {icon: _const.appIcon, body: this.#body,})
+        const notification = new Notification(this.#title, {icon: __const('appIcon'), body: this.#body,})
         notification.onclick = () => window.open(this.#openUrl)
     }
 

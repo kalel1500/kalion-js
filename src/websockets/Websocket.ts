@@ -3,7 +3,7 @@ import g from "../helpers/global";
 import {route} from "ziggy-js";
 import EchoService from "./EchoService";
 import SModal from "../modals/sweetalert/SModal";
-import {_const} from "../helpers/Constants";
+import {__const} from "../helpers/Constants";
 import {FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch} from "../_types";
 
 export default class Websocket
@@ -33,7 +33,7 @@ export default class Websocket
             Websocket.#checkQueuesService().then();
         });
 
-        if (_const.VITE_BROADCASTING_ENABLED) {
+        if (__const('VITE_BROADCASTING_ENABLED')) {
             window.Echo.channel('check-websockets-status')
                 .listen('.EventCheckWebsocketsStatus', () => {
                     Websocket.STORAGE.setAsWorked();
@@ -99,7 +99,7 @@ export default class Websocket
 
     startListenChannel(channelName: string, events: {event: string, callback: Function}[])
     {
-        if (_const.VITE_BROADCASTING_ENABLED) {
+        if (__const('VITE_BROADCASTING_ENABLED')) {
             let channel = window.Echo.channel(channelName);
             events.forEach(event => {
                 channel = channel.listen(event.event, (e: any) => {
@@ -127,7 +127,7 @@ export default class Websocket
         }
 
         const emittingEventHasFailed = !resultB.data.broadcasting.success || !EchoService.isConnected()
-        if (!_const.VITE_BROADCASTING_ENABLED || emittingEventHasFailed) { // Codigo que se ejecuta cuando NO estan activos los websoquets
+        if (!__const('VITE_BROADCASTING_ENABLED') || emittingEventHasFailed) { // Codigo que se ejecuta cuando NO estan activos los websoquets
             Websocket.STORAGE.setAsFailed()
             if (typeof onError === 'function') onError(resultB)
         }

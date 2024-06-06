@@ -1,7 +1,7 @@
 /*
 import es from './lang/es.json';
 import en from './lang/en.json';
-import {_const} from "../helpers/Constants";
+import {__const} from "../helpers/Constants";
 
 type TranslationS = Record<string, string>
 type TranslationsS = Record<string, TranslationS>
@@ -18,7 +18,7 @@ export default class TranslatorS
     }
 
     static get(key: string, params?: Record<string, string>): string {
-        const currentTranslations = this.translations[_const.lang] || {};
+        const currentTranslations = this.translations[__const('lang')] || {};
         const translation = currentTranslations[key] || key;
         if (!params) return translation;
 

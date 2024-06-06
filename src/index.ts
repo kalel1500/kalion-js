@@ -3,7 +3,7 @@ import InvalidValueException from "./ddd/domain/exceptions/InvalidValueException
 import EnumVo from "./ddd/domain/objects/value-objects/EnumVo";
 import IntVo from "./ddd/domain/objects/value-objects/IntVo";
 import StringVo from "./ddd/domain/objects/value-objects/StringVo";
-import Constants, {_const} from "./helpers/Constants";
+import Constants, {__const} from "./helpers/Constants";
 import g from "./helpers/global";
 import CannotOpenModalException from "./modals/sweetalert/CannotOpenModalException";
 import CannotOpenModalWarning from "./modals/sweetalert/CannotOpenModalWarning";
@@ -16,6 +16,7 @@ import Ttable from "./tables/Ttable";
 import Translator from "./translation/Translator";
 import EchoService from "./websockets/EchoService";
 import Websocket from "./websockets/Websocket";
+import Test from "./tests/Test";
 import './styles/main.scss'
 
 export {
@@ -24,7 +25,7 @@ export {
     EnumVo,
     IntVo,
     StringVo,
-    _const,
+    __const,
     Constants,
     g,
     CannotOpenModalException,
@@ -38,6 +39,7 @@ export {
     Translator,
     EchoService,
     Websocket,
+    Test,
 }
 
 export * from "./_types"

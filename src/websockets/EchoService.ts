@@ -1,6 +1,6 @@
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
-import {_const} from "../helpers/Constants";
+import {__const} from "../helpers/Constants";
 import Websocket from "./Websocket";
 
 export default class EchoService
@@ -11,7 +11,7 @@ export default class EchoService
 
     static start()
     {
-        if (!_const.VITE_BROADCASTING_ENABLED) return
+        if (!__const('VITE_BROADCASTING_ENABLED')) return
 
         // initEcho
 
@@ -19,11 +19,11 @@ export default class EchoService
 
         window.Echo = new Echo({
             broadcaster: 'reverb',
-            key: _const.VITE_REVERB_APP_KEY,
-            wsHost: _const.VITE_REVERB_HOST,
-            wsPort: _const.VITE_REVERB_PORT ?? 80,
-            wssPort: _const.VITE_REVERB_PORT ?? 443,
-            forceTLS: (_const.VITE_REVERB_SCHEME ?? 'https') === 'https',
+            key: __const('VITE_REVERB_APP_KEY'),
+            wsHost: __const('VITE_REVERB_HOST'),
+            wsPort: __const('VITE_REVERB_PORT') ?? 80,
+            wssPort: __const('VITE_REVERB_PORT') ?? 443,
+            forceTLS: (__const('VITE_REVERB_SCHEME') ?? 'https') === 'https',
             enabledTransports: ['ws', 'wss'],
         })
 

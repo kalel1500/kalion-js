@@ -2,7 +2,7 @@ import {DefaultConstants} from "../_types";
 
 // Implementa la clase Constants usando la interfaz
 export default class Constants<T extends DefaultConstants> {
-    private static instance: Constants<DefaultConstants>;
+    private static instance: Constants<any>;
     public constants: T;
 
     private constructor() {
@@ -25,19 +25,18 @@ export default class Constants<T extends DefaultConstants> {
         } as T;
     }
 
-    public static getInstance(): Constants<DefaultConstants> {
+    // Método para obtener la instancia única de la clase (Singleton)
+    public static getInstance<U extends DefaultConstants>(): Constants<U> {
         if (!Constants.instance) {
-            Constants.instance = new Constants<DefaultConstants>();
+            Constants.instance = new Constants<U>();
         }
         return Constants.instance;
     }
 
+    // Método estático para obtener el valor de una constante específica
     public get<K extends keyof T>(key: K): T[K] {
+        // return Constants.getInstance().getConstants()[key];
         return this.constants[key];
-    }
-
-    public set<K extends keyof T>(key: K, value: T[K]): void {
-        this.constants[key] = value;
     }
 
     public extend(newConfig: Partial<T>): void {
@@ -52,4 +51,6 @@ export default class Constants<T extends DefaultConstants> {
 
 // Exporta una instancia de configuración
 // export const Const = Constants.getInstance();
-export const _const = Constants.getInstance().getConstants();
+export const __const = <T extends keyof DefaultConstants>(key: T): DefaultConstants[T] => {
+    return Constants.getInstance().get(key);
+}

@@ -1,7 +1,7 @@
 import {___} from "../translation/Translator";
 import SModal from "../modals/sweetalert/SModal";
 import * as bootstrap from "bootstrap";
-import {_const} from "./Constants";
+import {__const} from "./Constants";
 import {
     CatchParams,
     FetchParams,
@@ -60,7 +60,7 @@ export default class g
                     'Content-Type': 'application/json', // 'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': _const.token
+                    'X-CSRF-TOKEN': __const('token')
                 },
             } as RequestInit;
             if (type !== 'GET' && ajaxParams !== undefined) {
@@ -96,7 +96,7 @@ export default class g
         SModal.errorModal({
             icon: 'warning',
             html: `<span class="restriction-message">${errorMessage}</span>`,
-            confirmButtonText: (reloadOnClose) ? ___('Reload Page') : ___('Ok'),
+            confirmButtonText: (reloadOnClose) ? ___('reload_page') : ___('ok'),
             footer: footer
         }, true).then((result) => {
             g.errorModalIsShowed = false;
