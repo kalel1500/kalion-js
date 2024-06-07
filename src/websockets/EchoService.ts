@@ -1,9 +1,9 @@
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
-import {__const} from "../helpers/Constants";
-import Websocket from "./Websocket";
+import {__const} from "../helpers";
+import {Websocket} from "./Websocket";
 
-export default class EchoService
+export class EchoService
 {
     static #connectionFailed = false
     static #connectionSuccess = false

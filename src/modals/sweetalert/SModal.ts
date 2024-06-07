@@ -4,9 +4,9 @@ import Swal, {
     SweetAlertInput,
     SweetAlertPosition
 } from "sweetalert2";
-import g from "../../helpers/global";
-import CannotOpenModalException from "./CannotOpenModalException";
-import CannotOpenModalWarning from "./CannotOpenModalWarning";
+import {g} from "../../helpers";
+import {CannotOpenModalException} from "./CannotOpenModalException";
+import {CannotOpenModalWarning} from "./CannotOpenModalWarning";
 import {FetchResponse, SyncOrAsync} from "../../_types";
 
 type ValueOrThunk<T> = T | (() => T)
@@ -94,7 +94,7 @@ interface ToastBothOptions {
 
 const InputsNeedsChangeListener = ['range', 'select', 'radio', 'checkbox', 'date', 'datetime-local', 'time', 'week', 'month',]
 
-export default class SModal
+export class SModal
 {
     static colorBlue = '#3085d6';
     static colorRed = '#d33';

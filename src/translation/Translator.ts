@@ -1,6 +1,6 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
-import {__const} from "../helpers/Constants";
+import {__const} from "../helpers";
 import {DefaultTranslations} from "../_types";
 
 export interface Translation {
@@ -12,7 +12,7 @@ interface Translations<T extends Translation> {
 }
 
 
-export default class Translator<T extends DefaultTranslations>
+export class Translator<T extends DefaultTranslations>
 {
     private static instance: Translator<DefaultTranslations>;
     private locale: string = __const('lang');

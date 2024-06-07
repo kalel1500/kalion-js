@@ -1,8 +1,8 @@
-import InvalidValueException from "../../exceptions/InvalidValueException";
+import {InvalidValueException} from "../../exceptions/InvalidValueException";
 
 type IntVoTypes = number | string | null
 
-export default class IntVo
+export class IntVo
 {
     protected _value: IntVoTypes
     protected _allowNull: boolean

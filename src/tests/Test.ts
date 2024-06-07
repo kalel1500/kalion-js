@@ -1,8 +1,8 @@
-import {__const} from "../helpers/Constants";
-import {___} from "../translation/Translator";
+import {__const} from "../helpers";
+import {___} from "../translation";
 
 
-export default class Test
+export class Test
 {
     public static printConstant()
     {

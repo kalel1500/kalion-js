@@ -1,5 +1,5 @@
 import {route} from "ziggy-js";
-import g from "../helpers/global";
+import {g} from "../helpers";
 
 type ROUTES = {
     PAGES: {
@@ -26,7 +26,7 @@ type ROUTES = {
     },
 }
 
-export default class Route
+export class Route
 {
     static #ROUTES: ROUTES = {
         PAGES: {},

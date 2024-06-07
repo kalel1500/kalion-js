@@ -1,6 +1,6 @@
-import LDate from "../dates/LDate";
+import {LDate} from "../dates";
 
-export default class LStorage
+export class LStorage
 {
     static setItem(key: string, value: string)
     {

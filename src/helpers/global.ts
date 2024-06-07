@@ -1,5 +1,5 @@
-import {___} from "../translation/Translator";
-import SModal from "../modals/sweetalert/SModal";
+import {___} from "../translation";
+import {SModal} from "../modals";
 import * as bootstrap from "bootstrap";
 import {__const} from "./Constants";
 import {
@@ -11,7 +11,7 @@ import {
     ValidationRules
 } from "../_types";
 
-export default class g
+export class g
 {
     static errorModalIsShowed: boolean = false;
 

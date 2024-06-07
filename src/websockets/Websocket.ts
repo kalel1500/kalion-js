@@ -1,12 +1,12 @@
-import LStorage from "../storage/LStorage";
-import g from "../helpers/global";
+import {LStorage} from "../storage";
+import {g} from "../helpers";
 import {route} from "ziggy-js";
-import EchoService from "./EchoService";
-import SModal from "../modals/sweetalert/SModal";
-import {__const} from "../helpers/Constants";
+import {EchoService} from "./EchoService";
+import {SModal} from "../modals";
+import {__const} from "../helpers";
 import {FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch} from "../_types";
 
-export default class Websocket
+export class Websocket
 {
     static STORAGE = {
         check() {

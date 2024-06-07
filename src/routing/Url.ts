@@ -1,11 +1,11 @@
 import {route} from "ziggy-js";
-import g from "../helpers/global";
+import {g} from "../helpers";
 import {Filter} from "tabulator-tables";
 
 // type QueryParams = { [p: string]: string | number }
 type QueryParams = Record<string, unknown>
 
-export default class Url
+export class Url
 {
     static getCurrentUrl(): string
     {

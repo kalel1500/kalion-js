@@ -1,5 +1,5 @@
 
-export default class InvalidValueException extends Error
+export class InvalidValueException extends Error
 {
     constructor(message: string)
     {

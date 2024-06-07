@@ -1,4 +1,4 @@
-export default class CannotOpenModalException extends Error {
+export class CannotOpenModalException extends Error {
     constructor(msg: string) {
         super(msg);
         this.name = "CannotOpenModalException";

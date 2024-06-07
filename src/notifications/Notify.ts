@@ -1,7 +1,7 @@
-import {__const} from "../helpers/Constants";
-import LDate from "../dates/LDate";
-import LStorage from "../storage/LStorage";
-import g from "../helpers/global";
+import {__const} from "../helpers";
+import {LDate} from "../dates";
+import {LStorage} from "../storage";
+import {g} from "../helpers";
 
 type LaunchParams = {
     title: string,
@@ -10,7 +10,7 @@ type LaunchParams = {
     when: "hidden" | "unfocused" | "all"
 }
 
-export default class Notify
+export class Notify
 {
     readonly #title: string
     readonly #body?: string

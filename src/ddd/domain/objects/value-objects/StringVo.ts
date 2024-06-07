@@ -1,5 +1,5 @@
-import g from "../../../../helpers/global";
-import InvalidValueException from "../../exceptions/InvalidValueException";
+import {g} from "../../../../helpers";
+import {InvalidValueException} from "../../exceptions/InvalidValueException";
 
 type StringVoTypes = string | null | undefined
 type StringVoParams = {
@@ -7,7 +7,7 @@ type StringVoParams = {
     errorMessage?: string | null
 }
 
-export default class StringVo
+export class StringVo
 {
     protected _value: StringVoTypes
     protected _allowNull: boolean

@@ -1,8 +1,8 @@
-import InvalidValueException from "../../exceptions/InvalidValueException";
+import {InvalidValueException} from "../../exceptions/InvalidValueException";
 
 type EnumVoTypes = string | null | undefined
 
-export default abstract class EnumVo
+export abstract class EnumVo
 {
     protected _value: EnumVoTypes
     protected _allowNull: boolean

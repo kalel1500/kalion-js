@@ -5,7 +5,7 @@ import {DurationObjectUnits} from "luxon/src/duration";
 type ReceivedDate = string | DateTime
 type ReceivedNullableDate = string | DateTime | null | undefined
 
-export default class LDate
+export class LDate
 {
     // Consultar formatos en: https://moment.github.io/luxon/#/formatting
     static formats = {
