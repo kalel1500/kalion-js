@@ -1,7 +1,7 @@
-import {___} from "../translation";
+import {___} from "../_internal/helpers";
 import {SModal} from "../modals";
 import * as bootstrap from "bootstrap";
-import {__const} from "./Constants";
+import {__const} from "../_internal/helpers";
 import {
     CatchParams,
     FetchParams,

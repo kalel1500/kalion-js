@@ -1,6 +1,6 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
-import {__const} from "../helpers";
+import {__const} from "../_internal/helpers";
 import {DefaultTranslations} from "../_types";
 
 export interface Translation {
@@ -52,9 +52,4 @@ export class Translator<T extends DefaultTranslations>
         return translation;
     }
 
-}
-
-const internalTranslator = Translator.getInstance();
-export const ___ = (key: keyof DefaultTranslations, replacements?: Record<string, string>) => {
-    return internalTranslator.get(key, replacements)
 }

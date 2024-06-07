@@ -48,9 +48,3 @@ export class Constants<T extends DefaultConstants> {
         return this.constants;
     }
 }
-
-// Exporta una instancia de configuración
-// export const Const = Constants.getInstance();
-export const __const = <T extends keyof DefaultConstants>(key: T): DefaultConstants[T] => {
-    return Constants.getInstance().get(key);
-}

@@ -1,5 +1,5 @@
-import {__const} from "../helpers";
-import {___} from "../translation";
+import {__const} from "../_internal/helpers";
+import {___} from "../_internal/helpers";
 
 
 export class Test

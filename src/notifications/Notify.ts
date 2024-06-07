@@ -1,4 +1,4 @@
-import {__const} from "../helpers";
+import {__const} from "../_internal/helpers";
 import {LDate} from "../dates";
 import {LStorage} from "../storage";
 import {g} from "../helpers";

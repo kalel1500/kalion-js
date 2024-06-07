@@ -1,7 +1,7 @@
 /*
 import es from './lang/es.json';
 import en from './lang/en.json';
-import {__const} from "../helpers";
+import {__const} from "../_internal/helpers";
 
 type TranslationS = Record<string, string>
 type TranslationsS = Record<string, TranslationS>

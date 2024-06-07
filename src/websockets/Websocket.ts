@@ -3,7 +3,7 @@ import {g} from "../helpers";
 import {route} from "ziggy-js";
 import {EchoService} from "./EchoService";
 import {SModal} from "../modals";
-import {__const} from "../helpers";
+import {__const} from "../_internal/helpers";
 import {FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch} from "../_types";
 
 export class Websocket
