@@ -14,15 +14,14 @@ interface Translations<T extends Translation> {
 
 export class Translator<T extends DefaultTranslations>
 {
-    private static instance: Translator<DefaultTranslations>;
+    private static instance: Translator<any>;
     private locale: string = __const('lang');
     private translations: Translations<DefaultTranslations> = {en, es};
     private externalTranslations: Translations<T> = {};
 
-    public static getInstance(): Translator<DefaultTranslations>
-    {
+    public static getInstance<U extends DefaultTranslations>(): Translator<U> {
         if (!Translator.instance) {
-            Translator.instance = new Translator<DefaultTranslations>();
+            Translator.instance = new Translator<U>();
         }
         return Translator.instance;
     }
