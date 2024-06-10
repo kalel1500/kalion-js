@@ -34,9 +34,10 @@ export interface DefaultTranslations extends Translation {
     loading: string;
     loading_dots: string;
     search: string;
+    searching_dots: string,
+    no_results: string,
     filter: string;
     date: string;
-    no_results: string;
     download_completed: string;
     fetch_error_message: string;
     some_class_does_not_meet_the_INTERFACE_interface_contract: string;
