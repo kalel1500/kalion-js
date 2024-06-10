@@ -123,3 +123,5 @@ export type SyncOrAsync<T> = T | Promise<T> | { toPromise: () => T };
 export type NullHTMLButtonElement = HTMLButtonElement | null;
 
 export type TableSettingEvents = Partial<EventCallBackMethods>;
+
+export type TranslationReplacements = Record<string, string | undefined>;

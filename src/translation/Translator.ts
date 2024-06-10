@@ -1,7 +1,7 @@
 import es from "./lang/es.json";
 import en from "./lang/en.json";
 import {__const} from "../_internal/helpers";
-import {DefaultTranslations} from "../_types";
+import {DefaultTranslations, TranslationReplacements} from "../_types";
 
 export interface Translation {
     [key: string]: string;
@@ -35,15 +35,17 @@ export class Translator<T extends DefaultTranslations> {
         };
     }
 
-    public get<K extends keyof T>(key: K, replacements?: Record<string, string>): string {
+    public get<K extends keyof T>(key: K, replacements?: TranslationReplacements): string {
         const internalTranslation = this.translations[this.locale]?.[key as keyof DefaultTranslations];
         const externalTranslation = this.externalTranslations[this.locale]?.[key];
         let translation = externalTranslation || internalTranslation || (key as string);
 
         if (replacements) {
             for (const [placeholder, value] of Object.entries(replacements)) {
-                const regex = new RegExp(`:${placeholder}`, "g");
-                translation = translation.replace(regex, value);
+                if (value) {
+                    const regex = new RegExp(`:${placeholder}`, "g");
+                    translation = translation.replace(regex, value);
+                }
             }
         }
 
