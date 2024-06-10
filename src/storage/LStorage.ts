@@ -1,53 +1,44 @@
 import {LDate} from "../dates";
 
-export class LStorage
-{
-    static setItem(key: string, value: string)
-    {
-        window.localStorage.setItem(key, value)
+export class LStorage {
+    static setItem(key: string, value: string) {
+        window.localStorage.setItem(key, value);
     }
 
-    static getItem(key: string)
-    {
-        return window.localStorage.getItem(key)
+    static getItem(key: string) {
+        return window.localStorage.getItem(key);
     }
 
-    static removeItem(key: string)
-    {
-        window.localStorage.removeItem(key)
+    static removeItem(key: string) {
+        window.localStorage.removeItem(key);
     }
 
-    static exist(key: string)
-    {
-        return LStorage.getItem(key) !== null
+    static exist(key: string) {
+        return LStorage.getItem(key) !== null;
     }
 
 
-
-    static isFirstConnectionInDay()
-    {
-        const validSecondsToBeCountedAsTheSameDay = 10
-        const lastConn = LStorage.getItem('lastConnection')
-        const diffNow = LDate.diffNow(lastConn, 'seconds')
+    static isFirstConnectionInDay() {
+        const validSecondsToBeCountedAsTheSameDay = 10;
+        const lastConn = LStorage.getItem("lastConnection");
+        const diffNow = LDate.diffNow(lastConn, "seconds");
         return (
-            !LStorage.exist('lastConnection')
+            !LStorage.exist("lastConnection")
             ||
-            !LDate.hasSame(LDate.now(), lastConn, 'day')
+            !LDate.hasSame(LDate.now(), lastConn, "day")
             ||
             (Math.abs(diffNow ?? 0) < validSecondsToBeCountedAsTheSameDay)
-        )
+        );
     }
 
-    static setNowAsLastConnection()
-    {
-        LStorage.setItem('lastConnection', LDate.toSeconds(LDate.now()))
+    static setNowAsLastConnection() {
+        LStorage.setItem("lastConnection", LDate.toSeconds(LDate.now()));
     }
 
-    static startStorageDay()
-    {
+    static startStorageDay() {
         if (LStorage.isFirstConnectionInDay()) {
             LStorage.setNowAsLastConnection();
-            LStorage.removeItem('websocketsFailed') // restartWebsocketsStorage
+            LStorage.removeItem("websocketsFailed"); // restartWebsocketsStorage
         }
 
         /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem('lastConnection'));

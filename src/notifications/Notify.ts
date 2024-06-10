@@ -10,32 +10,30 @@ type LaunchParams = {
     when: "hidden" | "unfocused" | "all"
 }
 
-export class Notify
-{
-    readonly #title: string
-    readonly #body?: string
-    readonly #openUrl?: string
+export class Notify {
+    readonly #title: string;
+    readonly #body?: string;
+    readonly #openUrl?: string;
 
     static STORAGE = {
         getAll() {
-            return LStorage.getItem('notified')
+            return LStorage.getItem("notified");
         },
         check(key: string) {
-            return LStorage.getItem('notified') === key
+            return LStorage.getItem("notified") === key;
         },
         saveNotified(key: string) {
-            LStorage.setItem('notified', key);
+            LStorage.setItem("notified", key);
         },
         deleteNotified() {
-            LStorage.removeItem('notified');
+            LStorage.removeItem("notified");
         },
     };
 
-    constructor(title: string, body?: string, openUrl?: string)
-    {
-        this.#title     = title;
-        this.#body      = body;
-        this.#openUrl   = openUrl;
+    constructor(title: string, body?: string, openUrl?: string) {
+        this.#title = title;
+        this.#body = body;
+        this.#openUrl = openUrl;
     }
 
     /*original()
@@ -60,36 +58,32 @@ export class Notify
         }
     }*/
 
-    #createNotification()
-    {
-        const notification = new Notification(this.#title, {icon: __const('appIcon'), body: this.#body,})
-        notification.onclick = () => window.open(this.#openUrl)
+    #createNotification() {
+        const notification = new Notification(this.#title, {icon: __const("appIcon"), body: this.#body});
+        notification.onclick = () => window.open(this.#openUrl);
     }
 
-    static checkAndRequestPermission()
-    {
+    static checkAndRequestPermission() {
         if (!("Notification" in window)) {
             alert("This browser does not support desktop notification");
-        }
-        else if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
+        } else if (Notification.permission !== "denied" && Notification.permission !== "granted") {
             Notification.requestPermission().then();
         }
     }
 
-    static launch({title = 'titulo', body = undefined, openUrl = undefined, when}: LaunchParams)
-    {
-        if (when === "hidden" && document.visibilityState === 'visible') return;
+    static launch({title = "titulo", body = undefined, openUrl = undefined, when}: LaunchParams) {
+        if (when === "hidden" && document.visibilityState === "visible") return;
         if (when === "unfocused" && document.hasFocus()) return;
 
-        const id = LDate.getTimeId()
+        const id = LDate.getTimeId();
         if (Notify.STORAGE.check(id)) {
-            const rand = Math.floor(Math.random()*100)
-            g.consoleInfo(`notificacion evitada: [${id}_${rand}] -> ${body}`)
-            return
+            const rand = Math.floor(Math.random() * 100);
+            g.consoleInfo(`notificacion evitada: [${id}_${rand}] -> ${body}`);
+            return;
         }
-        Notify.STORAGE.saveNotified(id)
+        Notify.STORAGE.saveNotified(id);
 
         const notify = new Notify(title, body, openUrl);
-        notify.#createNotification()
+        notify.#createNotification();
     }
 }

@@ -8,20 +8,20 @@ export class Constants<T extends DefaultConstants> {
     private constructor() {
         // Define valores por defecto
         this.constants = {
-            token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? null,
-            lang: 'es',
-            langDouble: 'es-Es',
-            defaultZoneName: 'Europe/Madrid', // Europe/Lisbon
-            appIcon: new URL('/resources/images/logo-app.png', 'http://localhost/laravel-starter-template/').href,
+            token: document.querySelector("meta[name=\"csrf-token\"]")?.getAttribute("content") ?? null,
+            lang: "es",
+            langDouble: "es-Es",
+            defaultZoneName: "Europe/Madrid", // Europe/Lisbon
+            appIcon: new URL("/resources/images/logo-app.png", "http://localhost/laravel-starter-template/").href,
 
             // Vite
             VITE_BROADCASTING_ENABLED: false,
             VITE_REVERB_APP_KEY: null,
-            VITE_REVERB_HOST: 'localhost',
+            VITE_REVERB_HOST: "localhost",
             VITE_REVERB_PORT: 8080,
-            VITE_REVERB_SCHEME: 'http',
-            VITE_APP_NAME: 'Laravel',
-            VITE_APP_ENV: 'local',
+            VITE_REVERB_SCHEME: "http",
+            VITE_APP_NAME: "Laravel",
+            VITE_APP_ENV: "local",
         } as T;
     }
 
@@ -40,7 +40,7 @@ export class Constants<T extends DefaultConstants> {
     }
 
     public extend(newConfig: Partial<T>): void {
-        this.constants = { ...this.constants, ...newConfig };
+        this.constants = {...this.constants, ...newConfig};
     }
 
     // Función para obtener todas las constantes de configuración

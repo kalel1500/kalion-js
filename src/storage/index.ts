@@ -1,2 +1,1 @@
-
-export * from './LStorage'
+export * from "./LStorage";

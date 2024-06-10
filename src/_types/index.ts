@@ -18,7 +18,7 @@ export interface DefaultConstants {
     appIcon: string;
 
     VITE_BROADCASTING_ENABLED: boolean;
-    VITE_REVERB_APP_KEY: string|null;
+    VITE_REVERB_APP_KEY: string | null;
     VITE_REVERB_HOST: string;
     VITE_REVERB_PORT: number;
     VITE_REVERB_SCHEME: string;
@@ -91,7 +91,16 @@ export interface FetchBroadcastingResponse extends FetchResponse {
 
 export type FetchResponseOrBroadcasting = FetchResponse | FetchBroadcastingResponse;
 
-export type AvailableValidations = 'optional' | 'required' | `min:${number}` | `max:${number}` | 'color' | 'array' | 'number' | 'boolean' | `required_if:${'1' | '0'}`;
+export type AvailableValidations =
+    "optional"
+    | "required"
+    | `min:${number}`
+    | `max:${number}`
+    | "color"
+    | "array"
+    | "number"
+    | "boolean"
+    | `required_if:${"1" | "0"}`;
 
 export type ValidationRules = {
     [P: string]: AvailableValidations[] | string | number | boolean | null | undefined;

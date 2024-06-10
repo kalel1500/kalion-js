@@ -1,5 +1,5 @@
-import es from './lang/es.json';
-import en from './lang/en.json';
+import es from "./lang/es.json";
+import en from "./lang/en.json";
 import {__const} from "../_internal/helpers";
 import {DefaultTranslations} from "../_types";
 
@@ -12,10 +12,9 @@ interface Translations<T extends Translation> {
 }
 
 
-export class Translator<T extends DefaultTranslations>
-{
+export class Translator<T extends DefaultTranslations> {
     private static instance: Translator<any>;
-    private locale: string = __const('lang');
+    private locale: string = __const("lang");
     private translations: Translations<DefaultTranslations> = {en, es};
     private externalTranslations: Translations<T> = {};
 
@@ -32,7 +31,7 @@ export class Translator<T extends DefaultTranslations>
         }
         this.externalTranslations[locale] = {
             ...this.externalTranslations[locale],
-            ...translations
+            ...translations,
         };
     }
 
@@ -43,7 +42,7 @@ export class Translator<T extends DefaultTranslations>
 
         if (replacements) {
             for (const [placeholder, value] of Object.entries(replacements)) {
-                const regex = new RegExp(`:${placeholder}`, 'g');
+                const regex = new RegExp(`:${placeholder}`, "g");
                 translation = translation.replace(regex, value);
             }
         }

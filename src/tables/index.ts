@@ -1,2 +1,1 @@
-
-export * from './Ttable'
+export * from "./Ttable";

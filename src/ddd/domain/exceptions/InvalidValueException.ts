@@ -1,8 +1,5 @@
-
-export class InvalidValueException extends Error
-{
-    constructor(message: string)
-    {
+export class InvalidValueException extends Error {
+    constructor(message: string) {
         super(message);
         this.name = "InvalidValueException";
     }
