@@ -117,25 +117,13 @@ export class g {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    static isTypeNaN(value: any) {
-        return value !== value;
+    static strIsEmpty(str: any) {
+        if (typeof str !== "string") return false;
+        return !Boolean(str.trim());
     }
 
-    static isEmpty(value: any, permitValues: string | string[] = "all") {
-        if ((Array.isArray(permitValues) && permitValues.includes(value)) || value === permitValues) {
-            return false;
-        }
-        return value === "" || value === null || value === undefined || (typeof value === "string" && value.match(/^ *$/) !== null) || g.isTypeNaN(value);
-    }
-
-    static isNullOrUnd(value: any) {
-        return value === null || value === undefined;
-    }
-
-    static strIsEmpty(str: string | null | undefined) {
-        if (typeof str !== "string") throw new Error("La variable recibida no es un String");
-        str = str.trim();
-        return !Boolean(str);
+    static isEmpty(value: any) {
+        return g.isNullish(value) || g.strIsEmpty(value) || Number.isNaN(value);
     }
 
     static deleteArrayItemsWhere(array: any[], filterFunc: (e: any) => boolean, nameField: string) {
@@ -342,5 +330,20 @@ export class g {
 
     static consoleInfo(message?: any) {
         if (message) console.info(`%c INFO - ${message}`, "background: #222; color: #bada55; padding: 0.5rem");
+    }
+
+    // Función para comprobar si un valor es truthy
+    static isTruthy(value: any) {
+        return !!value;
+    }
+
+    // Función para comprobar si un valor es falsy
+    static isFalsy(value: any) {
+        return !value;
+    }
+
+    // Función para comprobar si un valor es nullish (null o undefined)
+    static isNullish(value: any) {
+        return value === null || value === undefined;
     }
 }

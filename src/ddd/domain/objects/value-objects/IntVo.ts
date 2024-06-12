@@ -1,13 +1,17 @@
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
+import {g} from "../../../../helpers";
 
-type IntVoTypes = number | string | null
+export type IntVoTypes = number | string | null
+export type IntVoParams = {
+    allowNull?: boolean
+}
 
 export class IntVo {
     protected _value: IntVoTypes;
     protected _allowNull: boolean;
 
-    constructor(value: IntVoTypes, allowNull = false) {
-        this._allowNull = allowNull;
+    constructor(value: IntVoTypes, params?: IntVoParams) {
+        this._allowNull = params?.allowNull ?? false;
         this._value = value;
 
         this.#ensureIsValidValue();
@@ -18,13 +22,16 @@ export class IntVo {
     }
 
     #ensureIsValidValue() {
-        if (typeof this._value === "undefined") this._value = null;
-        if (this._allowNull && this._value === null) return;
+        if (this._allowNull && g.isNullish(this._value)) return;
 
         if (typeof this._value === "string") this._value = parseInt(this._value);
 
         if (typeof this._value !== "number") {
             throw new InvalidValueException(`<IntVo> debe ser un entero y se ha recibido ${typeof this._value}`);
         }
+    }
+
+    static from(value: IntVoTypes, params?: IntVoParams): IntVo {
+        return new this(value, params);
     }
 }
