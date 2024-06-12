@@ -1,6 +1,6 @@
 /*
-import es from './lang/es.json';
-import en from './lang/en.json';
+import es from "./lang/es.json";
+import en from "./lang/en.json";
 import {__const} from "../_internal/helpers";
 
 type TranslationS = Record<string, string>
@@ -18,7 +18,7 @@ export class TranslatorS
     }
 
     static get(key: string, params?: Record<string, string>): string {
-        const currentTranslations = this.translations[__const('lang')] || {};
+        const currentTranslations = this.translations[__const("lang")] || {};
         const translation = currentTranslations[key] || key;
         if (!params) return translation;
 
@@ -29,8 +29,8 @@ export class TranslatorS
 
     static registerDefaultTranslations()
     {
-        this.registerTranslations('es', es);
-        this.registerTranslations('en', en);
+        this.registerTranslations("es", es);
+        this.registerTranslations("en", en);
     }
 }
 

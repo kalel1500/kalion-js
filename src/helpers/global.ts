@@ -31,7 +31,7 @@ export class g {
             return true;
         }
 
-        // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? 'Formato error imprevisto'));
+        // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? "Formato error imprevisto"));
         SModal.errorModal({
             title: "Error imprevisto",
             html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? "Formato error imprevisto")}</span>`,
@@ -51,12 +51,12 @@ export class g {
                                                  responseIsText = false,
                                                  showLog = false,
                                              }: FetchParams): Promise<T> {
-        // console.info('ajaxLanzado: '+url);
+        // console.info("ajaxLanzado: "+url);
         try {
             let fetchParams = {
                 method: type, // *GET, POST, PUT, DELETE, etc.
                 headers: {
-                    "Content-Type": "application/json", // 'Content-Type': 'application/x-www-form-urlencoded',
+                    "Content-Type": "application/json", // "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
                     "X-Requested-With": "XMLHttpRequest",
                     "X-CSRF-TOKEN": __const("token"),
@@ -94,7 +94,7 @@ export class g {
         if (g.errorModalIsShowed) return;
         console.error(error);
         if (!g.isUndefined(from)) console.log("From:", from);
-        let errorMessage = message ?? (error.message ?? "Error imprevisto. (Formato error inesperado)"); // (typeof error === 'object' && error.hasOwnProperty('message')) ? error.message : error;
+        let errorMessage = message ?? (error.message ?? "Error imprevisto. (Formato error inesperado)"); // (typeof error === "object" && error.hasOwnProperty("message")) ? error.message : error;
         errorMessage = (clearMessage) ? g.escapeHtml(errorMessage) : errorMessage;
 
         // Abrir modal

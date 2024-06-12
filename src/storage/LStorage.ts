@@ -41,12 +41,12 @@ export class LStorage {
             LStorage.removeItem("websocketsFailed"); // restartWebsocketsStorage
         }
 
-        /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem('lastConnection'));
-        // console.log('lastConnection');
+        /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem("lastConnection"));
+        // console.log("lastConnection");
         // console.log(test.toFormat(MyLuxon.formats.datetime_startYear));
 
         // let now = MyLuxon.now();
-        // console.log('hoy menos dos dias:');
+        // console.log("hoy menos dos dias:");
         // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.date_startDay));
         // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.timestamp_seconds));*/
     }

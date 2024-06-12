@@ -104,13 +104,13 @@ export class Ttable {
         ajaxResponse: (url, params, response) => {
             /*let data = response.data;
             let regVisibles = (data.per_page < data.total) ? data.per_page : data.total;
-            let el = document.getElementById('footerinfo');
+            let el = document.getElementById("footerinfo");
             if (el) {
                 el.innerHTML = `Mostrando ${regVisibles} de ${data.total}`;
             }*/
             return response.data; //return data to tabulator
         },
-        footerElement: `<span class='mx-1' id='footerinfo'></span>`,
+        footerElement: `<span class="mx-1" id="footerinfo"></span>`,
         langs: {
             "es-es": {
                 "columns": {

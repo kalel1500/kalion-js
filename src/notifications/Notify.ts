@@ -48,7 +48,7 @@ export class Notify {
             this.#createNotification()
         }
         // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== 'denied') {
+        else if (Notification.permission !== "denied") {
             Notification.requestPermission().then(r => {
                 // If the user accepts, let's create a notification
                 if (r === "granted") {
