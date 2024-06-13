@@ -1,17 +1,17 @@
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
 import {g} from "../../../../helpers";
+import {StrOrNullish} from "../../../../_types";
 
-export type EnumVoTypes = string | null | undefined
 export type EnumVoParams = {
     allowNull?: boolean
 }
 
 export abstract class EnumVo {
-    protected _value: EnumVoTypes;
+    protected _value: StrOrNullish;
     protected _allowNull: boolean;
     protected _permittedValues: string[] = [];
 
-    constructor(value: EnumVoTypes, params?: EnumVoParams) {
+    constructor(value: StrOrNullish, params?: EnumVoParams) {
         this.setPermittedValues();
         this._allowNull = params?.allowNull ?? false;
         this._value = value;
@@ -45,7 +45,7 @@ export abstract class EnumVo {
         }
     }
 
-    static from<T extends EnumVo>(this: new (value: EnumVoTypes, params?: EnumVoParams) => T, value: EnumVoTypes, params?: EnumVoParams): T {
+    static from<T extends EnumVo>(this: new (value: StrOrNullish, params?: EnumVoParams) => T, value: StrOrNullish, params?: EnumVoParams): T {
         return new this(value, params);
     }
 }

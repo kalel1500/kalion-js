@@ -1,18 +1,18 @@
 import {g} from "../../../../helpers";
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
+import {StrOrNullish} from "../../../../_types";
 
-export type StringVoTypes = string | null | undefined
 export type StringVoParams = {
     allowNull?: boolean
     errorMessage?: string | null
 }
 
 export class StringVo {
-    protected _value: StringVoTypes;
+    protected _value: StrOrNullish;
     protected _allowNull: boolean;
     protected _errorMessage: string | null;
 
-    constructor(value: StringVoTypes, params?: StringVoParams) {
+    constructor(value: StrOrNullish, params?: StringVoParams) {
         this._allowNull = params?.allowNull ?? false;
         this._errorMessage = params?.errorMessage ?? null;
         this._value = value;
@@ -38,7 +38,7 @@ export class StringVo {
         }
     }
 
-    static from(value: StringVoTypes, params?: StringVoParams): StringVo {
+    static from(value: StrOrNullish, params?: StringVoParams): StringVo {
         return new this(value, params);
     }
 }

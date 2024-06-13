@@ -90,6 +90,10 @@ export interface FetchBroadcastingResponse extends FetchResponse {
     };
 }
 
+export type Nullish = null | undefined;
+export type StrOrNullish = string | Nullish;
+export type StrIntOrNullish = number | StrOrNullish;
+
 export type FetchResponseOrBroadcasting = FetchResponse | FetchBroadcastingResponse;
 
 export type AvailableValidations =
@@ -125,4 +129,4 @@ export type NullHTMLButtonElement = HTMLButtonElement | null;
 
 export type TableSettingEvents = Partial<EventCallBackMethods>;
 
-export type TranslationReplacements = Record<string, string | undefined>;
+export type TranslationReplacements = Record<string, StrOrNullish>;
