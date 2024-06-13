@@ -43,11 +43,15 @@ export class Translator<T extends DefaultTranslations> {
         if (replacements) {
             for (const [placeholder, value] of Object.entries(replacements)) {
                 if (value) {
-                    const regex = new RegExp(`:${placeholder}`, "g");
-                    translation = translation.replace(regex, value);
+                    // Escapar correctamente el símbolo ":" en el placeholder
+                    const regex = new RegExp(`([^\\^]):${placeholder}`, "g");
+                    translation = translation.replace(regex, `$1${value}`);
                 }
             }
         }
+
+        // Reemplazar el símbolo de escape (^:) con el símbolo ":"
+        translation = translation.replace(/\^:/g, ":");
 
         return translation;
     }
