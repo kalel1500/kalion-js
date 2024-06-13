@@ -26,13 +26,13 @@ export class StringVo {
 
     #ensureIsValidValue() {
         if (!this._allowNull) {
-            if (typeof this._value !== "string") {
-                const message = "<StringVo> ha de ser de tipo String";
+            if (g.isEmpty(this._value)) {
+                const message = (this._errorMessage === null) ? "<StringVo> no permite un valor vacio" : this._errorMessage;
                 throw new InvalidValueException(message);
             }
 
-            if (g.isEmpty(this._value)) {
-                const message = (this._errorMessage === null) ? "<StringVo> no permite un valor vacio" : this._errorMessage;
+            if (typeof this._value !== "string") {
+                const message = "<StringVo> ha de ser de tipo String";
                 throw new InvalidValueException(message);
             }
         }
