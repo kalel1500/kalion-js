@@ -27,6 +27,30 @@ export interface DefaultConstants {
 }
 
 export interface DefaultTranslations extends Translation {
+    save: string;
+    cancel: string;
+    delete: string;
+    move_to: string;
+    close: string;
+    detail: string;
+    copy: string;
+    search_placeholder: string;
+    select_placeholder: string;
+    select_value_placeholder: string;
+    copied_text: string;
+    confirm_delete_record_NAME: string;
+    confirm_delete_FIELD_NAME: string;
+    record_RECORD_doesnt_exist_in_the_TABLE_table: string;
+    min_MIN_characters_on_search: string;
+    add_FIELD: string;
+    see_FIELD: string;
+    edit_FIELD_NAME: string;
+    the_page: string;
+    cannot_save_an_error: string;
+    incorrect_blade_format: string;
+    to_empty: string;
+    launch: string;
+    correct: string;
     ok: string;
     reload_page: string;
     contact_pi_team: string;
