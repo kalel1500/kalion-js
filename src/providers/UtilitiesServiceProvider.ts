@@ -8,7 +8,6 @@ export class UtilitiesServiceProvider {
     static #actions = {
         registerGlobalError: () => {
             window.onerror = (message, source, lineno, colno, error) => {
-                console.log('capturando error desde el paquete')
                 return g.handleGlobalError(error);
             };
         },
