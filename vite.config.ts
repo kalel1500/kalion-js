@@ -15,6 +15,7 @@ export default ({ mode }: { mode: Mode}) => {
         plugins: [
             dts({
                 include: ['src'], // Incluye los directorios src y types para la generación de tipos
+                exclude: ['src/_internal/**'],
                 outDir: 'dist/types', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
         ],
