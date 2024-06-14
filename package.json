@@ -22,7 +22,7 @@
         "typescript"
     ],
     "author": "kalel1500",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
         "@types/luxon": "^3.4.2",
