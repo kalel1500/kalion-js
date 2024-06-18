@@ -1,5 +1,5 @@
-import {g} from "../helpers";
-import {Notify} from "../notifications";
+import {g} from "../core";
+import {Notify} from "../core";
 
 type Actions = "registerGlobalError" | "enableTooltips" | "enableNotifications"
 
