@@ -16,6 +16,8 @@ export interface DefaultConstants {
     langDouble: string;
     defaultZoneName: string;
     appIcon: string;
+    routeName_websockets_checkService: string;
+    routeName_queues_checkService: string;
 
     VITE_BROADCASTING_ENABLED: boolean;
     VITE_REVERB_APP_KEY: string | null;
