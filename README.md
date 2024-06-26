@@ -10,18 +10,10 @@
 Utilidades de typescript para Laravel
 
 
-## Requerimientos
-
-Este paquete requiere del siguiente paquete Laravel para funcionar correctamente:
-
-- `kalel1500/laravel-hexagonal-and-ddd-architecture-utilities`: [Enlace a Github](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities)
-
-
 ## Instalación
 
 ```bash
 npm laravel-ts-utilities
-composer require kalel1500/laravel-hexagonal-and-ddd-architecture-utilities
 ```
 
 
