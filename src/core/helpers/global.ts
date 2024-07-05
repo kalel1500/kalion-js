@@ -10,6 +10,9 @@ import {
     ValidationRules,
 } from "../_types";
 
+type Value = string | string[];
+type Key = string | string[] | null;
+
 export class g {
     static errorModalIsShowed: boolean = false;
 
@@ -251,10 +254,6 @@ export class g {
         return {success: (!res.success.includes(false)), messages: res.messages, validated: res.validated};
     }
 
-    static pluck(array: any[], key: string) {
-        return array.map(i => i[key]);
-    }
-
     static strIncludesAny(str: string, values: string[]) {
         let res = false;
         values.forEach(value => {
@@ -345,5 +344,84 @@ export class g {
     // Función para comprobar si un valor es nullish (null o undefined)
     static isNullish(value: any) {
         return value === null || value === undefined;
+    }
+
+    /*static pluck(array: any[], key: string) {
+        return array.map(i => i[key]);
+    }
+
+    static pluck(array: Record<any, any>[], value: string, key: string) {
+        return array.reduce((acc, obj) => {
+            acc[obj[key]] = obj[value];
+            return acc;
+        }, {});
+    }*/
+
+    static dataGet(target: any, key: Key, defaultValue: any = null): any {
+        if (key === null) {
+            return target;
+        }
+
+        const keys = Array.isArray(key) ? key : key.split('.');
+
+        for (let i = 0; i < keys.length; i++) {
+            const segment = keys[i];
+
+            if (segment === null) {
+                return target;
+            }
+
+            if (segment === '*') {
+                if (typeof target[Symbol.iterator] !== 'function') {
+                    return defaultValue;
+                }
+
+                const result: any[] = [];
+                for (const item of target) {
+                    result.push(g.dataGet(item, keys.slice(i + 1)));
+                }
+                return result.flat();
+            }
+
+            if (target && (typeof target === 'object' || Array.isArray(target)) && segment in target) {
+                target = target[segment];
+            } else {
+                return defaultValue;
+            }
+        }
+
+        return target;
+    }
+
+    static explodePluckParameters(value: Value, key: Key): [Value, Key] {
+        const valueArray = typeof value === 'string' ? value.split('.') : value;
+        const keyArray = key === null || Array.isArray(key) ? key : key.split('.');
+        return [valueArray, keyArray];
+    }
+
+
+    static pluck(array: Record<any, any>[], value: Key): any[];
+    static pluck(array: Record<any, any>[], value: Key, key: Key): Record<any, any>;
+    static pluck(array: Record<any, any>[], value: Value, key: Key = null): any {
+        const results: any = key === null ? [] : {};
+        [value, key] = g.explodePluckParameters(value, key);
+
+        for (const item of array) {
+            const itemValue = g.dataGet(item, value);
+
+            if (key === null) {
+                results.push(itemValue);
+            } else {
+                let itemKey = g.dataGet(item, key);
+
+                if (itemKey && typeof itemKey === 'object' && typeof itemKey.toString === 'function') {
+                    itemKey = itemKey.toString();
+                }
+
+                results[itemKey] = itemValue;
+            }
+        }
+
+        return results;
     }
 }
