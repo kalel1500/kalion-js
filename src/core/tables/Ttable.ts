@@ -45,17 +45,6 @@ export class Ttable {
         });
     }
 
-    addClassEditableOnReceivedEditableCells(row: RowComponent, isEditableCell: (e: CellComponent) => boolean) {
-        const cells = row.getCells().filter((cell => {
-            return cell.getColumn().getDefinition().editable !== false;
-        }));
-        cells.forEach(cell => {
-            if (isEditableCell(cell)) {
-                cell.getElement().classList.add("cell-editable");
-            }
-        });
-    }
-
     static formatListValuesToLabelValueStructure(values: JSONRecord): LabelValue[] {
         const dataArray: LabelValue[] = [];
         Object.entries(values).forEach(([key, value]) => {
