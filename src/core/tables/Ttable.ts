@@ -35,13 +35,13 @@ export class Ttable {
     }
 
     addClassEditableOnEditableCells(row: RowComponent) {
-        const cells = row.getCells().filter((cell => {
-            return cell.getColumn().getDefinition().editable !== false;
-        }));
-        cells.forEach(cell => {
-            if (this.isEditableCell(cell)) {
-                cell.getElement().classList.add("cell-editable");
-            }
+        const cells = row.getCells().filter(cell => {
+            let editable = cell.getColumn().getDefinition().editable;
+            editable = (typeof editable === "function") ? editable(cell) : editable;
+            return editable !== false;
+        });
+        cells.forEach((cell) => {
+            cell.getElement().classList.add("cell-editable");
         });
     }
 
