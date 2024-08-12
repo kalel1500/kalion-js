@@ -1,6 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.2...master)
+
+## [v1.1.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.1...v1.1.0-beta.2) - 2024-08-12
+
+### Added
+
+* README.md: Añadidos nuevos comandos de npm
+* Añadir CHANGELOG.md con todos los cambios de cada version (todos los tags renombrados por nuevos tags beta)
+* package.json: enlaces a bugs y homepage de github
+
+### Changed
+
+* package-lock.json: dependencias actualizadas
+* error al actualizar el paquete `sweetalert2` -> `customClass` ya no puede ser string
+
+### Fixed
+
+* package.json: enlace git arreglado
 
 ## [v1.1.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.0.0-beta.4...v1.1.0-beta.1) - 2024-07-18
 
