@@ -20,6 +20,8 @@ npm laravel-ts-utilities
 ## Comandos para el desarrollo
 
 - `npm deprecate laravel-ts-utilities@*** "Versión ..., no usar"`: deprecar una version publicada que no sirve
+- `npm unpublish laravel-ts-utilities@***"`: despublicar la version de un paquete
+- `npm unpublish laravel-ts-utilities --force"`: despublicar todas las versiones de un paquete
 - `npm version patch`
 - `npm version minor`
 - `npm version major`
