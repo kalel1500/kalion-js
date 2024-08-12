@@ -28,7 +28,7 @@ interface BasicModalOptions {
     didRender?(popup: HTMLElement): void;
     preConfirm?(inputValue: any): SyncOrAsync<any>;
     footer?: string;
-    customClass?: SweetAlertCustomClass | string;
+    customClass?: SweetAlertCustomClass;
 }
 
 interface UpdateModalOptions extends BasicModalOptions {
