@@ -25,6 +25,8 @@ npm laravel-ts-utilities
 - `npm version patch`
 - `npm version minor`
 - `npm version major`
+- `npm version prerelease`: actualiza una version beta
+- `npm version preminor --preid=beta`: actualiza la version minor de una beta
 - `npm publish`
 - `npm publish --tag beta`: publicar una version beta
 
