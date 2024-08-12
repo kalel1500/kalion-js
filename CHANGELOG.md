@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.1...master)
 
 ## [v1.1.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.0.0-beta.4...v1.1.0-beta.1) - 2024-07-18
 
