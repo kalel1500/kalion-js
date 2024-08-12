@@ -26,6 +26,7 @@ npm laravel-ts-utilities
 - `npm version minor`
 - `npm version major`
 - `npm publish`
+- `npm publish --tag beta`: publicar una version beta
 
 
 ## License
