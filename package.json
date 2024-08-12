@@ -23,6 +23,10 @@
     ],
     "author": "kalel1500",
     "license": "GPL-3.0-or-later",
+    "bugs": {
+        "url": "https://github.com/kalel1500/laravel-ts-utilities/issues"
+    },
+    "homepage": "https://github.com/kalel1500/laravel-ts-utilities#readme",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
         "@types/luxon": "^3.4.2",
