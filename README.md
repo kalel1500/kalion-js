@@ -10,27 +10,11 @@
 
 Utilidades de typescript para Laravel
 
-
 ## Instalación
 
 ```bash
 npm laravel-ts-utilities
 ```
-
-
-## Comandos para el desarrollo
-
-- `npm deprecate laravel-ts-utilities@*** "Versión ..., no usar"`: deprecar una version publicada que no sirve
-- `npm unpublish laravel-ts-utilities@***"`: despublicar la version de un paquete
-- `npm unpublish laravel-ts-utilities --force"`: despublicar todas las versiones de un paquete
-- `npm version patch`
-- `npm version minor`
-- `npm version major`
-- `npm version prerelease`: actualiza una version beta
-- `npm version preminor --preid=beta`: actualiza la version minor de una beta
-- `npm publish`
-- `npm publish --tag beta`: publicar una version beta
-
 
 ## License
 
