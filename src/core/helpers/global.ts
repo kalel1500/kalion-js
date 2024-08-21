@@ -25,7 +25,12 @@ export class g {
     }
 
     static escapeHtml(html: string): string {
-        return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&#039;");
+        return html
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll("\"", "&quot;")
+            .replaceAll("'", "&#039;");
     }
 
     static handleGlobalError(error?: Error) {
@@ -88,22 +93,27 @@ export class g {
 
     static catchCode({
                          error,
-                         message = undefined,
-                         clearMessage = true,
+                         title = undefined,
+                         text = undefined,
+                         html = undefined,
                          reloadOnClose = false,
                          footer = ___("contact_pi_team"),
                          from = undefined,
                      }: CatchParams) {
         if (g.errorModalIsShowed) return;
+
         console.error(error);
         if (!g.isUndefined(from)) console.log("From:", from);
-        let errorMessage = message ?? (error.message ?? "Error imprevisto. (Formato error inesperado)"); // (typeof error === "object" && error.hasOwnProperty("message")) ? error.message : error;
-        errorMessage = (clearMessage) ? g.escapeHtml(errorMessage) : errorMessage;
+
+        const finalHtml = html
+            ? html
+            : `<span class="restriction-message">${g.escapeHtml(text || (error.message || "Error imprevisto (o formato error inesperado)"))}</span>`;
 
         // Abrir modal
         SModal.errorModal({
             icon: "warning",
-            html: `<span class="restriction-message">${errorMessage}</span>`,
+            title: title,
+            html: finalHtml,
             confirmButtonText: (reloadOnClose) ? ___("reload_page") : ___("ok"),
             footer: footer,
         }, true).then((result) => {

@@ -91,8 +91,9 @@ export interface FetchParamsSimple {
 
 export interface CatchParams {
     error: any;
-    message?: string;
-    clearMessage?: boolean;
+    title?: string;
+    text?: string;
+    html?: string;
     reloadOnClose?: boolean;
     footer?: string;
     from?: string;
