@@ -1,6 +1,20 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.1...master)
+
+## [v1.2.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.2...v1.2.0-beta.1) - 2024-08-21
+
+### Added
+
+* Añadir imagen como título del README.md
+* Nuevo archivo "development-tips.md" para guardar los comandos de desarrollo
+
+### Changed
+
+* Mover comandos de NPM del "README.md" al nuevo archivo "docs/development-tips.md"
+* (breaking) Mejorar función catchCode para poder recibir "title", "text" y "html"
+* package.json: añadir "type": "module" en el package.json
+* CHANGELOG.md actualizado
 
 ## [v1.1.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.1...v1.1.0-beta.2) - 2024-08-12
 
@@ -27,7 +41,7 @@
 
 ### Removed
 
-* Eliminado método `addClassEditableOnReceivedEditableCells`, ya que con la corrección anterior ya no hace falta
+* (breaking) Eliminado método `addClassEditableOnReceivedEditableCells`, ya que con la corrección anterior ya no hace falta
 
 ## [v1.0.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.0.0-beta.3...v1.0.0-beta.4) - 2024-07-05
 
