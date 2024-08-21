@@ -1,4 +1,6 @@
-## Comandos para el desarrollo
+# Comandos para el desarrollo
+
+## NPM
 
 ### Deprecar una version
 
@@ -21,3 +23,9 @@
 
 * `npm publish`
 * `npm publish --tag beta`: publicar una version beta
+
+## GIT
+
+### Subir un tag
+
+* `git push origin <tag_name>`
