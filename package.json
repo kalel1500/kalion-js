@@ -1,6 +1,6 @@
 {
     "name": "laravel-ts-utilities",
-    "version": "v1.2.0-beta.1",
+    "version": "1.2.0-beta.1",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
     "main": "dist/laravel-ts-utilities.es.js",
@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/kalel1500/laravel-ts-utilities.git"
+        "url": "git+https://github.com/kalel1500/laravel-ts-utilities.git"
     },
     "keywords": [
         "laravel",
