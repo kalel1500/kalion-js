@@ -1,6 +1,5 @@
 import {___, __const} from "../_internal/helpers";
 import {SModal} from "../modals";
-import * as bootstrap from "bootstrap"
 import {
     CatchParams,
     FetchParams,
@@ -297,8 +296,12 @@ export class g {
     }
 
     static startTooltips() {
-        const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]");
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        import("bootstrap").then(bootstrap => {
+            const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]");
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        }).catch(error => {
+            console.error("Tabulator-tables no está instalado o no se pudo cargar.", error);
+        });
     }
 
     static addSpinner(selectors: string | HTMLElement | NodeListOf<HTMLElement> | null, size: "sm" | "md" = "md") {
