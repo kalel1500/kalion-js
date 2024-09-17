@@ -17,13 +17,14 @@ export class Constants<T extends DefaultConstants> {
             routeName_queues_checkService: "hexagonal.ajax.queues.checkService",
 
             // Vite
-            VITE_BROADCASTING_ENABLED: false,
             VITE_REVERB_APP_KEY: null,
             VITE_REVERB_HOST: "localhost",
             VITE_REVERB_PORT: 8080,
             VITE_REVERB_SCHEME: "http",
-            VITE_APP_NAME: "Laravel",
+
+            VITE_BROADCASTING_ENABLED: false,
             VITE_APP_ENV: "local",
+            VITE_APP_NAME: "Laravel",
         } as T;
     }
 
