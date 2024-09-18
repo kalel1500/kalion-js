@@ -1,6 +1,22 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...master)
+
+## [v1.2.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.1...v1.2.0-beta.2) - 2024-08-21
+
+### Added
+
+* Añadido nuevo comando git en "development-tips.md"
+
+### Changed
+
+* Eliminar bootstrap de las dependencias e importar dinámicamente en el helper "global.ts"
+* Constantes ordenadas
+* Imports bootstrap mejorados (según la documentación)
+
+### Fixed
+
+* Correcciones package.json
 
 ## [v1.2.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.2...v1.2.0-beta.1) - 2024-08-21
 
