@@ -6,11 +6,24 @@
     "main": "dist/laravel-ts-utilities.es.js",
     "types": "dist/types/index.d.ts",
     "style": "dist/style.css",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "default": "./dist/laravel-ts-utilities.es.js"
+        },
+        "./plugins": {
+            "types": "./plugins/index.d.ts",
+            "default": "./plugins/vite-plugin-laravel-ts-utilities.js"
+        }
+    },
     "files": [
-        "dist"
+        "dist",
+        "plugins"
     ],
     "scripts": {
-        "build": "tsc && vite build"
+        "build:library": "vite build",
+        "build:plugin": "cross-env BUILD_TARGET=plugin vite build",
+        "build": "tsc && npm run build:library && npm run build:plugin"
     },
     "repository": {
         "type": "git",
@@ -33,6 +46,7 @@
         "@types/luxon": "^3.4.2",
         "@types/node": "20.11.1",
         "@types/tabulator-tables": "^6.2.0",
+        "cross-env": "^7.0.3",
         "sass": "^1.77.5",
         "typescript": "^5.4.5",
         "vite": "^5.3.1",

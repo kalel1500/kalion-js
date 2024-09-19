@@ -12,6 +12,7 @@ export default ({ mode }: { mode: string }) => {
     const env = loadEnv(mode, process.cwd()) as Env;
     const minify = env.VITE_MINIFY === "true";
     const sourcemap = env.VITE_SOURCEMAP === "true";
+    const isPlugin = process.env.BUILD_TARGET === 'plugin';
 
     const libraryConfig: UserConfig = {
         plugins: [
@@ -50,5 +51,26 @@ export default ({ mode }: { mode: string }) => {
             sourcemap: sourcemap
         }
     };
-    return defineConfig(libraryConfig);
+    const pluginConfig: UserConfig = {
+        plugins: [
+            dts({
+                include: ['src/plugins'], // Incluye los directorios src y types para la generación de tipos
+                outDir: 'plugins', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+            }),
+        ],
+        build: {
+            lib: {
+                entry: path.resolve(__dirname, 'src/plugins/index.ts'),
+                name: 'VitePluginLaravelTsUtilities',
+                fileName: (format) => `vite-plugin-laravel-ts-utilities.js`,
+                formats: ['es'],
+            },
+            rollupOptions: {
+                external: ['fs', 'path'], // Marcar fs y path como externos porque son APIs de Node.js
+            },
+            minify: false,
+            outDir: './plugins'
+        }
+    };
+    return defineConfig(isPlugin ? pluginConfig : libraryConfig);
 }
