@@ -2,14 +2,13 @@ import {defineConfig, loadEnv, UserConfig} from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 
-type Mode = 'production' | 'develop';
 type StrBoolean = 'true' | 'false';
 type Env = {
     VITE_MINIFY: StrBoolean,
     VITE_SOURCEMAP: StrBoolean,
 }
 
-export default ({ mode }: { mode: Mode}) => {
+export default ({ mode }: { mode: string }) => {
     const env = loadEnv(mode, process.cwd()) as Env;
     const minify = env.VITE_MINIFY === "true";
     const sourcemap = env.VITE_SOURCEMAP === "true";
