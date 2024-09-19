@@ -1,6 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.3...master)
+
+## [v1.2.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...v1.2.0-beta.3) - 2024-08-21
+
+### Added
+
+* Nuevo plugin de Vite para manejar las dependencias externas (dependiendo de si están instaladas o no). 
+  * Permite que las dependencias de los imports asincornos sean opcionales y no falle el build de la aplicación, haciendo que si la aplicación no tiene la dependencia instalada, se añada automáticamente al "build.rollupOptions.external" de la configuración de la aplicación.
+
+### Changed
+
+* Quitar "type Mode" y tipar como string en "export default ({ mode }: { mode: string }) => {"
+* Mover configuración Vite (vite.config.ts) a una variable
 
 ## [v1.2.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.1...v1.2.0-beta.2) - 2024-08-21
 
