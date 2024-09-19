@@ -1,4 +1,4 @@
-import {defineConfig, loadEnv} from 'vite';
+import {defineConfig, loadEnv, UserConfig} from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 
@@ -14,7 +14,7 @@ export default ({ mode }: { mode: Mode}) => {
     const minify = env.VITE_MINIFY === "true";
     const sourcemap = env.VITE_SOURCEMAP === "true";
 
-    return defineConfig({
+    const libraryConfig: UserConfig = {
         plugins: [
             dts({
                 include: ['src'], // Incluye los directorios src y types para la generación de tipos
@@ -50,5 +50,6 @@ export default ({ mode }: { mode: Mode}) => {
             minify: minify,
             sourcemap: sourcemap
         }
-    });
+    };
+    return defineConfig(libraryConfig);
 }
