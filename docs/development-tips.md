@@ -24,6 +24,14 @@
 * `npm publish`
 * `npm publish --tag beta`: publicar una version beta
 
+### Otros comandos
+
+* `npm view laravel-ts-utilities versions`: Verifica las versiones disponibles
+* `npm dist-tag add laravel-ts-utilities@*** beta`: Etiqueta una versión específica con `beta`
+* `npm dist-tag rm <tu-paquete> beta`: Eliminar o ajustar tags anteriores
+* `npm dist-tag ls <tu-paquete>`: Verificar el dist-tag actual
+* `npm dist-tag add laravel-ts-utilities@*** latest`: Etiqueta una versión específica con `latest`
+
 ## GIT
 
 ### Subir un tag
