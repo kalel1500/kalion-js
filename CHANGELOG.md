@@ -16,8 +16,8 @@
 
 ### Changed
 
-* Refactor: Lógica para obtener el código de la aplicación mejorada.
-* Refactor: Lógica para obtener el código de la aplicación extraída a la función `getAppCode()` + variables de entorno (EnvVariables) marcadas como opcionales (undefined).
+* (refactor) Lógica para obtener el código de la aplicación mejorada.
+* (refactor) Lógica para obtener el código de la aplicación extraída a la función `getAppCode()` + variables de entorno (EnvVariables) marcadas como opcionales (undefined).
 * Sufijo paquete renombrado internamente de `...utilities` a `...utils` en la compilación del código. Los nuevos archivos generados son: `dist/laravel-ts-utils.es.js` y `plugins/vite-plugin-laravel-ts-utils.js`.
 * Prefijo `vite-plugin-` añadido en el campo name de la función laravelTsUtilsPlugin.
 * `development-tips.md` actualizado con nuevos comandos de NPM para administrar los tags.
