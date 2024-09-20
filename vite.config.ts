@@ -66,7 +66,9 @@ export default ({ mode }: { mode: string }) => {
                 formats: ['es'],
             },
             rollupOptions: {
-                external: ['fs', 'path'], // Marcar fs y path como externos porque son APIs de Node.js
+                // Marcar fs y path como externos porque son APIs de Node.js
+                // Marcar Vite también como externo, ya que, ser incluido en el bundle del paquete porque estará disponible en la apicación
+                external: ['fs', 'path', 'vite'],
             },
             minify: false,
             outDir: './plugins'
