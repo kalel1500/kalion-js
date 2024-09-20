@@ -26,11 +26,18 @@ const isDependencyInstalled = (dep: string) => {
 };
 
 const getAppCode = (confAppCode: OpString, confAppName: OpString) => {
-    return confAppCode?.toLocaleLowerCase()
-        ?? confAppName
-            ?.toLowerCase()
-            .replace(/(?:^\w|[A-Z]|\b\w|\s+|[_-])/g, (match, index) => index === 0 ? match.toLowerCase() : match.toUpperCase())
-            .replace(/\s+|[_-]/g, '');
+    let code = confAppCode ?? confAppName;
+    return code
+        ?.toLowerCase() // Convierte a minúsculas
+        .normalize('NFD') // Normaliza la cadena para separar caracteres y tildes
+        .replace(/[\u0300-\u036f]/g, '') // Elimina los caracteres de acento
+        .replace(/[^\w\s-_]/g, '') // Elimina caracteres especiales, manteniendo letras, números, espacios, guiones y guiones bajos
+        .replace(/_/g, '-') // Reemplaza guiones bajos por guiones
+        .trim() // Elimina espacios al inicio y al final
+        .replace(/^\-+|\-+$/g, '') // Elimina guiones al principio y al final
+        .replace(/\s+/g, '-') // Reemplaza uno o más espacios por un guion
+        .replace(/--+/g, '-') // Elimina guiones duplicados
+        .replace(/^-+|-+$/g, ''); // Elimina guiones al principio y al final nuevamente si es necesario
 };
 
 export function laravelTsUtilsPlugin(): Plugin {
