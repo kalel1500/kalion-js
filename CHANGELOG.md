@@ -17,36 +17,36 @@
 ### Changed
 
 * Refactor: Lógica para obtener el código de la aplicación mejorada.
-* Refactor: Lógica para obtener el código de la aplicación extraída a la función "getAppCode()" + variables de entorno (EnvVariables) marcadas como opcionales (undefined).
-* Sufijo paquete renombrado internamente de "...utilities" a "...utils" en la compilación del código. Los nuevos archivos generados son: "dist/laravel-ts-utils.es.js" y "plugins/vite-plugin-laravel-ts-utils.js".
-* Prefijo "vite-plugin-" añadido en el campo name de la función laravelTsUtilsPlugin.
-* "development-tips.md" actualizado con nuevos comandos de NPM para administrar los tags.
+* Refactor: Lógica para obtener el código de la aplicación extraída a la función `getAppCode()` + variables de entorno (EnvVariables) marcadas como opcionales (undefined).
+* Sufijo paquete renombrado internamente de `...utilities` a `...utils` en la compilación del código. Los nuevos archivos generados son: `dist/laravel-ts-utils.es.js` y `plugins/vite-plugin-laravel-ts-utils.js`.
+* Prefijo `vite-plugin-` añadido en el campo name de la función laravelTsUtilsPlugin.
+* `development-tips.md` actualizado con nuevos comandos de NPM para administrar los tags.
 
 ### Fixed
 
-* Solucionado error en el archivo ".gitignore".
+* Solucionado error en el archivo `.gitignore`.
 
 ## [v1.2.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...v1.2.0-beta.3) - 2024-09-19
 
 ### Added
 
 * Nuevo plugin de Vite para manejar las dependencias externas (dependiendo de si están instaladas o no). 
-  * Permite que las dependencias de los imports asincornos sean opcionales y no falle el build de la aplicación, haciendo que si la aplicación no tiene la dependencia instalada, se añada automáticamente al "build.rollupOptions.external" de la configuración de la aplicación.
+  * Permite que las dependencias de los imports asincornos sean opcionales y no falle el build de la aplicación, haciendo que si la aplicación no tiene la dependencia instalada, se añada automáticamente al `build.rollupOptions.external` de la configuración de la aplicación.
 
 ### Changed
 
-* Quitar "type Mode" y tipar como string en "export default ({ mode }: { mode: string }) => {"
-* Mover configuración Vite (vite.config.ts) a una variable
+* Quitar `type Mode` y tipar como string en `export default ({ mode }: { mode: string }) => {`
+* Mover configuración Vite (`vite.config.ts`) a una variable
 
 ## [v1.2.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.1...v1.2.0-beta.2) - 2024-08-21
 
 ### Added
 
-* Añadido nuevo comando git en "development-tips.md"
+* Añadido nuevo comando git en `development-tips.md`
 
 ### Changed
 
-* Eliminar bootstrap de las dependencias e importar dinámicamente en el helper "global.ts"
+* Eliminar bootstrap de las dependencias e importar dinámicamente en el helper `global.ts`
 * Constantes ordenadas
 * Imports bootstrap mejorados (según la documentación)
 
@@ -59,13 +59,13 @@
 ### Added
 
 * Añadir imagen como título del README.md
-* Nuevo archivo "development-tips.md" para guardar los comandos de desarrollo
+* Nuevo archivo `development-tips.md` para guardar los comandos de desarrollo
 
 ### Changed
 
-* Mover comandos de NPM del "README.md" al nuevo archivo "docs/development-tips.md"
-* (breaking) Mejorar función catchCode para poder recibir "title", "text" y "html"
-* package.json: añadir "type": "module" en el package.json
+* Mover comandos de NPM del `README.md` al nuevo archivo `docs/development-tips.md`
+* (breaking) Mejorar función catchCode para poder recibir `title`, `text` y `html`
+* package.json: añadir `type`: `module` en el package.json
 * CHANGELOG.md actualizado
 
 ## [v1.1.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.1.0-beta.1...v1.1.0-beta.2) - 2024-08-12
