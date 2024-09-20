@@ -3,17 +3,17 @@
     "version": "1.2.0-beta.3",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
-    "main": "dist/laravel-ts-utilities.es.js",
+    "main": "dist/laravel-ts-utils.es.js",
     "types": "dist/types/index.d.ts",
     "style": "dist/style.css",
     "exports": {
         ".": {
             "types": "./dist/types/index.d.ts",
-            "default": "./dist/laravel-ts-utilities.es.js"
+            "default": "./dist/laravel-ts-utils.es.js"
         },
         "./plugins": {
             "types": "./plugins/index.d.ts",
-            "default": "./plugins/vite-plugin-laravel-ts-utilities.js"
+            "default": "./plugins/vite-plugin-laravel-ts-utils.js"
         }
     },
     "files": [
@@ -33,6 +33,7 @@
         "laravel",
         "ts",
         "utilities",
+        "utils",
         "typescript"
     ],
     "author": "kalel1500",

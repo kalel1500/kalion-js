@@ -25,8 +25,8 @@ export default ({ mode }: { mode: string }) => {
         build: {
             lib: {
                 entry: path.resolve(__dirname, 'src/index.ts'),
-                name: 'LaravelTsUtilities',
-                fileName: (format) => `laravel-ts-utilities.${format}.js`,
+                name: 'LaravelTsUtils',
+                fileName: (format) => `laravel-ts-utils.${format}.js`,
                 formats: ['es']
             },
             rollupOptions: {
@@ -61,8 +61,8 @@ export default ({ mode }: { mode: string }) => {
         build: {
             lib: {
                 entry: path.resolve(__dirname, 'src/plugins/index.ts'),
-                name: 'VitePluginLaravelTsUtilities',
-                fileName: (format) => `vite-plugin-laravel-ts-utilities.js`,
+                name: 'VitePluginLaravelTsUtils',
+                fileName: (format) => `vite-plugin-laravel-ts-utils.js`,
                 formats: ['es'],
             },
             rollupOptions: {
