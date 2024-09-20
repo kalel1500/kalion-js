@@ -19,7 +19,7 @@ export function laravelTsUtilsPlugin(): Plugin {
     const externalDependencies = optionalDependencies.filter(dep => !isDependencyInstalled(dep));
 
     return {
-        name: 'laravel-ts-utils',
+        name: 'vite-plugin-laravel-ts-utils',
         config() {
             return {
                 build: {
