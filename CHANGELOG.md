@@ -1,8 +1,32 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.3...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.4...master)
 
-## [v1.2.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...v1.2.0-beta.3) - 2024-08-21
+## [v1.2.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.3...v1.2.0-beta.4) - 2024-09-20
+
+### Added
+
+* Se ha añadido en el plugin de Vite toda la configuración que se aplicaba en todos los proyectos de laravel.
+  * base
+  * build.minify
+  * build.sourcemap
+  * build.target
+  * build.rollupOptions.output.manualChunks (split vendor)
+  * css.devSourcemap
+
+### Changed
+
+* Refactor: Lógica para obtener el código de la aplicación mejorada.
+* Refactor: Lógica para obtener el código de la aplicación extraída a la función "getAppCode()" + variables de entorno (EnvVariables) marcadas como opcionales (undefined).
+* Sufijo paquete renombrado internamente de "...utilities" a "...utils" en la compilación del código. Los nuevos archivos generados son: "dist/laravel-ts-utils.es.js" y "plugins/vite-plugin-laravel-ts-utils.js".
+* Prefijo "vite-plugin-" añadido en el campo name de la función laravelTsUtilsPlugin.
+* "development-tips.md" actualizado con nuevos comandos de NPM para administrar los tags.
+
+### Fixed
+
+* Solucionado error en el archivo ".gitignore".
+
+## [v1.2.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.2...v1.2.0-beta.3) - 2024-09-19
 
 ### Added
 
