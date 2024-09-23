@@ -21,8 +21,10 @@
     ],
     "scripts": {
         "build:library": "vite build",
-        "build:plugin": "cross-env BUILD_TARGET=plugin vite build",
-        "build": "tsc && npm run build:library && npm run build:plugin"
+        "build:plugins": "cross-env BUILD_TARGET=plugins vite build",
+        "build:scripts": "cross-env BUILD_TARGET=scripts vite build",
+        "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts",
+        "postinstall": "node ./dist/scripts/postinstall.js"
     },
     "repository": {
         "type": "git",
@@ -50,7 +52,8 @@
         "sass": "^1.77.5",
         "typescript": "^5.4.5",
         "vite": "^5.3.1",
-        "vite-plugin-dts": "^3.9.1"
+        "vite-plugin-dts": "^3.9.1",
+        "vite-plugin-static-copy": "^1.0.6"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.2",

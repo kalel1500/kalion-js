@@ -1,6 +1,7 @@
 import {defineConfig, loadEnv, UserConfig} from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
+import {viteStaticCopy} from "vite-plugin-static-copy";
 
 type StrBoolean = 'true' | 'false';
 type Env = {
@@ -12,7 +13,7 @@ export default ({ mode }: { mode: string }) => {
     const env = loadEnv(mode, process.cwd()) as Env;
     const minify = env.VITE_MINIFY === "true";
     const sourcemap = env.VITE_SOURCEMAP === "true";
-    const isPlugin = process.env.BUILD_TARGET === 'plugin';
+    const buildTarget = process.env.BUILD_TARGET;
 
     const libraryConfig: UserConfig = {
         plugins: [
@@ -75,5 +76,43 @@ export default ({ mode }: { mode: string }) => {
             outDir: './dist/plugins'
         }
     };
-    return defineConfig(isPlugin ? pluginConfig : libraryConfig);
+    const postinstallConfig: UserConfig = {
+        plugins: [
+            viteStaticCopy({
+                targets: [
+                    {
+                        src: 'src/scripts/files',   // Selecciona todos los archivos y subcarpetas
+                        dest: '',                   // Carpeta de destino donde se copiarán en la salida
+                    }
+                ]
+            })
+        ],
+        build: {
+            lib: {
+                entry: path.resolve(__dirname, 'src/scripts/postinstall.ts'),
+                name: 'PostinstallLaravelTsUtils',
+                fileName: (format) => `postinstall.js`,
+                formats: ['es'],
+            },
+            rollupOptions: {
+                external: ['fs', 'path', 'url'], // Marcar fs, path y url como externos porque son APIs de Node.js
+            },
+            minify: false,
+            outDir: './dist/scripts'
+        }
+    };
+
+    let selectedConfig;
+    switch (buildTarget) {
+        case 'plugins':
+            selectedConfig = pluginConfig;
+            break;
+        case 'scripts':
+            selectedConfig = postinstallConfig;
+            break;
+        default:
+            selectedConfig = libraryConfig;
+    }
+
+    return defineConfig(selectedConfig);
 }
