@@ -3,13 +3,13 @@
     "version": "1.2.0-beta.4",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
-    "main": "dist/laravel-ts-utils.es.js",
-    "types": "dist/types/index.d.ts",
-    "style": "dist/style.css",
+    "main": "dist/app/laravel-ts-utils.es.js",
+    "types": "dist/app/types/index.d.ts",
+    "style": "dist/app/style.css",
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
-            "default": "./dist/laravel-ts-utils.es.js"
+            "types": "./dist/app/types/index.d.ts",
+            "default": "./dist/app/laravel-ts-utils.es.js"
         },
         "./plugins": {
             "types": "./plugins/index.d.ts",

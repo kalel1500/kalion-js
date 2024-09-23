@@ -17,14 +17,14 @@ export default ({ mode }: { mode: string }) => {
     const libraryConfig: UserConfig = {
         plugins: [
             dts({
-                include: ['src'], // Incluye los directorios src y types para la generación de tipos
-                exclude: ['src/_internal/**'],
-                outDir: 'dist/types', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+                include: ['src/app'], // Incluye los directorios src y types para la generación de tipos
+                exclude: ['src/app/_internal/**'],
+                outDir: 'dist/app/types', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/index.ts'),
+                entry: path.resolve(__dirname, 'src/app/index.ts'),
                 name: 'LaravelTsUtils',
                 fileName: (format) => `laravel-ts-utils.${format}.js`,
                 formats: ['es']
