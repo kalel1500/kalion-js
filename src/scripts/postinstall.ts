@@ -17,10 +17,10 @@ const ensureDirectoryExistence = (filePath: string) => {
 
 // Función para crear un archivo con contenido (vacío por defecto)
 const createFile = (filePath: string, contentPath = '') => {
-    if (fs.existsSync(filePath)) {
+    /*if (fs.existsSync(filePath)) {
         console.log(`El archivo ya existe: ${filePath}`);
         return;
-    }
+    }*/
     const content = fs.readFileSync(contentPath, 'utf8');
     fs.writeFileSync(filePath, content, 'utf8');
     console.log(`Archivo creado: ${filePath}`);
