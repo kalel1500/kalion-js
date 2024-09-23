@@ -26,9 +26,13 @@ const createFile = (filePath: string, contentPath = '') => {
     console.log(`Archivo creado: ${filePath}`);
 };
 
-// Ruta a la carpeta donde se crearán los archivos
-const projectRoot = process.cwd();
-const contentDirectory = path.join(__dirname, 'files'); // Ajusta según la ubicación de tus archivos de contenido
+let projectRoot = process.cwd(); // Ruta de la carpeta donde se crearán los archivos
+const contentDirectory = path.join(__dirname, 'files'); // Ruta de la carpeta donde ubican los archivos de contenido
+
+// Comprobar si `process.cwd()` está dentro de `node_modules` y ajustar si es necesario
+if (projectRoot.includes('node_modules')) {
+    projectRoot = path.resolve(projectRoot, '../../'); // Sube dos niveles para salir de node_modules
+}
 
 // Definir las rutas de los archivos que quieres crear
 const filesToCreate = [
