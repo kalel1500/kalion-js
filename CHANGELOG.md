@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.4...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.5...master)
+
+## [v1.2.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.4...v1.2.0-beta.5) - 2024-09-23
+
+### Added
+
+* Nuevo script (postinstall) para crear los archivos iniciales del front de la aplicación tras la instalación del paquete (`dist/scripts/postinstall.js`)
+
+### Changed
+
+* (refactor) Compilar todo el código dentro de la carpeta `dist` separándolo en dos carpetas `dist/app` y `dist/plugins`
+* (refactor) Código fuente del front movido a `src/app` para separarlo de los plugins
+
+### Fixed
+
+* Solucionado error al excluir el TypeScript interno de la compilación
 
 ## [v1.2.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.3...v1.2.0-beta.4) - 2024-09-20
 
