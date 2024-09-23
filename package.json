@@ -11,14 +11,13 @@
             "types": "./dist/app/types/index.d.ts",
             "default": "./dist/app/laravel-ts-utils.es.js"
         },
-        "./plugins": {
-            "types": "./plugins/index.d.ts",
-            "default": "./plugins/vite-plugin-laravel-ts-utils.js"
+        "./dist/plugins": {
+            "types": "./dist/plugins/index.d.ts",
+            "default": "./dist/plugins/vite-plugin-laravel-ts-utils.js"
         }
     },
     "files": [
-        "dist",
-        "plugins"
+        "dist"
     ],
     "scripts": {
         "build:library": "vite build",

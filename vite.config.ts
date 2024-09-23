@@ -48,14 +48,15 @@ export default ({ mode }: { mode: string }) => {
                 }
             },
             minify: minify,
-            sourcemap: sourcemap
+            sourcemap: sourcemap,
+            outDir: './dist/app'
         }
     };
     const pluginConfig: UserConfig = {
         plugins: [
             dts({
                 include: ['src/plugins'], // Incluye los directorios src y types para la generación de tipos
-                outDir: 'plugins', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+                outDir: 'dist/plugins', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
         ],
         build: {
@@ -71,7 +72,7 @@ export default ({ mode }: { mode: string }) => {
                 external: ['fs', 'path', 'vite'],
             },
             minify: false,
-            outDir: './plugins'
+            outDir: './dist/plugins'
         }
     };
     return defineConfig(isPlugin ? pluginConfig : libraryConfig);
