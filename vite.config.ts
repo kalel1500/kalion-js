@@ -76,29 +76,29 @@ export default ({ mode }: { mode: string }) => {
             outDir: './dist/plugins'
         }
     };
-    const postinstallConfig: UserConfig = {
+    const cliConfig: UserConfig = {
         plugins: [
             viteStaticCopy({
                 targets: [
                     {
-                        src: 'src/scripts/files',   // Selecciona todos los archivos y subcarpetas
-                        dest: '',                   // Carpeta de destino donde se copiarán en la salida
+                        src: 'src/cli/files',   // Selecciona todos los archivos y subcarpetas
+                        dest: '',               // Carpeta de destino donde se copiarán en la salida
                     }
                 ]
             })
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/scripts/postinstall.ts'),
-                name: 'PostinstallLaravelTsUtils',
-                fileName: (format) => `postinstall.js`,
+                entry: path.resolve(__dirname, 'src/cli/index.ts'),
+                name: 'CliLaravelTsUtils',
+                fileName: (format) => `index.js`,
                 formats: ['es'],
             },
             rollupOptions: {
                 external: ['fs', 'path', 'url'], // Marcar fs, path y url como externos porque son APIs de Node.js
             },
             minify: false,
-            outDir: './dist/scripts'
+            outDir: './dist/cli'
         }
     };
 
@@ -108,7 +108,7 @@ export default ({ mode }: { mode: string }) => {
             selectedConfig = pluginConfig;
             break;
         case 'scripts':
-            selectedConfig = postinstallConfig;
+            selectedConfig = cliConfig;
             break;
         default:
             selectedConfig = libraryConfig;

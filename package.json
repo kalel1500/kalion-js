@@ -1,6 +1,6 @@
 {
     "name": "laravel-ts-utilities",
-    "version": "1.2.0-beta.6",
+    "version": "1.2.0-beta.9",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
     "main": "dist/app/laravel-ts-utils.es.js",
@@ -19,12 +19,14 @@
     "files": [
         "dist"
     ],
+    "bin": {
+        "laravel-ts-utilities": "dist/cli/index.js"
+    },
     "scripts": {
         "build:library": "vite build",
         "build:plugins": "cross-env BUILD_TARGET=plugins vite build",
         "build:scripts": "cross-env BUILD_TARGET=scripts vite build",
-        "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts",
-        "postinstall": "node ./dist/scripts/postinstall.js"
+        "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts"
     },
     "repository": {
         "type": "git",
