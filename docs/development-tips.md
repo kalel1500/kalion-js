@@ -37,3 +37,10 @@
 ### Subir un tag
 
 * `git push origin <tag_name>`
+
+## Otros paquetes de interes
+
+Para facilitar la externalización de dependencias nos pueden interesar estos paquetes:
+
+* `vite-plugin-externalize-dependencies` (simple)
+* `vite-plugin-externals` (complex)
