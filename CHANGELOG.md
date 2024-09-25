@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.5...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.12...master)
+
+## [v1.2.0-beta.12](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.6...v1.2.0-beta.12) - 2024-09-25
+
+### Changed
+
+* (refactor) stubs: modificar las comillas dobles (`"`) por comillas simples (`'`) + dejar espacios en los imports con llaves (`{ ... }`)
+* stubs: Nuevos archivos para configurar `tailwindcss` y poder recibir parámetro en el comando de creación (`npx laravel-ts-utilities`) para poder separar la creación entre `all`, `typescript`, `tailwind`.
+* stubs: Ruta `scripts` renombrada `cli` y el `postinstall.js` a `index.js`.
+* stubs: Eliminar script `postinstall` y añadir comando (`bin`) `laravel-ts-utilities` en el archivo `package.json` para poder crear los archivos manualmente y no solo tras la instalación (como `npx tailwindcss`).
+
+## [v1.2.0-beta.6](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.5...v1.2.0-beta.6) - 2024-09-23
+
+### Fixed
+
+* (fix) postinstall: se creaban los archivos en el propio paquete. Ahora se sube dos niveles para salir de node_modules y crearlos en la aplicación que lo instala.
 
 ## [v1.2.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.4...v1.2.0-beta.5) - 2024-09-23
 
