@@ -14,15 +14,15 @@ declare global {
 }
 
 // INICIALIZAR CONSTANTES Y TRADUCCIONES (para que se apliquen en el paquete aunque no se utilicen en la app)
-import "./constants";
-import "./translations";
+import './constants';
+import './translations';
 
 // Los otros imports (debajo)
-import {Route, UtilitiesServiceProvider} from "laravel-ts-utilities";
-import {defineRoutes} from "./routes";
+import { Route, UtilitiesServiceProvider } from 'laravel-ts-utilities';
+import { defineRoutes } from './routes';
 
 // Definir que acciones ejecutar del paquete
-UtilitiesServiceProvider.features(["registerGlobalError", "enableNotifications"]);
+UtilitiesServiceProvider.features(['registerGlobalError', 'enableNotifications']);
 
 // Definimos y ejecutamos las rutas de JS
 defineRoutes();
