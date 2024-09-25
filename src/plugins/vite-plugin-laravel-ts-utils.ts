@@ -51,7 +51,7 @@ export function laravelTsUtilsPlugin(): Plugin {
             const confAppCode           = env.VITE_APP_CODE;
             const confAppMinify                 = env.VITE_CONF_MINIFY === 'true';
             const confAppSourcemap              = env.VITE_CONF_SOURCEMAP === 'true';
-            const confUseAppCodeInSourcePath    = env.VITE_CONF_USE_APPCODE_IN_SOURCE_PATH === 'true'
+            const confUseAppCodeInSourcePath    = env.VITE_CONF_USE_APPCODE_IN_SOURCE_PATH === 'true';
             const modeIsProd                    = mode === 'production';
 
             const appCode = getAppCode(confAppCode, confAppName);
@@ -74,10 +74,26 @@ export function laravelTsUtilsPlugin(): Plugin {
                         external: externalDependencies
                     }
                 },
+                optimizeDeps: {
+                    exclude: externalDependencies
+                },
                 css: {
                     devSourcemap: true
                 },
             };
+        },
+        resolveId(source) {
+            if (externalDependencies.includes(source)) {
+                return 'kalel--' + source;
+            }
+            return null; // Deja que Vite maneje el resto
+        },
+        load(id) {
+            // Si es uno de los módulos externos, no cargamos nada
+            if (id.startsWith('kalel--')) {
+                return ''; // Retorna una cadena vacía para no cargar el módulo
+            }
+            return null; // Deja que Vite cargue otros módulos
         }
     };
 }
