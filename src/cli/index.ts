@@ -4,10 +4,10 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Obtener __dirname en ESM
-// @ts-ignore
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+type FileEntry = {
+    path: string;
+    filename: string;
+};
 
 // Función para crear directorios si no existen
 const ensureDirectoryExistence = (filePath: string) => {
@@ -28,8 +28,11 @@ const createFile = (filePath: string, contentPath = '') => {
     console.log(`Archivo creado: ${filePath}`);
 };
 
-let projectRoot = process.cwd(); // Ruta de la carpeta donde se crearán los archivos
+// @ts-ignore
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const contentDirectory = path.join(__dirname, 'files'); // Ruta de la carpeta donde ubican los archivos de contenido
+let projectRoot = process.cwd(); // Ruta de la carpeta donde se crearán los archivos
 
 // Comprobar si `process.cwd()` está dentro de `node_modules` y ajustar si es necesario
 if (projectRoot.includes('node_modules')) {
@@ -37,17 +40,42 @@ if (projectRoot.includes('node_modules')) {
 }
 
 // Definir las rutas de los archivos que quieres crear
-const filesToCreate = [
-    { path: 'resources/js/app.ts',                                      filename: 'app.txt' },
-    { path: 'resources/js/app/bootstrap.ts',                            filename: 'app/bootstrap.txt' },
-    { path: 'resources/js/app/constants.ts',                            filename: 'app/constants.txt' },
-    { path: 'resources/js/app/routes.ts',                               filename: 'app/routes.txt' },
-    { path: 'resources/js/app/translations.ts',                         filename: 'app/translations.txt' },
-    { path: 'resources/js/app/lang/es.json',                            filename: 'app/lang/es.txt' },
-    { path: 'resources/js/app/lang/en.json',                            filename: 'app/lang/en.txt' },
-    { path: 'resources/js/src/home/infrastructure/HomeController.ts',   filename: 'src/home/infrastructure/HomeController.txt' },
-    { path: 'resources/js/src/shared/infrastructure/TestController.ts', filename: 'src/shared/infrastructure/TestController.txt' }
+const typeScriptFiles: FileEntry[] = [
+    { path: 'resources/js/app.ts',                                      filename: 'resources/js/app.txt' },
+    { path: 'resources/js/app/bootstrap.ts',                            filename: 'resources/js/app/bootstrap.txt' },
+    { path: 'resources/js/app/constants.ts',                            filename: 'resources/js/app/constants.txt' },
+    { path: 'resources/js/app/routes.ts',                               filename: 'resources/js/app/routes.txt' },
+    { path: 'resources/js/app/translations.ts',                         filename: 'resources/js/app/translations.txt' },
+    { path: 'resources/js/app/lang/es.json',                            filename: 'resources/js/app/lang/es.txt' },
+    { path: 'resources/js/app/lang/en.json',                            filename: 'resources/js/app/lang/en.txt' },
+    { path: 'resources/js/src/home/infrastructure/HomeController.ts',   filename: 'resources/js/src/home/infrastructure/HomeController.txt' },
+    { path: 'resources/js/src/shared/infrastructure/TestController.ts', filename: 'resources/js/src/shared/infrastructure/TestController.txt' }
 ];
+
+// Definir las rutas de los archivos que quieres crear
+const tailwindFiles: FileEntry[] = [
+    { path: 'resources/css/app.css',    filename: 'resources/css/app.txt'   },
+    { path: 'postcss.config.js',        filename: 'postcss.config.txt'      },
+    { path: 'tailwind.config.js',       filename: 'tailwind.config.txt'     },
+];
+
+const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
+
+let filesToCreate: FileEntry[];
+switch (command) {
+    case 'all':
+        filesToCreate = [...typeScriptFiles, ...tailwindFiles];
+        break;
+    case 'typescript':
+        filesToCreate = typeScriptFiles;
+        break;
+    case 'tailwind':
+        filesToCreate = tailwindFiles;
+        break;
+    default:
+        filesToCreate = [];
+        break;
+}
 
 // Crear cada archivo
 filesToCreate.forEach(file => {
