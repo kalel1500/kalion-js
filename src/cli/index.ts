@@ -5,8 +5,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 type FileEntry = {
-    path: string;
-    filename: string;
+    filePath: string;
+    contentPath: string;
 };
 
 // Función para crear directorios si no existen
@@ -41,23 +41,23 @@ if (projectRoot.includes('node_modules')) {
 
 // Definir las rutas de los archivos que quieres crear
 const typeScriptFiles: FileEntry[] = [
-    { path: 'resources/js/app.ts',                                          filename: 'resources/js/app.txt'                                        },
-    { path: 'resources/js/app/bootstrap.ts',                                filename: 'resources/js/app/bootstrap.txt'                              },
-    { path: 'resources/js/app/constants.ts',                                filename: 'resources/js/app/constants.txt'                              },
-    { path: 'resources/js/app/routes.ts',                                   filename: 'resources/js/app/routes.txt'                                 },
-    { path: 'resources/js/app/translations.ts',                             filename: 'resources/js/app/translations.txt'                           },
-    { path: 'resources/js/app/lang/es.json',                                filename: 'resources/js/app/lang/es.txt'                                },
-    { path: 'resources/js/app/lang/en.json',                                filename: 'resources/js/app/lang/en.txt'                                },
-    { path: 'resources/js/src/home/infrastructure/HomeController.ts',       filename: 'resources/js/src/home/infrastructure/HomeController.txt'     },
-    { path: 'resources/js/src/shared/infrastructure/TestController.ts',     filename: 'resources/js/src/shared/infrastructure/TestController.txt'   },
-    { path: 'resources/js/src/shared/infrastructure/SharedController.ts',   filename: 'resources/js/src/shared/infrastructure/SharedController.txt' },
+    { filePath: 'resources/js/app.ts',                                          contentPath: 'resources/js/app.txt'                                        },
+    { filePath: 'resources/js/app/bootstrap.ts',                                contentPath: 'resources/js/app/bootstrap.txt'                              },
+    { filePath: 'resources/js/app/constants.ts',                                contentPath: 'resources/js/app/constants.txt'                              },
+    { filePath: 'resources/js/app/routes.ts',                                   contentPath: 'resources/js/app/routes.txt'                                 },
+    { filePath: 'resources/js/app/translations.ts',                             contentPath: 'resources/js/app/translations.txt'                           },
+    { filePath: 'resources/js/app/lang/es.json',                                contentPath: 'resources/js/app/lang/es.txt'                                },
+    { filePath: 'resources/js/app/lang/en.json',                                contentPath: 'resources/js/app/lang/en.txt'                                },
+    { filePath: 'resources/js/src/home/infrastructure/HomeController.ts',       contentPath: 'resources/js/src/home/infrastructure/HomeController.txt'     },
+    { filePath: 'resources/js/src/shared/infrastructure/TestController.ts',     contentPath: 'resources/js/src/shared/infrastructure/TestController.txt'   },
+    { filePath: 'resources/js/src/shared/infrastructure/SharedController.ts',   contentPath: 'resources/js/src/shared/infrastructure/SharedController.txt' },
 ];
 
 // Definir las rutas de los archivos que quieres crear
 const tailwindFiles: FileEntry[] = [
-    { path: 'resources/css/app.css',    filename: 'resources/css/app.txt'   },
-    { path: 'postcss.config.js',        filename: 'postcss.config.txt'      },
-    { path: 'tailwind.config.js',       filename: 'tailwind.config.txt'     },
+    { filePath: 'resources/css/app.css',    contentPath: 'resources/css/app.txt'   },
+    { filePath: 'postcss.config.js',        contentPath: 'postcss.config.txt'      },
+    { filePath: 'tailwind.config.js',       contentPath: 'tailwind.config.txt'     },
 ];
 
 const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
@@ -80,8 +80,8 @@ switch (command) {
 
 // Crear cada archivo
 filesToCreate.forEach(file => {
-    const filePath = path.join(projectRoot, file.path);
-    const contentPath = path.join(contentDirectory, file.filename);
+    const filePath = path.join(projectRoot, file.filePath);
+    const contentPath = path.join(contentDirectory, file.contentPath);
     ensureDirectoryExistence(filePath);
     createFile(filePath, contentPath);
 });
