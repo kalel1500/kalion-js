@@ -1,7 +1,7 @@
-import {defineConfig, loadEnv, UserConfig} from 'vite';
+import { defineConfig, loadEnv, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
-import {viteStaticCopy} from "vite-plugin-static-copy";
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 type StrBoolean = 'true' | 'false';
 type Env = {
@@ -11,8 +11,8 @@ type Env = {
 
 export default ({ mode }: { mode: string }) => {
     const env = loadEnv(mode, process.cwd()) as Env;
-    const minify = env.VITE_MINIFY === "true";
-    const sourcemap = env.VITE_SOURCEMAP === "true";
+    const minify = env.VITE_MINIFY === 'true';
+    const sourcemap = env.VITE_SOURCEMAP === 'true';
     const buildTarget = process.env.BUILD_TARGET;
 
     const libraryConfig: UserConfig = {
@@ -81,7 +81,7 @@ export default ({ mode }: { mode: string }) => {
             viteStaticCopy({
                 targets: [
                     {
-                        src: 'src/cli/files',   // Selecciona todos los archivos y subcarpetas
+                        src: 'src/cli/stubs',   // Selecciona todos los archivos y subcarpetas
                         dest: '',               // Carpeta de destino donde se copiarán en la salida
                     }
                 ]

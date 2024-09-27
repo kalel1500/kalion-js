@@ -31,7 +31,7 @@ const createFile = (filePath: string, contentPath = '') => {
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const contentDirectory = path.join(__dirname, 'files'); // Ruta de la carpeta donde ubican los archivos de contenido
+const contentDirectory = path.join(__dirname, 'stubs'); // Ruta de la carpeta donde ubican los archivos de contenido
 let projectRoot = process.cwd(); // Ruta de la carpeta donde se crearán los archivos
 
 // Comprobar si `process.cwd()` está dentro de `node_modules` y ajustar si es necesario
