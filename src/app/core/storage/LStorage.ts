@@ -35,20 +35,4 @@ export class LStorage {
         LStorage.setItem("lastConnection", LDate.toSeconds(LDate.now()));
     }
 
-    static startStorageDay() {
-        if (LStorage.isFirstConnectionInDay()) {
-            LStorage.setNowAsLastConnection();
-            LStorage.removeItem("websocketsFailed"); // restartWebsocketsStorage
-        }
-
-        /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem("lastConnection"));
-        // console.log("lastConnection");
-        // console.log(test.toFormat(MyLuxon.formats.datetime_startYear));
-
-        // let now = MyLuxon.now();
-        // console.log("hoy menos dos dias:");
-        // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.date_startDay));
-        // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.timestamp_seconds));*/
-    }
-
 }

@@ -1,4 +1,4 @@
-import {g} from "../core";
+import { g, LStorage } from '../core';
 import {Notify} from "../core";
 
 type Actions = "registerGlobalError" | "enableTooltips" | "enableNotifications"
@@ -17,7 +17,22 @@ export class UtilitiesServiceProvider {
         enableNotifications: () => {
             Notify.checkAndRequestPermission();
         },
-    }
+        startStorageDay: () => {
+            if (LStorage.isFirstConnectionInDay()) {
+                LStorage.setNowAsLastConnection();
+                LStorage.removeItem("websocketsFailed"); // restartWebsocketsStorage
+            }
+
+            /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem("lastConnection"));
+            // console.log("lastConnection");
+            // console.log(test.toFormat(MyLuxon.formats.datetime_startYear));
+
+            // let now = MyLuxon.now();
+            // console.log("hoy menos dos dias:");
+            // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.date_startDay));
+            // console.log(now.minus({day:2}).toFormat(MyLuxon.formats.timestamp_seconds));*/
+        },
+    };
 
     static features(actions: Actions[]) {
         actions.forEach(item => {
