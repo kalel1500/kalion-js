@@ -4,8 +4,7 @@ import {__const} from "../_internal/helpers";
 import {Websocket} from "./Websocket";
 
 export class EchoService {
-    static #connectionFailed = false;
-    static #connectionSuccess = false;
+    static #connectionFailed: boolean | null = null;
     static #isStarted = false;
 
     static start() {
@@ -43,7 +42,6 @@ export class EchoService {
 
         // Cambio cualquer estado
         echoConnection.bind("state_change", (states: any) => {
-            EchoService.#connectionSuccess = true;
             console.info(`pusher.connection.state changed to [${states.current}]`);
             Websocket.checkWebsocketsService().then();
         });
@@ -71,14 +69,14 @@ export class EchoService {
     // -----------------------------------------------------------------------------------------------------------------
     // ----- GETTERS AND SETTERS----------------------------------------------------------------------------------------
 
-    static isConnected(): boolean {
-        return EchoService.#connectionSuccess || !EchoService.#connectionFailed;
+    static isFailed(): boolean {
+        return EchoService.#connectionFailed === true;
     }
 
     static checkAndUpdateConnectedStatus() {
         if (!EchoService.#isStarted) return;
         const echoConnection = window.Echo.connector.pusher.connection;
-        if (EchoService.#connectionFailed && echoConnection.state === "connected") {
+        if (EchoService.#connectionFailed === true && echoConnection.state === "connected") {
             EchoService.#connectionFailed = false;
         }
     }

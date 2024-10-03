@@ -119,7 +119,7 @@ export class Websocket {
             SModal.toastBoth({success: resultB.success, title: resultB.message}).then();
         }
 
-        const emittingEventHasFailed = !resultB.data.broadcasting.success || !EchoService.isConnected();
+        const emittingEventHasFailed = !resultB.data.broadcasting.success || EchoService.isFailed();
         if (!__const("VITE_BROADCASTING_ENABLED") || emittingEventHasFailed) { // Codigo que se ejecuta cuando NO estan activos los websoquets
             Websocket.STORAGE.setAsFailed();
             if (typeof onError === "function") onError(resultB);
