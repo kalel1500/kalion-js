@@ -34,17 +34,17 @@ export class EchoService {
             console.error(`Ha habido un error en la conexion con los websockets [${type}]:`);
             console.error(error);
         };
+        const pusherSuccessFunction = (type: string) => {
+            EchoService.#connectionFailed = false;
+            console.info(`[${type}]`);
+        };
 
         const echoConnection = window.Echo.connector.pusher.connection;
 
         // Cambio cualquer estado
         echoConnection.bind("state_change", (states: any) => {
             EchoService.#connectionSuccess = true;
-            if (states.current === "connected") {
-                EchoService.#connectionFailed = false;
-            }
-
-            console.info("[change]");
+            console.info(`pusher.connection.state changed to [${states.current}]`);
             Websocket.checkWebsocketsService().then();
         });
 
@@ -54,7 +54,7 @@ export class EchoService {
 
         echoConnection.bind("connecting", () => console.info("[connecting]"));
 
-        echoConnection.bind("connected", () => {console.info("[connected]");});
+        echoConnection.bind("connected", () => pusherSuccessFunction('connected'));
 
         // ----------------------------------------------------------- Estados de error ------------------------------------------------------------------
 
