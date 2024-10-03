@@ -105,12 +105,6 @@ export class Websocket {
                 });
             });
         }
-
-        if (LStorage.isFirstConnectionInDay()) {
-            Websocket.checkWebsocketsService().then();
-        } else {
-            Websocket.#checkStorageAndToggleError();
-        }
     }
 
     static checkBroadcastingFetch({result, onError, showAlert = false}: {
