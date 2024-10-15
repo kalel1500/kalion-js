@@ -1,4 +1,4 @@
-import { g, LStorage } from '../core';
+import { g, LayoutListenersUseCase, LStorage } from '../core';
 import {Notify} from "../core";
 
 type Features = keyof typeof UtilitiesServiceProvider.actions;
@@ -33,6 +33,9 @@ export class UtilitiesServiceProvider {
         enableNotifications: () => {
             Notify.checkAndRequestPermission();
         },
+        startLayoutListeners: () => {
+            LayoutListenersUseCase.new().__invoke();
+        }
     };
 
     static features(actions: Features[]) {

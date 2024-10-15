@@ -27,6 +27,7 @@ export interface DefaultConstants {
     VITE_BROADCASTING_ENABLED: boolean;
     VITE_APP_ENV: string;
     VITE_APP_NAME: string;
+    VITE_APP_STORAGE_VERSION: string;
 }
 
 export interface DefaultTranslations extends Translation {
