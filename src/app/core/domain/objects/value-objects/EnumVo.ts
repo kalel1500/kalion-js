@@ -1,6 +1,6 @@
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
-import {g} from "../../../../helpers";
-import {StrOrNullish} from "../../../../_types";
+import { g } from '../../../infrastructure';
+import { StrOrNullish } from '../../../_types';
 
 export type EnumVoParams = {
     allowNull?: boolean

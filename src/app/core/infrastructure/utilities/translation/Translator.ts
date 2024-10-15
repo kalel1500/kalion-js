@@ -1,7 +1,7 @@
 import es from "./lang/es.json";
 import en from "./lang/en.json";
 import {__const} from "../_internal/helpers";
-import {DefaultTranslations, TranslationReplacements} from "../_types";
+import {DefaultTranslations, TranslationReplacements} from "../../../_types";
 
 export interface Translation {
     [key: string]: string;

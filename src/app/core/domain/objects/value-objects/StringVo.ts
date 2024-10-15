@@ -1,6 +1,6 @@
-import {g} from "../../../../helpers";
+import { g } from '../../../infrastructure';
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
-import {StrOrNullish} from "../../../../_types";
+import { StrOrNullish } from '../../../_types';
 
 export type StringVoParams = {
     allowNull?: boolean

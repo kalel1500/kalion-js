@@ -1,6 +1,6 @@
 import {EventCallBackMethods} from "tabulator-tables";
 import Echo from "laravel-echo";
-import {Translation} from "../translation";
+import { Translation } from '../infrastructure';
 
 declare global {
     interface Window {

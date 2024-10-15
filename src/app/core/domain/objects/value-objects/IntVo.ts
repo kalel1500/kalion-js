@@ -1,6 +1,6 @@
 import {InvalidValueException} from "../../exceptions/InvalidValueException";
-import {g} from "../../../../helpers";
-import {StrIntOrNullish} from "../../../../_types";
+import { g } from '../../../infrastructure';
+import { StrIntOrNullish } from '../../../_types';
 
 export type IntVoParams = {
     allowNull?: boolean

@@ -10,7 +10,7 @@ import {
 } from "tabulator-tables";
 import {g} from "../helpers";
 import {SModal} from "../modals";
-import {FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules} from "../_types";
+import {FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules} from "../../../_types";
 
 export class Ttable {
     readonly tableId: string | HTMLElement;

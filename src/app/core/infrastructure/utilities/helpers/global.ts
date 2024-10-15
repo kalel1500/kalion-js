@@ -7,7 +7,7 @@ import {
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
-} from "../_types";
+} from "../../../_types";
 
 type Value = string | string[];
 type Key = string | string[] | null;
