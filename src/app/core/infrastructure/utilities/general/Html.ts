@@ -1,4 +1,3 @@
-
 export class Html {
     static compareTailwindClassesHTML(htmlA: string, htmlB: string) {
         // Función auxiliar para extraer las clases de un string de clases

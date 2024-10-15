@@ -1,4 +1,4 @@
-import {route} from "ziggy-js";
+import { route } from 'ziggy-js';
 import { g } from '../general/global';
 
 type ROUTES = {
@@ -34,10 +34,10 @@ export class Route {
     };
 
     static page(uri: string, callback: [any, string], makeDataRequest = false): void {
-        if (Array.isArray(callback) && (typeof makeDataRequest === "boolean")) {
+        if (Array.isArray(callback) && (typeof makeDataRequest === 'boolean')) {
             const controller = callback[0];
             const method = callback[1];
-            Route.#ROUTES["PAGES"][uri] = {
+            Route.#ROUTES['PAGES'][uri] = {
                 uri: uri,
                 controller: controller,
                 method: method,
@@ -50,7 +50,7 @@ export class Route {
         if (Array.isArray(callback) && Array.isArray(uris)) {
             const controller = callback[0];
             const method = callback[1];
-            Route.#ROUTES["COMPONENTS"][`${controller.name}_${method}`] = {
+            Route.#ROUTES['COMPONENTS'][`${controller.name}_${method}`] = {
                 controller: controller,
                 method: method,
                 uris: uris,
@@ -62,7 +62,7 @@ export class Route {
         if (Array.isArray(callback) && Array.isArray(except)) {
             const controller = callback[0];
             const method = callback[1];
-            Route.#ROUTES["ALL"][`${controller.name}_${method}`] = {
+            Route.#ROUTES['ALL'][`${controller.name}_${method}`] = {
                 controller: controller,
                 method: method,
                 except: except,
@@ -73,7 +73,7 @@ export class Route {
     static dispatch(): void {
         if (!Route.existsRoutesDefinition()) return;
 
-        Object.values(Route.#ROUTES["PAGES"]).forEach(page => {
+        Object.values(Route.#ROUTES['PAGES']).forEach(page => {
             if (route().current() === page.uri) {
                 // Prueba de imports dinamicos para reducir tamaño del archivo js
                 // const { default: ControllerClass } = await page.controller()
@@ -96,7 +96,7 @@ export class Route {
             }
         });
 
-        Object.values(Route.#ROUTES["COMPONENTS"]).forEach(component => {
+        Object.values(Route.#ROUTES['COMPONENTS']).forEach(component => {
             const onRoutes = component.uris;
             const currentRoute = route().current();
             if (currentRoute !== undefined && onRoutes.includes(currentRoute)) {
@@ -105,7 +105,7 @@ export class Route {
             }
         });
 
-        Object.values(Route.#ROUTES["ALL"]).forEach(component => {
+        Object.values(Route.#ROUTES['ALL']).forEach(component => {
             const exceptRoutes = component.except;
             const currentRoute = route().current();
             if (currentRoute !== undefined && !exceptRoutes.includes(currentRoute)) {
@@ -118,6 +118,6 @@ export class Route {
     static existsRoutesDefinition(): boolean {
         const routeVariable = route();
         // @ts-ignore
-        return routeVariable.t.hasOwnProperty("url");
+        return routeVariable.t.hasOwnProperty('url');
     }
 }

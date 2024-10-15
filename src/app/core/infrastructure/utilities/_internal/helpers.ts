@@ -1,4 +1,4 @@
-import {DefaultConstants, DefaultTranslations, TranslationReplacements} from "../../../_types";
+import { DefaultConstants, DefaultTranslations, TranslationReplacements } from '../../../_types';
 import { Translator } from '../translation/Translator';
 import { Constants } from '../general/Constants';
 

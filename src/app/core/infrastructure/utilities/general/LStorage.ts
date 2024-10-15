@@ -33,19 +33,19 @@ export class LStorage {
 
     static isFirstConnectionInDay() {
         const validSecondsToBeCountedAsTheSameDay = 10;
-        const lastConn = LStorage.getItem("lastConnection");
-        const diffNow = LDate.diffNow(lastConn, "seconds");
+        const lastConn = LStorage.getItem('lastConnection');
+        const diffNow = LDate.diffNow(lastConn, 'seconds');
         return (
-            !LStorage.exist("lastConnection")
+            !LStorage.exist('lastConnection')
             ||
-            !LDate.hasSame(LDate.now(), lastConn, "day")
+            !LDate.hasSame(LDate.now(), lastConn, 'day')
             ||
             (Math.abs(diffNow ?? 0) < validSecondsToBeCountedAsTheSameDay)
         );
     }
 
     static setNowAsLastConnection() {
-        LStorage.setItem("lastConnection", LDate.toSeconds(LDate.now()));
+        LStorage.setItem('lastConnection', LDate.toSeconds(LDate.now()));
     }
 
 }

@@ -1,6 +1,6 @@
-import {route} from "ziggy-js";
+import { route } from 'ziggy-js';
 import { g } from '../general/global';
-import {Filter} from "tabulator-tables";
+import { Filter } from 'tabulator-tables';
 
 // type QueryParams = { [p: string]: string | number }
 type QueryParams = Record<string, unknown>
@@ -15,7 +15,7 @@ export class Url {
     static #updateUrl(params: QueryParams) {
         // TODO Canals(revisar) - quiza hay que limitar por si se hace muy grande la query -> console.log(objectQueryParams.filters.length);
         const newUrl = route((route().current() as string), params);
-        window.history.pushState({}, "", newUrl);
+        window.history.pushState({}, '', newUrl);
     }
 
     static addParamsToUrl(objectQueryParams: QueryParams, onStart = false) {

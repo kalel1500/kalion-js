@@ -1,20 +1,17 @@
 import { route } from 'ziggy-js';
 import { Instantiable } from '../../infrastructure';
 
-export class DomService extends Instantiable
-{
+export class DomService extends Instantiable {
     private $document = document.documentElement;
 
     // Función generalizada para cambiar clases y almacenar en localStorage
-    private setState(key: string, className: string, isActive: boolean)
-    {
+    private setState(key: string, className: string, isActive: boolean) {
         this.$document.classList.toggle(className, isActive);
         localStorage.setItem(key, isActive ? 'true' : 'false');
     }
 
     // Comprobar y aplicar estado inicial desde localStorage
-    private initializeState(key: string, className: string, prefersCondition: boolean, callback: Function | null = null)
-    {
+    private initializeState(key: string, className: string, prefersCondition: boolean, callback: Function | null = null) {
         const savedState = localStorage.getItem(key);
         let isActive;
         // Si hay un estado guardado en localStorage, lo usamos
@@ -31,8 +28,7 @@ export class DomService extends Instantiable
         return isActive;
     }
 
-    startDarkMode()
-    {
+    startDarkMode() {
         // Inicialización del tema oscuro
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -57,8 +53,7 @@ export class DomService extends Instantiable
 
     }
 
-    startSidebarState()
-    {
+    startSidebarState() {
         // Clave personalizada para almacenar el estado del sidebar según la ruta actual
         const getSidebarKey = (routeName: string | undefined) => `sidebar-collapsed-${routeName}`;
 

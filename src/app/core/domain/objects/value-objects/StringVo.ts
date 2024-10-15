@@ -1,5 +1,5 @@
 import { g } from '../../../infrastructure';
-import {InvalidValueException} from "../../exceptions/InvalidValueException";
+import { InvalidValueException } from '../../exceptions/InvalidValueException';
 import { StrOrNullish } from '../../../_types';
 
 export type StringVoParams = {
@@ -27,12 +27,12 @@ export class StringVo {
     #ensureIsValidValue() {
         if (!this._allowNull) {
             if (g.isEmpty(this._value)) {
-                const message = (this._errorMessage === null) ? "<StringVo> no permite un valor vacio" : this._errorMessage;
+                const message = (this._errorMessage === null) ? '<StringVo> no permite un valor vacio' : this._errorMessage;
                 throw new InvalidValueException(message);
             }
 
-            if (typeof this._value !== "string") {
-                const message = "<StringVo> ha de ser de tipo String";
+            if (typeof this._value !== 'string') {
+                const message = '<StringVo> ha de ser de tipo String';
                 throw new InvalidValueException(message);
             }
         }

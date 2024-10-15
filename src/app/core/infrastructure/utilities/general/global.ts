@@ -1,4 +1,4 @@
-import {___, __const} from "../_internal/helpers";
+import { ___, __const } from '../_internal/helpers';
 import { SModal } from '../modals/SModal';
 import {
     CatchParams,
@@ -7,7 +7,7 @@ import {
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
-} from "../../../_types";
+} from '../../../_types';
 
 type Value = string | string[];
 type Key = string | string[] | null;
@@ -20,30 +20,30 @@ export class g {
     }
 
     static isUndefined(variable: any): boolean {
-        return typeof variable === "undefined";
+        return typeof variable === 'undefined';
     }
 
     static escapeHtml(html: string): string {
         return html
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll("\"", "&quot;")
-            .replaceAll("'", "&#039;");
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll('\'', '&#039;');
     }
 
     static handleGlobalError(error?: Error) {
-        if (error?.name === "CannotOpenModalException") {
+        if (error?.name === 'CannotOpenModalException') {
             g.consoleInfo(error);
             return true;
         }
 
         // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? "Formato error imprevisto"));
         SModal.errorModal({
-            title: "Error imprevisto",
-            html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? "Formato error imprevisto")}</span>`,
-            cancelButtonText: "Ok",
-            footer: ___("contact_pi_team"),
+            title: 'Error imprevisto',
+            html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? 'Formato error imprevisto')}</span>`,
+            cancelButtonText: 'Ok',
+            footer: ___('contact_pi_team'),
         }).then(result => {
             g.errorModalIsShowed = false;
         });
@@ -53,7 +53,7 @@ export class g {
 
     static async newFetch<T = FetchResponse>({
                                                  url,
-                                                 type = "GET",
+                                                 type = 'GET',
                                                  ajaxParams = undefined,
                                                  responseIsText = false,
                                                  showLog = false,
@@ -63,13 +63,13 @@ export class g {
             let fetchParams = {
                 method: type, // *GET, POST, PUT, DELETE, etc.
                 headers: {
-                    "Content-Type": "application/json", // "Content-Type": "application/x-www-form-urlencoded",
-                    "Accept": "application/json",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "X-CSRF-TOKEN": __const("token"),
+                    'Content-Type': 'application/json', // "Content-Type": "application/x-www-form-urlencoded",
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': __const('token'),
                 },
             } as RequestInit;
-            if (type !== "GET" && ajaxParams !== undefined) {
+            if (type !== 'GET' && ajaxParams !== undefined) {
                 fetchParams.body = JSON.stringify(ajaxParams);
             }
 
@@ -79,12 +79,12 @@ export class g {
             if (!response.ok) {
                 return Promise.reject(result);
             }
-            if (result === "") {
-                return Promise.reject("El servidor ha devuelto una respuesta vacia");
+            if (result === '') {
+                return Promise.reject('El servidor ha devuelto una respuesta vacia');
             }
             return result;
         } catch (e) {
-            console.error("Error con fetch");
+            console.error('Error con fetch');
             return Promise.reject(e);
         }
 
@@ -96,24 +96,24 @@ export class g {
                          text = undefined,
                          html = undefined,
                          reloadOnClose = false,
-                         footer = ___("contact_pi_team"),
+                         footer = ___('contact_pi_team'),
                          from = undefined,
                      }: CatchParams) {
         if (g.errorModalIsShowed) return;
 
         console.error(error);
-        if (!g.isUndefined(from)) console.log("From:", from);
+        if (!g.isUndefined(from)) console.log('From:', from);
 
         const finalHtml = html
             ? html
-            : `<span class="restriction-message">${g.escapeHtml(text || (error.message || "Error imprevisto (o formato error inesperado)"))}</span>`;
+            : `<span class="restriction-message">${g.escapeHtml(text || (error.message || 'Error imprevisto (o formato error inesperado)'))}</span>`;
 
         // Abrir modal
         SModal.errorModal({
-            icon: "warning",
+            icon: 'warning',
             title: title,
             html: finalHtml,
-            confirmButtonText: (reloadOnClose) ? ___("reload_page") : ___("ok"),
+            confirmButtonText: (reloadOnClose) ? ___('reload_page') : ___('ok'),
             footer: footer,
         }, true).then((result) => {
             g.errorModalIsShowed = false;
@@ -130,7 +130,7 @@ export class g {
     }
 
     static strIsEmpty(str: any) {
-        if (typeof str !== "string") return false;
+        if (typeof str !== 'string') return false;
         return !Boolean(str.trim());
     }
 
@@ -146,7 +146,7 @@ export class g {
 
     static valueFailsRequiredValidation(value: any) {
         // return (!value && value !== 0) || value.length === 0 || /^\s*$/.test(value)
-        return value === null || value === undefined || (typeof value === "string" && value.trim().length === 0);
+        return value === null || value === undefined || (typeof value === 'string' && value.trim().length === 0);
     }
 
     static validate(data: Record<string, any>, rules: ValidationRules): ValidationResponse {
@@ -165,18 +165,18 @@ export class g {
             value.forEach(item => { // item = required, index = 0
 
                 // Separar la regla de los parametros
-                let arrayItems = item.split(":");
+                let arrayItems = item.split(':');
 
                 // Logica segun el tipo de validacion
                 switch (arrayItems[0]) {
-                    case "optional":
+                    case 'optional':
                         if (data.hasOwnProperty(key) && data[key] !== undefined) {
                             res.validated[key] = data[key];
                         } else {
                             res.validated[key] = null;
                         }
                         break;
-                    case "required":
+                    case 'required':
                         if (g.valueFailsRequiredValidation(data[key])) {
                             res.success.push(false);
                             res.messages.push(`El campo "${key}" es obligatorio`);
@@ -184,7 +184,7 @@ export class g {
                             res.validated[key] = data[key];
                         }
                         break;
-                    case "min":
+                    case 'min':
                         if (data[key]) {
                             if (data[key].length < parseInt(arrayItems[1])) {
                                 res.success.push(false);
@@ -194,7 +194,7 @@ export class g {
                             }
                         }
                         break;
-                    case "max":
+                    case 'max':
                         if (data[key]) {
                             if (data[key].length > parseInt(arrayItems[1])) {
                                 res.success.push(false);
@@ -204,7 +204,7 @@ export class g {
                             }
                         }
                         break;
-                    case "color":
+                    case 'color':
                         if (data[key]) {
                             if (!data[key].match(/^(#[a-fA-F0-9]{6})$/i)) {
                                 res.success.push(false);
@@ -214,7 +214,7 @@ export class g {
                             }
                         }
                         break;
-                    case "array":
+                    case 'array':
                         if (data[key]) {
                             if (!Array.isArray(data[key])) {
                                 res.success.push(false);
@@ -224,7 +224,7 @@ export class g {
                             }
                         }
                         break;
-                    case "number":
+                    case 'number':
                         if (data[key]) {
                             if (!Number.isInteger(parseInt(data[key]))) {
                                 res.success.push(false);
@@ -234,9 +234,9 @@ export class g {
                             }
                         }
                         break;
-                    case "boolean":
+                    case 'boolean':
                         if (data[key]) {
-                            if (typeof (!!data[key]) !== "boolean") {
+                            if (typeof (!!data[key]) !== 'boolean') {
                                 res.success.push(false);
                                 res.messages.push(`El campo "${key}" debe ser verdadero o falso`);
                             } else {
@@ -244,8 +244,8 @@ export class g {
                             }
                         }
                         break;
-                    case "required_if":
-                        if (arrayItems[1] === "1" && g.valueFailsRequiredValidation(data[key])) {
+                    case 'required_if':
+                        if (arrayItems[1] === '1' && g.valueFailsRequiredValidation(data[key])) {
                             res.success.push(false);
                             res.messages.push(`El campo "${key}" es obligatorio en esta situación`);
                         } else {
@@ -278,15 +278,15 @@ export class g {
     }
 
     static showPageLoader() {
-        const body = document.querySelector("body");
-        body?.classList.add("overlay-body");
-        body?.insertAdjacentHTML("beforeend", "<div id=\"page-loader\" class=\"overlay\"><div class=\"loader-container\"><div class=\"loader\"></div></div></div>");
+        const body = document.querySelector('body');
+        body?.classList.add('overlay-body');
+        body?.insertAdjacentHTML('beforeend', '<div id="page-loader" class="overlay"><div class="loader-container"><div class="loader"></div></div></div>');
     }
 
     static removePageLoader() {
-        const body = document.querySelector("body");
-        const loader = document.querySelector("#page-loader");
-        body?.classList.remove("overlay-body");
+        const body = document.querySelector('body');
+        const loader = document.querySelector('#page-loader');
+        body?.classList.remove('overlay-body');
         loader?.remove();
     }
 
@@ -296,29 +296,29 @@ export class g {
     }
 
     static startTooltips() {
-        import("bootstrap").then(bootstrap => {
-            const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]");
+        import('bootstrap').then(bootstrap => {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
         }).catch(error => {
-            console.error("Tabulator-tables no está instalado o no se pudo cargar.", error);
+            console.error('Tabulator-tables no está instalado o no se pudo cargar.', error);
         });
     }
 
-    static addSpinner(selectors: string | HTMLElement | NodeListOf<HTMLElement> | null, size: "sm" | "md" = "md") {
+    static addSpinner(selectors: string | HTMLElement | NodeListOf<HTMLElement> | null, size: 'sm' | 'md' = 'md') {
         if (selectors === null) return;
 
-        const sizeClass = (size === "sm") ? "spinner-border-sm" : "";
+        const sizeClass = (size === 'sm') ? 'spinner-border-sm' : '';
         const spinnerHtml = `<div class="spinner-border ${sizeClass}" data-added-in="general" role="status"><span class="visually-hidden">Loading...</span></div>`;
         if (selectors instanceof HTMLElement) {
-            selectors.insertAdjacentHTML("afterbegin", spinnerHtml);
+            selectors.insertAdjacentHTML('afterbegin', spinnerHtml);
         } else if (selectors instanceof NodeList) {
             selectors.forEach((item) => {
-                item.insertAdjacentHTML("afterbegin", spinnerHtml);
+                item.insertAdjacentHTML('afterbegin', spinnerHtml);
             });
         } else {
             const elements = document.querySelectorAll<HTMLElement>(selectors);
             elements.forEach(item => {
-                item.insertAdjacentHTML("afterbegin", spinnerHtml);
+                item.insertAdjacentHTML('afterbegin', spinnerHtml);
             });
         }
     }
@@ -327,21 +327,21 @@ export class g {
         if (selectors === null) return;
 
         if (selectors instanceof HTMLElement) {
-            selectors.querySelector("[data-added-in=\"general\"]")?.remove();
+            selectors.querySelector('[data-added-in="general"]')?.remove();
         } else if (selectors instanceof NodeList) {
             selectors.forEach((item) => {
-                item.querySelector("[data-added-in=\"general\"]")?.remove();
+                item.querySelector('[data-added-in="general"]')?.remove();
             });
         } else {
             const elements = document.querySelectorAll<HTMLElement>(selectors);
             elements.forEach(item => {
-                item.querySelector("[data-added-in=\"general\"]")?.remove();
+                item.querySelector('[data-added-in="general"]')?.remove();
             });
         }
     }
 
     static consoleInfo(message?: any) {
-        if (message) console.info(`%c INFO - ${message}`, "background: #222; color: #bada55; padding: 0.5rem");
+        if (message) console.info(`%c INFO - ${message}`, 'background: #222; color: #bada55; padding: 0.5rem');
     }
 
     // Función para comprobar si un valor es truthy

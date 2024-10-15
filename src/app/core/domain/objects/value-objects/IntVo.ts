@@ -1,4 +1,4 @@
-import {InvalidValueException} from "../../exceptions/InvalidValueException";
+import { InvalidValueException } from '../../exceptions/InvalidValueException';
 import { g } from '../../../infrastructure';
 import { StrIntOrNullish } from '../../../_types';
 
@@ -24,9 +24,9 @@ export class IntVo {
     #ensureIsValidValue() {
         if (this._allowNull && g.isNullish(this._value)) return;
 
-        if (typeof this._value === "string") this._value = parseInt(this._value);
+        if (typeof this._value === 'string') this._value = parseInt(this._value);
 
-        if (typeof this._value !== "number") {
+        if (typeof this._value !== 'number') {
             throw new InvalidValueException(`<IntVo> debe ser un entero y se ha recibido ${typeof this._value}`);
         }
     }

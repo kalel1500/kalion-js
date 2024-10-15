@@ -1,5 +1,5 @@
-import {EventCallBackMethods} from "tabulator-tables";
-import Echo from "laravel-echo";
+import { EventCallBackMethods } from 'tabulator-tables';
+import Echo from 'laravel-echo';
 import { Translation } from '../infrastructure';
 
 declare global {
@@ -126,15 +126,15 @@ export type StrIntOrNullish = number | StrOrNullish;
 export type FetchResponseOrBroadcasting = FetchResponse | FetchBroadcastingResponse;
 
 export type AvailableValidations =
-    "optional"
-    | "required"
+    'optional'
+    | 'required'
     | `min:${number}`
     | `max:${number}`
-    | "color"
-    | "array"
-    | "number"
-    | "boolean"
-    | `required_if:${"1" | "0"}`;
+    | 'color'
+    | 'array'
+    | 'number'
+    | 'boolean'
+    | `required_if:${'1' | '0'}`;
 
 export type ValidationRules = {
     [P: string]: AvailableValidations[] | string | number | boolean | null | undefined;

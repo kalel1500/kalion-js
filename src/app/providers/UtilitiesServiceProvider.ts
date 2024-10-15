@@ -9,7 +9,7 @@ export class UtilitiesServiceProvider {
         startStorageDay: () => {
             if (LStorage.isFirstConnectionInDay()) {
                 LStorage.setNowAsLastConnection();
-                LStorage.removeItem("websocketsFailed"); // restartWebsocketsStorage
+                LStorage.removeItem('websocketsFailed'); // restartWebsocketsStorage
             }
 
             /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem("lastConnection"));
@@ -35,7 +35,7 @@ export class UtilitiesServiceProvider {
         },
         startLayoutListeners: () => {
             LayoutListenersUseCase.new().__invoke();
-        }
+        },
     };
 
     static features(actions: Features[]) {

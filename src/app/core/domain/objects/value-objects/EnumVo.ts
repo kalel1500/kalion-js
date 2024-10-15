@@ -27,20 +27,20 @@ export abstract class EnumVo {
     #ensureIsValidValue() {
         if (g.isNullish(this._value)) {
             if (!this._allowNull) {
-                const message = "<EnumVo> no permite un valor vacio";
+                const message = '<EnumVo> no permite un valor vacio';
                 throw new InvalidValueException(message);
             } else {
                 return;
             }
         }
 
-        if (typeof this._value !== "string") {
-            const message = "<EnumVo> ha de ser de tipo String";
+        if (typeof this._value !== 'string') {
+            const message = '<EnumVo> ha de ser de tipo String';
             throw new InvalidValueException(message);
         }
 
         if (!this._permittedValues.includes(this._value)) {
-            const message = `<ActionVo> ha recibido un valor no permitido. Valores permitidos [${this._permittedValues.join(",")}]`;
+            const message = `<ActionVo> ha recibido un valor no permitido. Valores permitidos [${this._permittedValues.join(',')}]`;
             throw new InvalidValueException(message);
         }
     }

@@ -6,8 +6,7 @@ type MutationParams = {
 }
 
 export class Mutation {
-    constructor(params: MutationParams)
-    {
+    constructor(params: MutationParams) {
         let isDrawerOpen: null | boolean = null;
         const element = document.getElementById(params.elementId);
 
@@ -31,11 +30,10 @@ export class Mutation {
         });
 
         // Configurar el observer para observar cambios en los atributos
-        observer.observe(element, { attributes: true });
+        observer.observe(element, {attributes: true});
     }
 
-    static observe(params: MutationParams)
-    {
+    static observe(params: MutationParams) {
         new Mutation(params);
     }
 }

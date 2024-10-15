@@ -1,4 +1,4 @@
-import {DefaultConstants} from "../../../_types";
+import { DefaultConstants } from '../../../_types';
 
 // Implementa la clase Constants usando la interfaz
 export class Constants<T extends DefaultConstants> {
@@ -8,23 +8,23 @@ export class Constants<T extends DefaultConstants> {
     private constructor() {
         // Define valores por defecto
         this.constants = {
-            token: document.querySelector("meta[name=\"csrf-token\"]")?.getAttribute("content") ?? null,
-            lang: "es",
-            langDouble: "es-Es",
-            defaultZoneName: "Europe/Madrid", // Europe/Lisbon
-            appIcon: new URL("/resources/images/logo-app.png", "http://localhost/laravel-starter-template/").href,
-            routeName_websockets_checkService: "hexagonal.ajax.websockets.checkService",
-            routeName_queues_checkService: "hexagonal.ajax.queues.checkService",
+            token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? null,
+            lang: 'es',
+            langDouble: 'es-Es',
+            defaultZoneName: 'Europe/Madrid', // Europe/Lisbon
+            appIcon: new URL('/resources/images/logo-app.png', 'http://localhost/laravel-starter-template/').href,
+            routeName_websockets_checkService: 'hexagonal.ajax.websockets.checkService',
+            routeName_queues_checkService: 'hexagonal.ajax.queues.checkService',
 
             // Vite
             VITE_REVERB_APP_KEY: null,
-            VITE_REVERB_HOST: "localhost",
+            VITE_REVERB_HOST: 'localhost',
             VITE_REVERB_PORT: 8080,
-            VITE_REVERB_SCHEME: "http",
+            VITE_REVERB_SCHEME: 'http',
 
             VITE_BROADCASTING_ENABLED: false,
-            VITE_APP_ENV: "local",
-            VITE_APP_NAME: "Laravel",
+            VITE_APP_ENV: 'local',
+            VITE_APP_NAME: 'Laravel',
             VITE_APP_STORAGE_VERSION: '0.0',
         } as T;
     }

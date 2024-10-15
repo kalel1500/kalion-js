@@ -7,7 +7,7 @@ type LaunchParams = {
     title: string,
     body?: string,
     openUrl?: string
-    when: "hidden" | "unfocused" | "all"
+    when: 'hidden' | 'unfocused' | 'all'
 }
 
 export class Notify {
@@ -17,16 +17,16 @@ export class Notify {
 
     static STORAGE = {
         getAll() {
-            return LStorage.getItem("notified");
+            return LStorage.getItem('notified');
         },
         check(key: string) {
-            return LStorage.getItem("notified") === key;
+            return LStorage.getItem('notified') === key;
         },
         saveNotified(key: string) {
-            LStorage.setItem("notified", key);
+            LStorage.setItem('notified', key);
         },
         deleteNotified() {
-            LStorage.removeItem("notified");
+            LStorage.removeItem('notified');
         },
     };
 
@@ -59,21 +59,21 @@ export class Notify {
     }*/
 
     #createNotification() {
-        const notification = new Notification(this.#title, {icon: __const("appIcon"), body: this.#body});
+        const notification = new Notification(this.#title, {icon: __const('appIcon'), body: this.#body});
         notification.onclick = () => window.open(this.#openUrl);
     }
 
     static checkAndRequestPermission() {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        } else if (Notification.permission !== "denied" && Notification.permission !== "granted") {
+        if (!('Notification' in window)) {
+            alert('This browser does not support desktop notification');
+        } else if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
             Notification.requestPermission().then();
         }
     }
 
-    static launch({title = "titulo", body = undefined, openUrl = undefined, when}: LaunchParams) {
-        if (when === "hidden" && document.visibilityState === "visible") return;
-        if (when === "unfocused" && document.hasFocus()) return;
+    static launch({title = 'titulo', body = undefined, openUrl = undefined, when}: LaunchParams) {
+        if (when === 'hidden' && document.visibilityState === 'visible') return;
+        if (when === 'unfocused' && document.hasFocus()) return;
 
         const id = LDate.getTimeId();
         if (Notify.STORAGE.check(id)) {

@@ -1,7 +1,7 @@
-import es from "./lang/es.json";
-import en from "./lang/en.json";
-import {__const} from "../_internal/helpers";
-import {DefaultTranslations, TranslationReplacements} from "../../../_types";
+import es from './lang/es.json';
+import en from './lang/en.json';
+import { __const } from '../_internal/helpers';
+import { DefaultTranslations, TranslationReplacements } from '../../../_types';
 
 export interface Translation {
     [key: string]: string;
@@ -14,7 +14,7 @@ interface Translations<T extends Translation> {
 
 export class Translator<T extends DefaultTranslations> {
     private static instance: Translator<any>;
-    private locale: string = __const("lang");
+    private locale: string = __const('lang');
     private translations: Translations<DefaultTranslations> = {en, es};
     private externalTranslations: Translations<T> = {};
 
@@ -44,14 +44,14 @@ export class Translator<T extends DefaultTranslations> {
             for (const [placeholder, value] of Object.entries(replacements)) {
                 if (value) {
                     // Escapar correctamente el símbolo ":" en el placeholder
-                    const regex = new RegExp(`(^|[^\\^]):${placeholder}`, "g");
+                    const regex = new RegExp(`(^|[^\\^]):${placeholder}`, 'g');
                     translation = translation.replace(regex, `$1${value}`);
                 }
             }
         }
 
         // Reemplazar el símbolo de escape (^:) con el símbolo ":"
-        translation = translation.replace(/\^:/g, ":");
+        translation = translation.replace(/\^:/g, ':');
 
         return translation;
     }
