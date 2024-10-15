@@ -1,5 +1,5 @@
 import { route } from 'ziggy-js';
-import { Instantiable } from '../../infrastructure';
+import { Instantiable } from '../../infrastructure/utilities/general/Instantiable';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;

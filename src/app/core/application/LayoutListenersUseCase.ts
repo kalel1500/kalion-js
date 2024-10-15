@@ -1,5 +1,6 @@
-import { Instantiable, LStorage } from '../infrastructure';
-import { DomService } from '../domain';
+import { LStorage } from '../infrastructure';
+import { Instantiable } from '../infrastructure/utilities/general/Instantiable';
+import { DomService } from '../domain/services/DomService';
 
 export class LayoutListenersUseCase extends Instantiable {
     __invoke() {
