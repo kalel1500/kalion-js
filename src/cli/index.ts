@@ -41,23 +41,23 @@ if (projectRoot.includes('node_modules')) {
 
 // Definir las rutas de los archivos que quieres crear
 const typeScriptFiles: FileEntry[] = [
-    { filePath: 'resources/js/app.ts',                                          contentPath: 'resources/js/app.txt'                                        },
-    { filePath: 'resources/js/app/bootstrap.ts',                                contentPath: 'resources/js/app/bootstrap.txt'                              },
-    { filePath: 'resources/js/app/constants.ts',                                contentPath: 'resources/js/app/constants.txt'                              },
-    { filePath: 'resources/js/app/routes.ts',                                   contentPath: 'resources/js/app/routes.txt'                                 },
-    { filePath: 'resources/js/app/translations.ts',                             contentPath: 'resources/js/app/translations.txt'                           },
-    { filePath: 'resources/js/app/lang/es.json',                                contentPath: 'resources/js/app/lang/es.txt'                                },
-    { filePath: 'resources/js/app/lang/en.json',                                contentPath: 'resources/js/app/lang/en.txt'                                },
-    { filePath: 'resources/js/src/home/infrastructure/HomeController.ts',       contentPath: 'resources/js/src/home/infrastructure/HomeController.txt'     },
-    { filePath: 'resources/js/src/shared/infrastructure/TestController.ts',     contentPath: 'resources/js/src/shared/infrastructure/TestController.txt'   },
-    { filePath: 'resources/js/src/shared/infrastructure/SharedController.ts',   contentPath: 'resources/js/src/shared/infrastructure/SharedController.txt' },
+    { filePath: 'resources/js/app.ts',                                          contentPath: 'resources/js/app.ts'                                        },
+    { filePath: 'resources/js/app/bootstrap.ts',                                contentPath: 'resources/js/app/bootstrap.ts'                              },
+    { filePath: 'resources/js/app/constants.ts',                                contentPath: 'resources/js/app/constants.ts'                              },
+    { filePath: 'resources/js/app/routes.ts',                                   contentPath: 'resources/js/app/routes.ts'                                 },
+    { filePath: 'resources/js/app/translations.ts',                             contentPath: 'resources/js/app/translations.ts'                           },
+    { filePath: 'resources/js/app/lang/es.json',                                contentPath: 'resources/js/app/lang/es.json'                              },
+    { filePath: 'resources/js/app/lang/en.json',                                contentPath: 'resources/js/app/lang/en.json'                              },
+    { filePath: 'resources/js/src/home/infrastructure/HomeController.ts',       contentPath: 'resources/js/src/home/infrastructure/HomeController.ts'     },
+    { filePath: 'resources/js/src/shared/infrastructure/TestController.ts',     contentPath: 'resources/js/src/shared/infrastructure/TestController.ts'   },
+    { filePath: 'resources/js/src/shared/infrastructure/SharedController.ts',   contentPath: 'resources/js/src/shared/infrastructure/SharedController.ts' },
 ];
 
 // Definir las rutas de los archivos que quieres crear
 const tailwindFiles: FileEntry[] = [
-    { filePath: 'resources/css/app.css',    contentPath: 'resources/css/app.txt'   },
-    { filePath: 'postcss.config.js',        contentPath: 'postcss.config.txt'      },
-    { filePath: 'tailwind.config.js',       contentPath: 'tailwind.config.txt'     },
+    { filePath: 'resources/css/app.css',    contentPath: 'resources/css/app.css'    },
+    { filePath: 'postcss.config.ts',        contentPath: 'postcss.config.ts'        },
+    { filePath: 'tailwind.config.ts',       contentPath: 'tailwind.config.ts'       },
 ];
 
 const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
