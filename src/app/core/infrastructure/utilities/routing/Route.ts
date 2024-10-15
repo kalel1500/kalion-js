@@ -1,5 +1,5 @@
 import {route} from "ziggy-js";
-import { g } from '../general';
+import { g } from '../general/global';
 
 type ROUTES = {
     PAGES: {

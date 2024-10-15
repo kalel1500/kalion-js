@@ -1,5 +1,5 @@
 import { Instantiable, LStorage } from '../infrastructure';
-import { DomService } from '../domain/';
+import { DomService } from '../domain';
 
 export class LayoutListenersUseCase extends Instantiable
 {

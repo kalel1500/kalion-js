@@ -1,5 +1,5 @@
 import {___, __const} from "../_internal/helpers";
-import {SModal} from "../modals";
+import { SModal } from '../modals/SModal';
 import {
     CatchParams,
     FetchParams,

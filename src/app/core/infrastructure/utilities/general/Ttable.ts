@@ -9,7 +9,7 @@ import {
     TabulatorFull as Tabulator,
 } from "tabulator-tables";
 import { g } from './global';
-import { SModal } from '../modals';
+import { SModal } from '../modals/SModal';
 import { FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules } from '../../../_types';
 
 export class Ttable {

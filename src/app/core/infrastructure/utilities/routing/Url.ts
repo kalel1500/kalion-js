@@ -1,5 +1,5 @@
 import {route} from "ziggy-js";
-import { g } from '../general';
+import { g } from '../general/global';
 import {Filter} from "tabulator-tables";
 
 // type QueryParams = { [p: string]: string | number }

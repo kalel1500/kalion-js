@@ -1,4 +1,4 @@
-import {InvalidValueException} from "../../exceptions/InvalidValueException";
+import { InvalidValueException } from '../../exceptions/InvalidValueException';
 import { g } from '../../../infrastructure';
 import { StrOrNullish } from '../../../_types';
 

@@ -1,7 +1,8 @@
-import { g, LStorage } from '../general';
+import { g } from '../general/global';
+import { LStorage } from '../general/LStorage';
+import { SModal } from '../modals/SModal';
 import {route} from "ziggy-js";
 import {EchoService} from "./EchoService";
-import {SModal} from "../modals";
 import {__const} from "../_internal/helpers";
 import { FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting, ResponseEventFetch } from '../../../_types';
 
