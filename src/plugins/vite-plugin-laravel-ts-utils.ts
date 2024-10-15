@@ -45,7 +45,7 @@ export function laravelTsUtilsPlugin(): Plugin {
 
     return {
         name: 'vite-plugin-laravel-ts-utils',
-        config(config, { mode }): UserConfig {
+        config(config, {mode}): UserConfig {
             const env                       = loadEnv(mode, process.cwd()) as EnvVariables;
             const confAppName           = env.VITE_APP_NAME;
             const confAppCode           = env.VITE_APP_CODE;
@@ -62,23 +62,23 @@ export function laravelTsUtilsPlugin(): Plugin {
                 build: {
                     minify: confAppMinify,
                     sourcemap: confAppSourcemap,
-                    target: "es2022",
+                    target: 'es2022',
                     rollupOptions: {
                         output: {
                             manualChunks: id => {
                                 if (id.includes('node_modules')) {
                                     return 'vendor';
                                 }
-                            }
+                            },
                         },
-                        external: externalDependencies
-                    }
+                        external: externalDependencies,
+                    },
                 },
                 optimizeDeps: {
-                    exclude: externalDependencies
+                    exclude: externalDependencies,
                 },
                 css: {
-                    devSourcemap: true
+                    devSourcemap: true,
                 },
             };
         },
@@ -94,6 +94,6 @@ export function laravelTsUtilsPlugin(): Plugin {
                 return ''; // Retorna una cadena vacía para no cargar el módulo
             }
             return null; // Deja que Vite cargue otros módulos
-        }
+        },
     };
 }

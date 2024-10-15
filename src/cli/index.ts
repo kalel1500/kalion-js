@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const ensureDirectoryExistence = (filePath: string) => {
     const dirname = path.dirname(filePath);
     if (!fs.existsSync(dirname)) {
-        fs.mkdirSync(dirname, { recursive: true });
+        fs.mkdirSync(dirname, {recursive: true});
     }
 };
 
