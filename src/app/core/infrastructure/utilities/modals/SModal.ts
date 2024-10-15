@@ -1,5 +1,5 @@
 import Swal, {SweetAlertCustomClass, SweetAlertIcon, SweetAlertInput, SweetAlertPosition} from "sweetalert2";
-import {g} from "../helpers";
+import { g } from '../general';
 import { CannotOpenModalException, CannotOpenModalWarning } from '../../../domain';
 import {FetchResponse, SyncOrAsync} from "../../../_types";
 

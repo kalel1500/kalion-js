@@ -1,4 +1,4 @@
-import {LDate} from "../dates";
+import { LDate } from './LDate';
 
 export class LStorage {
     static setItem(key: string, value: string) {

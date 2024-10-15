@@ -1,5 +1,4 @@
-import {LStorage} from "../storage";
-import {g} from "../helpers";
+import { g, LStorage } from '../general';
 import {route} from "ziggy-js";
 import {EchoService} from "./EchoService";
 import {SModal} from "../modals";

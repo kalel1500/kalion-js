@@ -8,9 +8,9 @@ import {
     RowComponent,
     TabulatorFull as Tabulator,
 } from "tabulator-tables";
-import {g} from "../helpers";
-import {SModal} from "../modals";
-import {FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules} from "../../../_types";
+import { g } from './global';
+import { SModal } from '../modals';
+import { FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules } from '../../../_types';
 
 export class Ttable {
     readonly tableId: string | HTMLElement;

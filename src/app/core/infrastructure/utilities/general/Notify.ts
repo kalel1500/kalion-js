@@ -1,7 +1,7 @@
-import {__const} from "../_internal/helpers";
-import {LDate} from "../dates";
-import {LStorage} from "../storage";
-import {g} from "../helpers";
+import { __const } from '../_internal/helpers';
+import { LDate } from './LDate';
+import { LStorage } from './LStorage';
+import { g } from './global';
 
 type LaunchParams = {
     title: string,
