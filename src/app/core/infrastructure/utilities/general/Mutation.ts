@@ -5,8 +5,7 @@ type MutationParams = {
     whenHavent: () => void;
 }
 
-export default class Mutation
-{
+export class Mutation {
     constructor(params: MutationParams)
     {
         let isDrawerOpen: null | boolean = null;
