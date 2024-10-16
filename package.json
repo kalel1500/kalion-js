@@ -14,7 +14,8 @@
         "./dist/plugins": {
             "types": "./dist/plugins/index.d.ts",
             "default": "./dist/plugins/vite-plugin-laravel-ts-utils.js"
-        }
+        },
+        "./dist/app/*.css": "./dist/app/*.css"
     },
     "files": [
         "dist"

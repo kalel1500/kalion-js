@@ -25,7 +25,11 @@ export default ({ mode }: { mode: string }) => {
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/app/index.ts'),
+                entry: {
+                    app: path.resolve(__dirname, 'src/app/index.ts'), // Entrada para JavaScript
+                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.scss'), // Entrada para main.scss
+                    "styles": path.resolve(__dirname, 'src/app/styles/app.scss'), // Entrada para app.scss
+                },
                 name: 'LaravelTsUtils',
                 fileName: (format) => `laravel-ts-utils.${format}.js`,
                 formats: ['es']
@@ -48,6 +52,7 @@ export default ({ mode }: { mode: string }) => {
                     globals: {}
                 }
             },
+            cssCodeSplit: true,
             minify: minify,
             sourcemap: sourcemap,
             outDir: './dist/app'
