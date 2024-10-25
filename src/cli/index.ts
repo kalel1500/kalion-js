@@ -51,7 +51,7 @@ const typeScriptFiles: string[] = [
 const tailwindFiles: string[] = [
     'resources/css/app.css',
     '.prettierrc',
-    'postcss.config.ts',
+    'postcss.config.js',
     'tailwind.config.ts',
     'tsconfig.json',
     'vite.config.ts',
