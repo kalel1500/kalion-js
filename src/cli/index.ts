@@ -53,6 +53,7 @@ const tailwindFiles: string[] = [
     'resources/css/app.css',
     'postcss.config.ts',
     'tailwind.config.ts',
+    'tsconfig.json',
 ];
 
 const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
