@@ -45,7 +45,6 @@ const typeScriptFiles: string[] = [
     'resources/js/app/lang/en.json',
     'resources/js/src/home/infrastructure/HomeController.ts',
     'resources/js/src/shared/infrastructure/TestController.ts',
-    'resources/js/src/shared/infrastructure/SharedController.ts',
 ];
 
 // Definir las rutas de los archivos que quieres crear
