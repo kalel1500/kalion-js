@@ -1,3 +1,6 @@
+/*----- laravel-ts-utilities css -----*/
+@import 'laravel-ts-utilities/dist/app/style.css';
+
 /*----- Tailwind css -----*/
 @tailwind base;
 @tailwind components;

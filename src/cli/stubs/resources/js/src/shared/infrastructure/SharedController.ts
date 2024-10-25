@@ -1,60 +1,61 @@
+import { Html } from 'laravel-ts-utilities';
 
 export default class SharedController
 {
-    layout()
+    compare()
     {
-        console.log('layout()');
+        // Fragmentos HTML A y B para comparar
+        /*const htmlA = `
+<ul id="dropdown-pages" class="hidden py-2 space-y-2">
+    <li>
+        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
+    </li>
+    <li>
+        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
+    </li>
+    <li>
+        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
+    </li>
+</ul>
+`;
 
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
+        const htmlB = `
+<ul id="dropdown-pages" class="hidden space-y-2 py-2">
+    <li>
+        <a href="#" class="group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
+    </li>
+    <li>
+        <a href="#" class="group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
+    </li>
+    <li>
+        <a href="#" class="group flex w-full items-center rounded-lg p-2 pl-11 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
+    </li>
+</ul>
+`;*/
+
+        const $btn = document.getElementById('compareHtml');
+        const $a = document.querySelector<HTMLTextAreaElement>('#textarea-a');
+        const $b = document.querySelector<HTMLTextAreaElement>('#textarea-b');
+        const $resultOk = document.getElementById('result-ok');
+        const $resultNok = document.getElementById('result-nok');
+        if ($a == null || $b == null || $resultOk == null || $resultNok == null) {
+            throw new Error('Alguno de los elementos HTML de la pagina no se ha encontrado.');
         }
-
-
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const themeToggleBtn = document.getElementById('theme-toggle');
-
-        if (themeToggleDarkIcon === null || themeToggleLightIcon === null || themeToggleBtn === null) {
-            return;
-        }
-
-        // Change the icons inside the button based on previous settings
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        themeToggleBtn.addEventListener('click', function() {
-
-            // toggle icons inside button
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            // if set via local storage previously
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-
-                // if NOT set via local storage previously
+        const hideMessages = () => {
+            $resultOk.classList.add('hidden');
+            $resultNok.classList.add('hidden');
+        };
+        $a.addEventListener('focus', hideMessages);
+        $b.addEventListener('focus', hideMessages);
+        $btn?.addEventListener('click', e=> {
+            hideMessages();
+            const htmlA = $a.value;
+            const htmlB = $b.value;
+            if (Html.compareHTMLElementsStructure(htmlA, htmlB)) {
+                $resultOk.classList.remove('hidden');
             } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
+                $resultNok.classList.remove('hidden');
             }
-
         });
     }
 }
