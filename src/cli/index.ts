@@ -12,12 +12,32 @@ const ensureDirectoryExistence = (filePath: string) => {
     }
 };
 
+// Función para eliminar archivos con otras extensiones si existen
+const removeFileWithOtherExtensions = (filePath: string, extensionsToRemove: string[]) => {
+    const dir = path.dirname(filePath);
+    const baseName = path.basename(filePath, path.extname(filePath));
+    extensionsToRemove.forEach(extension => {
+        const fileToDelete = path.join(dir, `${baseName}${extension}`);
+        if (fs.existsSync(fileToDelete)) {
+            fs.unlinkSync(fileToDelete);
+            console.log(`Archivo eliminado: ${fileToDelete}`);
+        }
+    });
+};
+
 // Función para crear un archivo con contenido (vacío por defecto)
 const createFile = (filePath: string, contentPath = '') => {
+    // Código por si queremos que no sobreescriba el archivo si existe
     /*if (fs.existsSync(filePath)) {
         console.log(`El archivo ya existe: ${filePath}`);
         return;
     }*/
+
+    // Borrar el archivo si ya existe con otra extension
+    const extensionsToRemove = ['.js', '.jsx', '.ts', '.tsx'];
+    removeFileWithOtherExtensions(filePath, extensionsToRemove.filter(ext => ext !== path.extname(filePath)));
+
+    // Crear el archivo
     const content = fs.readFileSync(contentPath, 'utf8');
     fs.writeFileSync(filePath, content, 'utf8');
     console.log(`Archivo creado: ${filePath}`);
@@ -26,7 +46,7 @@ const createFile = (filePath: string, contentPath = '') => {
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const contentDirectory = path.join(__dirname, 'stubs'); // Ruta de la carpeta donde ubican los archivos de contenido
+const contentDirectory = path.join(__dirname, 'stubs'); // Ruta de la carpeta donde se ubican los archivos de contenido
 let projectRoot = process.cwd(); // Ruta de la carpeta donde se crearán los archivos
 
 // Comprobar si `process.cwd()` está dentro de `node_modules` y ajustar si es necesario
@@ -35,7 +55,7 @@ if (projectRoot.includes('node_modules')) {
 }
 
 // Definir las rutas de los archivos que quieres crear
-const typeScriptFiles: string[] = [
+const typeScriptFiles = [
     'resources/js/app.ts',
     'resources/js/app/bootstrap.ts',
     'resources/js/app/constants.ts',
@@ -47,8 +67,7 @@ const typeScriptFiles: string[] = [
     'resources/js/src/shared/infrastructure/TestController.ts',
 ];
 
-// Definir las rutas de los archivos que quieres crear
-const tailwindFiles: string[] = [
+const tailwindFiles = [
     'resources/css/app.css',
     '.prettierrc',
     'postcss.config.js',
