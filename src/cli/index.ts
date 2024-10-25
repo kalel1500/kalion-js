@@ -50,9 +50,11 @@ const typeScriptFiles: string[] = [
 // Definir las rutas de los archivos que quieres crear
 const tailwindFiles: string[] = [
     'resources/css/app.css',
+    '.prettierrc',
     'postcss.config.ts',
     'tailwind.config.ts',
     'tsconfig.json',
+    'vite.config.ts',
 ];
 
 const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
