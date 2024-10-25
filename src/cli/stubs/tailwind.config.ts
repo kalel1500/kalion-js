@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin';
+
 export default {
   content: [
     "./resources/**/*.blade.php",
@@ -8,9 +10,17 @@ export default {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'vsm': '440px'
+      }
+    },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    plugin(function ({ addVariant }) {
+      addVariant('sc', '&:is(.sc *)');
+    })
   ],
-}
+} satisfies Config
+
