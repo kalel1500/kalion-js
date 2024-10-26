@@ -64,7 +64,6 @@ const typeScriptFiles = [
     'resources/js/app/lang/es.json',
     'resources/js/app/lang/en.json',
     'resources/js/src/home/infrastructure/HomeController.ts',
-    'resources/js/src/shared/infrastructure/TestController.ts',
 ];
 
 const tailwindFiles = [

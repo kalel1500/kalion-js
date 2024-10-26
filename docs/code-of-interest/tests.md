@@ -1,4 +1,8 @@
 ```ts
+function example1() {
+    console.log(_const('VITE_BROADCASTING_ENABLED'));
+    g.consoleInfo('ss');
+}
 function testUseBootstrapWhenIsNotInstalled() {
     console.log('llega');
     g.startTooltips();
