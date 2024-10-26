@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin';
+import flowbitPlugin from 'flowbite/plugin';
 
 const laravelContent = [
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
@@ -30,7 +31,13 @@ const laravelPlugin = plugin.withOptions(function (options = {}) {
     };
 });
 
+const laravelDefaultPlugins = [
+    flowbitPlugin,
+    laravelPlugin
+];
+
 export {
     laravelContent,
     laravelPlugin,
+    laravelDefaultPlugins,
 };

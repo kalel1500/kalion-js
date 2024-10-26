@@ -52,6 +52,7 @@
         "@types/node": "20.11.1",
         "@types/tabulator-tables": "^6.2.0",
         "cross-env": "^7.0.3",
+        "flowbite": "^2.5.2",
         "sass": "^1.77.5",
         "tailwindcss": "^3.4.14",
         "typescript": "^5.4.5",
