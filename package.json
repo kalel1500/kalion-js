@@ -13,7 +13,7 @@
         },
         "./dist/plugins": {
             "types": "./dist/plugins/index.d.ts",
-            "default": "./dist/plugins/vite-plugin-laravel-ts-utils.js"
+            "default": "./dist/plugins/plugins-laravel-ts-utils.js"
         },
         "./dist/app/*.css": "./dist/app/*.css"
     },
@@ -53,6 +53,7 @@
         "@types/tabulator-tables": "^6.2.0",
         "cross-env": "^7.0.3",
         "sass": "^1.77.5",
+        "tailwindcss": "^3.4.14",
         "typescript": "^5.4.5",
         "vite": "^5.3.1",
         "vite-plugin-dts": "^3.9.1",
