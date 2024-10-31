@@ -1,8 +1,8 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.0...master)
 
-## [v1.3.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.14...v1.3.0-beta.1) - 2024-10-31
+## [v1.3.0-beta.0](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.14...v1.3.0-beta.0) - 2024-10-31
 
 ### Added
 
