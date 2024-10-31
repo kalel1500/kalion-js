@@ -1,6 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.13...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.14...master)
+
+## [v1.2.0-beta.14](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.13...v1.2.0-beta.14) - 2024-09-26
+
+### Added
+
+* development-tips.md: añadida información sobre paquetes interesantes
+
+### Fixed
+
+* (fix) solucionado error en el "vite-plugin-laravel-ts-utils", ya que las dependencias externas solo funcionaban con el "npm run build".
+  Al hacer el "npm run dev" Vite utiliza otros métodos para resolver las dependencias que no se habían contemplado
 
 ## [v1.2.0-beta.13](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.6...v1.2.0-beta.13) - 2024-09-25
 
