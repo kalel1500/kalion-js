@@ -69,6 +69,7 @@ const filesToCreate = [
     'resources/js/app/lang/es.json',
     'resources/js/app/lang/en.json',
     'resources/js/src/home/infrastructure/HomeController.ts',
+    '.env.local',
     '.prettierrc',
     'postcss.config.js',
     'tailwind.config.ts',
