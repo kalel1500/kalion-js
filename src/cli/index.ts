@@ -58,7 +58,8 @@ if (projectRoot.includes('node_modules')) {
 }
 
 // Definir las rutas de los archivos que quieres crear
-const typeScriptFiles = [
+const filesToCreate = [
+    'resources/css/app.css',
     'resources/images/favicon.ico',
     'resources/js/app.ts',
     'resources/js/app/bootstrap.ts',
@@ -68,10 +69,6 @@ const typeScriptFiles = [
     'resources/js/app/lang/es.json',
     'resources/js/app/lang/en.json',
     'resources/js/src/home/infrastructure/HomeController.ts',
-];
-
-const tailwindFiles = [
-    'resources/css/app.css',
     '.prettierrc',
     'postcss.config.js',
     'tailwind.config.ts',
@@ -83,24 +80,6 @@ const tailwindFiles = [
 const filesToRemove = [
     'resources/js/bootstrap.js',
 ];
-
-const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
-
-let filesToCreate: string[];
-switch (command) {
-    case 'all':
-        filesToCreate = [...typeScriptFiles, ...tailwindFiles];
-        break;
-    case 'typescript':
-        filesToCreate = typeScriptFiles;
-        break;
-    case 'tailwind':
-        filesToCreate = tailwindFiles;
-        break;
-    default:
-        filesToCreate = [];
-        break;
-}
 
 // Eliminar archivos antiguos
 filesToRemove.forEach(file => {
