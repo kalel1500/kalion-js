@@ -56,6 +56,7 @@ if (projectRoot.includes('node_modules')) {
 
 // Definir las rutas de los archivos que quieres crear
 const typeScriptFiles = [
+    'resources/images/favicon.ico',
     'resources/js/app.ts',
     'resources/js/app/bootstrap.ts',
     'resources/js/app/constants.ts',
