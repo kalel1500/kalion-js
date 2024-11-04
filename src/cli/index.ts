@@ -37,9 +37,12 @@ const createFile = (filePath: string, contentPath = '') => {
     const extensionsToRemove = ['.js', '.jsx', '.ts', '.tsx'];
     removeFileWithOtherExtensions(filePath, extensionsToRemove.filter(ext => ext !== path.extname(filePath)));
 
-    // Crear el archivo
-    const content = fs.readFileSync(contentPath, 'utf8');
-    fs.writeFileSync(filePath, content, 'utf8');
+    // Detecta si es un archivo binario
+    const isBinary = path.extname(filePath) === '.ico';
+
+    // Leer y escribir archivo, especificando 'utf8' para texto y `null` para binarios
+    const content = fs.readFileSync(contentPath, isBinary ? null : 'utf8');
+    fs.writeFileSync(filePath, content, isBinary ? null : 'utf8');
     console.log(`Archivo creado: ${filePath}`);
 };
 
