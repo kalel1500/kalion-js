@@ -75,6 +75,11 @@ const tailwindFiles = [
     'vite.config.ts',
 ];
 
+// Definir las rutas de los archivos a eliminar
+const filesToRemove = [
+    'resources/js/bootstrap.js',
+];
+
 const command = ((arg = '') => (arg.startsWith('-') ? undefined : arg))(process.argv[2]) || 'all';
 
 let filesToCreate: string[];
@@ -92,6 +97,12 @@ switch (command) {
         filesToCreate = [];
         break;
 }
+
+// Eliminar archivos antiguos
+filesToRemove.forEach(file => {
+    const filePath = path.join(projectRoot, file);
+    removeFileWithOtherExtensions(filePath, ['.js', '.jsx', '.ts', '.tsx']);
+});
 
 // Crear cada archivo
 filesToCreate.forEach(file => {
