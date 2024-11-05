@@ -1,6 +1,26 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.1...master)
+
+## [v1.3.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.0...v1.3.0-beta.1) - 2024-11-05
+
+### Added
+
+* stubs: añadir archivo `.env.local`
+* docs: guardar código del parámetro como código interesante
+* stubs: añadir archivo `resources/images/favicon.ico`
+* docs: Ejemplo de import dinámico con Tabulator
+
+### Changed
+
+* cli: unir los arrays `typeScriptFiles` y `tailwindFiles` en un solo array `filesToCreate` con los archivos que se crearan siempre
+* cli: añadir código para detectar si el archivo es binario (`.ico`) y en ese caso pasar la codificación como null
+* cli: añadir código para eliminar archivos preexistentes (se definen en el array `filesToRemove`)
+* (refactor) stubs: identar `postcss.config.js` y `tailwind.config.ts` con 4 espacios
+
+### Fixed
+
+* (fix) corregir numero version en el `CHANGELOG.md`
 
 ## [v1.3.0-beta.0](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.2.0-beta.14...v1.3.0-beta.0) - 2024-10-31
 
