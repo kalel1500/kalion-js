@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.2...master)
+
+## [v1.3.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.1...v1.3.0-beta.2) - 2024-11-09
+
+### Removed
+
+* stubs: archivo `.env.local` eliminado (ya que ahora está en el paquete de composer `laravel-hexagonal-and-ddd-architecture-utilities`
 
 ## [v1.3.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.0...v1.3.0-beta.1) - 2024-11-05
 
