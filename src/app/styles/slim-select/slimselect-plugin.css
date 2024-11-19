@@ -1,4 +1,3 @@
-
 /* Color de fondo del desplegable */
 .ss-content.ss-open,
 .ss-option.ss-disabled {
@@ -16,6 +15,7 @@
         background-color: #f2f2f2;
     }
 }
+
 .slimSelectLikeInput {
     .ss-main .ss-single-selected {
         background-color: #ffffff;
@@ -49,7 +49,6 @@
     margin: 2px;
 }
 
-div:where(.swal2-container) button:where(.swal2-close)
-{
+div:where(.swal2-container) button:where(.swal2-close) {
     color: #858585 !important;
 }
