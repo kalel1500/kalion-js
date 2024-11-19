@@ -5,7 +5,7 @@ import { Translation } from '../infrastructure';
 declare global {
     interface Window {
         Pusher: any;
-        Echo: Echo;
+        Echo: Echo<'reverb'>;
     }
 }
 

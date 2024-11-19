@@ -1,8 +1,8 @@
-@import "bootstrap/bootstrap-custom";
-@import "bootstrap/bootstrap-layout";
-@import "bootstrap/bootstrap-plugin";
-@import "slim-select/slimselect-original";
-@import "slim-select/slimselect-plugin";
-@import "sweetalert/sweetalert-plugin";
-@import "tabulator/tabulator-custom";
-@import "tabulator/tabulator-plugin";
+@use "bootstrap/bootstrap-custom";
+@use "bootstrap/bootstrap-layout";
+@use "bootstrap/bootstrap-plugin";
+@use "slim-select/slimselect-original";
+@use "slim-select/slimselect-plugin";
+@use "sweetalert/sweetalert-plugin";
+@use "tabulator/tabulator-custom";
+@use "tabulator/tabulator-plugin";
