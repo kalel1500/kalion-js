@@ -1,6 +1,6 @@
 
 .tabulator .tabulator-cell.cell-editable {
-    background-color: #e0f7f3; // #a7ffb957;
+    background-color: #e0f7f3; /* #a7ffb957; */
 }
 
 .tabulator .cell-position-changed {

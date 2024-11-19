@@ -27,8 +27,8 @@ export default ({ mode }: { mode: string }) => {
             lib: {
                 entry: {
                     app: path.resolve(__dirname, 'src/app/index.ts'), // Entrada para JavaScript
-                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.scss'), // Entrada para main.scss
-                    "styles": path.resolve(__dirname, 'src/app/styles/app.scss'), // Entrada para app.scss
+                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.css'), // Entrada para main.css
+                    "styles": path.resolve(__dirname, 'src/app/styles/app.css'), // Entrada para app.css
                 },
                 name: 'LaravelTsUtils',
                 fileName: (format) => `laravel-ts-utils.${format}.js`,

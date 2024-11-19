@@ -1,7 +1,9 @@
-//$sidebarWith: 250px;
-$navbarHeith: 3.45rem;
-$footerHeith: 3.6rem;
-//$sidebarCollapseWith: 4.5rem;
+:root {
+    --bsc-sidebar-with: 250px;
+    --bsc-navbar-heith: 3.45rem;
+    --bsc-footer-heith: 3.6rem;
+    --bsc-sidebar-collapse-with: 4.5rem;
+}
 
 
 /**
@@ -10,15 +12,15 @@ $footerHeith: 3.6rem;
  */
 
 .navbar {
-    //background-color: white !important;
-    //border-bottom: 1px solid #e5e5e5;
-    //padding: 0.3rem 0.5rem;
-    //height: $navbarHeith;
+    /*background-color: white !important; */
+    /*border-bottom: 1px solid #e5e5e5; */
+    /*padding: 0.3rem 0.5rem; */
+    /*height: var(--bsc-navbar-heith); */
     --bs-navbar-padding-y: 0.29em;
 }
 
 .footer {
-    height: $footerHeith;
+    height: var(--bsc-footer-heith);
 }
 
 .dropdown-menu {
@@ -36,5 +38,5 @@ $footerHeith: 3.6rem;
 }
 
 .main-content {
-    min-height: calc(100vh - #{$footerHeith} - #{$navbarHeith});
+    min-height: calc(100vh - var(--bsc-footer-heith) - var(--bsc-navbar-heith));
 }

@@ -8,28 +8,28 @@
 
 /*----- borders y header-----*/
 
-// [table-bordered]: ancho bordes tabla (si no no se ven los bordes horizontales)
+/* [table-bordered]: ancho bordes tabla (si no no se ven los bordes horizontales) */
 .tabulator.table-bordered > :not(caption) > * > * {
     border-width: 1px var(--bs-border-width);
 }
 
-// [table-bordered]: cambiar el color de los bordes verticales
+/* [table-bordered]: cambiar el color de los bordes verticales */
 .tabulator.table-bordered .tabulator-header .tabulator-col,
 .tabulator.table-bordered .tabulator-tableholder .tabulator-table .tabulator-row .tabulator-cell{
     border-right-color: #ddd;
 }
 
-// [table-bordered]: quitar header bordet top para que no haya 2
+/* [table-bordered]: quitar header bordet top para que no haya 2 */
 .tabulator.table-bordered .tabulator-header {
     border-top: none !important;
 }
 
-// [NOT table-bordered]: añadir bordes verticales manualmente
+/* [NOT table-bordered]: añadir bordes verticales manualmente */
 /*.tabulator:not(.table-bordered) .tabulator-col-resize-handle {
     border-right: 1px solid #ddd;
 }*/
 
-// [NOT table-bordered]: añadir bordes verticales manualmente
+/* [NOT table-bordered]: añadir bordes verticales manualmente */
 .tabulator:not(.table-bordered) .tabulator-header .tabulator-col,
 .tabulator:not(.table-bordered) .tabulator-tableholder .tabulator-table .tabulator-row .tabulator-cell {
     border-right: 1px solid #ddd;
@@ -40,7 +40,7 @@
 }
 
 
-.tabulator .tabulator-header { // Linea separadora header
+.tabulator .tabulator-header { /* Linea separadora header */
     border-bottom: 2px solid #23C596 !important;
     font-weight: 500 !important;
 }
@@ -53,7 +53,7 @@
 }
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-header-filter input {
-    font-size: 0.6rem; // Tamaño fuente filtros
+    font-size: 0.6rem; /* Tamaño fuente filtros */
 }
 
 
@@ -74,7 +74,7 @@
 }
 
 .tabulator .tabulator-row.tabulator-selectable:hover {
-    //background-color: #b9b9b9 !important;  // Con el themes tabulator_bootstrap5 ya no hace falta
+    /*background-color: #b9b9b9 !important; */ /* Con el themes tabulator_bootstrap5 ya no hace falta */
     cursor: initial;
 }
 
@@ -83,7 +83,8 @@
     cursor: pointer;
 }
 
-/*.tabulator .tabulator-row.tabulator-row-even { // Con el themes tabulator_bootstrap5 ya no hace falta
+/* Con el themes tabulator_bootstrap5 ya no hace falta */
+/*.tabulator .tabulator-row.tabulator-row-even {
     background-color: inherit;
 }*/
 
@@ -91,11 +92,11 @@
 /*----- cells -----*/
 
 .tabulator .tabulator-row .tabulator-cell {
-    padding: 0.4rem !important; // roiginalmente son 12px -> 6,4px
+    padding: 0.4rem !important; /* roiginalmente son 12px -> 6,4px */
 }
 
 
-/*----- editors -----*/ // TODO Canals - falta comprobar
+/*----- editors -----*/ /* TODO Canals - falta comprobar */
 
 .tabulator-edit-select-list {
     font-size: 0.8rem;
@@ -183,7 +184,7 @@
 
 
 
-// TODO Canals - revisar
+/* TODO Canals - revisar */
 .tabulator input[type=number] {
     -moz-appearance: textfield;
 }

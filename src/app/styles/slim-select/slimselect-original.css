@@ -1,5 +1,5 @@
 :root {
-  // Colors
+  /* Colors */
   --ss-primary-color: #5897fb;
   --ss-bg-color: #ffffff;
   --ss-font-color: #4d4d4d;
@@ -11,21 +11,21 @@
   --ss-error-color: #dc3545;
   --ss-focus-color: #5897fb;
 
-  // Heights
+  /* Heights */
   --ss-main-height: 30px;
   --ss-content-height: 300px;
 
-  // Spacing
+  /* Spacing */
   --ss-spacing-l: 7px;
   --ss-spacing-m: 5px;
   --ss-spacing-s: 3px;
 
-  // Misc
+  /* Misc */
   --ss-animation-timing: 0.2s;
   --ss-border-radius: 4px;
 }
 
-// Animation keyframes
+/* Animation keyframes */
 @keyframes ss-valueIn {
   0% {
     transform: scale(0);
@@ -47,12 +47,12 @@
   }
 }
 
-// Misc classes
+/* Misc classes */
 .ss-hide {
   display: none !important;
 }
 
-// Main container
+/* Main container */
 .ss-main {
   display: flex;
   flex-direction: row;
@@ -120,7 +120,7 @@
       white-space: nowrap;
     }
 
-    // Max is used to display max number of values
+    /* Max is used to display max number of values */
     .ss-max {
       display: flex;
       user-select: none;
@@ -134,13 +134,13 @@
       border-radius: var(--ss-border-radius);
     }
 
-    // Used for single select selected value
+    /* Used for single select selected value */
     .ss-single {
       display: flex;
       margin: auto 0px auto var(--ss-spacing-s);
     }
 
-    // Used for the selected values
+    /* Used for the selected values */
     .ss-value {
       display: flex;
       user-select: none;
@@ -236,9 +236,9 @@
   }
 }
 
-// Content container
+/* Content container */
 .ss-content {
-  position: absolute; // default position
+  position: absolute; /* default position */
   display: flex;
   height: auto;
   flex-direction: column;
@@ -356,7 +356,7 @@
     }
 
     .ss-optgroup {
-      // If optgroup has close, hide all options
+      /* If optgroup has close, hide all options */
       &.ss-close {
         .ss-option {
           display: none !important;
@@ -376,7 +376,7 @@
           color: var(--ss-font-color);
         }
 
-        // If optgroup has arrow, make label clickable
+        /* If optgroup has arrow, make label clickable */
         &:has(.ss-arrow) {
           cursor: pointer;
         }
@@ -495,7 +495,7 @@
         }
       }
 
-      // Sub div wrapper for highlighting text
+      /* Sub div wrapper for highlighting text */
       .ss-search-highlight {
         background-color: var(--ss-highlight-color);
       }

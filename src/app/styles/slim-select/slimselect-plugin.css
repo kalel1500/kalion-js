@@ -1,16 +1,16 @@
 
-// Color de fondo del desplegable
+/* Color de fondo del desplegable */
 .ss-content.ss-open,
 .ss-option.ss-disabled {
     background-color: #f4f4f4 !important;
 }
 
-// Color de la opcion desabilitada (en el desplegable)
+/* Color de la opcion desabilitada (en el desplegable) */
 .ss-option.ss-disabled {
     color: #aab8c6 !important;
 }
 
-// Color de fondo del select (sin desplegar)
+/* Color de fondo del select (sin desplegar) */
 .slimSelectGray {
     .ss-main .ss-single-selected {
         background-color: #f2f2f2;
@@ -30,17 +30,17 @@
 }
 
 .ss-main .ss-multi-selected .ss-values .ss-value {
-    //color: #000000;
-    //background-color: #bef7fb;
-    //color: #000000;
-    //background-color: #cafcff;
+    /*color: #000000; */
+    /*background-color: #bef7fb; */
+    /*color: #000000; */
+    /*background-color: #cafcff; */
     background-color: #58cbf2;
 }
 
-// Color de fondo de las opciones seleccionadas
+/* Color de fondo de las opciones seleccionadas */
 .ss-content .ss-list .ss-option:not(.ss-disabled).ss-option-selected {
-    //background-color: #5e9cff29;
-    //background-color: #59cbf2;
+    /*background-color: #5e9cff29; */
+    /*background-color: #59cbf2; */
     background-color: #00a5d1;
     color: white;
 }
