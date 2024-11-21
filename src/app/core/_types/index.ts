@@ -159,3 +159,12 @@ export type NullHTMLButtonElement = HTMLButtonElement | null;
 export type TableSettingEvents = Partial<EventCallBackMethods>;
 
 export type TranslationReplacements = Record<string, StrOrNullish>;
+
+export type UserPreferences = {
+    version: string;
+    dark_theme: boolean;
+    sidebar_collapsed: boolean;
+    sidebar_state_per_page: boolean;
+}
+
+export type CookiesName = 'laravel_hexagonal_user_preferences';

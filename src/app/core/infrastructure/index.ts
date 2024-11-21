@@ -1,4 +1,5 @@
 export * from './utilities/general/Constants';
+export * from './utilities/general/Cookie';
 export * from './utilities/general/global';
 export * from './utilities/general/Html';
 export * from './utilities/general/Instantiable';
