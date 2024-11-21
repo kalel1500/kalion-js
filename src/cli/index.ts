@@ -68,6 +68,7 @@ const filesToCreate = [
     'resources/js/app/translations.ts',
     'resources/js/app/lang/es.json',
     'resources/js/app/lang/en.json',
+    'resources/js/src/shared/application/HomeUseCase.ts',
     'resources/js/src/shared/infrastructure/DefaultController.ts',
     '.prettierrc',
     'postcss.config.js',

@@ -1,5 +1,7 @@
+import HomeUseCase from '../application/HomeUseCase';
+
 export default class DefaultController {
     home() {
-        console.log('inicio');
+        HomeUseCase.new().__invoke();
     }
 }
