@@ -1,6 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.4...master)
+
+## [v1.3.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.2...v1.3.0-beta.4) - 2024-11-26
+
+### Added
+
+* cookies: Nueva clase `Cookie.ts` para manejar las Cookies desde el front
+
+### Changed
+
+* stubs: Cambios ruta `/home`:
+  * renombrar y mover controller de `.../src/home/infrastructure/HomeController.ts` a `.../src/shared/infrastructure/DefaultController.ts`
+  * renombrar método `HomeController::index()` a `DefaultController::home()`
+  * crear nuevo `HomeUseCase` llamarlo en el `DefaultController` para no tener toda la lógica en el controller
+* cookies: Modificar `DomService.ts` para utilizar las `Cookies` en vez del `localStorage`
+* Actualizar dependencias `vite-plugin-dts` y `vite-plugin-static-copy`
+* Eliminar `sass` como dependencia de desarrollo y pasar todo el `scss` a `css` (añadir dependencias `autoprefixer` y `postcss-nested` y nuevo archivo `postcss.config.js`)
+* Actualizar dependencias y adaptar código relacionado con `laravel-echo` y `sass`
 
 ## [v1.3.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.1...v1.3.0-beta.2) - 2024-11-09
 
