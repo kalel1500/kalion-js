@@ -1,6 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.4...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.5...master)
+
+## [v1.3.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.4...v1.3.0-beta.5) - 2024-11-26
+
+### Changed
+
+* plugins: 
+  * !!! Separar los plugins de `Vite` y de `Tailwind` en dos archivos diferentes para compilar uno en ESM (vite) y otro en CJS (tailwind) para prevenir el error `The CJS build of Vite's Node API is deprecated` durante la compilación
+  * renombrar archivos de los plugins a `.../plugin.ts`
 
 ## [v1.3.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.2...v1.3.0-beta.4) - 2024-11-26
 
