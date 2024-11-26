@@ -58,18 +58,18 @@ export default ({ mode }: { mode: string }) => {
             outDir: './dist/app'
         }
     };
-    const pluginConfig: UserConfig = {
+    const pluginViteConfig: UserConfig = {
         plugins: [
             dts({
-                include: ['src/plugins'], // Incluye los directorios src y types para la generación de tipos
-                outDir: 'dist/plugins', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+                include: ['src/plugins/vite'], // Incluye los directorios src y types para la generación de tipos
+                outDir: 'dist/plugins/vite', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/plugins/index.ts'),
-                name: 'PluginsLaravelTsUtils',
-                fileName: (format) => `plugins-laravel-ts-utils.js`,
+                entry: path.resolve(__dirname, 'src/plugins/vite/index.ts'),
+                name: 'VitePluginLaravelTsUtils',
+                fileName: (format) => `plugin.js`,
                 formats: ['es'],
             },
             rollupOptions: {
@@ -78,7 +78,30 @@ export default ({ mode }: { mode: string }) => {
                 external: ['fs', 'path', 'vite'],
             },
             minify: false,
-            outDir: './dist/plugins'
+            outDir: './dist/plugins/vite'
+        }
+    };
+    const pluginTailwindConfig: UserConfig = {
+        plugins: [
+            dts({
+                include: ['src/plugins/tailwind'], // Incluye los directorios src y types para la generación de tipos
+                outDir: 'dist/plugins/tailwind', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+            }),
+        ],
+        build: {
+            lib: {
+                entry: path.resolve(__dirname, 'src/plugins/tailwind/index.ts'),
+                name: 'TailwindCssPlugin',
+                fileName: (format) => `plugin.cjs`,
+                formats: ['cjs'],
+            },
+            rollupOptions: {
+                // Marcar fs y path como externos porque son APIs de Node.js
+                // Marcar Vite también como externo, ya que, ser incluido en el bundle del paquete porque estará disponible en la apicación
+                external: ['tailwindcss/plugin', 'flowbite/plugin'],
+            },
+            minify: false,
+            outDir: './dist/plugins/tailwind'
         }
     };
     const cliConfig: UserConfig = {
@@ -109,8 +132,11 @@ export default ({ mode }: { mode: string }) => {
 
     let selectedConfig;
     switch (buildTarget) {
-        case 'plugins':
-            selectedConfig = pluginConfig;
+        case 'pluginV':
+            selectedConfig = pluginViteConfig;
+            break;
+        case 'pluginT':
+            selectedConfig = pluginTailwindConfig;
             break;
         case 'scripts':
             selectedConfig = cliConfig;

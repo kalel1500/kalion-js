@@ -11,9 +11,13 @@
             "types": "./dist/app/types/index.d.ts",
             "default": "./dist/app/laravel-ts-utils.es.js"
         },
-        "./dist/plugins": {
-            "types": "./dist/plugins/index.d.ts",
-            "default": "./dist/plugins/plugins-laravel-ts-utils.js"
+        "./dist/plugins/vite": {
+            "types": "./dist/plugins/vite/index.d.ts",
+            "default": "./dist/plugins/vite/plugin.js"
+        },
+        "./dist/plugins/tailwind": {
+            "types": "./dist/plugins/tailwind/index.d.ts",
+            "default": "./dist/plugins/tailwind/plugin.cjs"
         },
         "./dist/app/*.css": "./dist/app/*.css"
     },
@@ -25,8 +29,10 @@
     },
     "scripts": {
         "build:library": "vite build",
-        "build:plugins": "cross-env BUILD_TARGET=plugins vite build",
+        "build:pluginV": "cross-env BUILD_TARGET=pluginV vite build",
+        "build:pluginT": "cross-env BUILD_TARGET=pluginT vite build",
         "build:scripts": "cross-env BUILD_TARGET=scripts vite build",
+        "build:plugins": "npm run build:pluginV && npm run build:pluginT",
         "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts"
     },
     "repository": {
