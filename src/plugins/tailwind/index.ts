@@ -1,1 +1,1 @@
-export * from './tailwindcss-plugin'
+export * from './plugin'
