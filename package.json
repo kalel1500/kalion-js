@@ -54,9 +54,6 @@
     "homepage": "https://github.com/kalel1500/laravel-ts-utilities#readme",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
-        "@types/luxon": "^3.4.2",
-        "@types/node": "20.11.1",
-        "@types/tabulator-tables": "^6.2.3",
         "autoprefixer": "^10.4.20",
         "cross-env": "^7.0.3",
         "flowbite": "^2.5.2",
@@ -68,6 +65,9 @@
         "vite-plugin-static-copy": "^2.1.0"
     },
     "dependencies": {
+        "@types/luxon": "^3.4.2",
+        "@types/node": "20.11.1",
+        "@types/tabulator-tables": "^6.2.3",
         "laravel-echo": "^1.17.0",
         "luxon": "^3.5.0",
         "pusher-js": "^8.4.0-rc2",
