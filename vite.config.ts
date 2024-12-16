@@ -27,8 +27,11 @@ export default ({ mode }: { mode: string }) => {
             lib: {
                 entry: {
                     app: path.resolve(__dirname, 'src/app/index.ts'), // Entrada para JavaScript
-                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.css'), // Entrada para main.css
-                    "styles": path.resolve(__dirname, 'src/app/styles/app.css'), // Entrada para app.css
+                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.css'),
+                    "styles": path.resolve(__dirname, 'src/app/styles/app.css'),
+                    "slimselect": path.resolve(__dirname, 'src/app/styles/slim-select/slimselect.css'),
+                    "sweetalert": path.resolve(__dirname, 'src/app/styles/sweetalert/sweetalert.css'),
+                    "tabulator": path.resolve(__dirname, 'src/app/styles/tabulator/tabulator.css'),
                 },
                 name: 'LaravelTsUtils',
                 fileName: (format) => `laravel-ts-utils.${format}.js`,
