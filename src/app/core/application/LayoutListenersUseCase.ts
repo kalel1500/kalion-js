@@ -7,5 +7,6 @@ export class LayoutListenersUseCase extends Instantiable {
         LStorage.checkAndUpdateVersion();
         DomService.new().startDarkMode();
         DomService.new().startSidebarState();
+        DomService.new().startSidebarArrowsObserve();
     }
 }

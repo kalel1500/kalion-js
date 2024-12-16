@@ -75,4 +75,30 @@ export class DomService extends Instantiable {
         });
 
     }
+
+    startSidebarArrowsObserve()
+    {
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver((mutationList, observer) => {
+            for (const mutation of mutationList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'aria-expanded') {
+                    const $button = mutation.target as HTMLElement;
+                    const $arrow = $button.querySelector('svg.chevron-down');
+                    if ($arrow !== null) {
+                        const isExpanded = $button.getAttribute('aria-expanded') === 'true';
+                        if (isExpanded) {
+                            $arrow.classList.add('-rotate-90');
+                        } else {
+                            $arrow.classList.remove('-rotate-90');
+                        }
+                    }
+                }
+            }
+        });
+
+        const targetNode = document.getElementById("drawer-navigation")?.firstElementChild as HTMLElement;
+
+        // Start observing the target node for configured mutations
+        observer.observe(targetNode, { attributes: true, subtree: true });
+    }
 }
