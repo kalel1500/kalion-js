@@ -1,6 +1,22 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.5...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.6...master)
+
+## [v1.3.0-beta.6](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.5...v1.3.0-beta.6) - 2024-12-16
+
+### Added
+
+* Compilar todos los estilos por separado para poder importarlos independientemente en las aplicaciones
+
+### Changed
+
+* Layout: añadir `startSidebarArrowsObserve()` en el `LayoutListenersUseCase` para añadir la funcionalidad de rotar las flechas de los dropdowns del sidebar
+* Mutation: mejoras en la clase -> mover el comportamiento del constructor a la propiedad `Mutation.observeClass()` y crear un nuevo método `Mutation.observe()` más genérico
+* Mover las dependencias de los tipos de `devDependencies` a `dependencies` para no tener que instalarlas específicamente en la aplicación
+
+### Fixed
+
+* (fix) stubs: corregir las rutas de los plugins del paquete, ya que se han movido de sitio
 
 ## [v1.3.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.4...v1.3.0-beta.5) - 2024-11-26
 
