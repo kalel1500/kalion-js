@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.6...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.7...master)
+
+## [v1.3.0-beta.7](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.6...v1.3.0-beta.7) - 2024-12-17
+
+### Fixed
+
+* (fix) Solucionar error en `DomService.startSidebarArrowsObserve()` cuando no existe el elemento `drawer-navigation` en el Html
 
 ## [v1.3.0-beta.6](https://github.com/kalel1500/laravel-ts-utilities/compare/v1.3.0-beta.5...v1.3.0-beta.6) - 2024-12-16
 
