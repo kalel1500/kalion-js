@@ -78,6 +78,10 @@ export class DomService extends Instantiable {
 
     startSidebarArrowsObserve()
     {
+        const targetNode = document.getElementById("drawer-navigation")?.firstElementChild as HTMLElement | null | undefined;
+
+        if (!targetNode) return;
+
         // Create an observer instance linked to the callback function
         const observer = new MutationObserver((mutationList, observer) => {
             for (const mutation of mutationList) {
@@ -95,8 +99,6 @@ export class DomService extends Instantiable {
                 }
             }
         });
-
-        const targetNode = document.getElementById("drawer-navigation")?.firstElementChild as HTMLElement;
 
         // Start observing the target node for configured mutations
         observer.observe(targetNode, { attributes: true, subtree: true });
