@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.7...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.8...master)
+
+## [v0.4.0-beta.8](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.7...v0.4.0-beta.8) - 2025-01-16
+
+### Changed
+
+* Se han renombrado todas las versiones con el primer número a `0` y se ha renombrado el paquete a `@kalel1500/laravel-ts-utils` (para poder limpiar las versiones)
+  * versiones renombradas en el `CHANGELOG.md` y en el `package.json`
+  * proyecto renombrado en los archivos `package.json`, `README.md`, `CHANGELOG.md` y varios archivos más
+  * nuevo comando para publicar paquetes con scope de forma pública en el `development-tips`
 
 ## [v0.4.0-beta.7](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.6...v0.4.0-beta.7) - 2024-12-17
 
