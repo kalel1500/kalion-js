@@ -4,12 +4,12 @@
 
 ### Deprecar una version
 
-* `npm deprecate laravel-ts-utilities@*** "Versión ..., no usar"`: deprecar una version publicada que no sirve
+* `npm deprecate @kalel1500/laravel-ts-utils@*** "Versión ..., no usar"`: deprecar una version publicada que no sirve
 
 ### Despublicar una version
 
-* `npm unpublish laravel-ts-utilities@***"`: despublicar la version de un paquete
-* `npm unpublish laravel-ts-utilities --force"`: despublicar todas las versiones de un paquete
+* `npm unpublish @kalel1500/laravel-ts-utils@***"`: despublicar la version de un paquete
+* `npm unpublish @kalel1500/laravel-ts-utils --force"`: despublicar todas las versiones de un paquete
 
 ### Subir una version (actualizar package.json + commit + tag)
 
@@ -27,11 +27,11 @@
 
 ### Otros comandos
 
-* `npm view laravel-ts-utilities versions`: Verifica las versiones disponibles
-* `npm dist-tag add laravel-ts-utilities@*** beta`: Etiqueta una versión específica con `beta`
+* `npm view @kalel1500/laravel-ts-utils versions`: Verifica las versiones disponibles
+* `npm dist-tag add @kalel1500/laravel-ts-utils@*** beta`: Etiqueta una versión específica con `beta`
 * `npm dist-tag rm <tu-paquete> beta`: Eliminar o ajustar tags anteriores
 * `npm dist-tag ls <tu-paquete>`: Verificar el dist-tag actual
-* `npm dist-tag add laravel-ts-utilities@*** latest`: Etiqueta una versión específica con `latest`
+* `npm dist-tag add @kalel1500/laravel-ts-utils@*** latest`: Etiqueta una versión específica con `latest`
 
 ## GIT
 

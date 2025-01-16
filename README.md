@@ -13,7 +13,7 @@ Utilidades de typescript para Laravel
 ## Instalación
 
 ```bash
-npm laravel-ts-utilities
+npm @kalel1500/laravel-ts-utils
 ```
 
 ## License

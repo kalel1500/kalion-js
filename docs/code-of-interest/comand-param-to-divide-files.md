@@ -1,4 +1,4 @@
-# Pasar parámetro al comando "npx laravel-ts-utilities param"
+# Pasar parámetro al comando "npx laravel-ts-utils param"
 
 ## Crear archivos según el parámetro recibido
 
