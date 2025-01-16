@@ -1,14 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.7...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.7...master)
 
-## [v0.4.0-beta.7](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.6...v0.4.0-beta.7) - 2024-12-17
+## [v0.4.0-beta.7](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.6...v0.4.0-beta.7) - 2024-12-17
 
 ### Fixed
 
 * (fix) Solucionar error en `DomService.startSidebarArrowsObserve()` cuando no existe el elemento `drawer-navigation` en el Html
 
-## [v0.4.0-beta.6](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.5...v0.4.0-beta.6) - 2024-12-16
+## [v0.4.0-beta.6](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.5...v0.4.0-beta.6) - 2024-12-16
 
 ### Added
 
@@ -24,7 +24,7 @@
 
 * (fix) stubs: corregir las rutas de los plugins del paquete, ya que se han movido de sitio
 
-## [v0.4.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.4...v0.4.0-beta.5) - 2024-11-26
+## [v0.4.0-beta.5](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.4...v0.4.0-beta.5) - 2024-11-26
 
 ### Changed
 
@@ -32,7 +32,7 @@
   * !!! Separar los plugins de `Vite` y de `Tailwind` en dos archivos diferentes para compilar uno en ESM (vite) y otro en CJS (tailwind) para prevenir el error `The CJS build of Vite's Node API is deprecated` durante la compilación
   * renombrar archivos de los plugins a `.../plugin.ts`
 
-## [v0.4.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.3...v0.4.0-beta.4) - 2024-11-26
+## [v0.4.0-beta.4](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.3...v0.4.0-beta.4) - 2024-11-26
 
 ### Added
 
@@ -49,13 +49,13 @@
 * Eliminar `sass` como dependencia de desarrollo y pasar todo el `scss` a `css` (añadir dependencias `autoprefixer` y `postcss-nested` y nuevo archivo `postcss.config.js`)
 * Actualizar dependencias y adaptar código relacionado con `laravel-echo` y `sass`
 
-## [v0.4.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.2...v0.4.0-beta.3) - 2024-11-09
+## [v0.4.0-beta.3](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.2...v0.4.0-beta.3) - 2024-11-09
 
 ### Removed
 
 * stubs: archivo `.env.local` eliminado (ya que ahora está en el paquete de composer `laravel-hexagonal-and-ddd-architecture-utilities`
 
-## [v0.4.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.4.0-beta.1...v0.4.0-beta.2) - 2024-11-05
+## [v0.4.0-beta.2](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.1...v0.4.0-beta.2) - 2024-11-05
 
 ### Added
 
@@ -75,7 +75,7 @@
 
 * (fix) corregir numero version en el `CHANGELOG.md`
 
-## [v0.4.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.8...v0.4.0-beta.1) - 2024-10-31
+## [v0.4.0-beta.1](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.8...v0.4.0-beta.1) - 2024-10-31
 
 ### Added
 
@@ -145,7 +145,7 @@
 * stubs: eliminar `TestController`
 * Eliminar dependencia `@fortawesome/fontawesome-free`
 
-## [v0.3.0-beta.8](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.7...v0.3.0-beta.8) - 2024-09-26
+## [v0.3.0-beta.8](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.7...v0.3.0-beta.8) - 2024-09-26
 
 ### Added
 
@@ -156,22 +156,22 @@
 * (fix) solucionado error en el `vite-plugin-laravel-ts-utils`, ya que las dependencias externas solo funcionaban con el `npm run build`.
   Al hacer el `npm run dev` Vite utiliza otros métodos para resolver las dependencias que no se habían contemplado
 
-## [v0.3.0-beta.7](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.6...v0.3.0-beta.7) - 2024-09-25
+## [v0.3.0-beta.7](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.6...v0.3.0-beta.7) - 2024-09-25
 
 ### Changed
 
 * (refactor) stubs: modificar las comillas dobles (`"`) por comillas simples (`'`) + dejar espacios en los imports con llaves (`{ ... }`)
-* stubs: Nuevos archivos para configurar `tailwindcss` y poder recibir parámetro en el comando de creación (`npx laravel-ts-utilities`) para poder separar la creación entre `all`, `typescript`, `tailwind`.
+* stubs: Nuevos archivos para configurar `tailwindcss` y poder recibir parámetro en el comando de creación (`npx laravel-ts-utils`) para poder separar la creación entre `all`, `typescript`, `tailwind`.
 * stubs: Ruta `scripts` renombrada `cli` y el `postinstall.js` a `index.js`.
-* stubs: Eliminar script `postinstall` y añadir comando (`bin`) `laravel-ts-utilities` en el archivo `package.json` para poder crear los archivos manualmente y no solo tras la instalación (como `npx tailwindcss`).
+* stubs: Eliminar script `postinstall` y añadir comando (`bin`) `laravel-ts-utils` en el archivo `package.json` para poder crear los archivos manualmente y no solo tras la instalación (como `npx tailwindcss`).
 
-## [v0.3.0-beta.6](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.5...v0.3.0-beta.6) - 2024-09-23
+## [v0.3.0-beta.6](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.5...v0.3.0-beta.6) - 2024-09-23
 
 ### Fixed
 
 * (fix) postinstall: se creaban los archivos en el propio paquete. Ahora se sube dos niveles para salir de node_modules y crearlos en la aplicación que lo instala.
 
-## [v0.3.0-beta.5](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.4...v0.3.0-beta.5) - 2024-09-23
+## [v0.3.0-beta.5](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.4...v0.3.0-beta.5) - 2024-09-23
 
 ### Added
 
@@ -186,7 +186,7 @@
 
 * Solucionado error al excluir el TypeScript interno de la compilación
 
-## [v0.3.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.3...v0.3.0-beta.4) - 2024-09-20
+## [v0.3.0-beta.4](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.3...v0.3.0-beta.4) - 2024-09-20
 
 ### Added
 
@@ -210,7 +210,7 @@
 
 * Solucionado error en el archivo `.gitignore`.
 
-## [v0.3.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.2...v0.3.0-beta.3) - 2024-09-19
+## [v0.3.0-beta.3](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.2...v0.3.0-beta.3) - 2024-09-19
 
 ### Added
 
@@ -222,7 +222,7 @@
 * Quitar `type Mode` y tipar como string en `export default ({ mode }: { mode: string }) => {`
 * Mover configuración Vite (`vite.config.ts`) a una variable
 
-## [v0.3.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.3.0-beta.1...v0.3.0-beta.2) - 2024-08-21
+## [v0.3.0-beta.2](https://github.com/kalel1500/laravel-ts-utils/compare/v0.3.0-beta.1...v0.3.0-beta.2) - 2024-08-21
 
 ### Added
 
@@ -238,7 +238,7 @@
 
 * Correcciones package.json
 
-## [v0.3.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.2.0-beta.2...v0.3.0-beta.1) - 2024-08-21
+## [v0.3.0-beta.1](https://github.com/kalel1500/laravel-ts-utils/compare/v0.2.0-beta.2...v0.3.0-beta.1) - 2024-08-21
 
 ### Added
 
@@ -252,7 +252,7 @@
 * package.json: añadir `type`: `module` en el package.json
 * CHANGELOG.md actualizado
 
-## [v0.2.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.2.0-beta.1...v0.2.0-beta.2) - 2024-08-12
+## [v0.2.0-beta.2](https://github.com/kalel1500/laravel-ts-utils/compare/v0.2.0-beta.1...v0.2.0-beta.2) - 2024-08-12
 
 ### Added
 
@@ -269,7 +269,7 @@
 
 * package.json: enlace git arreglado
 
-## [v0.2.0-beta.1](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.1.0-beta.4...v0.2.0-beta.1) - 2024-07-18
+## [v0.2.0-beta.1](https://github.com/kalel1500/laravel-ts-utils/compare/v0.1.0-beta.4...v0.2.0-beta.1) - 2024-07-18
 
 ### Fixed
 
@@ -279,7 +279,7 @@
 
 * (breaking) Eliminado método `addClassEditableOnReceivedEditableCells`, ya que con la corrección anterior ya no hace falta
 
-## [v0.1.0-beta.4](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.1.0-beta.3...v0.1.0-beta.4) - 2024-07-05
+## [v0.1.0-beta.4](https://github.com/kalel1500/laravel-ts-utils/compare/v0.1.0-beta.3...v0.1.0-beta.4) - 2024-07-05
 
 ### Changed
 
@@ -289,7 +289,7 @@
 
 * Quitar dependencia del paquete `kalel1500/laravel-hexagonal-and-ddd-architecture-utilities` del README.md
 
-## [v0.1.0-beta.3](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.1.0-beta.2...v0.1.0-beta.3) - 2024-06-19
+## [v0.1.0-beta.3](https://github.com/kalel1500/laravel-ts-utils/compare/v0.1.0-beta.2...v0.1.0-beta.3) - 2024-06-19
 
 ### Changed
 
@@ -299,7 +299,7 @@
 * !Refactor: reestructuración carpetas proyecto para poder añadir en un futuro código para ejecutar en rutas del paquete `laravel-hexagonal-and-ddd-architecture-utilities`
 * README.md actualizado para indicar la dependencia del paquete `laravel-hexagonal-and-ddd-architecture-utilities`
 
-## [v0.1.0-beta.2](https://github.com/kalel1500/laravel-ts-utilities/compare/v0.1.0-beta.1...v0.1.0-beta.2) - 2024-06-14
+## [v0.1.0-beta.2](https://github.com/kalel1500/laravel-ts-utils/compare/v0.1.0-beta.1...v0.1.0-beta.2) - 2024-06-14
 
 ### Added
 
