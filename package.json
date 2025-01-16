@@ -1,6 +1,6 @@
 {
-    "name": "laravel-ts-utilities",
-    "version": "1.3.0-beta.7",
+    "name": "@kalel1500/laravel-ts-utils",
+    "version": "0.4.0-beta.7",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
     "main": "dist/app/laravel-ts-utils.es.js",
@@ -25,7 +25,7 @@
         "dist"
     ],
     "bin": {
-        "laravel-ts-utilities": "dist/cli/index.js"
+        "laravel-ts-utils": "dist/cli/index.js"
     },
     "scripts": {
         "build:library": "vite build",
@@ -37,7 +37,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/kalel1500/laravel-ts-utilities.git"
+        "url": "git+https://github.com/kalel1500/laravel-ts-utils.git"
     },
     "keywords": [
         "laravel",
@@ -49,9 +49,9 @@
     "author": "kalel1500",
     "license": "GPL-3.0-or-later",
     "bugs": {
-        "url": "https://github.com/kalel1500/laravel-ts-utilities/issues"
+        "url": "https://github.com/kalel1500/laravel-ts-utils/issues"
     },
-    "homepage": "https://github.com/kalel1500/laravel-ts-utilities#readme",
+    "homepage": "https://github.com/kalel1500/laravel-ts-utils#readme",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
         "autoprefixer": "^10.4.20",
