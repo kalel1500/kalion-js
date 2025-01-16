@@ -23,6 +23,7 @@
 
 * `npm publish`
 * `npm publish --tag beta`: publicar una version beta
+* `npm publish --access public`: publicar un paquete con scope de forma publica
 
 ### Otros comandos
 
