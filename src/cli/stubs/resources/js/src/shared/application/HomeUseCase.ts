@@ -1,4 +1,4 @@
-import { Instantiable } from "laravel-ts-utilities";
+import { Instantiable } from "@kalel1500/laravel-ts-utils";
 
 export default class HomeUseCase extends Instantiable
 {
