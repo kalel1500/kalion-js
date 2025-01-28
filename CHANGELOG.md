@@ -1,16 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.9...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.10...master)
+
+## [v0.4.0-beta.10](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.9...v0.4.0-beta.10) - 2025-01-28
+
+### Changed
+
+* Archivo `stubs/resources/images/favicon.ico` eliminado del CLI, ya que se ha movido al paquete `kalel1500/laravel-hexagonal-and-ddd-architecture-utilities`
+* Dependencias actualizadas
 
 ## [v0.4.0-beta.9](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.8...v0.4.0-beta.9) - 2025-01-24
 
 ### Changed
 
-* development-tips.md: nuevo comando para actualizar la version "patch" de una beta + diccionario de cuál es cada una
+* development-tips.md: nuevo comando para actualizar la version `patch` de una beta + diccionario de cuál es cada una
 
 ### Fixed
 
-* (fix) Imports "laravel-ts-utilities" cambiados por "@kalel1500/laravel-ts-utils" en los archivos de "src/cli/stubs"
+* (fix) Imports `laravel-ts-utilities` cambiados por `@kalel1500/laravel-ts-utils` en los archivos de `src/cli/stubs`
 
 ## [v0.4.0-beta.8](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.7...v0.4.0-beta.8) - 2025-01-16
 
