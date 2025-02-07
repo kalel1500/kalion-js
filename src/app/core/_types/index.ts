@@ -166,5 +166,3 @@ export type UserPreferences = {
     sidebar_collapsed: boolean;
     sidebar_state_per_page: boolean;
 }
-
-export type CookiesName = 'laravel_hexagonal_user_preferences';

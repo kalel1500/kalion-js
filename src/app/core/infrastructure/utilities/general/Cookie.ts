@@ -1,21 +1,23 @@
-import { CookiesName, UserPreferences } from '../../../_types';
+import { UserPreferences } from '../../../_types';
+import { __const } from '../_internal/helpers';
+import { g } from './global';
 
 export class Cookie {
-    private cookiePreferencesName: CookiesName = 'laravel_hexagonal_user_preferences';
+    private cookiePreferencesName: string = g.slugify(__const('VITE_APP_NAME'), '_') + '_hexagonal_user_preferences';
 
     static new()
     {
         return new Cookie();
     }
 
-    get(name: CookiesName): string | null
+    get(name: string): string | null
     {
         const cookies = document.cookie.split("; ");
         const cookie = cookies.find((row) => row.startsWith(`${name}=`));
         return cookie ? decodeURIComponent(cookie.split("=")[1]) : null;
     }
 
-    set(name: CookiesName, value: string, days: number): void
+    set(name: string, value: string, days: number): void
     {
         const expires = new Date();
         expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
