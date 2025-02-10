@@ -26,6 +26,13 @@ const laravelPlugin = plugin.withOptions(function (options = {}) {
                 screens: {
                     'vsm': '440px',
                 },
+                boxShadow: {
+                    'h-1xl': '0 0 4px 1px rgba(0, 0, 0, 0.2)',
+                    'hb-1xl': '0 0 4px 1px rgba(0, 0, 0)',
+
+                    'h-2xl': '0 0 5px 2px rgba(0, 0, 0, 0.3)',
+                    'hb-2xl': '0 0 5px 2px rgba(0, 0, 0)',
+                }
             }
         },
     };
