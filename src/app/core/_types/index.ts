@@ -166,3 +166,9 @@ export type UserPreferences = {
     sidebar_collapsed: boolean;
     sidebar_state_per_page: boolean;
 }
+
+export type ViewData<T> = {
+    success: boolean;
+    message: string;
+    data: T;
+}
