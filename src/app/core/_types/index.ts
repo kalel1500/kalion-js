@@ -197,6 +197,14 @@ export type ViewData<T> = {
     data: T;
 }
 
+export type Sizes =
+    '2xs' |
+    'xs' |
+    'sm' |
+    'base' |
+    'lg' |
+    'lx';
+
 export type Colors =
     'blue' |
     'dark' |
@@ -209,6 +217,7 @@ export type Colors =
 
 export type ConfigBtn = {
     id?: string;
+    size: Sizes;
     color: Colors;
     slot?: string;
     extraClasses?: string;
@@ -221,7 +230,18 @@ export type ConfigIcon = {
     size?: string;
 };
 
-export type ComponentType = 'btn' | 'icon';
-export type IconType = 'info' | 'save';
-export type ComponentName = `btn` | `icon.${IconType}`;
+export type ComponentType =
+    'btn' |
+    'icon';
+export type IconType =
+    'info' |
+    'save' |
+    'cancel' |
+    'delete' |
+    'new' |
+    'reload' |
+    'move';
+export type ComponentName =
+    `btn` |
+    `icon.${IconType}`;
 
