@@ -1,8 +1,33 @@
 import { Colors, ConfigBtn } from '../../../../_types';
 import { g } from '../../general/global';
 
+type getHtmlParams = {
+    htmlId?: string;
+    finalClasses: string;
+    extraAttributes: string;
+    slot: string;
+    isLink: boolean;
+    linkUrl?: string;
+    linkBlank?: boolean;
+};
+
 export class Btn {
-    static tailwind({id, size = 'base', color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
+    private static getHtml({
+                               htmlId,
+                               finalClasses,
+                               extraAttributes,
+                               slot,
+                               isLink = false,
+                               linkUrl = '#',
+                               linkBlank,
+                           }: getHtmlParams)
+    {
+        return isLink
+            ? `<a href="${linkUrl}" ${linkBlank ? 'target="_blank"' : ''} ><button class="${finalClasses}">${slot}</button></a>`
+            : `<button type="button" ${htmlId} class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
+    }
+
+    static tailwind({id, size = 'base', color = 'blue', slot = '', extraClasses = '', extraAttributes = '', isLink = false, linkUrl, linkBlank}: ConfigBtn): string {
         const defaultClasses = 'mb-2 rounded-lg font-medium focus:outline-none focus:ring-4';
         const sizeClasses = {
             '2xs':  'px-2 py-1   text-xs  ',
@@ -24,10 +49,11 @@ export class Btn {
         };
         const finalClasses = g.mergeTailwindClasses(`${defaultClasses} ${sizeClasses[size]} ${colorClasses[color]}`, extraClasses);
         const htmlId = id ? `id="${id}"` : '';
-        return `<button type="button" ${htmlId} class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
+        // return `<button type="button" ${htmlId} class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
+        return Btn.getHtml({htmlId, finalClasses, extraAttributes, slot, isLink, linkUrl, linkBlank});
     }
 
-    static bootstrap({size = 'base', color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
+    static bootstrap({id, size = 'base', color = 'blue', slot = '', extraClasses = '', extraAttributes = '', isLink = false, linkUrl, linkBlank}: ConfigBtn): string {
         const defaultClasses = 'btn';
         const sizeClasses = {
             '2xs':  'btn-xs',
@@ -48,6 +74,8 @@ export class Btn {
             gray:       'btn-secondary',
         };
         const finalClasses = `${defaultClasses} ${sizeClasses[size]} ${colorClasses[color]} ${extraClasses}`;
-        return `<button type="button" class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
+        const htmlId = id ? `id="${id}"` : '';
+        // return `<button type="button" class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
+        return Btn.getHtml({htmlId, finalClasses, extraAttributes, slot, isLink, linkUrl, linkBlank});
     }
 }

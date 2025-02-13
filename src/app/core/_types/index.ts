@@ -222,6 +222,9 @@ export type ConfigBtn = {
     slot?: string;
     extraClasses?: string;
     extraAttributes?: string;
+    isLink?: boolean;
+    linkUrl?: string;
+    linkBlank?: boolean;
 };
 
 export type ConfigIcon = {
@@ -240,7 +243,8 @@ export type IconType =
     'delete' |
     'new' |
     'reload' |
-    'move';
+    'move' |
+    'edit';
 export type ComponentName =
     `btn` |
     `icon.${IconType}`;
