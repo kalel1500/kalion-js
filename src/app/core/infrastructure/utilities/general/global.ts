@@ -456,4 +456,13 @@ export class g {
     {
         return __const('VITE_TS_USE_BOOSTRAP_CLASSES') ? 'd-none' : 'hidden';
     }
+
+    static mergeTailwindClasses (defaultCls: string, extraCls: string) {
+        const defaultArray = defaultCls.split(' ').filter(Boolean);
+        const extraArray = extraCls.split(' ').filter(Boolean);
+        return [
+            ...defaultArray.filter(cls => !extraArray.some(extra => extra.startsWith(cls.split('-')[0]))),
+            ...extraArray
+        ].join(' ');
+    }
 }

@@ -1,13 +1,8 @@
-
-type ConfigIcon = {
-    outline: boolean;
-    strokeWidth: string;
-    size: string;
-};
+import { ConfigIcon, IconType } from '../../../../_types';
 
 export class Icon {
-    static tailwind(name: string, { outline = false, strokeWidth = '1.5', size = 'size-6' }: ConfigIcon): string {
-        const icons: Record<string, string> = {
+    static tailwind(name: IconType, { outline = false, strokeWidth = '1.5', size = 'size-6' }: ConfigIcon): string {
+        const icons: Record<IconType, string> = {
             info: (outline)
                 ? `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${strokeWidth}" stroke="currentColor" class="${size}">
@@ -32,14 +27,14 @@ export class Icon {
                 </svg>
                 `,
         };
-        return icons[name] || '';
+        return icons[name];
     }
 
-    static bootstrap(name: string): string {
-        const icons: Record<string, string> = {
+    static bootstrap(name: IconType): string {
+        const icons: Record<IconType, string> = {
             info: `<i class="fa fa-info-circle"></i>`,
             save: `<i class="far fa-save"></i>`
         };
-        return icons[name] || '';
+        return icons[name];
     }
 }

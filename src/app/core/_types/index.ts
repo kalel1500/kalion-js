@@ -196,3 +196,22 @@ export type ViewData<T> = {
     message: string;
     data: T;
 }
+
+export type ConfigBtn = {
+    id?: string;
+    color: 'blue' | 'green' | 'red' | 'yellow' | 'gray';
+    slot?: string;
+    extraClasses?: string;
+    extraAttributes?: string;
+};
+
+export type ConfigIcon = {
+    outline?: boolean;
+    strokeWidth?: string;
+    size?: string;
+};
+
+export type ComponentType = 'btn' | 'icon';
+export type IconType = 'info' | 'save';
+export type ComponentName = `btn` | `icon.${IconType}`;
+

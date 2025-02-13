@@ -1,13 +1,8 @@
-type ConfigBtn = {
-    id?: string;
-    color?: 'blue' | 'green' | 'red' | 'yellow' | 'gray';
-    slot?: string;
-    extraClasses?: string;
-    extraAttributes?: string;
-};
+import { ConfigBtn } from '../../../../_types';
+import { g } from '../../general/global';
 
 export class Btn {
-    static tailwind({ id, color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
+    static tailwind({id, color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
         const defaultClasses = 'mb-2 rounded-lg px-5 py-2.5 text-sm font-medium focus:outline-none focus:ring-4';
         const colorClasses: Record<string, string> = {
             blue: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
@@ -16,12 +11,12 @@ export class Btn {
             yellow: 'bg-yellow-400 text-white hover:bg-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-900',
             gray: 'bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-300 dark:focus:ring-gray-900',
         };
-        const finalClasses = `${defaultClasses} ${colorClasses[color]} ${extraClasses}`;
+        const finalClasses = g.mergeTailwindClasses(`${defaultClasses} ${colorClasses[color]}`, extraClasses);
         const htmlId = id ? `id="${id}"` : '';
         return `<button type="button" ${htmlId} class="${finalClasses}" ${extraAttributes}>${slot}</button>`;
     }
 
-    static bootstrap({ color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
+    static bootstrap({color = 'blue', slot = '', extraClasses = '', extraAttributes = '' }: ConfigBtn): string {
         const colorClasses: Record<string, string> = {
             blue: 'btn btn-primary',
             green: 'btn btn-success',
