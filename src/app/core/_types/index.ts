@@ -39,19 +39,19 @@ export interface DefaultConstants {
     routeName_websockets_checkService: string;
     routeName_queues_checkService: string;
 
-    VITE_BROADCASTING_ENABLED: boolean;
+    readonly VITE_BROADCASTING_ENABLED: boolean;
 
-    VITE_REVERB_APP_KEY: string | null;
-    VITE_REVERB_HOST: string;
-    VITE_REVERB_PORT: number;
-    VITE_REVERB_SCHEME: string;
+    readonly VITE_REVERB_APP_KEY: string | null;
+    readonly VITE_REVERB_HOST: string;
+    readonly VITE_REVERB_PORT: number;
+    readonly VITE_REVERB_SCHEME: string;
 
-    VITE_APP_ENV: string;
-    VITE_APP_NAME: string;
-    VITE_APP_CODE: string;
+    readonly VITE_APP_ENV: string;
+    readonly VITE_APP_NAME: string;
+    readonly VITE_APP_CODE: string;
 
-    VITE_TS_STORAGE_VERSION: string;
-    VITE_TS_USE_BOOSTRAP_CLASSES: boolean;
+    readonly VITE_TS_STORAGE_VERSION: string;
+    readonly VITE_TS_USE_BOOSTRAP_CLASSES: boolean;
 }
 
 export interface DefaultTranslations extends Translation {
