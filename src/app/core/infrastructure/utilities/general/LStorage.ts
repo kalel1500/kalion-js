@@ -3,7 +3,7 @@ import { __const } from '../_internal/helpers';
 
 export class LStorage {
 
-    static readonly VERSION = __const('VITE_APP_STORAGE_VERSION'); // Cambia este valor para invalidar el localStorage
+    static readonly VERSION = __const('VITE_TS_STORAGE_VERSION'); // Cambia este valor para invalidar el localStorage
     static readonly VERSION_KEY = 'config-version';
 
     static setItem(key: string, value: string) {

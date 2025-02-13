@@ -24,7 +24,7 @@ export class Constants<T extends DefaultConstants> {
             VITE_REVERB_SCHEME: 'http',
             VITE_APP_ENV: 'local',
             VITE_APP_NAME: 'Laravel',
-            VITE_APP_STORAGE_VERSION: '0.0',
+            VITE_TS_STORAGE_VERSION: '0.0',
         } as T;
     }
 

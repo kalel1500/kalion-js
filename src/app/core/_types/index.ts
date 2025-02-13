@@ -26,7 +26,7 @@ export interface DefaultConstants {
     VITE_REVERB_SCHEME: string;
     VITE_APP_ENV: string;
     VITE_APP_NAME: string;
-    VITE_APP_STORAGE_VERSION: string;
+    VITE_TS_STORAGE_VERSION: string;
 }
 
 export interface DefaultTranslations extends Translation {

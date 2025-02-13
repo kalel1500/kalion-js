@@ -14,7 +14,7 @@ constants.extend({
     VITE_REVERB_SCHEME:         import.meta.env.VITE_REVERB_SCHEME,
     VITE_APP_ENV:               import.meta.env.VITE_APP_ENV,
     VITE_APP_NAME:              import.meta.env.VITE_APP_NAME,
-    VITE_APP_STORAGE_VERSION:   import.meta.env.VITE_APP_STORAGE_VERSION,
+    VITE_TS_STORAGE_VERSION:    import.meta.env.VITE_TS_STORAGE_VERSION,
     anotherSetting:             'newCustomValue',
 });
 
