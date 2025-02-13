@@ -14,19 +14,19 @@ export type EnvVariables = {
     readonly VITE_CONF_SOURCEMAP?: string;
     readonly VITE_CONF_USE_APPCODE_IN_SOURCE_PATH?: string;
 
-    readonly VITE_BROADCASTING_ENABLED?: string;
+    readonly VITE_BROADCASTING_ENABLED?: string; // notInEnv
 
-    readonly VITE_REVERB_APP_KEY?: string;
-    readonly VITE_REVERB_HOST?: string;
-    readonly VITE_REVERB_PORT?: string;
-    readonly VITE_REVERB_SCHEME?: string;
+    readonly VITE_REVERB_APP_KEY?: string; // notInEnv
+    readonly VITE_REVERB_HOST?: string; // notInEnv
+    readonly VITE_REVERB_PORT?: string; // notInEnv
+    readonly VITE_REVERB_SCHEME?: string; // notInEnv
 
     readonly VITE_APP_ENV?: string;
     readonly VITE_APP_NAME?: string;
     readonly VITE_APP_CODE?: string;
 
     readonly VITE_TS_STORAGE_VERSION?: string;
-    readonly VITE_TS_USE_BOOSTRAP_CLASSES?: string;
+    readonly VITE_TS_USE_BOOSTRAP_CLASSES?: string; // notInEnv
 }
 
 // Define una interfaz para la configuración por defecto
