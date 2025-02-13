@@ -289,15 +289,17 @@ export class Ttable {
      */
 
     defaultListenerBtnEdit(btnEdit: NullHTMLButtonElement, btnCancelEdit: NullHTMLButtonElement) {
-        btnEdit?.classList.add('d-none');
-        btnCancelEdit?.classList.remove('d-none');
+        const hiddenClass = g.getHiddenClass();
+        btnEdit?.classList.add(hiddenClass);
+        btnCancelEdit?.classList.remove(hiddenClass);
         this.isEditable = true;
         this.table.redraw(true);
     }
 
     defaultListenerBtnCancel(btnEdit: NullHTMLButtonElement, btnCancelEdit: NullHTMLButtonElement) {
-        btnCancelEdit?.classList.add('d-none');
-        btnEdit?.classList.remove('d-none');
+        const hiddenClass = g.getHiddenClass();
+        btnCancelEdit?.classList.add(hiddenClass);
+        btnEdit?.classList.remove(hiddenClass);
         this.isEditable = false;
         this.table.replaceData().then();
         // this.table.redraw(true);

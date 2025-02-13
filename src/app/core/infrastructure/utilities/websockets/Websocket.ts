@@ -83,18 +83,20 @@ export class Websocket {
     static #checkStorageAndToggleError() {
         if (!Websocket.divMessageWebsockets) return;
 
+        const hiddenClass = g.getHiddenClass();
         if (Websocket.STORAGE.check()) {
-            Websocket.divMessageWebsockets.classList.remove('d-none');
+            Websocket.divMessageWebsockets.classList.remove(hiddenClass);
         } else {
-            Websocket.divMessageWebsockets.classList.add('d-none');
+            Websocket.divMessageWebsockets.classList.add(hiddenClass);
         }
     }
 
     static toggleErrorQueues(res: FetchResponse) {
+        const hiddenClass = g.getHiddenClass();
         if (res.success) {
-            Websocket.divMessageQueues?.classList.add('d-none');
+            Websocket.divMessageQueues?.classList.add(hiddenClass);
         } else {
-            Websocket.divMessageQueues?.classList.remove('d-none');
+            Websocket.divMessageQueues?.classList.remove(hiddenClass);
         }
     }
 

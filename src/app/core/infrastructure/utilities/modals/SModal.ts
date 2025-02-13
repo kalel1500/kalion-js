@@ -481,21 +481,22 @@ export class SModal {
                 let confirmBtn = el.querySelector('.swal2-confirm') as HTMLButtonElement;
 
                 // Add hidden error div
-                swalContent.insertAdjacentHTML('afterbegin', '<div class="mySwalError alert alert-danger text-start d-none"></div>');
+                const hiddenClass = g.getHiddenClass();
+                swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalError alert alert-danger text-start ${hiddenClass}"></div>`);
                 let newDivError = swalContent.querySelector('.mySwalError') as HTMLElement;
 
                 // Add hidden success div
-                swalContent.insertAdjacentHTML('afterbegin', '<div class="mySwalSuccess alert alert-success text-start d-none"></div>');
+                swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalSuccess alert alert-success text-start ${hiddenClass}"></div>`);
 
                 // Define validator function
                 let keyUpValidationFunction = (e: any) => {
                     let val = e?.target?.value ?? '';
                     if (!inputPassValidation(val)) {
-                        newDivError.classList.remove('d-none');
+                        newDivError.classList.remove(hiddenClass);
                         newDivError.innerText = getValidationMessage(val) as string;
                         confirmBtn.disabled = true;
                     } else {
-                        newDivError.classList.add('d-none');
+                        newDivError.classList.add(hiddenClass);
                         confirmBtn.disabled = false;
                     }
                 };
@@ -546,10 +547,11 @@ export class SModal {
                         if (fixedAndAlertChanges) {
                             let successDiv = document.querySelector('.mySwalSuccess');
                             if (successDiv !== null) {
-                                successDiv.classList.remove('d-none');
+                                const hiddenClass = g.getHiddenClass();
+                                successDiv.classList.remove(hiddenClass);
                                 successDiv.innerHTML = `Guardado correctamente.`;
                                 setTimeout(() => {
-                                    successDiv?.classList.add('d-none');
+                                    successDiv?.classList.add(hiddenClass);
                                 }, 2000);
                             }
                         }

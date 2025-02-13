@@ -451,4 +451,9 @@ export class g {
 
         return text;
     }
+
+    static getHiddenClass()
+    {
+        return __const('VITE_TS_USE_BOOSTRAP_CLASSES') ? 'd-none' : 'hidden';
+    }
 }

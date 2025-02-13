@@ -27,6 +27,7 @@ export interface DefaultConstants {
     VITE_APP_ENV: string;
     VITE_APP_NAME: string;
     VITE_TS_STORAGE_VERSION: string;
+    VITE_TS_USE_BOOSTRAP_CLASSES: boolean;
 }
 
 export interface DefaultTranslations extends Translation {

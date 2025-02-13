@@ -25,6 +25,7 @@ export class Constants<T extends DefaultConstants> {
             VITE_APP_ENV: 'local',
             VITE_APP_NAME: 'Laravel',
             VITE_TS_STORAGE_VERSION: '0.0',
+            VITE_TS_USE_BOOSTRAP_CLASSES: false,
         } as T;
     }
 
