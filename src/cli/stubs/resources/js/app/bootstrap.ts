@@ -2,7 +2,7 @@
 declare global {
     interface ImportMeta {
         readonly env: EnvVariables & {
-            VITE_OTHER: string
+            VITE_OTHER?: string
         };
     }
 }

@@ -12,7 +12,7 @@ constants.extend({
 
     VITE_REVERB_APP_KEY:          import.meta.env.VITE_REVERB_APP_KEY,
     VITE_REVERB_HOST:             import.meta.env.VITE_REVERB_HOST,
-    VITE_REVERB_PORT:             parseInt(import.meta.env.VITE_REVERB_PORT),
+    VITE_REVERB_PORT:             import.meta.env.VITE_REVERB_PORT === undefined ? undefined : parseInt(import.meta.env.VITE_REVERB_PORT),
     VITE_REVERB_SCHEME:           import.meta.env.VITE_REVERB_SCHEME,
 
     VITE_APP_ENV:                 import.meta.env.VITE_APP_ENV,
