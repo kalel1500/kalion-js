@@ -14,3 +14,21 @@
 .tabulator .last-row-moved:hover {
     background-color: #f3b16e;
 }
+
+.dark {
+    .tabulator .tabulator-cell.cell-editable {
+        background-color: #014a3d;
+    }
+
+    .tabulator .cell-position-changed {
+        background-color: #4a92d3;
+    }
+
+    .tabulator .last-row-moved {
+        background-color: #b9782f;
+    }
+
+    .tabulator .last-row-moved:hover {
+        background-color: #a9671d;
+    }
+}

@@ -40,9 +40,50 @@
 
 
 .tabulator .tabulator-header { /* Linea separadora header */
-    border-bottom: 2px solid #23C596 !important;
+    border-bottom: 2px solid #01684a !important; /* #23C596 old*/
     font-weight: 500 !important;
 }
+
+.dark {
+    .tabulator-row .tabulator-cell.tabulator-editing {
+        border: 1px solid #004199;
+        outline: none;
+        padding: 0;
+    }
+
+    .tabulator .tabulator-footer {
+        padding: 5px 10px;
+        padding-top: 8px;
+        border-top: 3px solid #01684a; /* #23C596 old*/
+        background-color: #111827;
+    }
+
+    .tabulator {
+        background-color: #111827;
+    }
+
+    .tabulator-row {
+        background-color: #111827;
+    }
+
+    .tabulator-row.tabulator-row-even {
+        background-color: #111827;
+    }
+
+    .tabulator-row.tabulator-selectable:hover {
+        background-color: #071022;
+    }
+
+    .tabulator .tabulator-header .tabulator-col {
+        background-color: #111827;
+    }
+
+    .tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
+        cursor: pointer;
+        background-color: #071022;
+    }
+}
+
 
 
 /*----- header-----*/
