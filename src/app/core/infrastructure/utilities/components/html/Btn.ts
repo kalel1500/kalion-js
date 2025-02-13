@@ -28,9 +28,9 @@ export class Btn {
     }
 
     static tailwind({id, size = 'base', color = 'blue', slot = '', extraClasses = '', extraAttributes = '', isLink = false, linkUrl, linkBlank}: ConfigBtn): string {
-        const defaultClasses = 'mb-2 rounded-lg font-medium focus:outline-none focus:ring-4';
+        const defaultClasses = 'rounded-lg font-medium focus:outline-none focus:ring-2';
         const sizeClasses = {
-            '2xs':  'px-2 py-1   text-xs  ',
+            '2xs':  'px-1.5 py-1   text-xs  ',
             xs:     'px-3 py-2   text-xs  ',
             sm:     'px-3 py-2   text-sm  ',
             base:   'px-5 py-2.5 text-sm  ',
