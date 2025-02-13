@@ -197,9 +197,19 @@ export type ViewData<T> = {
     data: T;
 }
 
+export type Colors =
+    'blue' |
+    'dark' |
+    'green' |
+    'red' |
+    'emerald' |
+    'light' |
+    'yellow' |
+    'gray';
+
 export type ConfigBtn = {
     id?: string;
-    color: 'blue' | 'green' | 'red' | 'yellow' | 'gray';
+    color: Colors;
     slot?: string;
     extraClasses?: string;
     extraAttributes?: string;
