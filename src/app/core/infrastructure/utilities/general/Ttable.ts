@@ -11,6 +11,7 @@ import {
 import { g } from './global';
 import { SModal } from '../modals/SModal';
 import { FetchParamsSimple, NullHTMLButtonElement, TableSettingEvents, ValidationRules } from '../../../_types';
+import { Component } from '../components/Component';
 
 export class Ttable {
     readonly tableId: string | HTMLElement;
@@ -144,39 +145,118 @@ export class Ttable {
 
     static buttons = {
         linkBtnInfo: (title: string, url: string, blank: boolean) => {
-            return `<a href="${url}" title="${title}" ${blank ? 'target="_blank"' : ''} ><button class="mx-1 btn btn-xs btn-info"><i class="fa fa-info-circle"></i></button></a>`;
+            // return `<a href="${url}" title="${title}" ${blank ? 'target="_blank"' : ''} ><button class="mx-1 btn btn-xs btn-info"><i class="fa fa-info-circle"></i></button></a>`;
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'emerald',
+                slot: Component.get('icon.info', {size: 'size-4'}),
+                extraClasses: 'mx-1',
+                extraAttributes: `title="${title}"`,
+                isLink: true,
+                linkUrl: url,
+                linkBlank: blank
+            });
         },
         linkBtnEdit: (title: string, url: string) => {
-            return `<a href="${url}" title="${title}"><button class="mx-1 btn btn-xs btn-warning"><i class="far fa-edit"></i></button></a>`;
+            // return `<a href="${url}" title="${title}"><button class="mx-1 btn btn-xs btn-warning"><i class="far fa-edit"></i></button></a>`;
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'yellow',
+                slot: Component.get('icon.edit', {size: 'size-4'}),
+                extraClasses: 'mx-1',
+                extraAttributes: `title="${title}"`,
+                isLink: true,
+                linkUrl: url,
+            });
         },
         linkTextEdit: (title: string, url: string) => {
-            return `<a href="${url}" title="${title}"><i class="far fa-edit"></i></a>`;
+            const icon = Component.get('icon.edit', {size: 'size-4'});
+            return `<a href="${url}" title="${title}">${icon}</a>`;
         },
         btnInfo: (title: string) => {
-            return `<button class="mx-1 btn btn-xs btn-info" data-action="info" title="${title}"><i class="fa fa-info-circle"></i></button>`;
+            // return `<button class="mx-1 btn btn-xs btn-info" data-action="info" title="${title}"><i class="fa fa-info-circle"></i></button>`;
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'emerald',
+                slot: Component.get('icon.info', {size: 'size-4'}),
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="info" title="${title}"`,
+            });
         },
         btnSave: (title: string, showText = false) => {
-            let text = showText ? title : '';
-            return `<button class="mx-1 btn btn-xs btn-success" data-action="save" title="${title}"><i class="far fa-save"></i> ${text}</button>`;
+            // let text = showText ? title : '';
+            // return `<button class="mx-1 btn btn-xs btn-success" data-action="save" title="${title}"><i class="far fa-save"></i> ${text}</button>`;
+            const text = showText ? title : '';
+            const icon = Component.get('icon.save', {size: 'size-4'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'green',
+                slot: `${icon} ${text}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="save" title="${title}"`,
+            });
         },
         btnCancel: (title: string, showText = false) => {
-            let text = showText ? title : '';
-            return `<button class="mx-1 btn btn-xs btn-danger" data-action="cancel" title="${title}"><i class="fa fa-ban" aria-hidden="true"></i> ${text}</button>`;
+            // let text = showText ? title : '';
+            // return `<button class="mx-1 btn btn-xs btn-danger" data-action="cancel" title="${title}"><i class="fa fa-ban" aria-hidden="true"></i> ${text}</button>`;
+            const text = showText ? title : '';
+            const icon = Component.get('icon.cancel', {size: 'size-4', outline: true, strokeWidth: '3'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'red',
+                slot: `${icon} ${text}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="cancel" title="${title}"`,
+            });
         },
         btnDelete: (title: string, showText = false) => {
-            let text = showText ? title : '';
-            return `<button class="mx-1 btn btn-xs btn-danger" data-action="delete" title="${title}"><i class="fa fa-times"></i> ${text}</button>`;
+            // let text = showText ? title : '';
+            // return `<button class="mx-1 btn btn-xs btn-danger" data-action="delete" title="${title}"><i class="fa fa-times"></i> ${text}</button>`;
+            const text = showText ? title : '';
+            const icon = Component.get('icon.delete', {size: 'size-4'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'red',
+                slot: `${icon} ${text}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="delete" title="${title}"`,
+            });
         },
         btnNew: (title: string, id?: string) => {
-            const htmlId = (id === undefined) ? '' : `id="${id}"`;
-            return `<button ${htmlId} class="mx-1 btn btn-xs btn-primary" data-action="new" title="${title}"><i class="fas fa-plus-square"></i></button>`;
+            // const htmlId = (id === undefined) ? '' : `id="${id}"`;
+            // return `<button ${htmlId} class="mx-1 btn btn-xs btn-primary" data-action="new" title="${title}"><i class="fas fa-plus-square"></i></button>`;
+            const icon = Component.get('icon.new', {size: 'size-4'});
+            return Component.get('btn', {
+                id: id,
+                size: '2xs',
+                color: 'blue',
+                slot: `${icon}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="new" title="${title}"`,
+            });
         },
         btnReload: (title: string) => {
             // return  `<a href="${url}" title="${title}"><button class="mx-1 btn btn-xs btn-info"><i class="fas fa-sync-alt"></i></button></a>`;
-            return `<button class="mx-1 btn btn-xs btn-info" data-action="reload" title="${title}"><i class="fa fa-sync-alt"></i></button>`;
+            // return `<button class="mx-1 btn btn-xs btn-info" data-action="reload" title="${title}"><i class="fa fa-sync-alt"></i></button>`;
+            const icon = Component.get('icon.reload', {size: 'size-4'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'emerald',
+                slot: `${icon}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="reload" title="${title}"`,
+            });
         },
         btnMove: (title: string) => {
-            return `<button class="mx-1 btn btn-xs btn-secondary" data-action="move" title="${title}"><i class="fas fa-suitcase-rolling"></i></button>`;
+            // return `<button class="mx-1 btn btn-xs btn-secondary" data-action="move" title="${title}"><i class="fas fa-suitcase-rolling"></i></button>`;
+            const icon = Component.get('icon.move', {size: 'size-4'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'gray',
+                slot: `${icon}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="move" title="${title}"`,
+            });
         },
     };
 
