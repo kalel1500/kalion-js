@@ -44,7 +44,10 @@ export class Constants<T extends DefaultConstants> {
     }
 
     public extend(newConfig: Partial<T>): void {
-        this.constants = {...this.constants, ...newConfig};
+        const filteredNewConfig = Object.fromEntries(
+            Object.entries(newConfig).filter(([_, value]) => value !== undefined)
+        );
+        this.constants = {...this.constants, ...filteredNewConfig};
     }
 
     // Función para obtener todas las constantes de configuración
