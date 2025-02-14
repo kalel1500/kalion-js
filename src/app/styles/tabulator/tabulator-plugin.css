@@ -62,6 +62,10 @@
         background-color: #111827;
     }
 
+    .tabulator .tabulator-header {
+        background-color: #111827;
+    }
+
     .tabulator-row {
         background-color: #111827;
     }
@@ -81,6 +85,11 @@
     .tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
         cursor: pointer;
         background-color: #071022;
+    }
+
+    .tabulator .tabulator-header .tabulator-col .tabulator-header-filter input:focus {
+        color: #fff;
+        background-color: #2f2f2f;
     }
 }
 
