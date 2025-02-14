@@ -482,10 +482,12 @@ export class SModal {
 
                 // Add hidden error div
                 const hiddenClass = g.getHiddenClass();
+                // TODO Canals - (tailwind) pasar a componente
                 swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalError alert alert-danger text-start ${hiddenClass}"></div>`);
                 let newDivError = swalContent.querySelector('.mySwalError') as HTMLElement;
 
                 // Add hidden success div
+                // TODO Canals - (tailwind) pasar a componente
                 swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalSuccess alert alert-success text-start ${hiddenClass}"></div>`);
 
                 // Define validator function

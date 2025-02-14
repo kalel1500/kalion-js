@@ -280,6 +280,7 @@ export class g {
     static showPageLoader() {
         const body = document.querySelector('body');
         body?.classList.add('overlay-body');
+        // TODO Canals - (tailwind) pasar a componente
         body?.insertAdjacentHTML('beforeend', '<div id="page-loader" class="overlay"><div class="loader-container"><div class="loader"></div></div></div>');
     }
 
@@ -307,6 +308,7 @@ export class g {
     static addSpinner(selectors: string | HTMLElement | NodeListOf<HTMLElement> | null, size: 'sm' | 'md' = 'md') {
         if (selectors === null) return;
 
+        // TODO Canals - (tailwind) pasar a componente
         const sizeClass = (size === 'sm') ? 'spinner-border-sm' : '';
         const spinnerHtml = `<div class="spinner-border ${sizeClass}" data-added-in="general" role="status"><span class="visually-hidden">Loading...</span></div>`;
         if (selectors instanceof HTMLElement) {
