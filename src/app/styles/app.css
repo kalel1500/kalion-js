@@ -31,3 +31,14 @@
         /*max-height: var(--scrollbar-width-legacy);*/
     }
 }
+
+
+span.restriction-message {
+    color: #bb4600; /*#ff8338*/
+}
+
+.dark {
+    span.restriction-message {
+        color: #b16300;
+    }
+}

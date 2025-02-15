@@ -1,3 +1,10 @@
 div:where(.swal2-container) button:where(.swal2-close):focus {
     box-shadow: none !important;
 }
+
+.dark {
+    div:where(.swal2-container) div:where(.swal2-popup) {
+        background: #111827;
+        color: #fff;
+    }
+}
