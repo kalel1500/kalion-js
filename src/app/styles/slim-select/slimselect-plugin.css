@@ -52,3 +52,23 @@
 div:where(.swal2-container) button:where(.swal2-close) {
     color: #858585 !important;
 }
+
+:root {
+    --ss-primary-color: #5897fb;
+    --ss-bg-color: #ffffff;
+    --ss-font-color: #4d4d4d;
+    --ss-font-placeholder-color: #8d8d8d;
+    --ss-disabled-color: #dcdee2;
+    --ss-border-color: #dcdee2;
+    --ss-highlight-color: #fffb8c;
+    --ss-success-color: #00b755;
+    --ss-error-color: #dc3545;
+    --ss-focus-color: #5897fb;
+    --ss-main-height: 30px;
+    --ss-content-height: 300px;
+    --ss-spacing-l: 7px;
+    --ss-spacing-m: 5px;
+    --ss-spacing-s: 3px;
+    --ss-animation-timing: 0.2s;
+    --ss-border-radius: 4px
+}
