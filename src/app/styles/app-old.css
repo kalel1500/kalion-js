@@ -1,7 +1,7 @@
 @import "bootstrap/bootstrap-custom.css";
 @import "bootstrap/bootstrap-layout.css";
 @import "bootstrap/bootstrap-plugin.css";
-@import "slim-select/slimselect-original.css";
+@import "/node_modules/slim-select/dist/slimselect.css";
 @import "slim-select/slimselect-plugin.css";
 @import "sweetalert2/dist/sweetalert2.css";
 @import "sweetalert/sweetalert-plugin.css";
