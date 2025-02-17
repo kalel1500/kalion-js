@@ -1,6 +1,43 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.10...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.0...master)
+
+## [v0.5.0-beta.0](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.10...v0.5.0-beta.0) - 2025-02-17
+
+### Added
+
+* DarkMode: Estilos `sweetalert` modo oscuro añadidos
+* DarkMode: Estilos `slimselect` modo oscuro añadidos
+* !!! Nueva funcionalidad de Componentes para renderizar Html y poder definir los componentes tanto para tailwind como para bootstrap y obtenerlos dinámicamente según la config
+* Añadir la constante `VITE_APP_CODE`
+* DarkMode: Nuevos estilos `Tabulator` para añadir el Dark de forma dinámica (se han unido los archivos originales del plugin `tabulator_bootstrap5.css` y `tabulator_site_dark.css`)
+* Nuevo tipo genérico `ViewData<T>` con la estructura típica de respuesta
+* Nueva configuración en el plugin de `tailwind` para extender el `boxShadow` y añadir sombras personalizadas
+* Nuevo método `slugify()` en el helper `global.ts`
+
+### Changed
+
+* (refactor) stubs: ordenar imports "stubs/resources/js/app/bootstrap.ts" Adrián Moments ago
+* Dependencias actualizadas
+* (breaking) stubs: Actualizado `app.css`
+* slimselect: Definir variables estilos y modificar los valores por defecto
+* (refactor) slimselect: Importar los estilos del `slimselect` directamente del `node_modules` en vez de mantener el archivo `slimselect-original.css` manualmente
+* Mover la importación de los estilos del `sweetalert` al `css` para que no se inyecten en el head del navegador
+* tailwindcssPlugin: añadir el propio paquete en el array `laravelContent` del plugin de tailwind para compilar las clases del paquete
+* !!! Cambiar todos los botones de tabulator con clases Bootstrap por los componentes dinámicos
+* (breaking) Añadir el Tipo `undefined` a todas las variables de entorno (`EnvVariables`)
+* Hacer `readonly` las constantes de Vite
+* (breaking) Meter en el paquete la definición de las variables `import.meta.env` (movido de los `stubs` al `app/core/_types/index.ts`)
+* (breaking) Constante VITE_APP_STORAGE_VERSION renombrada por VITE_TS_STORAGE_VERSION
+* (refactor) Ordenar variables VITE
+* README.md: arreglar comando instalación + añadir comando de inicio
+
+### Fixed
+
+* (fix) Excluir la carpeta vendor del `tsconfig.json` para prevenir errores al compilar en proyectos de Laravel
+* (fix) Filtrar valores `undefined` del `newConfig` en el método `extend()` para mantener los valores por defecto cuando no se indican en la aplicación
+* (fix) tailwindCompatibility: Añadir variable de configuración `VITE_TS_USE_BOOSTRAP_CLASSES` para obtener la `hiddenClass` dinámicamente con el nuevo helper `g.getHiddenClass()`
+* (fix) Hacer que la propiedad `cookiePreferencesName` sea dinámica según la variable de entorno `VITE_APP_NAME`
 
 ## [v0.4.0-beta.10](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.9...v0.4.0-beta.10) - 2025-01-28
 
