@@ -58,23 +58,23 @@
         "cross-env": "^7.0.3",
         "flowbite": "^2.5.2",
         "postcss-nested": "^7.0.2",
-        "tailwindcss": "^3.4.15",
+        "tailwindcss": "^3.4.17",
         "typescript": "^5.7.3",
-        "vite": "^6.0.11",
+        "vite": "^6.1.0",
         "vite-plugin-dts": "^4.5.0",
         "vite-plugin-static-copy": "^2.2.0"
     },
     "dependencies": {
         "@types/luxon": "^3.4.2",
         "@types/node": "20.11.1",
-        "@types/tabulator-tables": "^6.2.3",
-        "laravel-echo": "^1.19.0",
+        "@types/tabulator-tables": "^6.2.4",
+        "laravel-echo": "^2.0.0",
         "luxon": "^3.5.0",
-        "pusher-js": "^8.4.0-rc2",
+        "pusher-js": "^8.4.0",
         "slim-select": "^2.10.0",
-        "sweetalert2": "^11.15.10",
+        "sweetalert2": "^11.11.2",
         "tabulator-tables": "^6.3.1",
-        "ziggy-js": "^2.5.0"
+        "ziggy-js": "^2.5.1"
     },
     "engines": {
         "node": "^20.11.1",
