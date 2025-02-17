@@ -1,3 +1,9 @@
+import 'flowbite';
+import './constants';
+import './translations';
+import { EnvVariables, Route, UtilitiesServiceProvider } from '@kalel1500/laravel-ts-utils';
+import { defineRoutes } from './routes';
+
 // Declare .env variables
 declare global {
     interface ImportMeta {
@@ -6,17 +12,6 @@ declare global {
         };
     }
 }
-
-// Importar plugins
-import 'flowbite';
-
-// INICIALIZAR CONSTANTES Y TRADUCCIONES (para que se apliquen en el paquete aunque no se utilicen en la app)
-import './constants';
-import './translations';
-
-// Los otros imports (debajo)
-import { EnvVariables, Route, UtilitiesServiceProvider } from '@kalel1500/laravel-ts-utils';
-import { defineRoutes } from './routes';
 
 // Definir que acciones ejecutar del paquete
 UtilitiesServiceProvider.features(['registerGlobalError', 'enableNotifications', 'startLayoutListeners']);
