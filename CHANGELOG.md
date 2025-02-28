@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.1...master)
+
+## [v0.5.0-beta.1](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.0...v0.5.0-beta.1) - 2025-02-28
+
+### Fixed
+
+* (fix) Mover la variable "useBootstrap" dentro del método "Component.get()" ya que al estar fuera no se sobreescribía bien desde la aplicación
 
 ## [v0.5.0-beta.0](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.10...v0.5.0-beta.0) - 2025-02-17
 
