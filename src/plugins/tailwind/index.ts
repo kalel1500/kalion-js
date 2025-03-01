@@ -1,5 +1,6 @@
 import plugin from 'tailwindcss/plugin';
-import flowbitPlugin from 'flowbite/plugin';
+
+const flowbitPlugin = require('flowbite/plugin');
 
 const laravelContent = [
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
@@ -15,7 +16,7 @@ const laravelContent = [
     './node_modules/@kalel1500/laravel-ts-utils/**/*.js',
 ];
 
-const laravelPlugin = plugin.withOptions(function (options = {}) {
+const laravelPlugin: ReturnType<typeof plugin.withOptions> = plugin.withOptions(function (options = {}) {
     return function({ addVariant }: { addVariant: any }) {
         // Definiciones de variantes personalizadas
         addVariant('sc', '&:is(.sc *)');
