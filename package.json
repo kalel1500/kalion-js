@@ -9,14 +9,17 @@
     "exports": {
         ".": {
             "types": "./dist/app/types/index.d.ts",
+            "import": "./dist/app/laravel-ts-utils.es.js",
             "default": "./dist/app/laravel-ts-utils.es.js"
         },
         "./dist/plugins/vite": {
             "types": "./dist/plugins/vite/index.d.ts",
+            "import": "./dist/plugins/vite/index.js",
             "default": "./dist/plugins/vite/index.js"
         },
         "./dist/plugins/tailwind": {
             "types": "./dist/plugins/tailwind/index.d.ts",
+            "import": "./dist/plugins/tailwind/index.cjs",
             "default": "./dist/plugins/tailwind/index.cjs"
         },
         "./dist/app/*.css": "./dist/app/*.css"
