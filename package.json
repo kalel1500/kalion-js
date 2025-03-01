@@ -13,11 +13,11 @@
         },
         "./dist/plugins/vite": {
             "types": "./dist/plugins/vite/index.d.ts",
-            "default": "./dist/plugins/vite/plugin.js"
+            "default": "./dist/plugins/vite/index.js"
         },
         "./dist/plugins/tailwind": {
             "types": "./dist/plugins/tailwind/index.d.ts",
-            "default": "./dist/plugins/tailwind/plugin.cjs"
+            "default": "./dist/plugins/tailwind/index.cjs"
         },
         "./dist/app/*.css": "./dist/app/*.css"
     },

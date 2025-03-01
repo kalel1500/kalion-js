@@ -72,7 +72,7 @@ export default ({ mode }: { mode: string }) => {
             lib: {
                 entry: path.resolve(__dirname, 'src/plugins/vite/index.ts'),
                 name: 'VitePluginLaravelTsUtils',
-                fileName: (format) => `plugin.js`,
+                fileName: (format) => `index.js`,
                 formats: ['es'],
             },
             rollupOptions: {
@@ -95,7 +95,7 @@ export default ({ mode }: { mode: string }) => {
             lib: {
                 entry: path.resolve(__dirname, 'src/plugins/tailwind/index.ts'),
                 name: 'TailwindCssPlugin',
-                fileName: (format) => `plugin.cjs`,
+                fileName: (format) => `index.cjs`,
                 formats: ['cjs'],
             },
             rollupOptions: {
