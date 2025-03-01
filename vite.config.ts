@@ -32,6 +32,7 @@ export default ({ mode }: { mode: string }) => {
                     "slimselect": path.resolve(__dirname, 'src/app/styles/slim-select/slimselect.css'),
                     "sweetalert": path.resolve(__dirname, 'src/app/styles/sweetalert/sweetalert.css'),
                     "tabulator": path.resolve(__dirname, 'src/app/styles/tabulator/tabulator.css'),
+                    "tailwind-config": path.resolve(__dirname, 'src/app/styles/tailwind-config.css'),
                 },
                 name: 'LaravelTsUtils',
                 fileName: (format) => `laravel-ts-utils.${format}.js`,
@@ -90,6 +91,14 @@ export default ({ mode }: { mode: string }) => {
                 include: ['src/plugins/tailwind'], // Incluye los directorios src y types para la generación de tipos
                 outDir: 'dist/plugins/tailwind', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
+            viteStaticCopy({
+                targets: [
+                    {
+                        src: 'src/plugins/tailwind/tailwind.config.js',
+                        dest: '',
+                    }
+                ]
+            })
         ],
         build: {
             lib: {

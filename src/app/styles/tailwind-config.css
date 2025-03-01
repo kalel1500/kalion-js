@@ -1,0 +1,42 @@
+@plugin 'flowbite/plugin';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --breakpoint-vsm: 440px;
+
+    --shadow-h-1xl: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    --shadow-hb-1xl: 0 0 4px 1px rgba(0, 0, 0);
+    --shadow-h-2xl: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+    --shadow-hb-2xl: 0 0 5px 2px rgba(0, 0, 0);
+}
+
+/* Estilos base */
+/*@layer base {
+    body.custom {
+        @apply text-gray-900 bg-red-500;
+    }
+}*/
+
+/* Variantes personalizadas */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant sc (&:is(.sc *));
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
