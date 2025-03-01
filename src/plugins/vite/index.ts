@@ -61,6 +61,7 @@ export function laravelTsUtilsPlugin(): Plugin {
                 base: basePublicPath,
                 build: {
                     minify: confAppMinify,
+                    cssMinify: confAppMinify,
                     sourcemap: confAppSourcemap,
                     target: 'es2022',
                     rollupOptions: {
