@@ -14,6 +14,8 @@ export * from './utilities/modals/SModal';
 export * from './utilities/routing/Route';
 export * from './utilities/routing/Url';
 
+export * from './utilities/tests/TestConstants';
+
 export * from './utilities/translation/Translator';
 
 export * from './utilities/websockets/EchoService';
