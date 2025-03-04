@@ -70,8 +70,6 @@ const filesToCreate = [
     'resources/js/src/shared/application/HomeUseCase.ts',
     'resources/js/src/shared/infrastructure/DefaultController.ts',
     '.prettierrc',
-    'postcss.config.js',
-    'tailwind.config.ts',
     'tsconfig.json',
     'vite.config.ts',
 ];
