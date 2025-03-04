@@ -25,29 +25,59 @@ export class DomService extends Instantiable {
 
     startDarkMode() {
         // Inicialización del tema oscuro
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        const btnThemeDark = document.getElementById('theme-dark');
+        const btnThemeLight = document.getElementById('theme-light');
+        const btnThemeSystem = document.getElementById('theme-system');
+
+        if (
+            btnThemeDark === null ||
+            btnThemeLight === null ||
+            btnThemeSystem === null
+        ) {
+            throw new Error('No se ha encontrado alguno de los botones para alternar el tema oscuro.');
+        }
+
+        // Función eliminar todas las clases
+        const removeAllClases = () => {
+            this.$document.classList.remove(Theme.dark);
+            this.$document.classList.remove(Theme.light);
+            this.$document.classList.remove(Theme.system);
+        };
+        const hideAllBtns = () => {
+            btnThemeDark.classList.remove('block!');
+            btnThemeLight.classList.remove('block!');
+            btnThemeSystem.classList.remove('block!');
+        };
+        const getBtnToShow = (theme: Theme) => {
+            const buttons = {
+                [Theme.dark]: btnThemeLight,
+                [Theme.light]: btnThemeSystem,
+                [Theme.system]: btnThemeDark,
+            };
+            return buttons[theme];
+        };
 
         // Función para cambiar el tema y alternar íconos
         const setTheme = (theme: Theme) => {
-            const isDark = theme === 'dark';
-            this.$document.classList.toggle('dark', isDark);
+            removeAllClases();
+            hideAllBtns();
             Cookie.new().setPreference('theme', theme);
-            themeToggleDarkIcon?.classList.toggle('hidden', isDark);
-            themeToggleLightIcon?.classList.toggle('hidden', !isDark);
+            getBtnToShow(theme).classList.add('block!');
+            if (theme === 'dark') {
+                this.$document.classList.add('dark');
+            } else {
+                this.$document.classList.remove('dark');
+            }
         };
 
         // Aplicar estado inicial del tema oscuro
         // const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         // this.initializeState('dark-theme', 'dark', systemPrefersDark, setTheme);
 
-        // Evento de click para alternar el tema
-        themeToggleBtn?.addEventListener('click', () => {
-            const isDark = !this.$document.classList.contains('dark');
-            setTheme(isDark ? Theme.dark : Theme.light);
-        });
-
+        // Eventos de click para alternar el tema
+        btnThemeDark.addEventListener('click', () => setTheme(Theme.dark));
+        btnThemeLight.addEventListener('click', () => setTheme(Theme.light));
+        btnThemeSystem.addEventListener('click', () => setTheme(Theme.system));
     }
 
     startSidebarState() {

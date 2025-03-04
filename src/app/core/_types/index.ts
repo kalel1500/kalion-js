@@ -184,10 +184,10 @@ export type TableSettingEvents = Partial<EventCallBackMethods>;
 
 export type TranslationReplacements = Record<string, StrOrNullish>;
 
-// export type Theme = 'dark' | 'light';
 export enum Theme {
     dark = "dark",
     light = "light",
+    system = "system",
 }
 
 export type UserPreferences = {
