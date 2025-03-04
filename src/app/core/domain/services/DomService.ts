@@ -63,7 +63,9 @@ export class DomService extends Instantiable {
             hideAllBtns();
             Cookie.new().setPreference('theme', theme);
             getBtnToShow(theme).classList.add('block!');
-            if (theme === 'dark') {
+
+            const forceDarkBySystem = theme === 'system' && window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (theme === 'dark' || forceDarkBySystem) {
                 this.$document.classList.add('dark');
             } else {
                 this.$document.classList.remove('dark');
