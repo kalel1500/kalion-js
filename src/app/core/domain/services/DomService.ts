@@ -50,9 +50,9 @@ export class DomService extends Instantiable {
         };
         const getBtnToShow = (theme: Theme) => {
             const buttons = {
-                [Theme.dark]: btnThemeLight,
-                [Theme.light]: btnThemeSystem,
-                [Theme.system]: btnThemeDark,
+                [Theme.dark]: btnThemeDark,
+                [Theme.light]: btnThemeLight,
+                [Theme.system]: btnThemeSystem,
             };
             return buttons[theme];
         };
@@ -75,9 +75,9 @@ export class DomService extends Instantiable {
         // this.initializeState('dark-theme', 'dark', systemPrefersDark, setTheme);
 
         // Eventos de click para alternar el tema
-        btnThemeDark.addEventListener('click', () => setTheme(Theme.dark));
-        btnThemeLight.addEventListener('click', () => setTheme(Theme.light));
-        btnThemeSystem.addEventListener('click', () => setTheme(Theme.system));
+        btnThemeDark.addEventListener('click', () => setTheme(Theme.light));
+        btnThemeLight.addEventListener('click', () => setTheme(Theme.system));
+        btnThemeSystem.addEventListener('click', () => setTheme(Theme.dark));
     }
 
     startSidebarState() {
