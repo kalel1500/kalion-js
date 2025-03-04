@@ -64,12 +64,10 @@ export class DomService extends Instantiable {
             Cookie.new().setPreference('theme', theme);
             getBtnToShow(theme).classList.add('block!');
 
-            const forceDarkBySystem = theme === 'system' && window.matchMedia("(prefers-color-scheme: dark)").matches;
-            if (theme === 'dark' || forceDarkBySystem) {
-                this.$document.classList.add('dark');
-            } else {
-                this.$document.classList.remove('dark');
-            }
+            const forceDark = theme === 'dark' ||
+                (theme === 'system' && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+            this.$document.classList.toggle('dark', forceDark);
         };
 
         // Aplicar estado inicial del tema oscuro
