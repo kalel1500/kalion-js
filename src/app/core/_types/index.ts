@@ -184,18 +184,24 @@ export type TableSettingEvents = Partial<EventCallBackMethods>;
 
 export type TranslationReplacements = Record<string, StrOrNullish>;
 
+// export type Theme = 'dark' | 'light';
+export enum Theme {
+    dark = "dark",
+    light = "light",
+}
+
 export type UserPreferences = {
     version: string;
-    dark_theme: boolean;
+    theme: Theme;
     sidebar_collapsed: boolean;
     sidebar_state_per_page: boolean;
-}
+};
 
 export type ViewData<T> = {
     success: boolean;
     message: string;
     data: T;
-}
+};
 
 export type Sizes =
     '2xs' |

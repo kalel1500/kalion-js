@@ -1,15 +1,9 @@
 import { Instantiable } from '../../infrastructure/utilities/general/Instantiable';
 import { Cookie } from '../../infrastructure';
-import { UserPreferences } from '../../_types';
+import { Theme } from '../../_types';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
-
-    // Función generalizada para cambiar clases y actualizar las Cookies
-    private setState(preference: keyof UserPreferences, className: string, isActive: boolean) {
-        this.$document.classList.toggle(className, isActive);
-        Cookie.new().setPreference(preference, isActive);
-    }
 
     // Comprobar y aplicar estado inicial desde localStorage
     /*private initializeState(preference: keyof UserPreferences, className: string, prefersCondition: boolean, callback: Function | null = null) {
@@ -36,8 +30,10 @@ export class DomService extends Instantiable {
         const themeToggleBtn = document.getElementById('theme-toggle');
 
         // Función para cambiar el tema y alternar íconos
-        const setTheme = (isDark: boolean) => {
-            this.setState('dark_theme', 'dark', isDark);
+        const setTheme = (theme: Theme) => {
+            const isDark = theme === 'dark';
+            this.$document.classList.toggle('dark', isDark);
+            Cookie.new().setPreference('theme', theme);
             themeToggleDarkIcon?.classList.toggle('hidden', isDark);
             themeToggleLightIcon?.classList.toggle('hidden', !isDark);
         };
@@ -49,7 +45,7 @@ export class DomService extends Instantiable {
         // Evento de click para alternar el tema
         themeToggleBtn?.addEventListener('click', () => {
             const isDark = !this.$document.classList.contains('dark');
-            setTheme(isDark);
+            setTheme(isDark ? Theme.dark : Theme.light);
         });
 
     }
@@ -71,7 +67,8 @@ export class DomService extends Instantiable {
         // Evento de click para alternar el estado del sidebar
         sidebarToggleBtn?.addEventListener('click', () => {
             const isCollapsed = !this.$document.classList.contains('sc');
-            this.setState('sidebar_collapsed', 'sc', isCollapsed);
+            this.$document.classList.toggle('sc', isCollapsed);
+            Cookie.new().setPreference('sidebar_collapsed', isCollapsed);
         });
 
     }
