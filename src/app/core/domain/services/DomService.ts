@@ -14,8 +14,8 @@ export class DomService extends Instantiable {
         themeSwitcher.init();
 
         // Eventos de click para alternar el tema
-        for (const [key, button] of Object.entries(themeSwitcher.buttons) as [Theme, HTMLElement][]) {
-            button.addEventListener('click', () => {
+        for (const [key, button] of Object.entries(themeSwitcher.buttons) as [Theme, HTMLElement | null][]) {
+            button?.addEventListener('click', () => {
                 switch (key) {
                     case Theme.dark:
                         themeSwitcher.toLightMode();

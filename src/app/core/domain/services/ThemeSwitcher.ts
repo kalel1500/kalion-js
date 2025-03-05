@@ -6,9 +6,9 @@ export class ThemeSwitcher extends Instantiable
     private $document = document.documentElement;
     private mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     public buttons: ThemeButtons = {
-        [Theme.dark]: document.getElementById('theme-dark') as HTMLElement,
-        [Theme.light]: document.getElementById('theme-light') as HTMLElement,
-        [Theme.system]: document.getElementById('theme-system') as HTMLElement,
+        [Theme.dark]: document.getElementById('theme-dark'),
+        [Theme.light]: document.getElementById('theme-light'),
+        [Theme.system]: document.getElementById('theme-system'),
     };
 
     constructor()
@@ -16,11 +16,11 @@ export class ThemeSwitcher extends Instantiable
         super();
 
         // Validar que los Botones existen
-        Object.values(this.buttons).forEach(button => {
+        /*Object.values(this.buttons).forEach(button => {
             if (button === null) {
                 throw new Error('No se ha encontrado alguno de los botones para alternar el tema oscuro.');
             }
-        });
+        });*/
     }
 
     getTheme(): Theme
@@ -56,9 +56,9 @@ export class ThemeSwitcher extends Instantiable
     updateTheme(theme: Theme) {
 
         // Mostrar el botón del tema recibido (y ocultar los demás)
-        Object.values(this.buttons).forEach(button => button.classList.remove('block!'));
+        Object.values(this.buttons).forEach(button => button?.classList.remove('block!'));
         const themBtn = this.buttons[theme];
-        themBtn.classList.add('block!');
+        themBtn?.classList.add('block!');
 
         switch (theme) {
             case Theme.system:

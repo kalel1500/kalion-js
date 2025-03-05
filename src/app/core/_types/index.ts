@@ -190,7 +190,7 @@ export enum Theme {
     system = "system",
 }
 
-export type ThemeButtons = Record<Theme, HTMLElement>
+export type ThemeButtons = Record<Theme, HTMLElement | null>
 
 export type UserPreferences = {
     version: string;
