@@ -3,7 +3,7 @@ import { __const } from '../_internal/helpers';
 import { g } from './global';
 
 export class Cookie {
-    private cookiePreferencesName: string = g.slugify(__const('VITE_APP_NAME'), '_') + '_hexagonal_user_preferences';
+    private cookiePreferencesName: string = g.slugify(__const('VITE_APP_NAME'), '_') + '_kalion_user_preferences';
 
     static new()
     {
