@@ -5,20 +5,7 @@
     'Segoe UI Symbol', 'Noto Color Emoji';
 
     --breakpoint-xs: 28rem;
-
-
-    --shadow-h-1xl: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-    --shadow-hb-1xl: 0 0 4px 1px rgba(0, 0, 0);
-    --shadow-h-2xl: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-    --shadow-hb-2xl: 0 0 5px 2px rgba(0, 0, 0);
 }
-
-/* Estilos base */
-/*@layer base {
-    body.custom {
-        @apply text-gray-900 bg-red-500;
-    }
-}*/
 
 /* Variantes personalizadas */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -39,5 +26,36 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+
+/*
+ Otros estilos:
+
+ Se pueden usar estas capas para crear clases propias:
+   @layer base {...}
+   @layer components {...}
+   @layer utilities {...}
+
+ Se puede usar el "@apply text-gray-900 bg-red-500;" para utilizar las clases de tailwind
+
+ Y también se pueden crear utilidades (que se pueden usar con variantes)
+   @utility content-auto {...}
+*/
+
+@layer utilities {
+    .kal\:shadow-xl {
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
+    .dark\:kal\:shadow-black-xl:where(.dark, .dark *) {
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0);
+    }
+
+    .kal\:shadow-2xl {
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+    }
+    .dark\:kal\:shadow-black-2xl:where(.dark, .dark *) {
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0);
     }
 }
