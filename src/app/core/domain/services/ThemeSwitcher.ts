@@ -33,7 +33,9 @@ export class ThemeSwitcher extends Instantiable
     }
 
     init() {
-        this.updateTheme(this.getTheme());
+        const theme = this.getTheme();
+        localStorage.setItem('theme', theme);
+        this.updateTheme(theme);
         this.mediaQuery.addEventListener('change', e => {
             this.getTheme() === 'system' && (e.matches ? this.setToDark(Theme.system) : this.setToLight(Theme.system));
         });
@@ -72,6 +74,7 @@ export class ThemeSwitcher extends Instantiable
     }
 
     saveAndUpdate(theme: Theme) {
+        localStorage.setItem('theme', theme);
         Cookie.new().setPreference('theme', theme);
         this.updateTheme(theme);
     }
