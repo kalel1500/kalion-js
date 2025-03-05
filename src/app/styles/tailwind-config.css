@@ -4,7 +4,8 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --breakpoint-vsm: 440px;
+    --breakpoint-xs: 28rem;
+
 
     --shadow-h-1xl: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     --shadow-hb-1xl: 0 0 4px 1px rgba(0, 0, 0);
