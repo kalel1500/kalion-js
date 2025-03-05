@@ -1,6 +1,7 @@
 import { Instantiable } from '../../infrastructure/utilities/general/Instantiable';
 import { Cookie } from '../../infrastructure';
 import { Theme } from '../../_types';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
@@ -24,60 +25,29 @@ export class DomService extends Instantiable {
     }*/
 
     startDarkMode() {
-        // Inicialización del tema oscuro
-        const btnThemeDark = document.getElementById('theme-dark');
-        const btnThemeLight = document.getElementById('theme-light');
-        const btnThemeSystem = document.getElementById('theme-system');
 
-        if (
-            btnThemeDark === null ||
-            btnThemeLight === null ||
-            btnThemeSystem === null
-        ) {
-            throw new Error('No se ha encontrado alguno de los botones para alternar el tema oscuro.');
-        }
-
-        // Función eliminar todas las clases
-        const removeAllClases = () => {
-            this.$document.classList.remove(Theme.dark);
-            this.$document.classList.remove(Theme.light);
-            this.$document.classList.remove(Theme.system);
-        };
-        const hideAllBtns = () => {
-            btnThemeDark.classList.remove('block!');
-            btnThemeLight.classList.remove('block!');
-            btnThemeSystem.classList.remove('block!');
-        };
-        const getBtnToShow = (theme: Theme) => {
-            const buttons = {
-                [Theme.dark]: btnThemeDark,
-                [Theme.light]: btnThemeLight,
-                [Theme.system]: btnThemeSystem,
-            };
-            return buttons[theme];
-        };
-
-        // Función para cambiar el tema y alternar íconos
-        const setTheme = (theme: Theme) => {
-            removeAllClases();
-            hideAllBtns();
-            Cookie.new().setPreference('theme', theme);
-            getBtnToShow(theme).classList.add('block!');
-
-            const forceDark = theme === 'dark' ||
-                (theme === 'system' && window.matchMedia("(prefers-color-scheme: dark)").matches);
-
-            this.$document.classList.toggle('dark', forceDark);
-        };
+        const themeSwitcher = ThemeSwitcher.new();
 
         // Aplicar estado inicial del tema oscuro
         // const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         // this.initializeState('dark-theme', 'dark', systemPrefersDark, setTheme);
 
         // Eventos de click para alternar el tema
-        btnThemeDark.addEventListener('click', () => setTheme(Theme.light));
-        btnThemeLight.addEventListener('click', () => setTheme(Theme.system));
-        btnThemeSystem.addEventListener('click', () => setTheme(Theme.dark));
+        for (const [key, button] of Object.entries(themeSwitcher.buttons) as [Theme, HTMLElement][]) {
+            button.addEventListener('click', () => {
+                switch (key) {
+                    case Theme.dark:
+                        themeSwitcher.toLightMode();
+                        break;
+                    case Theme.light:
+                        themeSwitcher.toSystemMode();
+                        break;
+                    case Theme.system:
+                        themeSwitcher.toDarkMode();
+                        break;
+                }
+            });
+        }
     }
 
     startSidebarState() {
