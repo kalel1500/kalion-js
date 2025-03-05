@@ -34,6 +34,9 @@ export class ThemeSwitcher extends Instantiable
 
     init() {
         this.updateTheme(this.getTheme());
+        this.mediaQuery.addEventListener('change', e => {
+            this.getTheme() === 'system' && (e.matches ? this.setToDark(Theme.system) : this.setToLight(Theme.system));
+        });
     }
 
     setToDark(e: Theme = Theme.dark) {
