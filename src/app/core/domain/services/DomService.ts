@@ -6,31 +6,12 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 export class DomService extends Instantiable {
     private $document = document.documentElement;
 
-    // Comprobar y aplicar estado inicial desde localStorage
-    /*private initializeState(preference: keyof UserPreferences, className: string, prefersCondition: boolean, callback: Function | null = null) {
-        const savedState = Cookie.new().preferences()[preference];
-        let isActive;
-        // Si hay un estado guardado en localStorage, lo usamos
-        if (savedState !== null) {
-            isActive = savedState === 'true';
-            this.setState(key, className, isActive);
-        } else {
-            // Si no hay estado guardado, prevalece la clase existente en el HTML
-            isActive = this.$document.classList.contains(className) || prefersCondition;
-        }
-
-        this.setState(key, className, isActive);
-        if (callback) callback(isActive);  // Ejecutar callback si se pasa uno
-        return isActive;
-    }*/
-
     startDarkMode() {
 
         const themeSwitcher = ThemeSwitcher.new();
 
         // Aplicar estado inicial del tema oscuro
-        // const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        // this.initializeState('dark-theme', 'dark', systemPrefersDark, setTheme);
+        themeSwitcher.init();
 
         // Eventos de click para alternar el tema
         for (const [key, button] of Object.entries(themeSwitcher.buttons) as [Theme, HTMLElement][]) {

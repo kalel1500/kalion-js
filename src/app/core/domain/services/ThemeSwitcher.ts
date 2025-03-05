@@ -23,6 +23,19 @@ export class ThemeSwitcher extends Instantiable
         });
     }
 
+    getTheme(): Theme
+    {
+        const preferences = Cookie.new().preferences();
+        if (preferences === null) {
+            throw new Error('No se han encontrado las preferencias en las cookies');
+        }
+        return preferences.theme;
+    }
+
+    init() {
+        this.updateTheme(this.getTheme());
+    }
+
     setToDark(e: Theme = Theme.dark) {
         this.$document.classList.add('dark');
         this.$document.setAttribute('data-theme', 'dark');
