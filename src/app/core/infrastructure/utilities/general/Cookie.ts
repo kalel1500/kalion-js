@@ -44,7 +44,7 @@ export class Cookie {
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.newFetch({
-            url: route('hexagonal.ajax.cookie.update', {_query: {preferences: serializedPreferences}}),
+            url: route('kalion.ajax.cookie.update', {_query: {preferences: serializedPreferences}}),
             type: 'PUT'
         }).then();*/
     }

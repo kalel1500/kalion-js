@@ -13,8 +13,8 @@ export class Constants<T extends DefaultConstants> {
             langDouble: 'es-Es',
             defaultZoneName: 'Europe/Madrid', // Europe/Lisbon
             appIcon: new URL('/resources/images/logo-app.png', 'http://localhost/laravel-starter-template/').href,
-            routeName_websockets_checkService: 'hexagonal.ajax.websockets.checkService',
-            routeName_queues_checkService: 'hexagonal.ajax.queues.checkService',
+            routeName_websockets_checkService: 'kalion.ajax.websockets.checkService',
+            routeName_queues_checkService: 'kalion.ajax.queues.checkService',
 
             // Vite
             VITE_BROADCASTING_ENABLED: false,
