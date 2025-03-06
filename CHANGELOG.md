@@ -1,12 +1,48 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-ts-utils/compare/v0.6.0-beta.0...master)
+
+## [v0.6.0-beta.0](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.1...v0.6.0-beta.0) - 2025-03-06
+
+### Added
+
+* Nueva funcionalidad del DarkTheme para obtener la configuración del sistema
+  * (breaking) Renombrar la Cookie `dark_theme` a `theme` y convertir de `null` a `string`
+  * Añadir nuevo botón `btnThemeSystem` para establecer el tema del dispositivo
+  * Leer la propiedad `window.matchMedia('(prefers-color-scheme: dark)').matches` en la función `setTheme()` en la comprobación para añadir la clase `dark` al Html
+  * Mover toda la lógica del DarkMode a la nueva clase `ThemeSwitcher` (para facilitar la implementación del estado inicial del DarkMode)
+  * Nuevo método `init()` en la clase `ThemeSwitcher` para cargar inicialmente la clase `dark` desde el JS (por si no viene en PHP como por ejemplo cuando el `window.matchMedia('(prefers-color-scheme: dark)').matches === true`
+  * Añadir `addEventListener` al `mediaQuery` para detectar cuando cambia tema del SO y actualizar el tema en la aplicación
+  * Añadir `theme` al `localStorage` (por si se quiere usar en otro sitio)
+* Añadir las configuraciones de Tailwind4 (`tailwind-config.css` y `tailwind.config.js`) y compilarlas en el `vite.config.ts` para poder extenderlas en cada proyecto
+* Añadir la propiedad `cssMinify` en el plugin de vite (`src/plugins/vite/index.ts`)
+* Añadir la propiedad `import` en los `exports` del `package.json` para asegurar que la importación funcione en `ESM`
+
+### Changed
+
+* Paquete de PHP renombrado a de `Hexagonal` a `Kalion`
+  * Renombrado sufijo de la `cookiePreferencesName`, ya que se ha cambiado el nombre del paquete de PHP
+  * Prefijo de las rutas `hexagonal` renombrado a `kalion`
+* (breaking) (refactor) Renombrar shadows (añadir prefijo y la palabra black): 
+  * `shadow-h-1xl` => `kal:shadow-xl`
+  * `shadow-hb-1xl` => `kal:shadow-black-xl`
+  * `shadow-h-2xl` => `kal:shadow-2xl`
+  * `shadow-hb-2xl` => `kal:shadow-black-2xl`
+* (breaking) (refactor) Renombrar breakpoint `vsm` a `xs` y usar `rem`
+* Modificar el import del `flowbite/plugin` y la constante `const laravelPlugin` del archivo `src/plugins/tailwind/index.ts` para que sean compatibles con los `module y moduleResolution` del `tsconfig.json`
+* Modificar el `module` y el `moduleResolution` del `tsconfig.json` para que se pueda importar la nueva version del `tailwindcss/plugin` sin errores
+* Migrar Tailwindcss a la versiòn 4 y Flowbite a la versiòn 3
+  * (stubs) Adaptar archivos de stubs a la version 4 de Tailwindcss
+
+### Fixed
+
+* (fix) (refactor) Mover código de los archivos `plugin.ts` a los `index.ts` para que siga funcionando desde la app la importación con `'moduleResolution': 'nodenext'` en el tsconfig.json
 
 ## [v0.5.0-beta.1](https://github.com/kalel1500/laravel-ts-utils/compare/v0.5.0-beta.0...v0.5.0-beta.1) - 2025-02-28
 
 ### Fixed
 
-* (fix) Mover la variable "useBootstrap" dentro del método "Component.get()" ya que al estar fuera no se sobreescribía bien desde la aplicación
+* (fix) Mover la variable `useBootstrap` dentro del método `Component.get()` ya que al estar fuera no se sobreescribía bien desde la aplicación
 
 ## [v0.5.0-beta.0](https://github.com/kalel1500/laravel-ts-utils/compare/v0.4.0-beta.10...v0.5.0-beta.0) - 2025-02-17
 
@@ -23,7 +59,7 @@
 
 ### Changed
 
-* (refactor) stubs: ordenar imports "stubs/resources/js/app/bootstrap.ts" Adrián Moments ago
+* (refactor) stubs: ordenar imports `stubs/resources/js/app/bootstrap.ts` Adrián Moments ago
 * Dependencias actualizadas
 * (breaking) stubs: Actualizado `app.css`
 * slimselect: Definir variables estilos y modificar los valores por defecto
