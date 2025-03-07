@@ -10,8 +10,8 @@ const laravelContent = [
     './resources/**/*.vue',
     './resources/**/*.ts',
 
-    './vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/resources/**/*.js',
-    './vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/resources/**/*.blade.php',
+    './vendor/kalel1500/kalion/resources/**/*.js',
+    './vendor/kalel1500/kalion/resources/**/*.blade.php',
     './node_modules/flowbite/**/*.js',
     './node_modules/@kalel1500/kalion-js/**/*.js',
 ];
