@@ -34,8 +34,8 @@ export default ({ mode }: { mode: string }) => {
                     "tabulator": path.resolve(__dirname, 'src/app/styles/tabulator/tabulator.css'),
                     "tailwind-config": path.resolve(__dirname, 'src/app/styles/tailwind-config.css'),
                 },
-                name: 'LaravelTsUtils',
-                fileName: (format) => `laravel-ts-utils.${format}.js`,
+                name: 'KalionJs',
+                fileName: (format) => `kalion-js.${format}.js`,
                 formats: ['es']
             },
             rollupOptions: {
@@ -72,7 +72,7 @@ export default ({ mode }: { mode: string }) => {
         build: {
             lib: {
                 entry: path.resolve(__dirname, 'src/plugins/vite/index.ts'),
-                name: 'VitePluginLaravelTsUtils',
+                name: 'VitePluginKalionJs',
                 fileName: (format) => `index.js`,
                 formats: ['es'],
             },
@@ -130,7 +130,7 @@ export default ({ mode }: { mode: string }) => {
         build: {
             lib: {
                 entry: path.resolve(__dirname, 'src/cli/index.ts'),
-                name: 'CliLaravelTsUtils',
+                name: 'CliKalionJs',
                 fileName: (format) => `index.js`,
                 formats: ['es'],
             },

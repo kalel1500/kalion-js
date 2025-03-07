@@ -40,11 +40,11 @@ const getAppCode = (confAppCode: OpString, confAppName: OpString) => {
         .replace(/^-+|-+$/g, ''); // Elimina guiones al principio y al final nuevamente si es necesario
 };
 
-export function laravelTsUtilsPlugin(): Plugin {
+export function kalionJsPlugin(): Plugin {
     const externalDependencies = optionalDependencies.filter(dep => !isDependencyInstalled(dep));
 
     return {
-        name: 'vite-plugin-laravel-ts-utils',
+        name: 'vite-plugin-kalion-js',
         config(config, {mode}): UserConfig {
             const env                       = loadEnv(mode, process.cwd()) as EnvVariables;
             const confAppName           = env.VITE_APP_NAME;

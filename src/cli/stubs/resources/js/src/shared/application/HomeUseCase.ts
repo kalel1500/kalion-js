@@ -1,4 +1,4 @@
-import { Instantiable } from "@kalel1500/laravel-ts-utils";
+import { Instantiable } from "@kalel1500/kalion-js";
 
 export default class HomeUseCase extends Instantiable
 {

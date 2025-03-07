@@ -1,4 +1,4 @@
-# Pasar parámetro al comando "npx laravel-ts-utils param"
+# Pasar parámetro al comando "npx kalion-js param"
 
 ## Crear archivos según el parámetro recibido
 

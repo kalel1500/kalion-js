@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
-import { laravelTsUtilsPlugin } from '@kalel1500/laravel-ts-utils/dist/plugins/vite';
+import { kalionJsPlugin } from '@kalel1500/kalion-js/dist/plugins/vite';
 
 export default defineConfig({
     plugins: [
@@ -10,6 +10,6 @@ export default defineConfig({
             refresh: false,
         }),
         tailwindcss(),
-        laravelTsUtilsPlugin()
+        kalionJsPlugin()
     ]
 });

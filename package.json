@@ -1,16 +1,16 @@
 {
-    "name": "@kalel1500/laravel-ts-utils",
+    "name": "@kalel1500/kalion-js",
     "version": "0.6.0-beta.0",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
-    "main": "dist/app/laravel-ts-utils.es.js",
+    "main": "dist/app/kalion-js.es.js",
     "types": "dist/app/types/index.d.ts",
     "style": "dist/app/style.css",
     "exports": {
         ".": {
             "types": "./dist/app/types/index.d.ts",
-            "import": "./dist/app/laravel-ts-utils.es.js",
-            "default": "./dist/app/laravel-ts-utils.es.js"
+            "import": "./dist/app/kalion-js.es.js",
+            "default": "./dist/app/kalion-js.es.js"
         },
         "./dist/plugins/vite": {
             "types": "./dist/plugins/vite/index.d.ts",
@@ -28,7 +28,7 @@
         "dist"
     ],
     "bin": {
-        "laravel-ts-utils": "dist/cli/index.js"
+        "kalion-js": "dist/cli/index.js"
     },
     "scripts": {
         "build:library": "vite build",
@@ -40,7 +40,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/kalel1500/laravel-ts-utils.git"
+        "url": "git+https://github.com/kalel1500/kalion-js.git"
     },
     "keywords": [
         "laravel",
@@ -52,9 +52,9 @@
     "author": "kalel1500",
     "license": "GPL-3.0-or-later",
     "bugs": {
-        "url": "https://github.com/kalel1500/laravel-ts-utils/issues"
+        "url": "https://github.com/kalel1500/kalion-js/issues"
     },
-    "homepage": "https://github.com/kalel1500/laravel-ts-utils#readme",
+    "homepage": "https://github.com/kalel1500/kalion-js#readme",
     "devDependencies": {
         "@types/bootstrap": "^5.2.10",
         "autoprefixer": "^10.4.20",

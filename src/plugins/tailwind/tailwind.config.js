@@ -10,6 +10,6 @@ export default {
         '../../../../../../vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/resources/**/*.ts',
         '../../../../../../vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/resources/**/*.blade.php',
         '../../../../../../node_modules/flowbite/**/*.js',
-        '../../../../../../node_modules/@kalel1500/laravel-ts-utils/**/*.js',
+        '../../../../../../node_modules/@kalel1500/kalion-js/**/*.js',
     ],
 }
