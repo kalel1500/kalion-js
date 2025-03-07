@@ -1,6 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.6.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.7.0-beta.2...master)
+
+## [v0.7.0-beta.2](https://github.com/kalel1500/kalion-js/compare/v0.6.0-beta.0...v0.7.0-beta.2) - 2025-03-07
+
+### Changed
+
+* (breaking) Renombrar vite plugin de "kalionJsPlugin" a "kalionJs"
+* (breaking) !!! Repositorio renombrado de `@kalel1500/laravel-ts-utils` a `@kalel1500/kalion-js`
+
+### Fixed
+
+* (fix) Ruta del repositorio del paquete de PHP renombrada de `laravel-hexagonal-and-ddd-architecture-utilities` a `kalion` en el plugin de tailwind
 
 ## [v0.6.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.5.0-beta.1...v0.6.0-beta.0) - 2025-03-06
 
