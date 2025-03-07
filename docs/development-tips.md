@@ -9,6 +9,7 @@
 ### Despublicar una version
 
 * `npm unpublish @kalel1500/kalion-js@***"`: despublicar la version de un paquete
+* `npm unpublish @kalel1500/kalion-js@*** --force"`: despublicar la version de un paquete (eliminarla de verdad)
 * `npm unpublish @kalel1500/kalion-js --force"`: despublicar todas las versiones de un paquete
 
 ### Subir una version (actualizar package.json + commit + tag)
