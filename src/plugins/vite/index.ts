@@ -40,7 +40,7 @@ const getAppCode = (confAppCode: OpString, confAppName: OpString) => {
         .replace(/^-+|-+$/g, ''); // Elimina guiones al principio y al final nuevamente si es necesario
 };
 
-export function kalionJsPlugin(): Plugin {
+export function kalionJs(): Plugin {
     const externalDependencies = optionalDependencies.filter(dep => !isDependencyInstalled(dep));
 
     return {
