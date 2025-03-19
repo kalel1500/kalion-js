@@ -222,6 +222,17 @@ export class Ttable {
                 extraAttributes: `data-action="delete" title="${title}"`,
             });
         },
+        btnEdit: (title: string, showText = false) => {
+            const text = showText ? title : '';
+            const icon = Component.get('icon.edit', {size: 'size-4'});
+            return Component.get('btn', {
+                size: '2xs',
+                color: 'yellow',
+                slot: `${icon} ${text}`,
+                extraClasses: 'mx-1',
+                extraAttributes: `data-action="edit" title="${title}"`,
+            });
+        },
         btnNew: (title: string, id?: string) => {
             // const htmlId = (id === undefined) ? '' : `id="${id}"`;
             // return `<button ${htmlId} class="mx-1 btn btn-xs btn-primary" data-action="new" title="${title}"><i class="fas fa-plus-square"></i></button>`;
