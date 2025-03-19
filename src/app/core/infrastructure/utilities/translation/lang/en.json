@@ -1,5 +1,7 @@
 {
     "save": "Save",
+    "edit": "Edit",
+    "update": "Update",
     "cancel": "Cancel",
     "delete": "Delete",
     "move_to": "Move to",
