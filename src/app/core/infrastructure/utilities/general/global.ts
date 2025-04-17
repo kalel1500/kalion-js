@@ -110,7 +110,7 @@ export class g {
 
         // Abrir modal
         SModal.errorModal({
-            icon: 'warning',
+            icon: 'error',
             title: title,
             html: finalHtml,
             confirmButtonText: (reloadOnClose) ? ___('reload_page') : ___('ok'),
