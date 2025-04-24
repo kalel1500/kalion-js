@@ -1,5 +1,5 @@
 // Importamos e iniciamos los paquetes necesarios en la aplicación
-import './app/bootstrap';
+import './config/bootstrap';
 
 // @ts-ignore
 import.meta.glob([
