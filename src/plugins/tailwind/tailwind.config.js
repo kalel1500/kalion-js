@@ -9,7 +9,6 @@ export default {
 
         '../../../../../../vendor/kalel1500/kalion/resources/**/*.ts',
         '../../../../../../vendor/kalel1500/kalion/resources/**/*.blade.php',
-        '../../../../../../node_modules/flowbite/**/*.js',
         '../../../../../../node_modules/@kalel1500/kalion-js/**/*.js',
     ],
 }

@@ -10,3 +10,7 @@
 /*----- Tailwindcss config from package @kalel1500/kalion-js css -----*/
 @import '@kalel1500/kalion-js/dist/app/tailwind-config.css';
 @config '../../node_modules/@kalel1500/kalion-js/dist/plugins/tailwind/tailwind.config.js';
+
+/*----- Flowbite plugin -----*/
+@plugin 'flowbite/plugin';
+@source "../../node_modules/flowbite";
