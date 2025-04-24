@@ -12,5 +12,6 @@
 @config '../../node_modules/@kalel1500/kalion-js/dist/plugins/tailwind/tailwind.config.js';
 
 /*----- Flowbite plugin -----*/
+@import "flowbite/src/themes/default.css";
 @plugin 'flowbite/plugin';
 @source "../../node_modules/flowbite";
