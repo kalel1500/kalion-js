@@ -1,17 +1,24 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.8.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.0-beta.0...master)
+
+## [v0.9.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.8.0-beta.0...v0.9.0-beta.0) - 2025-04-24
+
+### Changed
+
+* (stubs) Añadir los colores por defecto de `flowbite` en el `app.css` de la aplicación (`@import 'flowbite/src/themes/default.css';`)
+* <u>**!!! (breaking) !!!**</u> Eliminar `flowbite` de los estilos del paquete para que se configure en cada aplicación
 
 ## [v0.8.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.7.1-beta.0...v0.8.0-beta.0) - 2025-04-24
 
 ### Changed
 
-* Adaptar código "cli" a los cambios anteriores
-* Renombrar controller "DashboardController" a "HomeController"
-* Renombrar carpetas de los "stubs"
-  * -"resources/js/app" a "resources/js/config"
-  * -"resources/js/src/dashboard" a "resources/js/src/home"
-* Cambiar icono "warning" por "error" al abrir el "errorModal" en el método "catchCode"
+* Adaptar código `cli` a los cambios anteriores
+* Renombrar controller `DashboardController` a `HomeController`
+* Renombrar carpetas de los `stubs`
+  * -`resources/js/app` a `resources/js/config`
+  * -`resources/js/src/dashboard` a `resources/js/src/home`
+* Cambiar icono `warning` por `error` al abrir el `errorModal` en el método `catchCode`
 
 ## [v0.7.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.7.0-beta.2...v0.7.1-beta.0) - 2025-03-07
 
