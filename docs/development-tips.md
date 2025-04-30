@@ -37,6 +37,19 @@
 * `npm dist-tag ls <tu-paquete>`: Verificar el dist-tag actual
 * `npm dist-tag add @kalel1500/kalion-js@*** latest`: Etiqueta una versión específica con `latest`
 
+## Engines
+
+El desarrollo se ha hecho con estas versiones de "node" y "npm":
+
+```json
+{
+  "engines": {
+    "node": "^20.11.1",
+    "npm": "^10.5.0"
+  }
+}
+```
+
 ## GIT
 
 ### Subir un tag
