@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.0...master)
+
+## [v0.9.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.0-beta.0...v0.9.1-beta.0) - 2025-04-30
+
+### Changed
+
+* (stubs) Hacer `readonly` la propiedad de ejemplo `VITE_OTHER` al definir las variables del `env` en el `resources/js/config/bootstrap.ts`
 
 ## [v0.9.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.8.0-beta.0...v0.9.0-beta.0) - 2025-04-24
 
