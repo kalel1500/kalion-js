@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.1...master)
+
+## [v0.9.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.0...v0.9.1-beta.1) - 2025-04-30
+
+### Fixed
+
+(fix) Eliminar la propiedad "engines" del "package.json" para no limitar las versiones de "node" y "npm" al instalar el paquete
 
 ## [v0.9.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.0-beta.0...v0.9.1-beta.0) - 2025-04-30
 
