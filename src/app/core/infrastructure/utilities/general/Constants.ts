@@ -19,7 +19,7 @@ export class Constants<T extends DefaultConstants> {
             // Vite
             VITE_BROADCASTING_ENABLED: false,
 
-            VITE_REVERB_APP_KEY: null,
+            VITE_REVERB_APP_KEY: undefined,
             VITE_REVERB_HOST: 'localhost',
             VITE_REVERB_PORT: 8080,
             VITE_REVERB_SCHEME: 'http',

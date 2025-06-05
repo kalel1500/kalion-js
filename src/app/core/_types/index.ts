@@ -41,7 +41,7 @@ export interface DefaultConstants {
 
     readonly VITE_BROADCASTING_ENABLED: boolean;
 
-    readonly VITE_REVERB_APP_KEY: string | null;
+    readonly VITE_REVERB_APP_KEY: string | undefined;
     readonly VITE_REVERB_HOST: string;
     readonly VITE_REVERB_PORT: number;
     readonly VITE_REVERB_SCHEME: string;
