@@ -40,7 +40,7 @@ export abstract class EnumVo {
         }
 
         if (!this._permittedValues.includes(this._value)) {
-            const message = `<ActionVo> ha recibido un valor no permitido. Valores permitidos [${this._permittedValues.join(',')}]`;
+            const message = `<EnumVo> ha recibido un valor no permitido. Valores permitidos [${this._permittedValues.join(',')}]`;
             throw new InvalidValueException(message);
         }
     }
