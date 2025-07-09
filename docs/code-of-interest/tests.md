@@ -21,7 +21,6 @@ function testConstants() {
 
     Test.printTranslation();
     console.log('-------------------------');
-    console.log(__('contact_pi_team'));
     console.log(__('test_message'));
     console.log(__('qqq'));
 }

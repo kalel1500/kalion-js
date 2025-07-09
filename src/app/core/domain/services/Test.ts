@@ -7,6 +7,6 @@ export class Test {
     }
 
     public static printTranslation() {
-        console.log(___('contact_pi_team'));
+        console.log(___('no_results'));
     }
 }

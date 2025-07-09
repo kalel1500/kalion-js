@@ -81,7 +81,6 @@ export interface DefaultTranslations extends Translation {
     correct: string;
     ok: string;
     reload_page: string;
-    contact_pi_team: string;
     unforeseen_error: string;
     loading: string;
     loading_dots: string;

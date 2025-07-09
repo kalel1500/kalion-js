@@ -43,7 +43,6 @@ export class g {
             title: 'Error imprevisto',
             html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? 'Formato error imprevisto')}</span>`,
             cancelButtonText: 'Ok',
-            footer: ___('contact_pi_team'),
         }).then(result => {
             g.errorModalIsShowed = false;
         });
@@ -96,7 +95,7 @@ export class g {
                          text = undefined,
                          html = undefined,
                          reloadOnClose = false,
-                         footer = ___('contact_pi_team'),
+                         footer = undefined,
                          from = undefined,
                      }: CatchParams) {
         if (g.errorModalIsShowed) return;
