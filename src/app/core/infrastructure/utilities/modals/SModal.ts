@@ -97,8 +97,12 @@ export class SModal {
     static isPendigLoading = false;
 
     static mustAbortIfIsAlreadyOpen({isUpdate = false, ignorePendingLoading = false}): void {
-        if (g.errorModalIsShowed) throw new CannotOpenModalException('Se ha intentado abrir un modal cuando hay un modal de error abierto');
-        if (!ignorePendingLoading && !isUpdate && SModal.isPendigLoading) throw new CannotOpenModalWarning('Se ha intentado abrir un modal cuando hay un modal de loading pendiente de actualizarse');
+        if (g.errorModalIsShowed) {
+            throw new CannotOpenModalException('Se ha intentado abrir un modal cuando hay un modal de error abierto');
+        }
+        if (!ignorePendingLoading && !isUpdate && SModal.isPendigLoading) {
+            throw new CannotOpenModalWarning('Se ha intentado abrir un modal cuando hay un modal de loading pendiente de actualizarse');
+        }
     }
 
     static #checkAndExecuteShow(callback: Function): Promise<any> {
