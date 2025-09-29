@@ -33,7 +33,8 @@ export class g {
     }
 
     static handleGlobalError(error?: Error) {
-        if (error?.name === 'CannotOpenModalException') {
+        const errorName = error?.name ?? '';
+        if (['CannotOpenModalException'].includes(errorName)) {
             g.consoleInfo(error);
             return true;
         }
