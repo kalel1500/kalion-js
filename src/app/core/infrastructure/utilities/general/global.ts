@@ -8,6 +8,7 @@ import {
     ValidationResponse,
     ValidationRules,
 } from '../../../_types';
+import { CannotOpenModalException } from '../../../domain';
 
 type Value = string | string[];
 type Key = string | string[] | null;
@@ -33,8 +34,7 @@ export class g {
     }
 
     static handleGlobalError(error?: Error) {
-        const errorName = error?.name ?? '';
-        if (['CannotOpenModalException'].includes(errorName)) {
+        if (error instanceof CannotOpenModalException) {
             g.consoleInfo(error);
             return true;
         }
