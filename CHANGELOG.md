@@ -1,12 +1,32 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.2-beta.0...master)
+
+## [v0.9.2-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.1...v0.9.2-beta.0) - 2025-09-30
+
+### Changed
+
+* Se ha mejorado el método `handleGlobalError()` de la clase `g`: 
+  * Añadir todos los parametros que existen en el `window.onerror()` para obtener más info.
+  * Usar los nuevos parametros para mostrar mejor el mensaje de error.
+  * Mostrar por consola del mensaje de error usando el `console.warn()`.
+* (refactor) Se ha mejorado la legibilidad del método `handleGlobalError()` de la clase `g`.
+* (refactor) Se ha mejorado la legibilidad del método `mustAbortIfIsAlreadyOpen()` de la clase `SModal`.
+* Se ha eliminado el `package-lock.json` del `.gitignore` para subirlo al repositorio y asi guardar las versiones específicas de las dependencias.
+
+### Fixed
+
+* (fix) Se ha cambiado el `resolve()` por `reject()` en el `#checkAndExecuteShow()` de la clase `SModal`, ya que si no la variable `g.errorModalIsShowed` se pondra a `true` en el `handleGlobalError()`. También se ha añadido el `catch` para capturarlo en el `handleGlobalError()`.
+* (fix) Se ha movido la captura del error `CannotOpenModalException` del `handleGlobalError()` a los métodos `checkAndExecute()` de la clase `SModal` ya que si el `SModal.errorModal()` fallaba dentro del propio `handleGlobalError()` no se iba a mostrar.
+* (fix) Se han eliminado las referencias al equipo de PI en los footers de los modals.
+* (fix) Se ha modificado el mensaje de error de la clase `EnumVo` (ponía `ActionVo` en vez `EnumVo`).
+* (fix) Se ha cambiado el valor por defecto la constante `VITE_REVERB_APP_KEY` de `null` a `undefined`. También se ha modificado el tipo de `string|null` a `string|undefined`.
 
 ## [v0.9.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.0...v0.9.1-beta.1) - 2025-04-30
 
 ### Fixed
 
-(fix) Eliminar la propiedad "engines" del "package.json" para no limitar las versiones de "node" y "npm" al instalar el paquete
+(fix) Eliminar la propiedad `engines` del `package.json` para no limitar las versiones de `node` y `npm` al instalar el paquete
 
 ## [v0.9.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.0-beta.0...v0.9.1-beta.0) - 2025-04-30
 
