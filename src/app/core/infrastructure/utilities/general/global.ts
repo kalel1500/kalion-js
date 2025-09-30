@@ -33,16 +33,30 @@ export class g {
             .replaceAll('\'', '&#039;');
     }
 
-    static handleGlobalError(error?: Error) {
+    static handleGlobalError(event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error) {
+        // console.log({event, source, lineno, colno, error,});
+        // console.log('--------------');
+
         if (error instanceof CannotOpenModalException) {
             g.consoleInfo(error);
             return true;
         }
 
+        let message = error?.message;
+        if (message === undefined && typeof event === 'string') {
+            message = event;
+        }
+        if (message === undefined) {
+            message = 'No se ha podido obtener ningun mensaje del error';
+        }
+
+        console.warn(message);
+        console.warn({event, source, lineno, colno, error});
+
         // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? "Formato error imprevisto"));
         SModal.errorModal({
             title: 'Error imprevisto',
-            html: `<span class="restriction-message">${g.escapeHtml(error?.message ?? 'Formato error imprevisto')}</span>`,
+            html: `<span class="restriction-message">${g.escapeHtml(message)}</span>`,
             cancelButtonText: 'Ok',
         }).then(result => {
             g.errorModalIsShowed = false;

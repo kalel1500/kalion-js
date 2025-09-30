@@ -27,7 +27,7 @@ export class UtilitiesServiceProvider {
 
         registerGlobalError: () => {
             window.onerror = (message, source, lineno, colno, error) => {
-                return g.handleGlobalError(error);
+                return g.handleGlobalError(message, source, lineno, colno, error);
             };
         },
         enableNotifications: () => {
