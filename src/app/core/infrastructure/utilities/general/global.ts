@@ -37,11 +37,6 @@ export class g {
         // console.log({event, source, lineno, colno, error,});
         // console.log('--------------');
 
-        if (error instanceof CannotOpenModalException) {
-            g.consoleInfo(error);
-            return true;
-        }
-
         let message = error?.message;
         if (message === undefined && typeof event === 'string') {
             message = event;

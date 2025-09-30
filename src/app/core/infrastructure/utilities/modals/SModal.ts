@@ -109,7 +109,7 @@ export class SModal {
         try {
             return callback();
         } catch (e) {
-            if (e instanceof CannotOpenModalWarning) {
+            if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
                 g.consoleInfo(e.message);
             } else {
                 throw e;
@@ -122,7 +122,7 @@ export class SModal {
         try {
             callback();
         } catch (e) {
-            if (e instanceof CannotOpenModalWarning) {
+            if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
                 g.consoleInfo(e.message);
             } else {
                 throw e;
