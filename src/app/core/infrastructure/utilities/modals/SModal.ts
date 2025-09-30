@@ -114,7 +114,7 @@ export class SModal {
             } else {
                 throw e;
             }
-            return Promise.resolve();
+            return Promise.reject();
         }
     }
 

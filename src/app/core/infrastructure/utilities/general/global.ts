@@ -55,6 +55,8 @@ export class g {
             cancelButtonText: 'Ok',
         }).then(result => {
             g.errorModalIsShowed = false;
+        }).catch(e => {
+            //
         });
         g.errorModalIsShowed = true;
         return false;
