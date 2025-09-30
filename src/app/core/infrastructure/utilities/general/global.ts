@@ -46,7 +46,7 @@ export class g {
         }
 
         console.warn(message);
-        console.warn({event, source, lineno, colno, error});
+        // console.warn({event, source, lineno, colno, error});
 
         // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? "Formato error imprevisto"));
         SModal.errorModal({
