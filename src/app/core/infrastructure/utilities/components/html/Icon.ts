@@ -1,4 +1,4 @@
-import { ConfigIcon, IconType } from '../../../../_types';
+import { ConfigIcon, IconType } from '@/app';
 
 export class Icon {
     static tailwind(name: IconType, { outline = false, strokeWidth = '1.5', size = 'size-6' }: ConfigIcon): string {

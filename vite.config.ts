@@ -60,7 +60,12 @@ export default ({ mode }: { mode: string }) => {
             minify: minify,
             sourcemap: sourcemap,
             outDir: './dist/app'
-        }
+        },
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, './src'),
+            }
+        },
     };
     const pluginViteConfig: UserConfig = {
         plugins: [

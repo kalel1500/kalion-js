@@ -1,4 +1,4 @@
-import { DefaultConstants } from '../../../_types';
+import { DefaultConstants } from '@/app';
 
 // Implementa la clase Constants usando la interfaz
 export class Constants<T extends DefaultConstants> {

@@ -1,5 +1,4 @@
-import { Cookie, Instantiable } from '../../infrastructure';
-import { Theme, ThemeButtons } from '../../_types';
+import { Cookie, Instantiable, Theme, ThemeButtons } from '@/app';
 
 export class ThemeSwitcher extends Instantiable
 {

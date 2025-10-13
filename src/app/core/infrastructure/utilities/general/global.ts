@@ -1,5 +1,4 @@
-import { ___, __const } from '../_internal/helpers';
-import { SModal } from '../modals/SModal';
+import { SModal } from '@/app';
 import {
     CatchParams,
     FetchParams,
@@ -7,8 +6,8 @@ import {
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
-} from '../../../_types';
-import { CannotOpenModalException } from '../../../domain';
+} from '@/app';
+import { ___, __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 type Value = string | string[];
 type Key = string | string[] | null;

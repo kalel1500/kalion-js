@@ -1,6 +1,4 @@
-import { InvalidValueException } from '../../exceptions/InvalidValueException';
-import { g } from '../../../infrastructure';
-import { StrOrNullish } from '../../../_types';
+import { g, InvalidValueException, StrOrNullish } from '@/app';
 
 export type EnumVoParams = {
     allowNull?: boolean

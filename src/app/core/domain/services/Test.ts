@@ -1,4 +1,4 @@
-import { ___, __const } from '../../infrastructure/utilities/_internal/helpers';
+import { ___, __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class Test {
     public static printConstant() {

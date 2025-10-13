@@ -1,6 +1,5 @@
-import { UserPreferences } from '../../../_types';
-import { __const } from '../_internal/helpers';
-import { g } from './global';
+import { g, UserPreferences } from '@/app';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class Cookie {
     private cookiePreferencesName: string = g.slugify(__const('VITE_APP_NAME'), '_') + '_kalion_user_preferences';

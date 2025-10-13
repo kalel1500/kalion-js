@@ -1,7 +1,7 @@
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { __const } from '../_internal/helpers';
-import { ProcessChecker } from './ProcessChecker';
+import { ProcessChecker } from '@/app';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class EchoService {
     static #connectionFailed: boolean | null = null;

@@ -1,6 +1,4 @@
-import { g, LStorage, Notify } from '../core/infrastructure';
-import { LayoutListenersUseCase } from '../core/application';
-import { StorageProcessKeys } from '../core/_types';
+import { g, LayoutListenersUseCase, LStorage, Notify, StorageProcessKeys } from '@/app';
 
 type Features = keyof typeof UtilitiesServiceProvider.actions;
 

@@ -1,7 +1,4 @@
-import { Instantiable } from '../../infrastructure/utilities/general/Instantiable';
-import { Cookie } from '../../infrastructure';
-import { Theme } from '../../_types';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { Cookie, Instantiable, Theme, ThemeSwitcher } from '@/app';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;

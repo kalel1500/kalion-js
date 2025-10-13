@@ -1,5 +1,4 @@
-import { Colors, ConfigBtn } from '../../../../_types';
-import { g } from '../../general/global';
+import { Colors, ConfigBtn, g } from '@/app';
 
 type getHtmlParams = {
     htmlId?: string;

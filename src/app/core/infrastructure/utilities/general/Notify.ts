@@ -1,7 +1,5 @@
-import { __const } from '../_internal/helpers';
-import { LDate } from './LDate';
-import { LStorage } from './LStorage';
-import { g } from './global';
+import { g, LDate, LStorage } from '@/app';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 type LaunchParams = {
     title: string,

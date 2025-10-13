@@ -1,13 +1,14 @@
-import { LStorage } from '../general/LStorage';
-import { __const } from '../_internal/helpers';
+import { route } from 'ziggy-js';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 import {
     CheckableProcess,
+    EchoService,
     FetchBroadcastingResponse,
-    ResponseEventFetch, StorageProcessKeys,
-} from '../../../_types';
-import { g } from '../general/global';
-import { EchoService } from './EchoService';
-import { route } from 'ziggy-js';
+    g,
+    LStorage,
+    ResponseEventFetch,
+    StorageProcessKeys,
+} from '@/app';
 
 export class ProcessChecker
 {

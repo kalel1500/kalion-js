@@ -1,6 +1,5 @@
 import { EventCallBackMethods } from 'tabulator-tables';
 import Echo from 'laravel-echo';
-import { Translation } from '../infrastructure';
 
 declare global {
     interface Window {
@@ -52,6 +51,10 @@ export interface DefaultConstants {
 
     readonly VITE_TS_STORAGE_VERSION: string;
     readonly VITE_TS_USE_BOOSTRAP_CLASSES: boolean;
+}
+
+export interface Translation {
+    [key: string]: string;
 }
 
 export interface DefaultTranslations extends Translation {

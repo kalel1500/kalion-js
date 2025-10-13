@@ -1,4 +1,4 @@
-import { __const } from '../_internal/helpers';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class TestConstants {
     private property_value: string = __const('VITE_APP_NAME');

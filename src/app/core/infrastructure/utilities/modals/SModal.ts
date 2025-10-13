@@ -1,8 +1,6 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import type { SweetAlertCustomClass, SweetAlertIcon, SweetAlertInput, SweetAlertPosition } from 'sweetalert2';
-import { g } from '../general/global';
-import { CannotOpenModalException, CannotOpenModalWarning } from '../../../domain';
-import { FetchResponse, SyncOrAsync } from '../../../_types';
+import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, SyncOrAsync } from '@/app';
 
 type ValueOrThunk<T> = T | (() => T)
 

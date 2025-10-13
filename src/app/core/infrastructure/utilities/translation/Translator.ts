@@ -1,16 +1,11 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
-import { __const } from '../_internal/helpers';
-import { DefaultTranslations, TranslationReplacements } from '../../../_types';
-
-export interface Translation {
-    [key: string]: string;
-}
+import { DefaultTranslations, Translation, TranslationReplacements } from '@/app';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 interface Translations<T extends Translation> {
     [key: string]: T;
 }
-
 
 export class Translator<T extends DefaultTranslations> {
     private static instance: Translator<any>;

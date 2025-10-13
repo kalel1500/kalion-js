@@ -6,3 +6,4 @@ export * from './objects/value-objects/IntVo';
 export * from './objects/value-objects/EnumVo';
 export * from './services/Test';
 export * from './services/DomService';
+export * from './services/ThemeSwitcher';

@@ -1,6 +1,4 @@
-import { DefaultConstants, DefaultTranslations, TranslationReplacements } from '../../../_types';
-import { Translator } from '../translation/Translator';
-import { Constants } from '../general/Constants';
+import { Constants, DefaultConstants, DefaultTranslations, TranslationReplacements, Translator } from '@/app';
 
 export const __const = <T extends keyof DefaultConstants>(key: T): DefaultConstants[T] => {
     return Constants.getInstance().get(key);
