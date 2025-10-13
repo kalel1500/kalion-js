@@ -102,11 +102,7 @@ export interface DefaultTranslations extends Translation {
 export interface FetchParams {
     url: string;
     type?: string;
-    ajaxParams?: {};
-    responseIsText?: boolean;
-    showLog?: boolean;
-    // finallyCallback?(): void;
-    // finallyParams?: {};
+    params?: {};
 }
 
 export interface FetchParamsSimple {
@@ -125,6 +121,7 @@ export interface CatchParams {
 }
 
 export interface FetchResponse {
+    ok: boolean;
     success: boolean;
     message: string;
     data?: Record<string, any> | string;

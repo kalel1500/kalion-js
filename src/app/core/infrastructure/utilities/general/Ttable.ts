@@ -408,8 +408,8 @@ export class Ttable {
                 item[this.orderFieldName] = key + 1;
                 return item;
             });
-            const result = await g.newFetch({url: url, type: type, ajaxParams: {rowsTabulator: newData}});
-            SModal.toastInfo({icon: (result.success) ? 'success' : 'error', title: result.message}).then();
+            const result = await g.fetch({url: url, type: type, params: {rowsTabulator: newData}});
+            SModal.toastInfo({icon: (result.success && result.ok) ? 'success' : 'error', title: result.message}).then();
             this.table.replaceData().then();
         } catch (e) {
             g.catchCode({error: e});
@@ -458,10 +458,10 @@ export class Ttable {
 
         try {
             // Ajax to launch Status/Mitigation
-            const actionResult = await g.newFetch({url, type, ajaxParams: {rowsTabulator: arrayTabulator}});
+            const actionResult = await g.fetch({url, type, params: {rowsTabulator: arrayTabulator}});
 
             // Check if result is wrong and update modal content
-            if (!actionResult.success) {
+            if (!actionResult.success || !actionResult.ok) {
                 SModal.errorModal({html: actionResult.message}).then();
                 return;
             }
@@ -484,14 +484,15 @@ export class Ttable {
         }
 
         try {
-            const result = await g.newFetch({url: url, type: type, ajaxParams: validation.validated});
-            if (result.success) {
+            const result = await g.fetch({url: url, type: type, params: validation.validated});
+            const success = result.success && result.ok;
+            if (success) {
                 SModal.toastSuccess({title: result.message}).then();
                 if (!preventReplaceData) cell.getTable().replaceData().then();
             } else {
                 SModal.errorModal({html: result.message}).then();
             }
-            return result.success;
+            return success;
         } catch (e) {
             g.catchCode({error: e});
             return false;
@@ -511,13 +512,14 @@ export class Ttable {
 
             let result: boolean;
             try {
-                const resultDelete = await g.newFetch({url: url, type: 'DELETE'});
-                if (resultDelete.success) {
+                const resultDelete = await g.fetch({url: url, type: 'DELETE'});
+                const success = resultDelete.success && resultDelete.ok;
+                if (success) {
                     SModal.toastSuccess({title: resultDelete.message}).then();
                 } else {
                     SModal.errorModal({html: resultDelete.message}).then();
                 }
-                result = resultDelete.success;
+                result = success;
             } catch (e) {
                 g.catchCode({error: e});
                 result = false;

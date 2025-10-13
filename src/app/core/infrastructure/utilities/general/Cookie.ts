@@ -43,7 +43,7 @@ export class Cookie {
         document.cookie = `${this.cookiePreferencesName}=${serializedPreferences}; path=/; expires=${expires}`;
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
-        /*g.newFetch({
+        /*g.fetch({
             url: route('kalion.ajax.cookie.update', {_query: {preferences: serializedPreferences}}),
             type: 'PUT'
         }).then();*/

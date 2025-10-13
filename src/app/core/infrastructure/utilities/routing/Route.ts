@@ -85,7 +85,7 @@ export class Route {
                     return;
                 }
 
-                g.newFetch({url: route(page.uri, route().params)})
+                g.fetchStrict({url: route(page.uri, route().params)})
                     .then(viewData => {
                         controller[page.method](viewData);
                     })

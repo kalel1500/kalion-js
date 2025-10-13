@@ -329,10 +329,10 @@ export class SModal {
                     Swal.showLoading();
                     try {
                         // Ajax to launch Status/Mitigation
-                        const result = await g.newFetch({url: ajaxUrl, type: ajaxType, ajaxParams: ajaxParams});
+                        const result = await g.fetch({url: ajaxUrl, type: ajaxType, params: ajaxParams});
 
                         // Check if result is wrong and update modal content
-                        if (!result.success) {
+                        if (!result.success || !result.ok) {
                             SModal.updateErrorModal({icon: 'warning', html: result.message});
                             return;
                         }
@@ -423,9 +423,9 @@ export class SModal {
                 willOpen: async () => {
                     Swal.showLoading();
                     try {
-                        const res = await g.newFetch({url: ajaxUrl, type: ajaxType, ajaxParams: ajaxParams});
+                        const res = await g.fetch({url: ajaxUrl, type: ajaxType, params: ajaxParams});
                         // await Hlp.sleep(1000);
-                        if (res.success) {
+                        if (res.success && res.ok) {
                             SModal.updateModal({html: html, confirmButtonColor: SModal.colorRed});
                         } else {
                             SModal.updateModal({
@@ -439,8 +439,7 @@ export class SModal {
                     } catch (e) {
                         g.catchCode({
                             error: e,
-                            footer: footerOnFail,
-                            from: `confirmModalWithAjaxCheck->willOpen->fetch ${ajaxUrl}`,
+                            footer: footerOnFail
                         });
                     }
                 },
@@ -542,8 +541,8 @@ export class SModal {
                         if (preConfirm_inputParamName !== undefined) {
                             preConfirm_params[preConfirm_inputParamName] = inputValue;
                         }
-                        let result = await g.newFetch({url: preConfirm_url, type: preConfirm_type, ajaxParams: preConfirm_params,});
-                        if (!result.success) {
+                        let result = await g.fetch({url: preConfirm_url, type: preConfirm_type, params: preConfirm_params,});
+                        if (!result.success || !result.ok) {
                             Swal.showValidationMessage(result.message);
                             return false;
                         }
@@ -620,8 +619,8 @@ export class SModal {
                 willOpen: async () => {
                     Swal.showLoading();
                     try {
-                        const result: FetchResponse = await g.newFetch({url: ajaxUrl});
-                        if (!result.success) {
+                        const result: FetchResponse = await g.fetch({url: ajaxUrl});
+                        if (!result.success || !result.ok) {
                             SModal.updateErrorModal({title: 'Ups...): Algo ha ido mal', html: result.message});
                             return;
                         }

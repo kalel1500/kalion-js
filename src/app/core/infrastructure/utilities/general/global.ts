@@ -66,14 +66,12 @@ export class g {
         return false;
     }
 
-    static async newFetch<T = FetchResponse>({
-                                                 url,
-                                                 type = 'GET',
-                                                 ajaxParams = undefined,
-                                                 responseIsText = false,
-                                                 showLog = false,
-                                             }: FetchParams): Promise<T> {
-        // console.info("ajaxLanzado: "+url);
+    private static async fetchBase<T extends FetchResponse>({
+                                                                url,
+                                                                type = 'GET',
+                                                                params = undefined,
+                                                            }: FetchParams, strict: boolean): Promise<T>
+    {
         try {
             let fetchParams = {
                 method: type, // *GET, POST, PUT, DELETE, etc.
@@ -84,25 +82,39 @@ export class g {
                     'X-CSRF-TOKEN': __const('token'),
                 },
             } as RequestInit;
-            if (type !== 'GET' && ajaxParams !== undefined) {
-                fetchParams.body = JSON.stringify(ajaxParams);
+
+            if (type !== 'GET' && params !== undefined) {
+                fetchParams.body = JSON.stringify(params);
             }
 
-            let response = await fetch(url, fetchParams);
-            let result = (responseIsText) ? await response.text() : await response.json();
-            if (showLog) console.log({result});
-            if (!response.ok) {
+            const response = await fetch(url, fetchParams);
+            const result = await response.json() as T | string;
+
+            if (typeof result === 'string') {
+                const reason = result === '' ? 'El servidor ha devuelto una respuesta vacia' : result;
+                return Promise.reject(reason);
+            }
+
+            result.ok = response.ok;
+            if (strict && !response.ok) {
                 return Promise.reject(result);
             }
-            if (result === '') {
-                return Promise.reject('El servidor ha devuelto una respuesta vacia');
-            }
-            return result;
+
+            return Promise.resolve(result);
         } catch (e) {
             console.error('Error con fetch');
             return Promise.reject(e);
         }
+    }
 
+    static async fetch<T extends FetchResponse>({url, type = 'GET', params = undefined}: FetchParams): Promise<T>
+    {
+        return await g.fetchBase({url, type, params}, false);
+    }
+
+    static async fetchStrict<T extends FetchResponse>({url, type = 'GET', params = undefined}: FetchParams): Promise<T>
+    {
+        return await g.fetchBase({url, type, params}, true);
     }
 
     static catchCode({

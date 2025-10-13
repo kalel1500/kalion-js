@@ -54,7 +54,7 @@ export class Websocket {
         try {
             EchoService.checkAndUpdateConnectedStatus();
 
-            const ajaxResult = await g.newFetch<FetchBroadcastingResponse>({url: route(__const('routeName_websockets_checkService'))});
+            const ajaxResult = await g.fetch<FetchBroadcastingResponse>({url: route(__const('routeName_websockets_checkService'))});
             Websocket.checkBroadcastingFetch({result: ajaxResult});
             g.removeSpinner(Websocket.divMessageWebsockets);
         } catch (e) {
@@ -67,7 +67,7 @@ export class Websocket {
         g.addSpinner(Websocket.divMessageQueues);
         let result: FetchResponseOrBroadcasting | undefined;
         try {
-            result = await g.newFetch<FetchResponseOrBroadcasting>({url: route(__const('routeName_queues_checkService'))});
+            result = await g.fetch<FetchResponseOrBroadcasting>({url: route(__const('routeName_queues_checkService'))});
         } catch (e) {
             result = (e as FetchResponseOrBroadcasting);
             g.catchCode({error: e, from: 'Websocket->checkQueuesService()'});
