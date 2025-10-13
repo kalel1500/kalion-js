@@ -1,7 +1,7 @@
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { __const } from '../_internal/helpers';
-import { Websocket } from './Websocket';
+import { ProcessChecker } from './ProcessChecker';
 
 export class EchoService {
     static #connectionFailed: boolean | null = null;
@@ -43,7 +43,7 @@ export class EchoService {
         // Cambio cualquer estado
         echoConnection.bind('state_change', (states: any) => {
             console.info(`pusher.connection.state changed to [${states.current}]`);
-            Websocket.checkWebsocketsService().then();
+            ProcessChecker.checkReverb().then();
         });
 
         // ------------------------------------------------------------- Estados de ok -------------------------------------------------------------------

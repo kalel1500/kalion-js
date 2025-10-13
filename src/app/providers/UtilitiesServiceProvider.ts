@@ -1,5 +1,6 @@
 import { g, LStorage, Notify } from '../core/infrastructure';
 import { LayoutListenersUseCase } from '../core/application';
+import { StorageProcessKeys } from '../core/_types';
 
 type Features = keyof typeof UtilitiesServiceProvider.actions;
 
@@ -9,7 +10,8 @@ export class UtilitiesServiceProvider {
         startStorageDay: () => {
             if (LStorage.isFirstConnectionInDay()) {
                 LStorage.setNowAsLastConnection();
-                LStorage.removeItem('websocketsFailed'); // restartWebsocketsStorage
+                LStorage.removeItem(StorageProcessKeys.reverb);
+                LStorage.removeItem(StorageProcessKeys.queue);
             }
 
             /*// let test = MyLuxon.stringToLxDate(MyStorage.getItem("lastConnection"));

@@ -18,5 +18,6 @@ export * from './utilities/tests/TestConstants';
 
 export * from './utilities/translation/Translator';
 
-export * from './utilities/websockets/EchoService';
-export * from './utilities/websockets/Websocket';
+export * from './utilities/broadcasting/EchoService';
+export * from './utilities/broadcasting/ProcessChecker';
+export * from './utilities/broadcasting/Reverb';

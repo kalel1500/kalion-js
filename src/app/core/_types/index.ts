@@ -36,8 +36,8 @@ export interface DefaultConstants {
     langDouble: string;
     defaultZoneName: string;
     appIcon: string;
-    routeName_websockets_checkService: string;
-    routeName_queues_checkService: string;
+    routeName_checkReverb: string;
+    routeName_checkQueue: string;
 
     readonly VITE_BROADCASTING_ENABLED: boolean;
 
@@ -99,6 +99,16 @@ export interface DefaultTranslations extends Translation {
     you_do_not_have_permissions_to_edit: string;
 }
 
+export enum CheckableProcess {
+    reverb = "reverb",
+    queue = "queue",
+}
+
+export enum StorageProcessKeys {
+    reverb = "reverbFailed",
+    queue = "queueFailed",
+}
+
 export interface FetchParams {
     url: string;
     type?: string;
@@ -128,6 +138,7 @@ export interface FetchResponse {
 }
 
 export interface ResponseEventFetch {
+    processName: CheckableProcess;
     response: FetchResponse;
 }
 
