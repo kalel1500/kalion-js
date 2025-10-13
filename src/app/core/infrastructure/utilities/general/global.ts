@@ -20,6 +20,10 @@ export class g {
         return variable !== null;
     }
 
+    static isObject(variable: any): boolean {
+        return typeof variable === 'object' && variable !== null;
+    }
+
     static isUndefined(variable: any): boolean {
         return typeof variable === 'undefined';
     }
@@ -109,31 +113,48 @@ export class g {
                          reloadOnClose = false,
                          footer = undefined,
                          from = undefined,
-                     }: CatchParams) {
+                     }: CatchParams)
+    {
+        console.error(error);
+
         if (g.errorModalIsShowed) return;
 
-        console.error(error);
-        if (!g.isUndefined(from)) console.log('From:', from);
+        if (!g.isUndefined(from)) {
+            console.log('From:', from);
+        }
 
+        const message = g.getErrorMessage(text, error);
         const finalHtml = html
             ? html
-            : `<span class="restriction-message">${g.escapeHtml(text || (error.message || 'Error imprevisto (o formato error inesperado)'))}</span>`;
+            : `<span class="restriction-message">${g.escapeHtml(message)}</span>`;
 
         // Abrir modal
+        g.errorModalIsShowed = true;
         SModal.errorModal({
             icon: 'error',
             title: title,
             html: finalHtml,
             confirmButtonText: (reloadOnClose) ? ___('reload_page') : ___('ok'),
             footer: footer,
-        }, true).then((result) => {
-            g.errorModalIsShowed = false;
-            if (reloadOnClose && result.isConfirmed) {
-                location.reload();
-            }
-        });
+        }, true)
+            .then((result) => {
+                g.errorModalIsShowed = false;
+                if (reloadOnClose && result.isConfirmed) {
+                    location.reload();
+                }
+            });
+    }
 
-        g.errorModalIsShowed = true;
+    private static getErrorMessage(text: string|undefined, error: any): string
+    {
+        if (text !== undefined) {
+            return text;
+        }
+        if (!g.isObject(error)) {
+            return error;
+        }
+
+        return error.hasOwnProperty('message') ? error.message : 'Error imprevisto';
     }
 
     static sleep(ms: number) {
