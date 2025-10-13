@@ -333,8 +333,7 @@ export class SModal {
 
                         // Check if result is wrong and update modal content
                         if (!result.success) {
-                            const html = (result?.detail) ? `<div>${result.message}</div><br><small>${result.detail}</small>` : result.message;
-                            SModal.updateErrorModal({icon: 'warning', html: html});
+                            SModal.updateErrorModal({icon: 'warning', html: result.message});
                             return;
                         }
 

@@ -128,7 +128,6 @@ export interface FetchResponse {
     success: boolean;
     message: string;
     data?: Record<string, any> | string;
-    detail?: string;
 }
 
 export interface ResponseEventFetch {
