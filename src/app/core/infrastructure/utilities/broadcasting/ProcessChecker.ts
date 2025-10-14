@@ -23,7 +23,7 @@ export class ProcessChecker
 
     public static STORAGE = {
         reverb: {
-            check() {
+            isFailed() {
                 return LStorage.getItem(StorageProcessKeys.reverb) === '1';
             },
             setAsFailed() {
@@ -34,7 +34,7 @@ export class ProcessChecker
             },
         },
         queue: {
-            check() {
+            isFailed() {
                 return LStorage.getItem(StorageProcessKeys.queue) === '1';
             },
             setAsFailed() {
@@ -118,10 +118,10 @@ export class ProcessChecker
 
     public static displayMessageBasedOnStorage(processName: CheckableProcess) {
         const hiddenClass = g.getHiddenClass();
-        if (ProcessChecker.STORAGE[processName].check()) {
-            ProcessChecker.divMessage[processName]?.classList.add(hiddenClass);
-        } else {
+        if (ProcessChecker.STORAGE[processName].isFailed()) {
             ProcessChecker.divMessage[processName]?.classList.remove(hiddenClass);
+        } else {
+            ProcessChecker.divMessage[processName]?.classList.add(hiddenClass);
         }
     }
 }
