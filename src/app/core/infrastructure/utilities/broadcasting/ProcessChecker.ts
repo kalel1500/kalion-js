@@ -71,7 +71,7 @@ export class ProcessChecker
         }
     }
 
-    public static async checkReverb(fromResult: FetchBroadcastingResponse|undefined = undefined) {
+    public static async checkReverb<T extends FetchBroadcastingResponse>(fromResult: T|undefined = undefined) {
         EchoService.checkAndUpdateConnectedStatus();
         if (EchoService.isFailed() || !__const('VITE_BROADCASTING_ENABLED')) {
             ProcessChecker.STORAGE.reverb.setAsFailed();
@@ -82,7 +82,7 @@ export class ProcessChecker
         return await ProcessChecker.checkProcess(CheckableProcess.reverb, fromResult);
     }
 
-    public static async checkQueue(fromResult: FetchBroadcastingResponse|undefined = undefined) {
+    public static async checkQueue<T extends FetchBroadcastingResponse>(fromResult: T|undefined = undefined) {
         return await ProcessChecker.checkProcess(CheckableProcess.queue, fromResult);
     }
 
