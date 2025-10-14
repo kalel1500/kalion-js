@@ -155,13 +155,13 @@ export interface FetchBroadcastingResponse<T = DataType> extends FetchResponse {
     };
 }
 
+export type FetchResponseOrBroadcasting<T = DataType> = FetchResponse<T> | FetchBroadcastingResponse<T>;
+
 export type FetchReturnType<R> = R extends FetchResponse<any> ? R : FetchResponse;
 
 export type Nullish = null | undefined;
 export type StrOrNullish = string | Nullish;
 export type StrIntOrNullish = number | StrOrNullish;
-
-export type FetchResponseOrBroadcasting<T = Record<string, any>> = FetchResponse<T> | FetchBroadcastingResponse<T>;
 
 export type AvailableValidations =
     'optional'
