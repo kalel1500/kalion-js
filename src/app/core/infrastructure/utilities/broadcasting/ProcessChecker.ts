@@ -76,17 +76,18 @@ export class ProcessChecker
         if (EchoService.isFailed() || !__const('VITE_BROADCASTING_ENABLED')) {
             ProcessChecker.STORAGE.reverb.setAsFailed();
             ProcessChecker.displayMessageBasedOnStorage(CheckableProcess.reverb);
-            return;
+            return false;
         }
 
-        await ProcessChecker.checkProcess(CheckableProcess.reverb, fromResult);
+        return await ProcessChecker.checkProcess(CheckableProcess.reverb, fromResult);
     }
 
     public static async checkQueue(fromResult: FetchBroadcastingResponse|undefined = undefined) {
-        await ProcessChecker.checkProcess(CheckableProcess.queue, fromResult);
+        return await ProcessChecker.checkProcess(CheckableProcess.queue, fromResult);
     }
 
     private static async checkProcess(processName: CheckableProcess, fromResult: FetchBroadcastingResponse|undefined) {
+        let processResult = false;
         g.addSpinner(ProcessChecker.divMessage[processName]);
         try {
             const result = fromResult ?? await g.fetchStrict<FetchBroadcastingResponse>({url: ProcessChecker.routes[processName]});
@@ -97,6 +98,7 @@ export class ProcessChecker
 
             if (!result.data.broadcasting.success) {
                 ProcessChecker.STORAGE[processName].setAsFailed();
+                processResult = true;
             } else {
                 ProcessChecker.STORAGE[processName].setAsWorked();
             }
@@ -107,6 +109,7 @@ export class ProcessChecker
         }
 
         g.removeSpinner(ProcessChecker.divMessage[processName]);
+        return processResult;
     }
 
     public static displayMessageBasedOnStorage(processName: CheckableProcess) {
