@@ -3,7 +3,7 @@ import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 import {
     CheckableProcess,
     EchoService,
-    FetchBroadcastingResponse,
+    FetchBroadcastingResponse, FetchResponse, FetchResponseOrBroadcasting,
     g,
     LStorage,
     ResponseEventFetch,
@@ -90,13 +90,17 @@ export class ProcessChecker
         let processResult = false;
         g.addSpinner(ProcessChecker.divMessage[processName]);
         try {
-            const result = fromResult ?? await g.fetchStrict<FetchBroadcastingResponse>({url: ProcessChecker.routes[processName]});
+            const result = fromResult ?? await g.fetchStrict<FetchResponseOrBroadcasting>({url: ProcessChecker.routes[processName]});
 
-            if (!result.data.hasOwnProperty('broadcasting')) {
-                throw new Error(`No se ha encontrado la propiedad "broadcasting" en la "response" al comprobar el proceso "${processName}"`);
+            let success = result.ok && result.success;
+
+            if (typeof result.data === 'object' && result.data?.hasOwnProperty('broadcasting')) {
+                //throw new Error(`No se ha encontrado la propiedad "broadcasting" en la "response" al comprobar el proceso "${processName}"`);
+                const broadcasting: FetchResponse = result.data?.broadcasting;
+                success = broadcasting.ok && broadcasting.success;
             }
 
-            if (!result.data.broadcasting.success) {
+            if (!success) {
                 ProcessChecker.STORAGE[processName].setAsFailed();
                 processResult = true;
             } else {
