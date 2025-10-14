@@ -133,30 +133,35 @@ export interface CatchParams {
     from?: string;
 }
 
-export interface FetchResponse {
+export type ApiObject = Record<string, any>;
+export type DataType = ApiObject | string;
+
+export interface FetchResponse<T = DataType> {
     ok: boolean;
     success: boolean;
     message: string;
-    data?: Record<string, any> | string;
+    data?: T;
 }
 
-export interface ResponseEventFetch {
+export interface ResponseEventFetch<T = DataType> {
     processName: CheckableProcess;
-    response: FetchResponse;
+    response: FetchResponse<T>;
 }
 
-export interface FetchBroadcastingResponse extends FetchResponse {
+export interface FetchBroadcastingResponse<T = DataType> extends FetchResponse {
     data: {
-        broadcasting: FetchResponse,
+        broadcasting: FetchResponse<T>,
         [p: string]: any
     };
 }
+
+export type FetchReturnType<R> = R extends FetchResponse<any> ? R : FetchResponse;
 
 export type Nullish = null | undefined;
 export type StrOrNullish = string | Nullish;
 export type StrIntOrNullish = number | StrOrNullish;
 
-export type FetchResponseOrBroadcasting = FetchResponse | FetchBroadcastingResponse;
+export type FetchResponseOrBroadcasting<T = Record<string, any>> = FetchResponse<T> | FetchBroadcastingResponse<T>;
 
 export type AvailableValidations =
     'optional'

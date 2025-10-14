@@ -1,8 +1,6 @@
-import { SModal } from '@/app';
 import {
     CatchParams,
-    FetchParams,
-    FetchResponse,
+    FetchParams, FetchReturnType, SModal,
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
@@ -65,11 +63,11 @@ export class g {
         return false;
     }
 
-    private static async fetchBase<T extends FetchResponse>({
+    private static async fetchBase<R>({
                                                                 url,
                                                                 type = 'GET',
                                                                 params = undefined,
-                                                            }: FetchParams, strict: boolean): Promise<T>
+                                                            }: FetchParams, strict: boolean): Promise<FetchReturnType<R>>
     {
         try {
             let fetchParams = {
@@ -87,7 +85,7 @@ export class g {
             }
 
             const response = await fetch(url, fetchParams);
-            const result = await response.json() as T | string;
+            const result = await response.json() as FetchReturnType<R> | string;
 
             if (typeof result === 'string') {
                 const reason = result === '' ? 'El servidor ha devuelto una respuesta vacia' : result;
@@ -106,14 +104,14 @@ export class g {
         }
     }
 
-    static async fetch<T extends FetchResponse>({url, type = 'GET', params = undefined}: FetchParams): Promise<T>
+    static async fetch<R>({url, type = 'GET', params = undefined}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase({url, type, params}, false);
+        return await g.fetchBase<R>({url, type, params}, false);
     }
 
-    static async fetchStrict<T extends FetchResponse>({url, type = 'GET', params = undefined}: FetchParams): Promise<T>
+    static async fetchStrict<R>({url, type = 'GET', params = undefined}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase({url, type, params}, true);
+        return await g.fetchBase<R>({url, type, params}, true);
     }
 
     static async fetchString({url, type = 'GET', params = undefined}: FetchParams): Promise<{ok: boolean, text: string}>
