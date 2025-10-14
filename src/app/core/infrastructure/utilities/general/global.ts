@@ -116,6 +116,34 @@ export class g {
         return await g.fetchBase({url, type, params}, true);
     }
 
+    static async fetchString({url, type = 'GET', params = undefined}: FetchParams): Promise<{ok: boolean, text: string}>
+    {
+        try {
+            let fetchParams = {
+                method: type, // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': __const('token'),
+                },
+            } as RequestInit;
+
+            if (type !== 'GET' && params !== undefined) {
+                fetchParams.body = JSON.stringify(params);
+            }
+
+            const response = await fetch(url, fetchParams);
+            const text = await response.text();
+
+            return Promise.resolve({
+                ok: response.ok,
+                text: text,
+            });
+        } catch (e) {
+            console.error('Error con fetch');
+            return Promise.reject(e);
+        }
+    }
+
     static catchCode({
                          error,
                          title = undefined,
