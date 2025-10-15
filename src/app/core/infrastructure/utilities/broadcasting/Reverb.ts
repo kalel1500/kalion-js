@@ -6,6 +6,8 @@ export class Reverb
     constructor() {
         ProcessChecker.startBtnListeners();
         ProcessChecker.startListenCheckChannels();
+        ProcessChecker.displayMessageBasedOnStorage(CheckableProcess.reverb);
+        ProcessChecker.displayMessageBasedOnStorage(CheckableProcess.queue);
     }
 
     startListenChannel(channelName: string, events: { event: string, callback: Function }[]) {
