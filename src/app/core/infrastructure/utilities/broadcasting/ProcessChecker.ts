@@ -72,10 +72,14 @@ export class ProcessChecker
     }
 
     public static async checkReverb<T extends FetchBroadcastingResponse>(fromResult: T|undefined = undefined) {
+        const subMessage = ProcessChecker.divMessage.reverb?.querySelector('#reverbSubmessage');
+        subMessage?.classList.add(g.getHiddenClass());
+        await g.sleep(200);
         EchoService.checkAndUpdateConnectedStatus();
         if (EchoService.isFailed() || !__const('VITE_BROADCASTING_ENABLED')) {
             ProcessChecker.STORAGE.reverb.setAsFailed();
             ProcessChecker.displayMessageBasedOnStorage(CheckableProcess.reverb);
+            subMessage?.classList.remove(g.getHiddenClass());
             return false;
         }
 
