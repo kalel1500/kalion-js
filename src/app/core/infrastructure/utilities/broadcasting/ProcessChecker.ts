@@ -102,9 +102,9 @@ export class ProcessChecker
 
             if (!success) {
                 ProcessChecker.STORAGE[processName].setAsFailed();
-                processResult = true;
             } else {
                 ProcessChecker.STORAGE[processName].setAsWorked();
+                processResult = true;
             }
 
             ProcessChecker.displayMessageBasedOnStorage(processName);
