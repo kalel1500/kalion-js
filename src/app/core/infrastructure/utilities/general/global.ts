@@ -166,7 +166,6 @@ export class g {
             : `<span class="restriction-message">${g.escapeHtml(message)}</span>`;
 
         // Abrir modal
-        g.errorModalIsShowed = true;
         SModal.errorModal({
             icon: 'error',
             title: title,
@@ -180,6 +179,7 @@ export class g {
                     location.reload();
                 }
             });
+        g.errorModalIsShowed = true;
     }
 
     private static getErrorMessage(text: string|undefined, error: any): string
