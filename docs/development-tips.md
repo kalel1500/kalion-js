@@ -14,14 +14,17 @@
 
 ### Subir una version (actualizar package.json + commit + tag)
 
-### Estructura: v0.<minor>.<patch>-beta.<build>
+#### Estructura: v0.[minor].[patch]-beta.[build]
 
-* `npm version patch`
-* `npm version minor`
-* `npm version major`
 * `npm version preminor --preid=beta`: actualiza "minor"
 * `npm version prepatch --preid=beta`: actualiza "patch"
 * `npm version prerelease`: actualiza "build"
+
+#### Estructura: [major].[minor].[patch]
+
+* `npm version major`
+* `npm version minor`
+* `npm version patch`
 
 ### Publicar una version en NPM (Subir el dist tal y como este en ese momento)
 
