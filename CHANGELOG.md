@@ -1,6 +1,38 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.9.2-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.0-beta.0...master)
+
+## [v0.10.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.2-beta.0...v0.10.0-beta.0) - 2025-10-22
+
+### Changed
+
+* (breaking) Ahora se usa el alias `@` en los imports.
+* (breaking) Se ha rehecho el sistema de broadcasting:
+  * Se ha eliminado la clase `Websocket` y se ha dividido la lógica en las nuevas clases `Reverb` y `ProcessChecker`.
+  * Se ha simplificado la lógica del `ProcessChecker`.
+  * Se ha adaptado la lógica del `ProcessChecker` a los cambios del paquete `kalion` (nombres del canal, del evento y de las rutas).
+  * Se han renombrado los métodos `checkWebsocketsService` y `#checkQueuesService` a `checkReverb` y `checkQueue` respectivamente.
+  * Se ha eliminado el método `checkBroadcastingFetch()`.
+  * Se ha añadido la gestion del Storage para las colas.
+  * Re han renombrado las variables de las rutas de `routeName_websockets_checkService` y `routeName_queues_checkService` a `routeName_checkReverb` y `routeName_checkQueue` respectivamente.
+  * Ahora el `checkProcess` lanzará un error si la response no tiene la propiedad `broadcasting`. Antes el checkBroadcastingFetch no hacía nada si no encontraba la variable.
+  * Se han modificado los métodos `checkReverb` y `checkQueue` de la clase `ProcessChecker` devuelvan un boolean indicando si el proceso está activo.
+  * Se ha añadido un tipo generico a los métodos `checkReverb` y `checkQueue` de la clase `ProcessChecker` para poder sobreescribir el tipo del parametro `fromResult`.
+  * Se han añadido el método `ProcessChecker.displayMessageBasedOnStorage()` para los dos procesos en el constructor de la clase `Reverb`. Ahora tras instanciar la clase al cargar la página, además de iniciar los `listeners` y los `chanesl`, se leera el storage y se mostrarán los mensajes de los servicios si están desactivados.
+  * Se ha modificado el método `ProcessChecker.checkReverb()`. Ahora si el broadcasting está desactivado o falla la conexion se muestra el submensaje para dar feedback al usuario de que se hace algo.
+* (breaking) Se ha rehecho el helper `g.newFetch()`:
+  * Se ha renombrado el método a `fetchBase()` y se ha modificado la visibilidad a `private`.
+  * Ahora recibe `strict` como segundo parámetro.
+  * Se han creado los nuevos helpers `fetch()` y `fetchStrict()` que llaman al `fetchBase()`.
+  * El `fetchStrict()` se comporta como el antiguo `newFetch()` ya que lanza `Promise.reject()` si la peticion falla.
+  * En cambio el `fetch()` no falla si la llamada no es `ok`. Solo se guarda el resultado en la nueva propiedad `ok` en la interfaz `FetchResponse`
+  * Se ha renombrado el parámetro `ajaxParams` a `params`.
+  * Se han eliminado los parámetros `responseIsText` y `showLog`. Si el resultado es un string se lanza el `Promise.reject()`.
+  * Ahora hay un nuevo metodo llamado `fetchString()` para reemplazar la funcionalidad del parámetro `responseIsText`.
+  * El tipo ahora debe extender de `FetchResponse`.
+  * Se ha añadido un tipo genérico en la interfaz `FetchResponse` para poder definir el tipo de `data`. También se ha definido un nuevo tipo `FetchReturnType` y se ha puesto como tipo de retorno en los métodos `fetch`. A su vez ahora el tipo generico de los métodos fetch ya no extienden de `FetchResponse`. De esta forma se permite que se sobreescriba el tipo de la propiedad `data` pero obligando a que los métodos `fecth` siempre devuelvan un `FetchResponse` si se les pasa otro tipo.
+* (breaking) Se ha modificado el helper `g.catchCode()`. Ahora si `error` si es un `string` se imprime su valor en vez de imprimir `Error imprevisto`.
+* Se ha eliminado la propiedad `detail` del `FetchResponse`
 
 ## [v0.9.2-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.1-beta.1...v0.9.2-beta.0) - 2025-09-30
 
