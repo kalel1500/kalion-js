@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.0...master)
+
+## [v0.10.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.10.0-beta.0...v0.10.1-beta.0) - 2025-10-23
+
+### Changed
+
+* Usar alias `@` en los imports de los archivos de de creacion de cli (stubs).
 
 ## [v0.10.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.9.2-beta.0...v0.10.0-beta.0) - 2025-10-22
 
