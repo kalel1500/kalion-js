@@ -1,10 +1,11 @@
-import {
+import type {
     CatchParams,
-    FetchParams, FetchReturnType, SModal,
+    FetchParams, FetchReturnType,
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
 } from '@/app';
+import { SModal } from '@/app';
 import { ___, __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 type Value = string | string[];

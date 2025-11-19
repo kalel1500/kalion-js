@@ -1,10 +1,9 @@
-import { EventCallBackMethods } from 'tabulator-tables';
-import Echo from 'laravel-echo';
+import type { EventCallBackMethods } from 'tabulator-tables';
 
 declare global {
     interface Window {
         Pusher: any;
-        Echo: Echo<'reverb'>;
+        Echo?: import('laravel-echo').default<'reverb'>;
     }
 }
 

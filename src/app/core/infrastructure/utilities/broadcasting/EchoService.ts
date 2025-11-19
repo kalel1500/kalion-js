@@ -1,5 +1,3 @@
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
 import { ProcessChecker } from '@/app';
 import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
@@ -7,22 +5,30 @@ export class EchoService {
     static #connectionFailed: boolean | null = null;
     static #isStarted = false;
 
-    static start() {
+    static async start() {
         if (!__const('VITE_BROADCASTING_ENABLED')) return;
 
-        // initEcho
+        try {
+            const { default: Pusher } = await import('pusher-js');
+            const { default: Echo } = await import('laravel-echo');
 
-        window.Pusher = Pusher;
+            // initEcho
 
-        window.Echo = new Echo({
-            broadcaster: 'reverb',
-            key: __const('VITE_REVERB_APP_KEY'),
-            wsHost: __const('VITE_REVERB_HOST'),
-            wsPort: __const('VITE_REVERB_PORT') ?? 80,
-            wssPort: __const('VITE_REVERB_PORT') ?? 443,
-            forceTLS: (__const('VITE_REVERB_SCHEME') ?? 'https') === 'https',
-            enabledTransports: ['ws', 'wss'],
-        });
+            window.Pusher = Pusher;
+
+            window.Echo = new Echo({
+                broadcaster: 'reverb',
+                key: __const('VITE_REVERB_APP_KEY'),
+                wsHost: __const('VITE_REVERB_HOST'),
+                wsPort: __const('VITE_REVERB_PORT') ?? 80,
+                wssPort: __const('VITE_REVERB_PORT') ?? 443,
+                forceTLS: (__const('VITE_REVERB_SCHEME') ?? 'https') === 'https',
+                enabledTransports: ['ws', 'wss'],
+            });
+        } catch (error) {
+            console.error('Error initializing Echo or Pusher:', error);
+            return;
+        }
 
 
         // initBinds
@@ -75,7 +81,7 @@ export class EchoService {
 
     static checkAndUpdateConnectedStatus() {
         if (!EchoService.#isStarted) return;
-        const echoConnection = window.Echo.connector.pusher.connection;
+        const echoConnection = window.Echo?.connector.pusher.connection;
         if (EchoService.#connectionFailed === true && echoConnection.state === 'connected') {
             EchoService.#connectionFailed = false;
         }

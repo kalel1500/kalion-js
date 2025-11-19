@@ -1,4 +1,4 @@
-import {
+import type {
     CellComponent,
     EventCallBackMethods,
     JSONRecord,
@@ -6,25 +6,23 @@ import {
     ListEditorParams,
     Options,
     RowComponent,
-    TabulatorFull as Tabulator,
+    TabulatorFull,
 } from 'tabulator-tables';
-import {
-    Component,
+import type {
     FetchParamsSimple,
-    g,
     NullHTMLButtonElement,
-    SModal,
     TableSettingEvents,
     ValidationRules,
 } from '@/app';
+import { Component, g, SModal } from '@/app';
 
 export class Ttable {
     readonly tableId: string | HTMLElement;
-    table: Tabulator;
+    table: InstanceType<typeof TabulatorFull>;
     isEditable = false;
     readonly orderFieldName: string;
 
-    constructor(tableId: string | HTMLElement, options: Options, settingEvents: TableSettingEvents, orderFieldName?: string) {
+    constructor(Tabulator: typeof TabulatorFull, tableId: string | HTMLElement, options: Options, settingEvents: TableSettingEvents, orderFieldName?: string) {
         this.tableId = tableId;
         this.orderFieldName = orderFieldName ?? 'order';
 
@@ -34,6 +32,15 @@ export class Ttable {
             const value = entry[1];
             this.table.on(key, value);
         });
+    }
+
+    public static async create(tableId: string | HTMLElement, options: Options, settingEvents: TableSettingEvents, orderFieldName?: string) {
+        try {
+            const { TabulatorFull } = await import('tabulator-tables');
+            return new Ttable(TabulatorFull, tableId, options, settingEvents, orderFieldName);
+        } catch (error) {
+            console.error("Tabulator-tables no está instalado o no se pudo cargar.", error);
+        }
     }
 
     isEditableCell(cell: CellComponent) {

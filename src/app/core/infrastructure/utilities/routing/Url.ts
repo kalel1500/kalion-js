@@ -1,6 +1,6 @@
 import { route } from 'ziggy-js';
 import { g } from '@/app';
-import { Filter } from 'tabulator-tables';
+import type { Filter } from 'tabulator-tables';
 
 // type QueryParams = { [p: string]: string | number }
 type QueryParams = Record<string, unknown>
