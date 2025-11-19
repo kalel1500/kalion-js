@@ -55,40 +55,40 @@
         padding: 5px 10px;
         padding-top: 8px;
         border-top: 3px solid #01684a; /* #23C596 old*/
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator {
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator .tabulator-header {
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator-row {
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator-row.tabulator-row-even {
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator-row.tabulator-selectable:hover {
-        background-color: #071022;
+        background-color: var(--color-gray-600);
     }
 
     .tabulator .tabulator-header .tabulator-col {
-        background-color: #111827;
+        background-color: var(--color-gray-800);
     }
 
     .tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
         cursor: pointer;
-        background-color: #071022;
+        background-color: var(--color-gray-600);
     }
 
     .tabulator .tabulator-header .tabulator-col .tabulator-header-filter input:focus {
-        color: #fff;
+        color: var(--color-gray-500);
         background-color: #2f2f2f;
     }
 }
