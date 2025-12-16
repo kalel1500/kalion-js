@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.1...master)
+
+## [v0.10.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.0...v0.10.1-beta.1) - 2025-12-16
+
+### Changed
+
+* Actualizar el tipo del `preConfirm_params` (de la interfaz `InputModalOptions`) para usar `Record<string, any>`
 
 ## [v0.10.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.10.0-beta.0...v0.10.1-beta.0) - 2025-10-23
 
