@@ -50,7 +50,7 @@ interface InputModalOptions extends BasicModalOptions {
     getValidationMessage?(value: string): string | null;
     preConfirm_url: string;
     preConfirm_type?: string;
-    preConfirm_params?: { [key: string]: string };
+    preConfirm_params?: Record<string, any>;
     preConfirm_inputParamName?: string;
     preConfirm_permitConfirm?: boolean;
     preConfirm_ajaxOkCode?(): void;
