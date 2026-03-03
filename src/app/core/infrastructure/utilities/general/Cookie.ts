@@ -18,9 +18,8 @@ export class Cookie {
 
     set(name: string, value: string, days: number): void
     {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
+        const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
     }
 
     delete(name: string): void
@@ -37,9 +36,7 @@ export class Cookie {
 
     setPreferences(preferences: UserPreferences): void
     {
-        const serializedPreferences = encodeURIComponent(JSON.stringify(preferences));
-        const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString(); // 30 días
-        document.cookie = `${this.cookiePreferencesName}=${serializedPreferences}; path=/; expires=${expires}`;
+        this.set(this.cookiePreferencesName, encodeURIComponent(JSON.stringify(preferences)), 30);
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.fetch({
