@@ -209,7 +209,7 @@ export type ThemeButtons = Record<Theme, HTMLElement | null>
 export type UserPreferences = {
     version: string;
     theme: Theme;
-    sidebar_collapsed: boolean;
+    sidebar_state: string;
     sidebar_state_per_page: boolean;
 };
 

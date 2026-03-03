@@ -1,4 +1,5 @@
 import { Cookie, Instantiable, Theme, ThemeSwitcher } from '@/app';
+import { SidebarState } from '@/app/core/domain/objects/value-objects/SidebarState';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
@@ -45,8 +46,9 @@ export class DomService extends Instantiable {
         // Evento de click para alternar el estado del sidebar
         sidebarToggleBtn?.addEventListener('click', () => {
             const isCollapsed = !this.$document.classList.contains('sc');
+            const state = SidebarState.fromBoolean(isCollapsed);
             this.$document.classList.toggle('sc', isCollapsed);
-            Cookie.new().setPreference('sidebar_collapsed', isCollapsed);
+            Cookie.new().setPreference('sidebar_state', state.value);
         });
 
     }
