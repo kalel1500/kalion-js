@@ -1,4 +1,5 @@
 import { Cookie, Instantiable, Theme, ThemeButtons } from '@/app';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class ThemeSwitcher extends Instantiable
 {
@@ -74,7 +75,7 @@ export class ThemeSwitcher extends Instantiable
 
     saveAndUpdate(theme: Theme) {
         localStorage.setItem('theme', theme);
-        Cookie.new().setPreference('theme', theme);
+        Cookie.new().setPreference(__const('VITE_KALION_COOKIE_KEY_USER_PREF_THEME'), theme);
         this.updateTheme(theme);
     }
 

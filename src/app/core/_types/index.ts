@@ -20,6 +20,11 @@ export type EnvVariables = {
     readonly VITE_REVERB_PORT?: string; // notInEnv
     readonly VITE_REVERB_SCHEME?: string; // notInEnv
 
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_VERSION?: string;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_THEME?: string;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE?: string;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE?: string;
+
     readonly VITE_APP_ENV?: string;
     readonly VITE_APP_NAME?: string;
     readonly VITE_APP_CODE?: string;
@@ -44,6 +49,11 @@ export interface DefaultConstants {
     readonly VITE_REVERB_HOST: string;
     readonly VITE_REVERB_PORT: number;
     readonly VITE_REVERB_SCHEME: string;
+
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_VERSION: cookie_key_version;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_THEME: cookie_key_theme;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE: cookie_key_sidebar_state;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE: cookie_key_sidebar_state_per_page;
 
     readonly VITE_APP_ENV: string;
     readonly VITE_APP_NAME: string;
@@ -205,6 +215,12 @@ export enum Theme {
 }
 
 export type ThemeButtons = Record<Theme, HTMLElement | null>
+
+
+export type cookie_key_version = 'version';
+export type cookie_key_theme = 'theme';
+export type cookie_key_sidebar_state = 'sidebar_state';
+export type cookie_key_sidebar_state_per_page = 'sidebar_state_per_page';
 
 export type UserPreferences = {
     version: string;

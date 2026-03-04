@@ -1,5 +1,6 @@
 import { Cookie, Instantiable, Theme, ThemeSwitcher } from '@/app';
 import { SidebarState } from '@/app/core/domain/objects/value-objects/SidebarState';
+import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
@@ -48,7 +49,7 @@ export class DomService extends Instantiable {
             const isCollapsed = !this.$document.classList.contains('sc');
             const state = SidebarState.fromBoolean(isCollapsed);
             this.$document.classList.toggle('sc', isCollapsed);
-            Cookie.new().setPreference('sidebar_state', state.value);
+            Cookie.new().setPreference(__const('VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE'), state.value);
         });
 
     }

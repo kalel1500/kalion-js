@@ -24,6 +24,11 @@ export class Constants<T extends DefaultConstants> {
             VITE_REVERB_PORT: 8080,
             VITE_REVERB_SCHEME: 'http',
 
+            VITE_KALION_COOKIE_KEY_USER_PREF_VERSION: 'version',
+            VITE_KALION_COOKIE_KEY_USER_PREF_THEME: 'theme',
+            VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE: 'sidebar_state',
+            VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE: 'sidebar_state_per_page',
+
             VITE_APP_ENV: 'local',
             VITE_APP_NAME: 'Laravel',
             VITE_APP_CODE: 'laravel',
