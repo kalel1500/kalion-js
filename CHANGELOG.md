@@ -1,6 +1,50 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...master)
+
+## [v0.11.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.1...v0.11.0-beta.1) - 2025-03-06
+
+### Added
+
+* Nuevas variables de entorno para configurar las keys y los valores de la cookie de las preferencias del usuario:
+  * `VITE_KALION_COOKIE_KEY_USER_PREF_VERSION` (`version`),
+  * `VITE_KALION_COOKIE_KEY_USER_PREF_THEME` (`theme`),
+  * `VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE` (`sidebar_state`),
+  * `VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE` (`sidebar_state_per_page`),
+  Esto permite que cada aplicación pueda configurar estas keys y valores sin necesidad de actualizar el paquete `kalion-js` si se modifican en el paquete de Laravel (kalion).
+* Nuevo enum `SidebarState` para gestionar los valores de la cookie más fácilmente, ya que ahora pasa a ser un string en vez de un boolean.
+* Añadir variables de entorno para guardar las keys de la cookie de las preferencias del usuario para que no se deba actualizar este paquete si se modifican en el de Laravel (kalion)
+
+### Changed
+
+* (breaking) Se ha modificado la cookie de las preferencias del usuario (clase `UserPreferences`):
+  * Se ha renombrado la propiedad `sidebar_collapsed` a `sidebar_state`
+  * Ahora `sidebar_state` pasa de `boolean` y a `string`.
+  * Esto requiere actualizar el paquete de Laravel `kalel1500/kalion` a la version `v0.48.0-beta.0` o superior.
+* (breaking) Simplificar `EnumVo` usando genéricos y centralizar la validación en `_permittedValues`
+  * Nueva firma genérica:
+    * `EnumVo` ahora requiere un parámetro de tipo `<T extends StrIntOrNullish>`. 
+    * Ahora es obligatorio definir el tipo de dato al extender la clase (ej. `class MyEnum extends EnumVo<string>`).
+    * Se permite definir enums basados en `string` o `number`.
+  * Cambio en la definición de valores permitidos:
+    * Se elimina el método `setPermittedValues()`.
+    * Ahora se debe definir la propiedad estatica `_permittedValues` directamente en la subclase.
+  * Simplificación de la lógica de nulabilidad:
+    * Se elimina `EnumVoParams` y la opción `allowNull`.
+    * La validez de `null` o `undefined` ahora depende exclusivamente de que estén incluidos en `_permittedValues`.
+  * Acceso a la propiedad: La propiedad interna _`value` y su método `value()` han sido reemplazados por una propiedad pública `value`.
+  * La validación se reduce a una única regla: el valor debe estar incluido en `_permittedValues`.
+  * Mejora en la inferencia del método estático `from()`
+    * El método ahora infiere correctamente los tipos de retorno basados en la clase que lo invoca, eliminando la necesidad de castings manuales.
+
+### Migration Notes
+
+* Adaptar Enums:
+  * Para migrar una clase existente, debes cambiar la firma de `class Status extends EnumVo` a `class Status extends EnumVo<string>`.
+  * Mueve la lógica de tu antiguo `setPermittedValues()` a la propiedad de clase `_permittedValues = ['A', 'B']`.
+  * Si usabas params: `{ allowNull: true }`, ahora simplemente define el genérico como `<string | null>` y añade el valor null a la propiedad `_permittedValues`.
+  * Sustituye las llamadas a `.value()` por el acceso directo a la propiedad `.value`.
+* Actualizar el paquete de Laravel `kalel1500/kalion` a la version `v0.48.0-beta.0` o superior para adaptar los cambios en la cookie de las preferencias del usuario.
 
 ## [v0.10.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.0...v0.10.1-beta.1) - 2025-12-16
 
