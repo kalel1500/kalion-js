@@ -1,11 +1,15 @@
 import { EnumVo } from '@/app';
 
-export class SidebarState extends EnumVo<'expanded' | 'collapsed'> {
+type SidebarStateValue =
+    | typeof SidebarState.expanded
+    | typeof SidebarState.collapsed;
 
-    static expanded: 'expanded' = 'expanded';
-    static collapsed: 'collapsed' = 'collapsed';
+export class SidebarState extends EnumVo<SidebarStateValue> {
 
-    protected _permittedValues = [SidebarState.expanded, SidebarState.collapsed];
+    static expanded = 'expanded' as const;
+    static collapsed = 'collapsed' as const;
+
+    static _permittedValues  = [SidebarState.expanded, SidebarState.collapsed] as const;
 
     isCollapsed(): boolean
     {
