@@ -20,10 +20,10 @@ export type EnvVariables = {
     readonly VITE_REVERB_PORT?: string; // notInEnv
     readonly VITE_REVERB_SCHEME?: string; // notInEnv
 
-    readonly VITE_KALION_COOKIE_KEY_USER_PREF_VERSION?: string;
-    readonly VITE_KALION_COOKIE_KEY_USER_PREF_THEME?: string;
-    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE?: string;
-    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE?: string;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_VERSION?: cookie_key_version;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_THEME?: cookie_key_theme;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE?: cookie_key_sidebar_state;
+    readonly VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE_PER_PAGE?: cookie_key_sidebar_state_per_page;
 
     readonly VITE_APP_ENV?: string;
     readonly VITE_APP_NAME?: string;
