@@ -1,5 +1,4 @@
-import { Cookie, Instantiable, Theme, ThemeSwitcher } from '@/app';
-import { SidebarState } from '@/app/core/domain/objects/value-objects/SidebarState';
+import { Cookie, Instantiable, SidebarState, Theme, ThemeSwitcher } from '@/app';
 import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
 
 export class DomService extends Instantiable {
