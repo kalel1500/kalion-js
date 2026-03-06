@@ -36,7 +36,7 @@ export class Cookie {
 
     setPreferences(preferences: UserPreferences): void
     {
-        this.set(this.cookiePreferencesName, encodeURIComponent(JSON.stringify(preferences)), 30);
+        this.set(this.cookiePreferencesName, JSON.stringify(preferences), 30);
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.fetch({
