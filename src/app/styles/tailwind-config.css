@@ -3,11 +3,26 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 
     --breakpoint-xs: 28rem;
+
+    --shadow-glow-1: var(--kal-shadow-glow-1);
+    --shadow-glow-2: var(--kal-shadow-glow-2);
 }
 
 /* Variantes personalizadas */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant sc (&:is(.sc *));
+
+@layer theme {
+    :root {
+        --kal-shadow-glow-1: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+        --kal-shadow-glow-2: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark {
+        --kal-shadow-glow-1: 0 0 3px 1px rgba(0, 0, 0, 0.5);
+        --kal-shadow-glow-2: 0 0 5px 2px rgba(0, 0, 0, 0.6);
+    }
+}
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -41,19 +56,3 @@
  Y también se pueden crear utilidades (que se pueden usar con variantes)
    @utility content-auto {...}
 */
-
-@layer utilities {
-    .kal\:shadow-xl {
-        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-    }
-    .dark\:kal\:shadow-black-xl:where(.dark, .dark *) {
-        box-shadow: 0 0 4px 1px rgba(0, 0, 0);
-    }
-
-    .kal\:shadow-2xl {
-        box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-    }
-    .dark\:kal\:shadow-black-2xl:where(.dark, .dark *) {
-        box-shadow: 0 0 4px 1px rgba(0, 0, 0);
-    }
-}
