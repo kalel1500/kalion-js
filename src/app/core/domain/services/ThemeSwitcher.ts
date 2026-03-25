@@ -23,17 +23,17 @@ export class ThemeSwitcher extends Instantiable
         });*/
     }
 
-    getTheme(): Theme
+    getTheme(): Theme | undefined
     {
         const preferences = Cookie.new().preferences();
         if (preferences === null) {
-            throw new Error('No se han encontrado las preferencias en las cookies');
+            console.warn('The user preferences cookie could not be found. Defaulting to system theme.');
         }
-        return preferences.theme;
+        return preferences?.theme;
     }
 
     init() {
-        const theme = this.getTheme();
+        const theme = this.getTheme() ?? Theme.system;
         localStorage.setItem('theme', theme);
         this.updateTheme(theme);
         this.mediaQuery.addEventListener('change', e => {
