@@ -51,6 +51,11 @@ export class DomService extends Instantiable {
             Cookie.new().setPreference(__const('VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE'), state.value);
         });
 
+        // Evento para quitar la clase "sc" abrir el sidebar en version móvil
+        const openSidebarButton = document.querySelector('button[data-drawer-target="drawer-navigation"]');
+        openSidebarButton?.addEventListener('click', () => {
+            this.$document.classList.remove('sc');
+        });
     }
 
     startSidebarArrowsObserve()
