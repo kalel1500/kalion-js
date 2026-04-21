@@ -70,7 +70,7 @@
    4. Tags en multi-select
    ============================================================ */
 .ss-main .ss-values .ss-value {
-    background-color: var(--color-brand-soft);
+    /*background-color: var(--color-brand-soft);*/
     color:            var(--color-fg-brand-strong);
     border:           1px solid var(--color-brand-subtle);
     border-radius:    0.25rem;
