@@ -536,4 +536,23 @@ export class g {
             ...extraArray
         ].join(' ');
     }
+
+    static debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
+        let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+        return (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
+            if (timeoutId) clearTimeout(timeoutId);
+
+            return new Promise((resolve, reject) => {
+                timeoutId = setTimeout(async () => {
+                    try {
+                        const result = await fn(...args);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                }, delay);
+            });
+        };
+    }
 }
