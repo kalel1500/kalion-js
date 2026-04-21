@@ -1,2 +1,2 @@
-@import '/node_modules/slim-select/dist/slimselect.css';
+@import 'slim-select/styles';
 @import './slimselect-plugin.css';
