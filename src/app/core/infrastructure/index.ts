@@ -15,6 +15,7 @@ export * from './utilities/general/LDate';
 export * from './utilities/general/LStorage';
 export * from './utilities/general/Mutation';
 export * from './utilities/general/Notify';
+export * from './utilities/general/SlimHelper';
 export * from './utilities/general/Ttable';
 
 export * from './utilities/modals/SModal';
