@@ -45,12 +45,31 @@ export class SlimHelper {
         }
 
         // Filtramos los resultados del backend que ya existan en la selección
-        return rawData.filter(item => {
-            if ('options' in item) {
-                // TODO
+        const selectedSet = new Set(selectedValues);
+        return rawData
+            .map((item) => {
+                if ('options' in item) {
+                    // Si es un grupo, filtramos sus opciones internas
+                    const filteredOptions = item.options?.filter(
+                        (opt) => !selectedSet.has(opt.value ?? '0')
+                    ) || [];
+
+                    // Devolvemos una copia del grupo con las opciones filtradas
+                    return { ...item, options: filteredOptions } as Optgroup;
+                }
+
+                // Si es una opción simple, la devolvemos o null si debe filtrarse
+                return !selectedSet.has(item.value) ? item : null;
+            })
+            .filter((item): item is SlimData => {
+                if (item === null) return false;
+
+                // Si es un grupo, solo lo mostramos si aún tiene opciones disponibles
+                if ('options' in item) {
+                    return item.options.length > 0;
+                }
+
                 return true;
-            }
-            return !selectedValues.includes(item.value);
-        });
+            });
     }
 }
