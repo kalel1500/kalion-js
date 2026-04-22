@@ -45,13 +45,13 @@ export class SlimHelper {
         }
 
         // Filtramos los resultados del backend que ya existan en la selección
-        const selectedSet = new Set(selectedValues);
+        const selectedSet = new Set(selectedValues.map((v) => String(v)));
         return rawData
             .map((item) => {
                 if ('options' in item) {
                     // Si es un grupo, filtramos sus opciones internas
                     const filteredOptions = item.options?.filter(
-                        (opt) => !selectedSet.has(opt.value ?? '0')
+                        (opt) => !selectedSet.has(String(opt.value))
                     ) || [];
 
                     // Devolvemos una copia del grupo con las opciones filtradas
@@ -59,7 +59,7 @@ export class SlimHelper {
                 }
 
                 // Si es una opción simple, la devolvemos o null si debe filtrarse
-                return !selectedSet.has(item.value) ? item : null;
+                return !selectedSet.has(String(item.value)) ? item : null;
             })
             .filter((item): item is SlimData => {
                 if (item === null) return false;
