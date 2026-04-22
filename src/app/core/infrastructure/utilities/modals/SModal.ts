@@ -447,7 +447,7 @@ export class SModal {
         });
     }
 
-    static #inputModalBasic({
+    static inputModal({
                                 title = 'Introduce los datos',
                                 width = 850,
                                 html = 'Introduce los datos',
@@ -593,14 +593,6 @@ export class SModal {
                 didClose: didClose,
             });
         });
-    }
-
-    static inputModal(params: InputModalOptions) {
-        return SModal.#inputModalBasic({liveValidationEnabled: false, ...params});
-    }
-
-    static inputModalFixed(params: InputModalOptions) {
-        return SModal.#inputModalBasic({liveValidationEnabled: true, preConfirm_keepOpenOnSuccess: true, ...params});
     }
 
     static bladeModal({
