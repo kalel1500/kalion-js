@@ -47,12 +47,13 @@ interface InputModalOptions extends BasicModalOptions {
     inputPlaceholder?: string;
     inputOptions?: SyncOrAsync<ReadonlyMap<string, string> | Record<string, any>>;
     inputId?: string;
+    liveValidationEnabled?: boolean;
     getValidationMessage?(value: string): string | null;
     preConfirm_url: string;
     preConfirm_type?: string;
     preConfirm_params?: Record<string, any>;
     preConfirm_inputParamName?: string;
-    preConfirm_permitConfirm?: boolean;
+    preConfirm_keepOpenOnSuccess?: boolean;
     preConfirm_ajaxOkCode?(): void;
 }
 
@@ -85,7 +86,7 @@ interface ToastBothOptions {
     position?: SweetAlertPosition;
 }
 
-const InputsNeedsChangeListener = ['range', 'select', 'radio', 'checkbox', 'date', 'datetime-local', 'time', 'week', 'month'];
+const InputsValidatedOnChange = ['range', 'select', 'radio', 'checkbox', 'date', 'datetime-local', 'time', 'week', 'month'];
 
 export class SModal {
     static colorBlue = '#3085d6';
@@ -455,12 +456,13 @@ export class SModal {
                                 inputId = 'inpName',
                                 inputPlaceholder = 'Placeholder...',
                                 inputOptions = undefined,
+                                liveValidationEnabled = false,
                                 getValidationMessage = () => null,
                                 preConfirm_url,
                                 preConfirm_type = 'GET',
                                 preConfirm_params = {},
                                 preConfirm_inputParamName = undefined,
-                                preConfirm_permitConfirm = true,
+                                preConfirm_keepOpenOnSuccess = false,
                                 preConfirm_ajaxOkCode = undefined,
                                 confirmButtonText = 'Guardar',
                                 showCancelButton = true,
@@ -468,32 +470,45 @@ export class SModal {
                                 showLoaderOnConfirm = true,
                                 didClose = () => {},
                                 didOpen = () => {},
-                            }: InputModalOptions, fixedAndAlertChanges = false) {
+                            }: InputModalOptions) {
         return SModal.#checkAndExecuteShow(() => {
             SModal.mustAbortIfIsAlreadyOpen({});
             const inputPassValidation = (value: string) => getValidationMessage(value) === null;
-            const didOpenToAlertInputChanges = (el: HTMLElement) => {
+            const didOpenWithValidation = (popup: HTMLElement) => {
                 // execute received function
-                didOpen(el);
+                didOpen(popup);
 
                 // Get variables
-                let inputHtml = el.querySelector(`${input}[data-id="${inputId}"]`);
-                let swalContent = el.querySelector('.swal2-html-container') as Element;
-                let confirmBtn = el.querySelector('.swal2-confirm') as HTMLButtonElement;
+                const inputHtml = popup.querySelector(`${input}[data-id="${inputId}"]`) as HTMLElement | null;
+                const swalContent = popup.querySelector('.swal2-html-container') as Element | null;
+                const confirmBtn = popup.querySelector('.swal2-confirm') as HTMLButtonElement | null;
+                if (swalContent === null || confirmBtn === null) {
+                    return;
+                }
 
                 // Add hidden error div
                 const hiddenClass = g.getHiddenClass();
                 // TODO Canals - (tailwind) pasar a componente
                 swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalError alert alert-danger text-start ${hiddenClass}"></div>`);
-                let newDivError = swalContent.querySelector('.mySwalError') as HTMLElement;
+                const newDivError = swalContent.querySelector('.mySwalError') as HTMLElement | null;
+                if (newDivError === null) {
+                    return;
+                }
 
                 // Add hidden success div
-                // TODO Canals - (tailwind) pasar a componente
-                swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalSuccess alert alert-success text-start ${hiddenClass}"></div>`);
+                if (preConfirm_keepOpenOnSuccess) {
+                    // TODO Canals - (tailwind) pasar a componente
+                    swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalSuccess alert alert-success text-start ${hiddenClass}"></div>`);
+                }
+
+                if (!liveValidationEnabled) {
+                    return;
+                }
 
                 // Define validator function
-                let keyUpValidationFunction = (e: any) => {
-                    let val = e?.target?.value ?? '';
+                const validateInputAndToggleConfirm = (e: Event | null) => {
+                    const eventTarget = e?.target as {value?: string} | null;
+                    const val = eventTarget?.value ?? '';
                     if (!inputPassValidation(val)) {
                         newDivError.classList.remove(hiddenClass);
                         newDivError.innerText = getValidationMessage(val) as string;
@@ -504,20 +519,15 @@ export class SModal {
                     }
                 };
 
-                // Start keyup listener
-                if (fixedAndAlertChanges) {
-                    inputHtml?.addEventListener('keyup', keyUpValidationFunction);
-                    inputHtml?.addEventListener('blur', keyUpValidationFunction);
-                } else {
-                    const listener = (InputsNeedsChangeListener.includes(input)) ? 'keyup' : 'change';
-                    inputHtml?.addEventListener(listener, keyUpValidationFunction);
-                }
+                // Start validation listeners
+                const validationListener = InputsValidatedOnChange.includes(input) ? 'change' : 'keyup';
+                inputHtml?.addEventListener(validationListener, validateInputAndToggleConfirm);
+                inputHtml?.addEventListener('blur', validateInputAndToggleConfirm);
 
                 // Launch default validation
-                keyUpValidationFunction(null);
+                validateInputAndToggleConfirm(null);
             };
-            const final_permitConfirm = fixedAndAlertChanges ? false : preConfirm_permitConfirm;
-            const final_didOpen = fixedAndAlertChanges ? didOpenToAlertInputChanges : didOpen;
+            const resolvedDidOpen = (liveValidationEnabled || preConfirm_keepOpenOnSuccess) ? didOpenWithValidation : didOpen;
             return Swal.fire({
                 title: title,
                 width: width,
@@ -536,10 +546,11 @@ export class SModal {
                 showLoaderOnConfirm: showLoaderOnConfirm,
                 preConfirm: async (inputValue): Promise<FetchResponse | false> => {
                     try {
+                        const requestParams = {...preConfirm_params};
                         if (preConfirm_inputParamName !== undefined) {
-                            preConfirm_params[preConfirm_inputParamName] = inputValue;
+                            requestParams[preConfirm_inputParamName] = inputValue;
                         }
-                        let result = await g.fetch({url: preConfirm_url, type: preConfirm_type, params: preConfirm_params,});
+                        let result = await g.fetch({url: preConfirm_url, type: preConfirm_type, params: requestParams,});
                         if (!result.success || !result.ok) {
                             Swal.showValidationMessage(result.message);
                             return false;
@@ -547,8 +558,8 @@ export class SModal {
 
                         if (preConfirm_ajaxOkCode !== undefined) preConfirm_ajaxOkCode();
 
-                        if (fixedAndAlertChanges) {
-                            let successDiv = document.querySelector('.mySwalSuccess');
+                        if (preConfirm_keepOpenOnSuccess) {
+                            const successDiv = Swal.getPopup()?.querySelector('.mySwalSuccess') as HTMLElement | null;
                             if (successDiv !== null) {
                                 const hiddenClass = g.getHiddenClass();
                                 successDiv.classList.remove(hiddenClass);
@@ -559,7 +570,7 @@ export class SModal {
                             }
                         }
 
-                        return final_permitConfirm ? result : false;
+                        return preConfirm_keepOpenOnSuccess ? false : result;
                     } catch (e) {
                         Swal.showValidationMessage(`Request failed: ${(e as FetchResponse).message}`);
                         return false;
@@ -575,7 +586,7 @@ export class SModal {
                         }
                     });
                 },
-                didOpen: final_didOpen,
+                didOpen: resolvedDidOpen,
                 customClass: {
                     container: 'swalForceWidth',
                 },
@@ -585,17 +596,11 @@ export class SModal {
     }
 
     static inputModal(params: InputModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.#inputModalBasic(params, false);
-        });
+        return SModal.#inputModalBasic({liveValidationEnabled: false, ...params});
     }
 
     static inputModalFixed(params: InputModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.#inputModalBasic(params, true);
-        });
+        return SModal.#inputModalBasic({liveValidationEnabled: true, preConfirm_keepOpenOnSuccess: true, ...params});
     }
 
     static bladeModal({
