@@ -18,6 +18,7 @@ export * from './utilities/general/Notify';
 export * from './utilities/general/SlimHelper';
 export * from './utilities/general/Ttable';
 
+export * from './utilities/modals/FModal';
 export * from './utilities/modals/SModal';
 
 export * from './utilities/routing/Route';
