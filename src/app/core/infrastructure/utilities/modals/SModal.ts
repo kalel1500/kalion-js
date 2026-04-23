@@ -1,115 +1,104 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import type { SweetAlertCustomClass, SweetAlertIcon, SweetAlertInput, SweetAlertPosition } from 'sweetalert2';
+import type { SweetAlertOptions, SweetAlertIcon, SweetAlertPosition, SweetAlertInput } from 'sweetalert2';
 import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, SyncOrAsync } from '@/app';
 
-type ValueOrThunk<T> = T | (() => T)
-
-interface BasicModalOptions {
-    icon?: SweetAlertIcon;
-    title?: string;
-    text?: string;
-    html?: string;
-    width?: number | string;
-    showConfirmButton?: boolean;
-    confirmButtonText?: string;
-    confirmButtonColor?: string;
-    showCancelButton?: boolean;
-    cancelButtonText?: string;
-    cancelButtonColor?: string;
-    showCloseButton?: boolean;
-    allowOutsideClick?: ValueOrThunk<boolean> | false;
-    showLoaderOnConfirm?: boolean;
-    timer?: number;
-    position?: SweetAlertPosition;
-    willOpen?(popup: HTMLElement): void;
-    didClose?(): void;
-    didOpen?(popup: HTMLElement): void;
-    didRender?(popup: HTMLElement): void;
-    preConfirm?(inputValue: any): SyncOrAsync<any>;
-    footer?: string;
-    customClass?: SweetAlertCustomClass;
+/** Opciones "extra" para inputModal que no pertenecen a SweetAlert */
+interface InputModalExtras {
+    liveValidationEnabled?:        boolean;
+    getValidationMessage?:         (value: string) => string | null;
+    preConfirm_url:                string;
+    preConfirm_type?:              string;
+    preConfirm_params?:            Record<string, any>;
+    preConfirm_inputParamName?:    string;
+    preConfirm_keepOpenOnSuccess?: boolean;
+    preConfirm_ajaxOkCode?:        () => void;
+    // Sobreescribe los tipos de SweetAlertOptions que dependen de 'input'
+    // para excluir la rama 'file' y que TS propague el narrowing correctamente
+    input?:          Exclude<SweetAlertInput, 'file'>;
+    inputValidator?: (value: string) => SyncOrAsync<string | false | void | null>;
 }
 
-interface UpdateModalOptions extends BasicModalOptions {
-    hideLoading?: boolean;
+/** Opciones "extra" para bladeModal */
+interface BladeModalExtras {
+    ajaxUrl: string;
+    jsActionsInModal?: (p: Record<string, any>) => void;
+    funcParam?: Record<string, any>;
 }
 
-interface AjaxModalOptions extends BasicModalOptions {
+/** Opciones "extra" para loadingModalAndDoAction / confirmModalAfterAjaxCheck */
+interface AjaxModalExtras {
     ajaxUrl: string;
     ajaxType?: string;
-    ajaxParams?: {};
+    ajaxParams?: Record<string, any>;
     footerOnFail?: string;
 }
 
-interface InputModalOptions extends BasicModalOptions {
-    input?: Exclude<SweetAlertInput, 'file'>;
-    inputValue?: string;
-    inputPlaceholder?: string;
-    inputOptions?: SyncOrAsync<ReadonlyMap<string, string> | Record<string, any>>;
-    inputId?: string;
-    liveValidationEnabled?: boolean;
-    getValidationMessage?(value: string): string | null;
-    preConfirm_url: string;
-    preConfirm_type?: string;
-    preConfirm_params?: Record<string, any>;
-    preConfirm_inputParamName?: string;
-    preConfirm_keepOpenOnSuccess?: boolean;
-    preConfirm_ajaxOkCode?(): void;
+/** Opciones "extra" para updateModal */
+interface UpdateModalExtras {
+    hideLoading?: boolean;
 }
 
-interface BladeModalOptions extends BasicModalOptions {
-    ajaxUrl: string;
-    showConfirmButton?: boolean;
-    confirmButtonText?: string;
-    jsActionsInModal?(p: {}): void;
-    funcParam?: {};
-}
+// ─── Tipos compuestos: extras + cualquier opción de SweetAlert ────────────────
 
-interface ToastOptions {
-    icon?: SweetAlertIcon;
-    title?: string;
-    position?: SweetAlertPosition;
-    timer?: number;
-}
+type InputModalOptions  = InputModalExtras  & SweetAlertOptions;
+type BladeModalOptions  = BladeModalExtras  & SweetAlertOptions;
+type AjaxModalOptions   = AjaxModalExtras   & SweetAlertOptions;
+type UpdateModalOptions = UpdateModalExtras & SweetAlertOptions;
 
-interface ToastBothOptions {
+type ToastBothOptions = {
     success: boolean;
-    icon?: SweetAlertIcon;
     iconOk?: SweetAlertIcon;
     iconNok?: SweetAlertIcon;
-    title?: string;
     titleOk?: string;
     titleNok?: string;
-    timer?: number;
     timerOk?: number;
     timerNok?: number;
-    position?: SweetAlertPosition;
+} & SweetAlertOptions;
+
+// ─── Helper para separar extras de las opciones de SweetAlert ────────────────
+
+function splitOptions<E extends Record<string, any>>(
+    options: E & SweetAlertOptions,
+    extraKeys: (keyof E)[]
+): [E, SweetAlertOptions] {
+    const extras = {} as E;
+    const swalOptions = { ...options } as SweetAlertOptions & Partial<E>;
+    for (const key of extraKeys) {
+        if (key in swalOptions) {
+            (extras as any)[key] = swalOptions[key];
+            delete swalOptions[key];
+        }
+    }
+    return [extras, swalOptions as SweetAlertOptions];
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const InputsValidatedOnChange = ['range', 'select', 'radio', 'checkbox', 'date', 'datetime-local', 'time', 'week', 'month'];
 
 export class SModal {
     static colorBlue = '#3085d6';
-    static colorRed = '#d33';
+    static colorRed  = '#d33';
     static colorGray = '#aaa';
+    static isPendingLoading = false;
 
-    static isPendigLoading = false;
+    // ── Guards ───────────────────────────────────────────────────────────────
 
-    static mustAbortIfIsAlreadyOpen({isUpdate = false, ignorePendingLoading = false}): void {
+    static mustAbortIfIsAlreadyOpen({ isUpdate = false, ignorePendingLoading = false } = {}): void {
         if (g.errorModalIsShowed) {
             throw new CannotOpenModalException('Se ha intentado abrir un modal cuando hay un modal de error abierto');
         }
-        if (!ignorePendingLoading && !isUpdate && SModal.isPendigLoading) {
-            throw new CannotOpenModalWarning('Se ha intentado abrir un modal cuando hay un modal de loading pendiente de actualizarse');
+        if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
+            throw new CannotOpenModalWarning('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
         }
     }
 
-    static #checkAndExecuteShow(callback: Function): Promise<any> {
+    static #checkAndExecuteShow(callback: () => Promise<any>): Promise<any> {
         try {
             return callback();
         } catch (e) {
             if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
-                g.consoleInfo(e.message);
+                g.consoleInfo((e as Error).message);
             } else {
                 throw e;
             }
@@ -117,20 +106,21 @@ export class SModal {
         }
     }
 
-    static #checkAndExecuteUpdate(callback: Function) {
+    static #checkAndExecuteUpdate(callback: () => void): void {
         try {
             callback();
         } catch (e) {
             if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
-                g.consoleInfo(e.message);
+                g.consoleInfo((e as Error).message);
             } else {
                 throw e;
             }
         }
     }
 
+    // ── Toast base ───────────────────────────────────────────────────────────
+
     static Toast = Swal.mixin({
-        title: 'Your work has been saved',
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
@@ -142,290 +132,229 @@ export class SModal {
         },
     });
 
-    static toastInfo({
-                         icon = 'info',
-                         title = 'Your work has been saved',
-                         position = 'top-end',
-                         timer = 3000,
-                     }: ToastOptions) {
+    // ── Toasts ───────────────────────────────────────────────────────────────
+
+    static toastInfo(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.Toast.fire({icon, title, position, timer});
+            SModal.mustAbortIfIsAlreadyOpen();
+            return SModal.Toast.fire({
+                icon: 'info',
+                title: 'Your work has been saved',
+                ...options,
+            });
         });
     }
 
-    static toastSuccess({
-                            icon = 'success',
-                            title = 'Your work has been saved',
-                            position = 'top-end',
-                            timer = 3000,
-                        }: ToastOptions) {
+    static toastSuccess(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.Toast.fire({icon, title, position, timer});
+            SModal.mustAbortIfIsAlreadyOpen();
+            return SModal.Toast.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                ...options,
+            });
         });
     }
 
-    static toastError({
-                          icon = 'error',
-                          title = 'Something error ocurred',
-                          position = 'top-end',
-                          timer = 3000,
-                      }: ToastOptions) {
+    static toastError(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.Toast.fire({icon, title, position, timer});
+            SModal.mustAbortIfIsAlreadyOpen();
+            return SModal.Toast.fire({
+                icon: 'error',
+                title: 'Something error occurred',
+                ...options,
+            });
         });
     }
 
-    static toastBottom({
-                           icon = 'success',
-                           title = 'Your work has been saved',
-                           position = 'bottom-end',
-                           timer = 3000,
-                       }: ToastOptions) {
+    static toastBottom(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return SModal.Toast.fire({icon, title, position, timer});
+            SModal.mustAbortIfIsAlreadyOpen();
+            return SModal.Toast.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                position: 'bottom-end',
+                ...options,
+            });
         });
     }
 
+    /**
+     * Muestra un toast distinto según `success`.
+     * Los campos "Ok/Nok" son los defaults; cualquier opción SweetAlert
+     * del objeto los sobreescribe directamente.
+     */
     static toastBoth({
                          success,
-                         icon = undefined,
-                         iconOk = 'success',
-                         iconNok = 'error',
-                         title = undefined,
-                         titleOk = 'Your work has been saved',
-                         titleNok = 'Something error ocurred',
-                         timer = undefined,
-                         timerOk = 3000,
-                         timerNok = 4000,
-                         position = 'top-end',
+                         iconOk    = 'success',
+                         iconNok   = 'error',
+                         titleOk   = 'Your work has been saved',
+                         titleNok  = 'Something error occurred',
+                         timerOk   = 3000,
+                         timerNok  = 4000,
+                         ...swalOptions
                      }: ToastBothOptions) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            icon = (icon !== undefined) ? icon : (success ? iconOk : iconNok);
-            title = (title !== undefined) ? title : (success ? titleOk : titleNok);
-            timer = (timer !== undefined) ? timer : (success ? timerOk : timerNok);
-            return SModal.Toast.fire({icon, title, position, timer});
-        });
-    }
-
-    static basic(params: BasicModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return Swal.fire(params);
-        });
-    }
-
-    static successModal({
-                            icon = 'success',
-                            title = 'Correcto',
-                            html = 'Todo ha ido bien',
-                            width = 850,
-                            confirmButtonText = 'Ok',
-                            allowOutsideClick = () => !Swal.isLoading(),
-                        }: BasicModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            return Swal.fire({
-                icon: icon,
-                title: title,
-                html: html,
-                width: width,
-                confirmButtonText: confirmButtonText,
-                allowOutsideClick: allowOutsideClick,
+            SModal.mustAbortIfIsAlreadyOpen();
+            return SModal.Toast.fire({
+                icon:  success ? iconOk  : iconNok,
+                title: success ? titleOk : titleNok,
+                timer: success ? timerOk : timerNok,
+                position: 'top-end',
+                ...swalOptions,  // permite sobreescribir icon/title/timer/position/etc.
             });
         });
     }
 
-    static errorModal({
-                          icon = 'error',
-                          title = 'Ups...): Algo ha ido mal',
-                          html = undefined,
-                          width = 850,
-                          confirmButtonText = 'Ok',
-                          allowOutsideClick = false,
-                          footer = undefined,
-                      }: BasicModalOptions, ignorePendingLoading = false) {
+    // ── Modales simples ──────────────────────────────────────────────────────
+
+    static basic(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({ignorePendingLoading});
+            SModal.mustAbortIfIsAlreadyOpen();
+            return Swal.fire(options);
+        });
+    }
+
+    static successModal(options: SweetAlertOptions = {}) {
+        return SModal.#checkAndExecuteShow(() => {
+            SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
-                icon: icon,
-                title: title,
-                html: html,
-                width: width,
+                icon: 'success',
+                title: 'Correcto',
+                html: 'Todo ha ido bien',
+                width: 850,
+                confirmButtonText: 'Ok',
+                allowOutsideClick: () => !Swal.isLoading(),
+                ...options,
+            });
+        });
+    }
+
+    static errorModal(options: SweetAlertOptions = {}, ignorePendingLoading = false) {
+        return SModal.#checkAndExecuteShow(() => {
+            SModal.mustAbortIfIsAlreadyOpen({ ignorePendingLoading });
+            return Swal.fire({
+                icon: 'error',
+                title: 'Ups... Algo ha ido mal',
+                width: 850,
                 showCloseButton: true,
-                confirmButtonText: confirmButtonText,
-                allowOutsideClick: allowOutsideClick,
-                footer: footer,
+                confirmButtonText: 'Ok',
+                allowOutsideClick: false,
+                ...options,
             });
         });
     }
 
-    static confirmModal({
-                            title = 'Confirmar',
-                            html = '¿Seguro que quieres realizar la acción?',
-                            width = 850,
-                            confirmButtonText = 'Ok',
-                            cancelButtonText = 'Cancelar',
-                        }: BasicModalOptions) {
+    static confirmModal(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
+            SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
-                title: title,
-                html: html,
-                width: width,
+                title: 'Confirmar',
+                html: '¿Seguro que quieres realizar la acción?',
+                width: 850,
                 showCancelButton: true,
-                confirmButtonText: confirmButtonText,
-                cancelButtonText: cancelButtonText,
+                confirmButtonText: 'Ok',
+                cancelButtonText: 'Cancelar',
                 confirmButtonColor: SModal.colorRed,
                 cancelButtonColor: SModal.colorGray,
                 showLoaderOnConfirm: false,
-                allowOutsideClick: false,        // "() => !Swal.isLoading()" -> para que no se pueda cerras si esta cargando. | "false" -> para que no se pueda cerrar
+                allowOutsideClick: false,
+                ...options,
             });
         });
     }
 
-    static loadingModal({
-                            title = 'Calculando...',
-                            width = 850,
-                            willOpen = () => Swal.showLoading(),
-                        }: BasicModalOptions) {
+    static loadingModal(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            SModal.isPendigLoading = true;
+            SModal.mustAbortIfIsAlreadyOpen();
+            SModal.isPendingLoading = true;
+
+            // Si el caller pasa su propio willOpen, lo envolvemos para
+            // poder seguir gestionando isPendingLoading
+            const callerWillOpen = options.willOpen;
+            const willOpen = async (popup: HTMLElement) => {
+                if (callerWillOpen) {
+                    await callerWillOpen(popup);
+                } else {
+                    Swal.showLoading();
+                }
+                SModal.isPendingLoading = false;
+            };
+
             return Swal.fire({
-                title: title,
-                width: width,
+                title: 'Calculando...',
+                width: 850,
                 showConfirmButton: false,
-                willOpen: async (popup) => {
-                    await willOpen(popup);
-                    SModal.isPendigLoading = false;
-                },
                 allowOutsideClick: () => !Swal.isLoading(),
+                ...options,
+                willOpen, // siempre usamos el wrapper
             });
         });
     }
+
+    // ── Modales con AJAX ─────────────────────────────────────────────────────
 
     static loadingModalAndDoAction({
-                                       title = 'Calculando...',
                                        ajaxUrl,
                                        ajaxType,
                                        ajaxParams,
-                                       allowOutsideClick = () => !Swal.isLoading(),
-                                       footerOnFail = undefined,
+                                       footerOnFail,
+                                       ...swalOptions
                                    }: AjaxModalOptions) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            SModal.isPendigLoading = true;
+            SModal.mustAbortIfIsAlreadyOpen();
+            SModal.isPendingLoading = true;
             return Swal.fire({
-                title: title,
+                title: 'Calculando...',
                 width: 850,
                 showConfirmButton: false,
-                willOpen: async (popup) => {
+                allowOutsideClick: () => !Swal.isLoading(),
+                ...swalOptions,
+                // willOpen siempre se sobreescribe para mantener la lógica AJAX
+                willOpen: async () => {
                     Swal.showLoading();
                     try {
-                        // Ajax to launch Status/Mitigation
-                        const result = await g.fetch({url: ajaxUrl, type: ajaxType, params: ajaxParams});
-
-                        // Check if result is wrong and update modal content
+                        const result = await g.fetch({ url: ajaxUrl, type: ajaxType, params: ajaxParams });
                         if (!result.success || !result.ok) {
-                            SModal.updateErrorModal({icon: 'warning', html: result.message});
+                            SModal.updateErrorModal({ icon: 'warning', html: result.message });
                             return;
                         }
-
-                        // Update modal with success message
-                        SModal.updateSuccessModal({title: 'Correcto', html: result.message});
+                        SModal.updateSuccessModal({ title: 'Correcto', html: result.message });
                     } catch (e) {
-                        g.catchCode({error: e, footer: footerOnFail});
+                        g.catchCode({ error: e, footer: footerOnFail });
                     }
-                    SModal.isPendigLoading = false;
+                    SModal.isPendingLoading = false;
                 },
-                allowOutsideClick: allowOutsideClick,
             });
-        });
-    }
-
-    static updateModal(params: UpdateModalOptions) {
-        SModal.#checkAndExecuteUpdate(() => {
-            SModal.mustAbortIfIsAlreadyOpen({isUpdate: true});
-            if (params.hideLoading === true) {
-                Swal.hideLoading();
-                delete params.hideLoading;
-            }
-            Swal.update(params);
-        });
-    }
-
-    static updateSuccessModal({
-                                  icon = 'success',
-                                  title = 'Exito',
-                                  html = 'Todo ha ido bien',
-                                  hideLoading = true,
-                                  footer = undefined,
-                                  allowOutsideClick = undefined,
-                              }: UpdateModalOptions) {
-        SModal.updateModal({
-            icon: icon,
-            title: title,
-            html: html,
-            hideLoading: hideLoading,
-            footer: footer,
-            allowOutsideClick: allowOutsideClick,
-            showConfirmButton: true,
-        });
-    }
-
-    static updateErrorModal({
-                                icon = 'error',
-                                title = 'Error',
-                                html = 'Ha habido algun error',
-                                hideLoading = true,
-                                footer = undefined,
-                                allowOutsideClick = undefined,
-                            }: UpdateModalOptions) {
-        SModal.updateModal({
-            icon: icon,
-            title: title,
-            html: html,
-            hideLoading: hideLoading,
-            footer: footer,
-            allowOutsideClick: allowOutsideClick,
-            showConfirmButton: true,
         });
     }
 
     static confirmModalAfterAjaxCheck({
-                                          title = 'Confirmar',
-                                          html = '¿Seguro que quieres realizar la acción?',
-                                          confirmButtonText = 'Ok',
-                                          confirmButtonColor = SModal.colorBlue,
-                                          cancelButtonText = 'Cancelar',
                                           ajaxUrl,
                                           ajaxType = 'GET',
                                           ajaxParams,
-                                          footerOnFail = undefined,
+                                          footerOnFail,
+                                          ...swalOptions
                                       }: AjaxModalOptions) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
+            SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
-                title: title,
+                title: 'Confirmar',
                 width: 850,
                 showCancelButton: true,
-                confirmButtonText: confirmButtonText,
-                cancelButtonText: cancelButtonText,
-                confirmButtonColor: confirmButtonColor,
+                confirmButtonText: 'Ok',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: SModal.colorBlue,
                 cancelButtonColor: SModal.colorGray,
                 showLoaderOnConfirm: false,
+                allowOutsideClick: () => !Swal.isLoading(),
+                ...swalOptions,
                 willOpen: async () => {
                     Swal.showLoading();
                     try {
-                        const res = await g.fetch({url: ajaxUrl, type: ajaxType, params: ajaxParams});
-                        // await Hlp.sleep(1000);
+                        const res = await g.fetch({ url: ajaxUrl, type: ajaxType, params: ajaxParams });
                         if (res.success && res.ok) {
-                            SModal.updateModal({html: html, confirmButtonColor: SModal.colorRed});
+                            SModal.updateModal({ html: swalOptions.html, confirmButtonColor: SModal.colorRed });
                         } else {
                             SModal.updateModal({
                                 html: `<span class="restriction-message">${res.message}</span>`,
@@ -436,64 +365,83 @@ export class SModal {
                             });
                         }
                     } catch (e) {
-                        g.catchCode({
-                            error: e,
-                            footer: footerOnFail
-                        });
+                        g.catchCode({ error: e, footer: footerOnFail });
                     }
                 },
-                allowOutsideClick: () => !Swal.isLoading(),        // "() => !Swal.isLoading()" -> para que no se pueda cerras si esta cargando. | "false" -> para que no se pueda cerrar
             });
         });
     }
 
-    static inputModal({
-                                title = 'Introduce los datos',
-                                width = 850,
-                                html = 'Introduce los datos',
-                                input = 'textarea',
-                                inputValue = '',
-                                inputId = 'inpName',
-                                inputPlaceholder = 'Placeholder...',
-                                inputOptions = undefined,
-                                liveValidationEnabled = false,
-                                getValidationMessage = () => null,
-                                preConfirm_url,
-                                preConfirm_type = 'GET',
-                                preConfirm_params = {},
-                                preConfirm_inputParamName = undefined,
-                                preConfirm_keepOpenOnSuccess = false,
-                                preConfirm_ajaxOkCode = undefined,
-                                confirmButtonText = 'Guardar',
-                                showCancelButton = true,
-                                cancelButtonText = 'Cancelar',
-                                showLoaderOnConfirm = true,
-                                didClose = () => {},
-                                didOpen = () => {},
-                            }: InputModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
-            const inputPassValidation = (value: string) => getValidationMessage(value) === null;
-            const didOpenWithValidation = (popup: HTMLElement) => {
-                // execute received function
-                didOpen(popup);
+    // ── Update modales ───────────────────────────────────────────────────────
 
-                // Get variables
-                const inputHtml = popup.querySelector(`${input}[data-id="${inputId}"]`) as HTMLElement | null;
+    static updateModal({ hideLoading, ...swalOptions }: UpdateModalOptions = {}) {
+        SModal.#checkAndExecuteUpdate(() => {
+            SModal.mustAbortIfIsAlreadyOpen({ isUpdate: true });
+            if (hideLoading === true) Swal.hideLoading();
+            Swal.update(swalOptions);
+        });
+    }
+
+    static updateSuccessModal(options: UpdateModalOptions = {}) {
+        SModal.updateModal({
+            icon: 'success',
+            title: 'Éxito',
+            html: 'Todo ha ido bien',
+            hideLoading: true,
+            showConfirmButton: true,
+            ...options,
+        });
+    }
+
+    static updateErrorModal(options: UpdateModalOptions = {}) {
+        SModal.updateModal({
+            icon: 'error',
+            title: 'Error',
+            html: 'Ha habido algún error',
+            hideLoading: true,
+            showConfirmButton: true,
+            ...options,
+        });
+    }
+
+    // ── inputModal ───────────────────────────────────────────────────────────
+
+    static inputModal({
+                          // Extras propios
+                          liveValidationEnabled        = false,
+                          getValidationMessage         = () => null,
+                          preConfirm_url,
+                          preConfirm_type              = 'GET',
+                          preConfirm_params            = {},
+                          preConfirm_inputParamName    = undefined,
+                          preConfirm_keepOpenOnSuccess = false,
+                          preConfirm_ajaxOkCode        = undefined,
+                          // El resto son SweetAlert options, con sus defaults
+                          ...swalOptions
+                      }: InputModalOptions) {
+        return SModal.#checkAndExecuteShow(() => {
+            SModal.mustAbortIfIsAlreadyOpen();
+
+            const inputId   = (swalOptions.inputAttributes?.['data-id'] as string) ?? 'inpName';
+            const inputType = (swalOptions.input as string) ?? 'textarea';
+            const inputPassValidation = (value: string) => getValidationMessage(value) === null;
+
+            // willOpen con validación en vivo
+            const callerDidOpen = swalOptions.didOpen;
+            const didOpenWithValidation = (popup: HTMLElement) => {
+                callerDidOpen?.(popup);
+
+                const inputHtml  = popup.querySelector(`${inputType}[data-id="${inputId}"]`) as HTMLElement | null;
                 const swalContent = popup.querySelector('.swal2-html-container') as Element | null;
-                const confirmBtn = popup.querySelector('.swal2-confirm') as HTMLButtonElement | null;
-                if (swalContent === null || confirmBtn === null) {
-                    return;
-                }
+                const confirmBtn  = popup.querySelector('.swal2-confirm') as HTMLButtonElement | null;
+                if (!swalContent || !confirmBtn) return;
 
                 // Add hidden error div
                 const hiddenClass = g.getHiddenClass();
                 // TODO Canals - (tailwind) pasar a componente
                 swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalError alert alert-danger text-start ${hiddenClass}"></div>`);
                 const newDivError = swalContent.querySelector('.mySwalError') as HTMLElement | null;
-                if (newDivError === null) {
-                    return;
-                }
+                if (!newDivError) return;
 
                 // Add hidden success div
                 if (preConfirm_keepOpenOnSuccess) {
@@ -501,14 +449,11 @@ export class SModal {
                     swalContent.insertAdjacentHTML('afterbegin', `<div class="mySwalSuccess alert alert-success text-start ${hiddenClass}"></div>`);
                 }
 
-                if (!liveValidationEnabled) {
-                    return;
-                }
+                if (!liveValidationEnabled) return;
 
                 // Define validator function
                 const validateInputAndToggleConfirm = (e: Event | null) => {
-                    const eventTarget = e?.target as {value?: string} | null;
-                    const val = eventTarget?.value ?? '';
+                    const val = ((e?.target as any)?.value ?? '') as string;
                     if (!inputPassValidation(val)) {
                         newDivError.classList.remove(hiddenClass);
                         newDivError.innerText = getValidationMessage(val) as string;
@@ -520,114 +465,108 @@ export class SModal {
                 };
 
                 // Start validation listeners
-                const validationListener = InputsValidatedOnChange.includes(input) ? 'change' : 'keyup';
-                inputHtml?.addEventListener(validationListener, validateInputAndToggleConfirm);
+                const listener = InputsValidatedOnChange.includes(inputType) ? 'change' : 'keyup';
+                inputHtml?.addEventListener(listener, validateInputAndToggleConfirm);
                 inputHtml?.addEventListener('blur', validateInputAndToggleConfirm);
 
                 // Launch default validation
                 validateInputAndToggleConfirm(null);
             };
-            const resolvedDidOpen = (liveValidationEnabled || preConfirm_keepOpenOnSuccess) ? didOpenWithValidation : didOpen;
-            return Swal.fire({
-                title: title,
-                width: width,
-                html: html,
-                input: input,
-                inputPlaceholder: inputPlaceholder,
-                inputValue: inputValue,
-                inputOptions: inputOptions,
-                inputAttributes: {
-                    'data-id': inputId,
-                },
-                confirmButtonText: confirmButtonText,
-                showCancelButton: showCancelButton,
-                cancelButtonText: cancelButtonText,
-                showCloseButton: true,
-                showLoaderOnConfirm: showLoaderOnConfirm,
-                preConfirm: async (inputValue): Promise<FetchResponse | false> => {
-                    try {
-                        const requestParams = {...preConfirm_params};
-                        if (preConfirm_inputParamName !== undefined) {
-                            requestParams[preConfirm_inputParamName] = inputValue;
-                        }
-                        let result = await g.fetch({url: preConfirm_url, type: preConfirm_type, params: requestParams,});
-                        if (!result.success || !result.ok) {
-                            Swal.showValidationMessage(result.message);
-                            return false;
-                        }
 
-                        if (preConfirm_ajaxOkCode !== undefined) preConfirm_ajaxOkCode();
-
-                        if (preConfirm_keepOpenOnSuccess) {
-                            const successDiv = Swal.getPopup()?.querySelector('.mySwalSuccess') as HTMLElement | null;
-                            if (successDiv !== null) {
-                                const hiddenClass = g.getHiddenClass();
-                                successDiv.classList.remove(hiddenClass);
-                                successDiv.innerHTML = `Guardado correctamente.`;
-                                setTimeout(() => {
-                                    successDiv?.classList.add(hiddenClass);
-                                }, 2000);
-                            }
-                        }
-
-                        return preConfirm_keepOpenOnSuccess ? false : result;
-                    } catch (e) {
-                        Swal.showValidationMessage(`Request failed: ${(e as FetchResponse).message}`);
+            // preConfirm: el caller puede sobreescribirlo pasando preConfirm en swalOptions
+            const defaultPreConfirm = async (inputValue: any): Promise<FetchResponse | false> => {
+                try {
+                    const requestParams = { ...preConfirm_params };
+                    if (preConfirm_inputParamName !== undefined) {
+                        requestParams[preConfirm_inputParamName] = inputValue;
+                    }
+                    const result = await g.fetch({ url: preConfirm_url, type: preConfirm_type, params: requestParams });
+                    if (!result.success || !result.ok) {
+                        Swal.showValidationMessage(result.message);
                         return false;
                     }
-                },
-                allowOutsideClick: () => !Swal.isLoading(),
-                inputValidator: (value) => {
-                    return new Promise((resolve) => {
-                        if (inputPassValidation(value)) {
-                            resolve();
-                        } else {
-                            resolve(getValidationMessage(value));
+                    preConfirm_ajaxOkCode?.();
+
+                    if (preConfirm_keepOpenOnSuccess) {
+                        const successDiv = Swal.getPopup()?.querySelector('.mySwalSuccess') as HTMLElement | null;
+                        if (successDiv) {
+                            const hiddenClass = g.getHiddenClass();
+                            successDiv.classList.remove(hiddenClass);
+                            successDiv.innerHTML = 'Guardado correctamente.';
+                            setTimeout(() => successDiv.classList.add(hiddenClass), 2000);
                         }
-                    });
-                },
-                didOpen: resolvedDidOpen,
-                customClass: {
-                    container: 'swalForceWidth',
-                },
-                didClose: didClose,
+                        return false;
+                    }
+                    return result;
+                } catch (e) {
+                    Swal.showValidationMessage(`Request failed: ${(e as FetchResponse).message}`);
+                    return false;
+                }
+            };
+
+            return Swal.fire({
+                // Defaults
+                title: 'Introduce los datos',
+                width: 850,
+                html: 'Introduce los datos',
+                input: 'textarea',
+                inputPlaceholder: 'Placeholder...',
+                inputValue: '',
+                confirmButtonText: 'Guardar',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                showCloseButton: true,
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+                customClass: { container: 'swalForceWidth' },
+                inputAttributes: { 'data-id': 'inpName' },
+                // Spread: el caller sobreescribe lo que quiera
+                ...swalOptions,
+                // Estos siempre se calculan después del spread
+                didOpen: (liveValidationEnabled || preConfirm_keepOpenOnSuccess || callerDidOpen)
+                    ? didOpenWithValidation
+                    : undefined,
+                preConfirm: swalOptions.preConfirm ?? defaultPreConfirm,
+                inputValidator: swalOptions.inputValidator ?? ((value) =>
+                        new Promise((resolve) => resolve(
+                            inputPassValidation(value) ? undefined : getValidationMessage(value) ?? undefined
+                        ))
+                ),
             });
         });
     }
 
+    // ── bladeModal ───────────────────────────────────────────────────────────
+
     static bladeModal({
                           ajaxUrl,
-                          showConfirmButton = false,
-                          confirmButtonText = '',
-                          jsActionsInModal = (p: {}) => {},
+                          jsActionsInModal = () => {},
                           funcParam = {},
-                          width = 850,
-                          didClose,
+                          ...swalOptions
                       }: BladeModalOptions) {
         return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({});
+            SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
-                width: width,
-                showConfirmButton: showConfirmButton,
-                confirmButtonText: confirmButtonText,
+                width: 850,
+                showConfirmButton: false,
                 showCloseButton: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+                ...swalOptions,
                 willOpen: async () => {
                     Swal.showLoading();
                     try {
-                        const result: FetchResponse = await g.fetch({url: ajaxUrl});
+                        const result: FetchResponse = await g.fetch({ url: ajaxUrl });
                         if (!result.success || !result.ok) {
-                            SModal.updateErrorModal({title: 'Ups...): Algo ha ido mal', html: result.message});
+                            SModal.updateErrorModal({ title: 'Ups... Algo ha ido mal', html: result.message });
                             return;
                         }
-                        const html = (typeof result.data === 'string') ? result.data : 'Formato blade incorrecto.';
-                        SModal.updateModal({hideLoading: true, html: html});
-                        if (jsActionsInModal) jsActionsInModal(funcParam);
+                        const html = typeof result.data === 'string' ? result.data : 'Formato blade incorrecto.';
+                        SModal.updateModal({ hideLoading: true, html });
+                        jsActionsInModal(funcParam);
                     } catch (e) {
-                        g.catchCode({error: e});
+                        g.catchCode({ error: e });
                     }
                 },
-                allowOutsideClick: () => !Swal.isLoading(),
-                didClose: didClose,
             });
         });
     }
