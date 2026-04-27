@@ -122,15 +122,17 @@ export enum StorageProcessKeys {
     queue = "queueFailed",
 }
 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
 export interface FetchParams {
     url: string;
-    type?: string;
+    type?: HttpMethod;
     params?: {};
 }
 
 export interface FetchParamsSimple {
     url: string;
-    type: string;
+    type: HttpMethod;
 }
 
 export interface CatchParams {

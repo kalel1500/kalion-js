@@ -1,13 +1,13 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import type { SweetAlertOptions, SweetAlertIcon, SweetAlertPosition, SweetAlertInput } from 'sweetalert2';
-import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, SyncOrAsync } from '@/app';
+import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, HttpMethod, SyncOrAsync } from '@/app';
 
 /** Opciones "extra" para inputModal que no pertenecen a SweetAlert */
 interface InputModalExtras {
     liveValidationEnabled?:        boolean;
     getValidationMessage?:         (value: string) => string | null;
     preConfirm_url:                string;
-    preConfirm_type?:              string;
+    preConfirm_type?:              HttpMethod;
     preConfirm_params?:            Record<string, any>;
     preConfirm_inputParamName?:    string;
     preConfirm_keepOpenOnSuccess?: boolean;
@@ -28,7 +28,7 @@ interface BladeModalExtras {
 /** Opciones "extra" para loadingModalAndDoAction / confirmModalAfterAjaxCheck */
 interface AjaxModalExtras {
     ajaxUrl: string;
-    ajaxType?: string;
+    ajaxType?: HttpMethod;
     ajaxParams?: Record<string, any>;
     footerOnFail?: string;
 }
