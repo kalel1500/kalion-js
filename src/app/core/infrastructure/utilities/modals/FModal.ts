@@ -5,6 +5,8 @@ export type CreationOptions = {
     modalOptions?: ModalOptions;
     instanceOptions?: InstanceOptions;
     onConfirm?: (fModal: FModal) => boolean | Promise<boolean>;
+    onShow?: (fModal: FModal) => void;
+    showLoading?: boolean;
     divMessageId?: string;
 };
 
@@ -18,13 +20,17 @@ export type ShowMessageOptions = {
 
 export default class FModal {
     public modal: ModalInterface;
+    public showLoading: boolean;
     public $modalElement: HTMLElement | null;
+    public $spinnerElements: NodeListOf<HTMLElement> | null;
     public $messageElement: HTMLElement | null;
 
     private static registry: Map<string, AbortController> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
+        this.showLoading = options?.showLoading ?? false;
         this.$modalElement = document.querySelector(`#${id}`);
+        this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
         this.$messageElement = options?.divMessageId
             ? (this.$modalElement?.querySelector(`#${options?.divMessageId}`) ?? null)
             : (this.$modalElement?.querySelector(`.fmodal-message`) ?? null);
@@ -51,6 +57,9 @@ export default class FModal {
                 },
                 onShow: (modal) => {
                     // console.log("modal is shown");
+                    if (options?.onShow) {
+                        options.onShow(this);
+                    }
                 },
                 onToggle: () => {
                     // console.log("modal has been toggled");
@@ -139,6 +148,7 @@ export default class FModal {
     }
 
     public clearModal() {
+        this.restoreSpinner();
         this.hideMessage();
 
         const inputs = this.$modalElement?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
@@ -147,6 +157,28 @@ export default class FModal {
                 input.value = "";
             }
         });
+    }
+
+    public hideSpinner() {
+        this.$spinnerElements?.forEach(($spinner) => {
+            $spinner.classList.remove('block');
+            $spinner.classList.add('hidden');
+        });
+    }
+
+    public showSpinner() {
+        this.$spinnerElements?.forEach(($spinner) => {
+            $spinner.classList.add('block');
+            $spinner.classList.remove('hidden');
+        });
+    }
+
+    public restoreSpinner() {
+        if (this.showLoading) {
+            this.showSpinner();
+        } else {
+            this.hideSpinner();
+        }
     }
 
     /* STATIC */
