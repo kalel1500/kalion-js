@@ -43,6 +43,9 @@ export default class FModal {
             console.error(`The element to display messages could not be found on modal.`);
         }
 
+        if (this.showLoading) {
+            this.showSpinner();
+        }
 
         this.modal = new Modal(
             this.$modalElement,
