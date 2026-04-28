@@ -4,7 +4,7 @@ import type { ModalOptions, ModalInterface, InstanceOptions } from "flowbite";
 export type CreationOptions = {
     modalOptions?: ModalOptions;
     instanceOptions?: InstanceOptions;
-    onConfirm?: () => boolean | Promise<boolean>;
+    onConfirm?: (fModal: FModal) => boolean | Promise<boolean>;
     divMessageId?: string;
 };
 
@@ -17,18 +17,28 @@ export type ShowMessageOptions = {
 };
 
 export default class FModal {
-    public static modalId?: string;
-    public static divMessageId?: string;
-    public static $modalElement?: HTMLElement;
+    public modal: ModalInterface;
+    public $modalElement: HTMLElement | null;
+    public $messageElement: HTMLElement | null;
 
     private static registry: Map<string, AbortController> = new Map();
 
-    public static create(id: string, options?: CreationOptions): ModalInterface {
-        this.modalId = id;
-        this.divMessageId = options?.divMessageId;
-        this.$modalElement = document.querySelector(`#${id}`) as HTMLElement;
+    public constructor(id: string, options?: CreationOptions) {
+        this.$modalElement = document.querySelector(`#${id}`);
+        this.$messageElement = options?.divMessageId
+            ? (this.$modalElement?.querySelector(`#${options?.divMessageId}`) ?? null)
+            : (this.$modalElement?.querySelector(`.fmodal-message`) ?? null);
 
-        const modal = new Modal(
+        if (!this.$messageElement) {
+            console.warn(`Modal with id ${id} does not exist`);
+        }
+
+        if (!this.$messageElement) {
+            console.error(`The element to display messages could not be found on modal.`);
+        }
+
+
+        this.modal = new Modal(
             this.$modalElement,
             {
                 placement: "center",
@@ -55,15 +65,15 @@ export default class FModal {
         );
 
         // Limpiar el listener anterior si existe
-        let abortController = this.registry.get(id);
+        let abortController = FModal.registry.get(id);
         if (abortController) {
             abortController.abort();
         }
 
         abortController = new AbortController();
-        this.registry.set(id, abortController);
+        FModal.registry.set(id, abortController);
 
-        this.$modalElement.addEventListener(
+        this.$modalElement?.addEventListener(
             "click",
             async (e) => {
                 const target = e.target as HTMLElement;
@@ -71,22 +81,22 @@ export default class FModal {
                 const $btnConfirm = target.closest(`[data-fmodal-confirm="${id}"]`) as HTMLButtonElement;
 
                 if ($btnHide) {
-                    modal.hide();
+                    this.modal.hide();
                 }
 
                 if ($btnConfirm) {
                     if (!options?.onConfirm) {
-                        modal.hide();
+                        this.modal.hide();
                         return;
                     }
 
                     this.toggleBtn("disable", $btnConfirm);
 
                     try {
-                        const shouldHide = await options.onConfirm();
+                        const shouldHide = await options.onConfirm(this);
 
                         if (shouldHide) {
-                            modal.hide();
+                            this.modal.hide();
                         }
                     } catch (error) {
                         console.error("Error en onConfirm:", error);
@@ -98,40 +108,37 @@ export default class FModal {
             { signal: abortController.signal },
         );
 
-        return modal;
     }
 
-    public static destroy(id: string): void {
-        const abortController = this.registry.get(id);
+    public destroy(id: string): void {
+        const abortController = FModal.registry.get(id);
         if (abortController) {
             abortController.abort();
-            this.registry.delete(id);
+            FModal.registry.delete(id);
         }
     }
 
-    public static showMessage({ message, type, autoHide = true, hideAfter = 3000 }: ShowMessageOptions) {
-        const $messageElement = this.getMessageElement();
-        if (!$messageElement) return;
+    public showMessage({ message, type, autoHide = true, hideAfter = 3000 }: ShowMessageOptions) {
+        if (!this.$messageElement) return;
 
-        $messageElement.textContent = message;
-        $messageElement.classList.remove("hidden", "text-green-600", "text-red-600");
-        $messageElement.classList.add(type === "success" ? "text-green-600" : "text-red-600");
+        this.$messageElement.textContent = message;
+        this.$messageElement.classList.remove("hidden", "text-green-600", "text-red-600");
+        this.$messageElement.classList.add(type === "success" ? "text-green-600" : "text-red-600");
 
         if (autoHide) {
             setTimeout(() => {
-                $messageElement.classList.add("hidden");
+                this.$messageElement?.classList.add("hidden");
             }, hideAfter);
         }
     }
 
-    public static hideMessage() {
-        const $messageElement = this.getMessageElement();
-        if (!$messageElement) return;
+    public hideMessage() {
+        if (!this.$messageElement) return;
 
-        $messageElement.classList.add("hidden");
+        this.$messageElement.classList.add("hidden");
     }
 
-    public static clearModal() {
+    public clearModal() {
         this.hideMessage();
 
         const inputs = this.$modalElement?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
@@ -142,9 +149,20 @@ export default class FModal {
         });
     }
 
+    /* STATIC */
+
+    public static create(id: string, options?: CreationOptions) {
+        const modal = new FModal(id, options);
+        return modal.modal;
+    }
+
+    public static show(id: string, options?: CreationOptions) {
+        FModal.create(id, options).show();
+    }
+
     /* PRIVATE */
 
-    private static toggleBtn(action: "disable" | "enable", $btnConfirm: HTMLButtonElement) {
+    private toggleBtn(action: "disable" | "enable", $btnConfirm: HTMLButtonElement) {
         const $spinner = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner="true"]') as HTMLElement;
         const $spinnerBackdrop = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner-backdrop="true"]') as HTMLElement;
         if (action === "disable") {
@@ -161,16 +179,5 @@ export default class FModal {
             $spinner?.classList.add("hidden");
             $spinnerBackdrop?.classList.add("hidden");
         }
-    }
-
-    private static getMessageElement(): HTMLElement | undefined {
-        const $messageElement = this.divMessageId
-            ? (document.querySelector(`#${this.divMessageId}`) as HTMLElement)
-            : (document.querySelector(`.fmodal-message`) as HTMLElement);
-        if (!$messageElement) {
-            console.error(`The element to display messages could not be found.`);
-            return;
-        }
-        return $messageElement;
     }
 }
