@@ -23,25 +23,6 @@ export default class FModal {
 
     private static registry: Map<string, AbortController> = new Map();
 
-    protected static toggleBtn(action: "disable" | "enable", $btnConfirm: HTMLButtonElement) {
-        const $spinner = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner="true"]') as HTMLElement;
-        const $spinnerBackdrop = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner-backdrop="true"]') as HTMLElement;
-        if (action === "disable") {
-            $btnConfirm.disabled = true;
-            $btnConfirm.style.opacity = "0.5";
-            $btnConfirm.style.cursor = "not-allowed";
-            $spinner?.classList.remove("hidden");
-            $spinnerBackdrop?.classList.remove("hidden");
-        }
-        if (action === "enable") {
-            $btnConfirm.disabled = false;
-            $btnConfirm.style.opacity = "1";
-            $btnConfirm.style.cursor = "pointer";
-            $spinner?.classList.add("hidden");
-            $spinnerBackdrop?.classList.add("hidden");
-        }
-    }
-
     public static create(id: string, options?: CreationOptions): ModalInterface {
         this.modalId = id;
         this.divMessageId = options?.divMessageId;
@@ -128,17 +109,6 @@ export default class FModal {
         }
     }
 
-    protected static getMessageElement(): HTMLElement | undefined {
-        const $messageElement = this.divMessageId
-            ? (document.querySelector(`#${this.divMessageId}`) as HTMLElement)
-            : (document.querySelector(`.fmodal-message`) as HTMLElement);
-        if (!$messageElement) {
-            console.error(`The element to display messages could not be found.`);
-            return;
-        }
-        return $messageElement;
-    }
-
     public static showMessage({ message, type, autoHide = true, hideAfter = 3000 }: ShowMessageOptions) {
         const $messageElement = this.getMessageElement();
         if (!$messageElement) return;
@@ -170,5 +140,37 @@ export default class FModal {
                 input.value = "";
             }
         });
+    }
+
+    /* PRIVATE */
+
+    private static toggleBtn(action: "disable" | "enable", $btnConfirm: HTMLButtonElement) {
+        const $spinner = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner="true"]') as HTMLElement;
+        const $spinnerBackdrop = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner-backdrop="true"]') as HTMLElement;
+        if (action === "disable") {
+            $btnConfirm.disabled = true;
+            $btnConfirm.style.opacity = "0.5";
+            $btnConfirm.style.cursor = "not-allowed";
+            $spinner?.classList.remove("hidden");
+            $spinnerBackdrop?.classList.remove("hidden");
+        }
+        if (action === "enable") {
+            $btnConfirm.disabled = false;
+            $btnConfirm.style.opacity = "1";
+            $btnConfirm.style.cursor = "pointer";
+            $spinner?.classList.add("hidden");
+            $spinnerBackdrop?.classList.add("hidden");
+        }
+    }
+
+    private static getMessageElement(): HTMLElement | undefined {
+        const $messageElement = this.divMessageId
+            ? (document.querySelector(`#${this.divMessageId}`) as HTMLElement)
+            : (document.querySelector(`.fmodal-message`) as HTMLElement);
+        if (!$messageElement) {
+            console.error(`The element to display messages could not be found.`);
+            return;
+        }
+        return $messageElement;
     }
 }
