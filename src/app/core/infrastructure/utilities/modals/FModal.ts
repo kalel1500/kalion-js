@@ -21,6 +21,8 @@ export default class FModal {
     public static divMessageId?: string;
     public static $modalElement?: HTMLElement;
 
+    private static registry: Map<string, AbortController> = new Map();
+
     protected static toggleBtn(action: "disable" | "enable", $btnConfirm: HTMLButtonElement) {
         const $spinner = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner="true"]') as HTMLElement;
         const $spinnerBackdrop = $btnConfirm.parentElement?.parentElement?.querySelector('[data-is-spinner-backdrop="true"]') as HTMLElement;
@@ -71,38 +73,59 @@ export default class FModal {
             },
         );
 
-        this.$modalElement.addEventListener("click", async (e) => {
-            const target = e.target as HTMLElement;
-            const $btnHide = target.closest(`[data-fmodal-cancel="${id}"]`);
-            const $btnConfirm = target.closest(`[data-fmodal-confirm="${id}"]`) as HTMLButtonElement; // Casteo a HTMLButtonElement
+        // Limpiar el listener anterior si existe
+        let abortController = this.registry.get(id);
+        if (abortController) {
+            abortController.abort();
+        }
 
-            if ($btnHide) {
-                modal.hide();
-            }
+        abortController = new AbortController();
+        this.registry.set(id, abortController);
 
-            if ($btnConfirm) {
-                if (!options?.onConfirm) {
+        this.$modalElement.addEventListener(
+            "click",
+            async (e) => {
+                const target = e.target as HTMLElement;
+                const $btnHide = target.closest(`[data-fmodal-cancel="${id}"]`);
+                const $btnConfirm = target.closest(`[data-fmodal-confirm="${id}"]`) as HTMLButtonElement;
+
+                if ($btnHide) {
                     modal.hide();
-                    return;
                 }
 
-                this.toggleBtn("disable", $btnConfirm);
-
-                try {
-                    const shouldHide = await options.onConfirm();
-
-                    if (shouldHide) {
+                if ($btnConfirm) {
+                    if (!options?.onConfirm) {
                         modal.hide();
+                        return;
                     }
-                } catch (error) {
-                    console.error("Error en onConfirm:", error);
-                } finally {
-                    this.toggleBtn("enable", $btnConfirm);
+
+                    this.toggleBtn("disable", $btnConfirm);
+
+                    try {
+                        const shouldHide = await options.onConfirm();
+
+                        if (shouldHide) {
+                            modal.hide();
+                        }
+                    } catch (error) {
+                        console.error("Error en onConfirm:", error);
+                    } finally {
+                        this.toggleBtn("enable", $btnConfirm);
+                    }
                 }
-            }
-        });
+            },
+            { signal: abortController.signal },
+        );
 
         return modal;
+    }
+
+    public static destroy(id: string): void {
+        const abortController = this.registry.get(id);
+        if (abortController) {
+            abortController.abort();
+            this.registry.delete(id);
+        }
     }
 
     protected static getMessageElement(): HTMLElement | undefined {
