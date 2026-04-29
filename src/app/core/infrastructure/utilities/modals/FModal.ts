@@ -5,6 +5,7 @@ export type CreationOptions = {
     modalOptions?: ModalOptions;
     instanceOptions?: InstanceOptions;
     onConfirm?: (fModal: FModal) => boolean | Promise<boolean>;
+    onDeny?: (fModal: FModal) => boolean | Promise<boolean>;
     onShow?: (fModal: FModal) => void;
     showLoading?: boolean;
     divMessageId?: string;
@@ -91,29 +92,34 @@ export default class FModal {
                 const target = e.target as HTMLElement;
                 const $btnHide = target.closest(`[data-fmodal-cancel="${id}"]`);
                 const $btnConfirm = target.closest(`[data-fmodal-confirm="${id}"]`) as HTMLButtonElement;
+                const $btnDeny = target.closest(`[data-fmodal-deny="${id}"]`) as HTMLButtonElement;
 
                 if ($btnHide) {
                     this.modal.hide();
                 }
 
-                if ($btnConfirm) {
-                    if (!options?.onConfirm) {
+                if ($btnConfirm || $btnDeny) {
+                    const $actionBtn = $btnConfirm ? $btnConfirm : $btnDeny;
+                    const action = $btnConfirm ? options?.onConfirm : options?.onDeny;
+                    const actionName = $btnConfirm ? 'onConfirm' : 'onDeny';
+
+                    if (!action) {
                         this.modal.hide();
                         return;
                     }
 
-                    this.toggleBtn("disable", $btnConfirm);
+                    this.toggleBtn("disable", $actionBtn);
 
                     try {
-                        const shouldHide = await options.onConfirm(this);
+                        const shouldHide = await action(this);
 
                         if (shouldHide) {
                             this.modal.hide();
                         }
                     } catch (error) {
-                        console.error("Error en onConfirm:", error);
+                        console.error(`Error in ${actionName}: `, error);
                     } finally {
-                        this.toggleBtn("enable", $btnConfirm);
+                        this.toggleBtn("enable", $actionBtn);
                     }
                 }
             },
