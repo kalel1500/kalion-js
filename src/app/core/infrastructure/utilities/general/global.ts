@@ -50,7 +50,7 @@ export class g {
         // console.warn({event, source, lineno, colno, error});
 
         // TODO Canals - mirgrar a Tingle para no pisar otro modal que este abierto: alert(g.escapeHtml(error?.message ?? "Formato error imprevisto"));
-        SModal.errorModal({
+        SModal.error({
             title: 'Error imprevisto',
             html: `<span class="restriction-message">${g.escapeHtml(message)}</span>`,
             cancelButtonText: 'Ok',
@@ -166,7 +166,7 @@ export class g {
             : `<span class="restriction-message">${g.escapeHtml(message)}</span>`;
 
         // Abrir modal
-        SModal.errorModal({
+        SModal.error({
             icon: 'error',
             title: title,
             html: finalHtml,

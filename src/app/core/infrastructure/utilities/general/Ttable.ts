@@ -467,7 +467,7 @@ export class Ttable {
 
             // Check if result is wrong and update modal content
             if (!actionResult.success || !actionResult.ok) {
-                SModal.errorModal({html: actionResult.message}).then();
+                SModal.error({html: actionResult.message}).then();
                 return;
             }
 
@@ -484,7 +484,7 @@ export class Ttable {
 
         let validation = g.validate(cellData, rules);
         if (!validation.success) {
-            SModal.errorModal({html: validation.messages.join('<br>')}).then();
+            SModal.error({html: validation.messages.join('<br>')}).then();
             return false;
         }
 
@@ -495,7 +495,7 @@ export class Ttable {
                 SModal.toastSuccess({title: result.message}).then();
                 if (!preventReplaceData) cell.getTable().replaceData().then();
             } else {
-                SModal.errorModal({html: result.message}).then();
+                SModal.error({html: result.message}).then();
             }
             return success;
         } catch (e) {
@@ -510,7 +510,7 @@ export class Ttable {
         preventReplaceData = false,
     }: { title?: string, html?: string, preventReplaceData?: boolean }): Promise<boolean> {
         try {
-            const resultModal = await SModal.confirmModal({title: title, html: html});
+            const resultModal = await SModal.confirm({title: title, html: html});
             if (!resultModal.isConfirmed) {
                 return false;
             }
@@ -522,7 +522,7 @@ export class Ttable {
                 if (success) {
                     SModal.toastSuccess({title: resultDelete.message}).then();
                 } else {
-                    SModal.errorModal({html: resultDelete.message}).then();
+                    SModal.error({html: resultDelete.message}).then();
                 }
                 result = success;
             } catch (e) {

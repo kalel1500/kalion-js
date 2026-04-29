@@ -215,7 +215,7 @@ export class SModal {
         });
     }
 
-    static successModal(options: SweetAlertOptions = {}) {
+    static success(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
             SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
@@ -230,7 +230,7 @@ export class SModal {
         });
     }
 
-    static errorModal(options: SweetAlertOptions = {}, ignorePendingLoading = false) {
+    static error(options: SweetAlertOptions = {}, ignorePendingLoading = false) {
         return SModal.#checkAndExecuteShow(() => {
             SModal.mustAbortIfIsAlreadyOpen({ ignorePendingLoading });
             return Swal.fire({
@@ -245,7 +245,7 @@ export class SModal {
         });
     }
 
-    static confirmModal(options: SweetAlertOptions = {}) {
+    static confirm(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
             SModal.mustAbortIfIsAlreadyOpen();
             return Swal.fire({
@@ -264,7 +264,7 @@ export class SModal {
         });
     }
 
-    static loadingModal(options: SweetAlertOptions = {}) {
+    static loading(options: SweetAlertOptions = {}) {
         return SModal.#checkAndExecuteShow(() => {
             SModal.mustAbortIfIsAlreadyOpen();
             SModal.isPendingLoading = true;
@@ -294,7 +294,7 @@ export class SModal {
 
     // ── Modales con AJAX ─────────────────────────────────────────────────────
 
-    static loadingModalAndDoAction({
+    static doActionWhileLoading({
                                        ajaxUrl,
                                        ajaxType,
                                        ajaxParams,
@@ -316,10 +316,10 @@ export class SModal {
                     try {
                         const result = await g.fetch({ url: ajaxUrl, type: ajaxType, params: ajaxParams });
                         if (!result.success || !result.ok) {
-                            SModal.updateErrorModal({ icon: 'warning', html: result.message });
+                            SModal.updateError({ icon: 'warning', html: result.message });
                             return;
                         }
-                        SModal.updateSuccessModal({ title: 'Correcto', html: result.message });
+                        SModal.updateSuccess({ title: 'Correcto', html: result.message });
                     } catch (e) {
                         g.catchCode({ error: e, footer: footerOnFail });
                     }
@@ -329,7 +329,7 @@ export class SModal {
         });
     }
 
-    static confirmModalAfterAjaxCheck({
+    static confirmAfterFetchSuccess({
                                           ajaxUrl,
                                           ajaxType = 'GET',
                                           ajaxParams,
@@ -354,9 +354,9 @@ export class SModal {
                     try {
                         const res = await g.fetch({ url: ajaxUrl, type: ajaxType, params: ajaxParams });
                         if (res.success && res.ok) {
-                            SModal.updateModal({ html: swalOptions.html, confirmButtonColor: SModal.colorRed });
+                            SModal.update({ html: swalOptions.html, confirmButtonColor: SModal.colorRed });
                         } else {
-                            SModal.updateModal({
+                            SModal.update({
                                 html: `<span class="restriction-message">${res.message}</span>`,
                                 showConfirmButton: false,
                                 showCancelButton: true,
@@ -374,7 +374,7 @@ export class SModal {
 
     // ── Update modales ───────────────────────────────────────────────────────
 
-    static updateModal({ hideLoading, ...swalOptions }: UpdateModalOptions = {}) {
+    static update({ hideLoading, ...swalOptions }: UpdateModalOptions = {}) {
         SModal.#checkAndExecuteUpdate(() => {
             SModal.mustAbortIfIsAlreadyOpen({ isUpdate: true });
             if (hideLoading === true) Swal.hideLoading();
@@ -382,8 +382,8 @@ export class SModal {
         });
     }
 
-    static updateSuccessModal(options: UpdateModalOptions = {}) {
-        SModal.updateModal({
+    static updateSuccess(options: UpdateModalOptions = {}) {
+        SModal.update({
             icon: 'success',
             title: 'Éxito',
             html: 'Todo ha ido bien',
@@ -393,8 +393,8 @@ export class SModal {
         });
     }
 
-    static updateErrorModal(options: UpdateModalOptions = {}) {
-        SModal.updateModal({
+    static updateError(options: UpdateModalOptions = {}) {
+        SModal.update({
             icon: 'error',
             title: 'Error',
             html: 'Ha habido algún error',
@@ -406,7 +406,7 @@ export class SModal {
 
     // ── inputModal ───────────────────────────────────────────────────────────
 
-    static inputModal({
+    static input({
                           // Extras propios
                           liveValidationEnabled        = false,
                           getValidationMessage         = () => null,
@@ -538,7 +538,7 @@ export class SModal {
 
     // ── bladeModal ───────────────────────────────────────────────────────────
 
-    static bladeModal({
+    static blade({
                           ajaxUrl,
                           jsActionsInModal = () => {},
                           funcParam = {},
@@ -557,11 +557,11 @@ export class SModal {
                     try {
                         const result: FetchResponse = await g.fetch({ url: ajaxUrl });
                         if (!result.success || !result.ok) {
-                            SModal.updateErrorModal({ title: 'Ups... Algo ha ido mal', html: result.message });
+                            SModal.updateError({ title: 'Ups... Algo ha ido mal', html: result.message });
                             return;
                         }
                         const html = typeof result.data === 'string' ? result.data : 'Formato blade incorrecto.';
-                        SModal.updateModal({ hideLoading: true, html });
+                        SModal.update({ hideLoading: true, html });
                         jsActionsInModal(funcParam);
                     } catch (e) {
                         g.catchCode({ error: e });
