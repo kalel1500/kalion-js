@@ -11,9 +11,16 @@ export type CreationOptions = {
     divMessageId?: string;
 };
 
+export enum AlertType {
+    info = "info",
+    success = "success",
+    error = "error",
+    warning = "warning",
+}
+
 export type ShowMessageOptions = {
     message: string;
-    type: "success" | "error";
+    type: AlertType;
     elementId?: string;
     autoHide?: boolean;
     hideAfter?: number;
@@ -24,7 +31,7 @@ export default class FModal {
     public showLoading: boolean;
     public $modalElement: HTMLElement | null;
     public $spinnerElements: NodeListOf<HTMLElement> | null;
-    public $messageElement: HTMLElement | null;
+    public $messageElements: Record<AlertType, HTMLElement | null>;
 
     private static registry: Map<string, AbortController> = new Map();
 
@@ -32,17 +39,22 @@ export default class FModal {
         this.showLoading = options?.showLoading ?? false;
         this.$modalElement = document.querySelector(`#${id}`);
         this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
-        this.$messageElement = options?.divMessageId
-            ? (this.$modalElement?.querySelector(`#${options?.divMessageId}`) ?? null)
-            : (this.$modalElement?.querySelector(`.fmodal-message`) ?? null);
+        this.$messageElements = {
+            info: this.$modalElement?.querySelector(`.fmodal-message-${AlertType.info}`) ?? null,
+            success: this.$modalElement?.querySelector(`.fmodal-message-${AlertType.success}`) ?? null,
+            error: this.$modalElement?.querySelector(`.fmodal-message-${AlertType.error}`) ?? null,
+            warning: this.$modalElement?.querySelector(`.fmodal-message-${AlertType.warning}`) ?? null,
+        };
 
-        if (!this.$messageElement) {
+        if (!this.$modalElement) {
             console.warn(`Modal with id ${id} does not exist`);
         }
 
-        if (!this.$messageElement) {
-            console.error(`The element to display messages could not be found on modal.`);
-        }
+        Object.entries(this.$messageElements).forEach(([key, el]) => {
+            if (!el) {
+                console.error(`The element to display ${key} messages could not be found on modal.`);
+            }
+        });
 
         if (this.showLoading) {
             this.showSpinner();
@@ -101,7 +113,7 @@ export default class FModal {
                 if ($btnConfirm || $btnDeny) {
                     const $actionBtn = $btnConfirm ? $btnConfirm : $btnDeny;
                     const action = $btnConfirm ? options?.onConfirm : options?.onDeny;
-                    const actionName = $btnConfirm ? 'onConfirm' : 'onDeny';
+                    const actionName = $btnConfirm ? "onConfirm" : "onDeny";
 
                     if (!action) {
                         this.modal.hide();
@@ -136,24 +148,32 @@ export default class FModal {
         }
     }
 
-    public showMessage({ message, type, autoHide = true, hideAfter = 3000 }: ShowMessageOptions) {
-        if (!this.$messageElement) return;
+    public showMessage({ message, type, autoHide = false, hideAfter = 3000 }: ShowMessageOptions) {
+        const $msgEl = this.$messageElements[type];
+        if (!$msgEl) return;
 
-        this.$messageElement.textContent = message;
-        this.$messageElement.classList.remove("hidden", "text-green-600", "text-red-600");
-        this.$messageElement.classList.add(type === "success" ? "text-green-600" : "text-red-600");
+        const $slot = $msgEl.querySelector('.slot');
+        if ($slot) {
+            $slot.textContent = message;
+        }
+        $msgEl.classList.remove(..."transition-opacity duration-300 ease-out opacity-0 hidden".split(" "));
+        $msgEl.classList.add("flex");
 
         if (autoHide) {
             setTimeout(() => {
-                this.$messageElement?.classList.add("hidden");
+                $msgEl.classList.remove("flex");
+                $msgEl.classList.add("hidden");
             }, hideAfter);
         }
     }
 
     public hideMessage() {
-        if (!this.$messageElement) return;
-
-        this.$messageElement.classList.add("hidden");
+        Object.entries(this.$messageElements).forEach(([key, el]) => {
+            if (el) {
+                el.classList.remove("flex");
+                el.classList.add("hidden");
+            }
+        });
     }
 
     public clearModal() {
