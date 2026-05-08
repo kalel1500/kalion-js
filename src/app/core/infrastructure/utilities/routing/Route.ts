@@ -33,7 +33,7 @@ export class Route {
         ALL: {},
     };
 
-    static page(uri: string, callback: [any, string], makeDataRequest = false): void {
+    static page(uri: string, callback: [any, string], makeDataRequest: any = false): void {
         if (Array.isArray(callback) && (typeof makeDataRequest === 'boolean')) {
             const controller = callback[0];
             const method = callback[1];
@@ -81,7 +81,11 @@ export class Route {
                 const controller = new page.controller();
 
                 if (!page.makeDataRequest) {
-                    controller[page.method]();
+                    let data = document.getElementById('page-data')?.dataset.pageData;
+                    if (data) {
+                        data = JSON.parse(data);
+                    }
+                    controller[page.method](data);
                     return;
                 }
 
