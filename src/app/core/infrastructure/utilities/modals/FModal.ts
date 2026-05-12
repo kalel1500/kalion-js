@@ -7,6 +7,7 @@ export type CreationOptions = {
     onConfirm?: (fModal: FModal) => boolean | Promise<boolean>;
     onDeny?: (fModal: FModal) => boolean | Promise<boolean>;
     onShow?: (fModal: FModal) => void;
+    onModalClick?: (fModal: FModal, target: HTMLElement) => void;
     showLoading?: boolean;
     divMessageId?: string;
 };
@@ -133,6 +134,10 @@ export default class FModal {
                     } finally {
                         this.toggleBtn("enable", $actionBtn);
                     }
+                }
+
+                if (options?.onModalClick) {
+                    options?.onModalClick(this, target);
                 }
             },
             { signal: abortController.signal },
