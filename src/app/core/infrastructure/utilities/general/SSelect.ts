@@ -1,19 +1,67 @@
-import { g } from '@/app';
-import type { Optgroup, Option } from "slim-select";
+import SlimSelect from "slim-select";
+import type { Settings, Events, Optgroup, Option } from "slim-select";
+import { g } from "@kalel1500/kalion-js";
 
 type SlimData = Option | Optgroup;
 type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
+type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">>;
 
-export class SlimHelper {
+const SLIM_EVENT_KEYS = ['search', 'searchFilter', 'beforeChange', 'afterChange', 'beforeClose', 'afterClose', 'beforeOpen', 'afterOpen', 'addable', 'error'] as const;
 
-    public static debouncedSearch({source, delay = 500, minLength = 3, fetchLimit = 20}: {source: string | SearchCallback, delay?: number, minLength?: number, fetchLimit?: number}) {
+export class SSelect {
+    // ─── public API  ──────────────────────────────────────────────
+
+    private static splitOptions(options: Partial<Settings & Events>): { settings: Partial<Settings>; events: Partial<Events> } {
+        const settings: Partial<Settings> = {};
+        const events: Partial<Events> = {};
+
+        for (const [key, value] of Object.entries(options)) {
+            if ((SLIM_EVENT_KEYS as readonly string[]).includes(key)) {
+                (events as any)[key] = value;
+            } else {
+                (settings as any)[key] = value;
+            }
+        }
+
+        return { settings, events };
+    }
+
+    static basic(select: string, options: Partial<Settings & Events> = {}): SlimSelect {
+        const { settings, events } = SSelect.splitOptions(options);
+        return new SlimSelect({
+            select,
+            settings: { ...settings },
+            events: { ...events },
+        });
+    }
+
+    static search(select: string, options: SearchOptions): SlimSelect {
+        const { settings, events } = SSelect.splitOptions(options);
+        const defaultSettings: Partial<Settings> = {
+            keepSearch: true,
+            closeOnSelect: false,
+            searchHighlight: true,
+            allowDeselect: true,
+            timeoutDelay: 500,
+            maxValuesShown: 4,
+        };
+        return new SlimSelect({
+            select,
+            settings: { ...defaultSettings, ...settings },
+            events: { ...events },
+        });
+    }
+
+    // ─── Helpers ───────────────────────────────────────────────────
+
+    public static debouncedSearch({source, delay = 500, minLength = 3, fetchLimit = 20}: {source: string | SearchCallback; delay?: number; minLength?: number; fetchLimit?: number}) {
         const searchLogic = async (search: string, currentData: SlimData[]): Promise<SlimData[]> => {
             if (search.length < minLength) {
                 throw new Error(`Search must be at least ${minLength} characters`);
             }
 
             if (typeof source === 'string') {
-                return await SlimHelper.fetchStandard(source, search, currentData, fetchLimit);
+                return await SSelect.fetchStandard(source, search, currentData, fetchLimit);
             }
 
             return await source(search, currentData);
