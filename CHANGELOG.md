@@ -2,7 +2,65 @@
 
 ## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...master)
 
-## [v0.11.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.1...v0.11.0-beta.1) - 2025-03-06
+## [v0.12.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...v0.12.0-beta.1) - 2026-05-15
+
+### Added
+
+* Nueva funcionalidad en las Rutas para leer los datos del Backend sin realizar una petición fetch
+  * Cuando `makeDataRequest = false`, se busca el si existe el elemento con el id `page-data` y se lee el atributo `data-page-data` para pasarlo al controller
+* Nuevo tipo `HttpMethod`.
+* Nueva clase `FModal` para manejar los modals de Flowbite.
+* Nueva clase `SSelect` para reutilizar las configuraciones del `SlimSelect` fácilmente.
+  * Además, la clase tiene el nuevo método `debouncedSearch` para poder usar en el evento `search` del `slim-select`.
+* Nuevo helper global `g.debounce()`
+
+### Changed
+
+* **(breaking)** Se han modificado las interfaces `FetchParams` y `FetchParamsSimple`. Ahora la propiedad `type` debe cumplir con el tipo `HttpMethod`.
+
+* **SModal**
+  * **(breaking)** Se ha renombrado el parámetro `preConfirm_permitConfirm` de la interfaz `InputModalOptions` a `preConfirm_keepOpenOnSuccess`
+  * Nueva propiedad `liveValidationEnabled` en la interfaz `InputModalOptions`
+  * **(breaking)** Se han rehecho todas los métodos de la clase para poder pasarles todos los parámetros de `SweetAlert` en lugar de poder pasar solo los que habian configurados. De esta forma cualquier metodo se puede escalar/modificar fácilmente.
+  * **(breaking)** Se han renombrado todos los métodos para quitar el sufijo `Modal`
+    * `successModal` => `success`
+    * `errorModal` => `error`
+    * `confirmModal` => `confirm`
+    * `loadingModal` => `loading`
+    * `loadingModalAndDoAction` => `doActionWhileLoading`
+    * `confirmModalAfterAjaxCheck` => `confirmAfterFetchSuccess`
+    * `updateModal` => `update`
+    * `updateSuccessModal` => `updateSuccess`
+    * `inputModal` => `input`
+    * `bladeModal` => `blade`
+
+* Actualizar `flowbite` a la version `4.0.1`
+
+* **Estilos**
+  * Actualizar `slim-select` a la version `3.4.3` e importar los estilos mejor.
+  * **(breaking)** Se han rehecho las utilidades de tailwind para las sombras. Se han elimnado las 4 clases de sombras (dos normales y dos para el dark) por dos simples calses que, usando variables, ya están configruadas para los dos modos
+    * Clases eliminadas:
+      * `.kal\:shadow-xl`
+      * `.dark\:kal\:shadow-black-xl:where(.dark, .dark *)`
+      * `.kal\:shadow-2xl`
+      * `.dark\:kal\:shadow-black-2xl:where(.dark, .dark *)`
+    * Nuevas clases:
+      * `.shadow-glow-1`
+      * `.shadow-glow-2`
+  * **(breaking)** Se han reecho los estilos del archivo `slimselect-plugin` para que sean iguales que los inputs de flowbite (adaptados al modo oscuro).
+
+### Removed
+
+* **SModal**
+  * **(breaking)** Se ha eliminado el método `inputModalFixed` ya que `inputModal` es completamente configurable.
+
+### Fixed
+
+* Adaptar las clases de los estilos del "slimselect-plugin" a la version "v3.4.3"
+* Añadido un listener para quitar la clase `sc` al documento cuando se abre el sidebar de la version móvil.
+* No lanzar una excepción si no se encuentran las cookies y mostrar un `console.warn` en su lugar para poder seguir navegando la página.
+
+## [v0.11.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.10.1-beta.1...v0.11.0-beta.1) - 2026-03-06
 
 ### Added
 
