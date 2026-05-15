@@ -1,6 +1,6 @@
 import SlimSelect from "slim-select";
 import type { Settings, Events, Optgroup, Option } from "slim-select";
-import { g } from "@kalel1500/kalion-js";
+import { g } from '@/app';
 
 type SlimData = Option | Optgroup;
 type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
