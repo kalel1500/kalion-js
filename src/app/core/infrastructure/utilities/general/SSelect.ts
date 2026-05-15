@@ -86,7 +86,7 @@ export class SSelect {
         const rawData: SlimData[] = resp?.data || [];
 
         if (!rawData.length) {
-            throw new Error(resp?.error || "No results found");
+            throw new Error("No results found");
         }
 
         // Filtramos los resultados del backend que ya existan en la selección
