@@ -27,7 +27,7 @@ export type ShowMessageOptions = {
     hideAfter?: number;
 };
 
-export default class FModal {
+export class FModal {
     public modal: ModalInterface;
     public showLoading: boolean;
     public $modalElement: HTMLElement | null;
