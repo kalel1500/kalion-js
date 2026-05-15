@@ -43,9 +43,7 @@
     outline: none !important;
 }
 
-.ss-main:focus,
-.ss-main.ss-dir-above,
-.ss-main.ss-dir-below {
+.ss-main:focus {
     /* Usamos el mismo ring que Flowbite: focus:ring-brand */
     box-shadow: 0 0 0 3px var(--color-brand-soft) !important;
     border-color: var(--color-brand) !important;
