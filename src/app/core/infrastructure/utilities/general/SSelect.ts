@@ -1,6 +1,6 @@
 import SlimSelect from "slim-select";
 import type { Settings, Events, Optgroup, Option } from "slim-select";
-import { g } from '@/app';
+import { FetchResponse, g } from '@/app';
 
 type SlimData = Option | Optgroup;
 type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
@@ -79,8 +79,9 @@ export class SSelect {
         url.searchParams.set("limit", fetchLimit.toString());
         url.searchParams.set("exclude", selectedValues.join(","));
 
-        const response = await fetch(url.toString());
-        const resp = await response.json();
+        // const response = await fetch(url.toString());
+        // const resp = (await response.json()) as FetchResponse<SlimData[]>;
+        const resp = await g.fetchStrict<FetchResponse<SlimData[]>>({ url: url.toString() });
 
         // Asumimos que el backend ya envía un array de SlimData (opciones o grupos)
         const rawData: SlimData[] = resp?.data || [];
