@@ -1,5 +1,38 @@
-import { Modal } from "flowbite";
+import {
+    Modal,
+    initFlowbite,
+    initAccordions,
+    initCollapses,
+    initCarousels,
+    initDismisses,
+    initDropdowns,
+    initModals,
+    initDrawers,
+    initTabs,
+    initTooltips,
+    initPopovers,
+    initDials,
+    initInputCounters,
+    initCopyClipboards,
+    initDatepickers
+} from "flowbite";
 import type { ModalOptions, ModalInterface, InstanceOptions } from "flowbite";
+
+type InitFlowbiteValues =
+    | "initAccordions"
+    | "initCollapses"
+    | "initCarousels"
+    | "initDismisses"
+    | "initDropdowns"
+    | "initModals"
+    | "initDrawers"
+    | "initTabs"
+    | "initTooltips"
+    | "initPopovers"
+    | "initDials"
+    | "initInputCounters"
+    | "initCopyClipboards"
+    | "initDatepickers";
 
 export type CreationOptions = {
     modalOptions?: ModalOptions;
@@ -10,6 +43,8 @@ export type CreationOptions = {
     onModalClick?: (fModal: FModal, target: HTMLElement) => void;
     showLoading?: boolean;
     divMessageId?: string;
+    initFlowbiteAfterOnShow?: true | InitFlowbiteValues | InitFlowbiteValues[];
+    initFlowbiteAfterOnConfirm?: true | InitFlowbiteValues | InitFlowbiteValues[];
 };
 
 export enum AlertType {
@@ -26,6 +61,39 @@ export type ShowMessageOptions = {
     autoHide?: boolean;
     hideAfter?: number;
 };
+
+const flowbiteFunctions: Record<InitFlowbiteValues, () => void> = {
+    initAccordions,
+    initCollapses,
+    initCarousels,
+    initDismisses,
+    initDropdowns,
+    initModals,
+    initDrawers,
+    initTabs,
+    initTooltips,
+    initPopovers,
+    initDials,
+    initInputCounters,
+    initCopyClipboards,
+    initDatepickers,
+};
+
+function handleFlowbiteInit(initOption?: true | InitFlowbiteValues | InitFlowbiteValues[]): void {
+    if (!initOption) return;
+
+    if (initOption === true) {
+        initFlowbite();
+    } else if (Array.isArray(initOption)) {
+        initOption.forEach((componentName) => {
+            const fn = flowbiteFunctions[componentName];
+            if (fn) fn();
+        });
+    } else {
+        const fn = flowbiteFunctions[initOption];
+        if (fn) fn();
+    }
+}
 
 export class FModal {
     public modal: ModalInterface;
@@ -76,6 +144,8 @@ export class FModal {
                     // console.log("modal is shown");
                     if (options?.onShow) {
                         options.onShow(this);
+
+                        handleFlowbiteInit(options?.initFlowbiteAfterOnShow);
                     }
                 },
                 onToggle: () => {
@@ -125,6 +195,10 @@ export class FModal {
 
                     try {
                         const shouldHide = await action(this);
+
+                        if (actionName === "onConfirm") {
+                            handleFlowbiteInit(options?.initFlowbiteAfterOnConfirm);
+                        }
 
                         if (shouldHide) {
                             this.modal.hide();
