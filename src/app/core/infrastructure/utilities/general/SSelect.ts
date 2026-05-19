@@ -26,7 +26,7 @@ export class SSelect {
         return { settings, events };
     }
 
-    static basic(select: string, options: Partial<Settings & Events> = {}): SlimSelect {
+    static basic(select: string | Element, options: Partial<Settings & Events> = {}): SlimSelect {
         const { settings, events } = SSelect.splitOptions(options);
         return new SlimSelect({
             select,
@@ -35,7 +35,7 @@ export class SSelect {
         });
     }
 
-    static search(select: string, options: SearchOptions): SlimSelect {
+    static search(select: string | Element, options: SearchOptions): SlimSelect {
         const { settings, events } = SSelect.splitOptions(options);
         const defaultSettings: Partial<Settings> = {
             keepSearch: true,
