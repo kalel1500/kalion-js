@@ -45,6 +45,7 @@ export type CreationOptions = {
     divMessageId?: string;
     initFlowbiteAfterOnShow?: true | InitFlowbiteValues | InitFlowbiteValues[];
     initFlowbiteAfterOnConfirm?: true | InitFlowbiteValues | InitFlowbiteValues[];
+    destroyOnHide?: boolean;
 };
 
 export enum AlertType {
@@ -99,6 +100,7 @@ export class FModal {
     public modal: ModalInterface;
     public id: string;
     public showLoading: boolean;
+    public destroyOnHide: boolean;
     public $modalElement: HTMLElement | null;
     public $spinnerElements: NodeListOf<HTMLElement> | null;
     public $messageElements: Record<AlertType, HTMLElement | null>;
@@ -108,6 +110,7 @@ export class FModal {
     public constructor(id: string, options?: CreationOptions) {
         this.id = id;
         this.showLoading = options?.showLoading ?? false;
+        this.destroyOnHide = options?.destroyOnHide ?? false;
         this.$modalElement = document.querySelector(`#${id}`);
         this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
         this.$messageElements = {
@@ -177,7 +180,7 @@ export class FModal {
                 const $btnDeny = target.closest(`[data-fmodal-deny="${id}"]`) as HTMLButtonElement;
 
                 if ($btnHide) {
-                    this.modal.hide();
+                    this.hide();
                 }
 
                 if ($btnConfirm || $btnDeny) {
@@ -186,7 +189,7 @@ export class FModal {
                     const actionName = $btnConfirm ? "onConfirm" : "onDeny";
 
                     if (!action) {
-                        this.modal.hide();
+                        this.hide();
                         return;
                     }
 
@@ -200,7 +203,7 @@ export class FModal {
                         }
 
                         if (shouldHide) {
-                            this.modal.hide();
+                            this.hide();
                         }
                     } catch (error) {
                         console.error(`Error in ${actionName}: `, error);
@@ -216,6 +219,13 @@ export class FModal {
             { signal: abortController.signal },
         );
 
+    }
+
+    public hide() {
+        this.modal.hide();
+        if (this.destroyOnHide) {
+            this.destroy();
+        }
     }
 
     public destroy(): void {
