@@ -220,6 +220,10 @@ export class FModal {
     }
 
     public destroy(id: string): void {
+        FModal.destroy(id);
+    }
+
+    public static destroy(id: string): void {
         const abortController = FModal.registry.get(id);
         if (abortController) {
             abortController.abort();
