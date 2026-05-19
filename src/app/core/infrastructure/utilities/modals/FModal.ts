@@ -105,7 +105,7 @@ export class FModal {
     public $spinnerElements: NodeListOf<HTMLElement> | null;
     public $messageElements: Record<AlertType, HTMLElement | null>;
 
-    private static registry: Map<string, AbortController> = new Map();
+    private static registryAbort: Map<string, AbortController> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
         this.id = id;
@@ -166,10 +166,10 @@ export class FModal {
         );
 
         // Limpiar el listener anterior si existe
-        this.destroy();
+        this.removeListener();
 
         const abortController = new AbortController();
-        FModal.registry.set(id, abortController);
+        FModal.registryAbort.set(id, abortController);
 
         this.$modalElement?.addEventListener(
             "click",
@@ -223,20 +223,17 @@ export class FModal {
 
     public hide() {
         this.modal.hide();
-        if (this.destroyOnHide) {
-            this.destroy();
-        }
     }
 
-    public destroy(): void {
-        FModal.destroy(this.id);
+    public removeListener(): void {
+        FModal.removeListener(this.id);
     }
 
-    public static destroy(id: string): void {
-        const abortController = FModal.registry.get(id);
+    public static removeListener(id: string): void {
+        const abortController = FModal.registryAbort.get(id);
         if (abortController) {
             abortController.abort();
-            FModal.registry.delete(id);
+            FModal.registryAbort.delete(id);
         }
     }
 
