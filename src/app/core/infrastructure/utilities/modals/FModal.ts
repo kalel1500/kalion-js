@@ -106,6 +106,7 @@ export class FModal {
     public $messageElements: Record<AlertType, HTMLElement | null>;
 
     private static registryAbort: Map<string, AbortController> = new Map();
+    private static registryModal: Map<string, ModalInterface> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
         this.id = id;
@@ -170,6 +171,7 @@ export class FModal {
 
         const abortController = new AbortController();
         FModal.registryAbort.set(id, abortController);
+        FModal.registryModal.set(id, this.modal);
 
         this.$modalElement?.addEventListener(
             "click",
@@ -223,6 +225,21 @@ export class FModal {
 
     public hide() {
         this.modal.hide();
+        if (this.destroyOnHide) {
+            this.destroy();
+        }
+    }
+
+    public destroy(): void {
+        FModal.destroy(this.id);
+    }
+
+    public static destroy(id: string): void {
+        const modalInstance = FModal.registryModal.get(id);
+        if (modalInstance) {
+            modalInstance.destroy();
+            FModal.registryModal.delete(id);
+        }
     }
 
     public removeListener(): void {
