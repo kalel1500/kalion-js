@@ -97,6 +97,7 @@ function handleFlowbiteInit(initOption?: true | InitFlowbiteValues | InitFlowbit
 
 export class FModal {
     public modal: ModalInterface;
+    public id: string;
     public showLoading: boolean;
     public $modalElement: HTMLElement | null;
     public $spinnerElements: NodeListOf<HTMLElement> | null;
@@ -105,6 +106,7 @@ export class FModal {
     private static registry: Map<string, AbortController> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
+        this.id = id;
         this.showLoading = options?.showLoading ?? false;
         this.$modalElement = document.querySelector(`#${id}`);
         this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
@@ -161,7 +163,7 @@ export class FModal {
         );
 
         // Limpiar el listener anterior si existe
-        this.destroy(id);
+        this.destroy();
 
         const abortController = new AbortController();
         FModal.registry.set(id, abortController);
@@ -216,8 +218,8 @@ export class FModal {
 
     }
 
-    public destroy(id: string): void {
-        FModal.destroy(id);
+    public destroy(): void {
+        FModal.destroy(this.id);
     }
 
     public static destroy(id: string): void {
