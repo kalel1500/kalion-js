@@ -161,12 +161,9 @@ export class FModal {
         );
 
         // Limpiar el listener anterior si existe
-        let abortController = FModal.registry.get(id);
-        if (abortController) {
-            abortController.abort();
-        }
+        this.destroy(id);
 
-        abortController = new AbortController();
+        const abortController = new AbortController();
         FModal.registry.set(id, abortController);
 
         this.$modalElement?.addEventListener(
