@@ -1,6 +1,19 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.13.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.13.1-beta.1...master)
+
+## [v0.13.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.13.0-beta.1...v0.13.1-beta.1) - 2026-05-22
+
+### Changed
+
+* Refactor interno:
+  * Reorganizar la estructura de archivos.
+  * Mover flowbite de las "devDependencies" a las "dependencies".
+  * Externalizar dependencia de flowbite.
+
+### Removed
+
+* Se ha eliminado la funcionalidad CLI.
 
 ## [v0.13.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.12.0-beta.0...v0.13.0-beta.1) - 2026-05-22
 
