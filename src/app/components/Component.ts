@@ -1,5 +1,5 @@
 import { Btn, ComponentName, ComponentType, ConfigBtn, ConfigIcon, Icon, IconType } from '@/app';
-import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { __const } from '@/app/_internal/helpers';
 
 export class Component {
     static get<T extends ComponentName>(component: T, config?: T extends `btn` ? ConfigBtn : ConfigIcon): string {

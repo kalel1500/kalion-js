@@ -1,4 +1,4 @@
-import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { __const } from '@/app/_internal/helpers';
 import { CheckableProcess, ProcessChecker } from '@/app';
 
 export class Reverb

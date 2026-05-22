@@ -1,5 +1,5 @@
 import { LDate } from '@/app';
-import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { __const } from '@/app/_internal/helpers';
 
 export class LStorage {
 

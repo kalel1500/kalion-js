@@ -27,12 +27,12 @@ export default ({ mode }: { mode: string }) => {
             lib: {
                 entry: {
                     app: path.resolve(__dirname, 'src/app/index.ts'), // Entrada para JavaScript
-                    "styles-old": path.resolve(__dirname, 'src/app/styles/app-old.css'),
-                    "styles": path.resolve(__dirname, 'src/app/styles/app.css'),
-                    "slimselect": path.resolve(__dirname, 'src/app/styles/slim-select/slimselect.css'),
-                    "sweetalert": path.resolve(__dirname, 'src/app/styles/sweetalert/sweetalert.css'),
-                    "tabulator": path.resolve(__dirname, 'src/app/styles/tabulator/tabulator.css'),
-                    "tailwind-config": path.resolve(__dirname, 'src/app/styles/tailwind-config.css'),
+                    "styles-old": path.resolve(__dirname, 'src/styles/app-old.css'),
+                    "styles": path.resolve(__dirname, 'src/styles/app.css'),
+                    "slimselect": path.resolve(__dirname, 'src/styles/slim-select/slimselect.css'),
+                    "sweetalert": path.resolve(__dirname, 'src/styles/sweetalert/sweetalert.css'),
+                    "tabulator": path.resolve(__dirname, 'src/styles/tabulator/tabulator.css'),
+                    "tailwind-config": path.resolve(__dirname, 'src/styles/tailwind-config.css'),
                 },
                 name: 'KalionJs',
                 fileName: (format) => `kalion-js.${format}.js`,

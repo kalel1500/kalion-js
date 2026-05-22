@@ -32,7 +32,7 @@
         "build:pluginV": "cross-env BUILD_TARGET=pluginV vite build",
         "build:pluginT": "cross-env BUILD_TARGET=pluginT vite build",
         "build:plugins": "npm run build:pluginV && npm run build:pluginT",
-        "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts"
+        "build": "tsc && npm run build:library && npm run build:plugins"
     },
     "repository": {
         "type": "git",

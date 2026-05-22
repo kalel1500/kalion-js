@@ -5,7 +5,7 @@ import {
     ValidationResponse,
     ValidationRules,
 } from '@/app';
-import { ___, __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { ___, __const } from '@/app/_internal/helpers';
 
 type Value = string | string[];
 type Key = string | string[] | null;

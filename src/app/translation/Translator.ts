@@ -1,7 +1,7 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
 import { DefaultTranslations, Translation, TranslationReplacements } from '@/app';
-import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { __const } from '@/app/_internal/helpers';
 
 interface Translations<T extends Translation> {
     [key: string]: T;

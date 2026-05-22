@@ -1,5 +1,6 @@
-import { Cookie, Instantiable, SidebarState, Theme, ThemeSwitcher } from '@/app';
-import { __const } from '@/app/core/infrastructure/utilities/_internal/helpers';
+import { Cookie, SidebarState, Theme, ThemeSwitcher } from '@/app';
+import { Instantiable } from '@/app/Instantiable';
+import { __const } from '@/app/_internal/helpers';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
