@@ -121,31 +121,6 @@ export default ({ mode }: { mode: string }) => {
             outDir: './dist/plugins/tailwind'
         }
     };
-    const cliConfig: UserConfig = {
-        plugins: [
-            viteStaticCopy({
-                targets: [
-                    {
-                        src: 'src/cli/stubs',   // Selecciona todos los archivos y subcarpetas
-                        dest: '',               // Carpeta de destino donde se copiarán en la salida
-                    }
-                ]
-            })
-        ],
-        build: {
-            lib: {
-                entry: path.resolve(__dirname, 'src/cli/index.ts'),
-                name: 'CliKalionJs',
-                fileName: (format) => `index.js`,
-                formats: ['es'],
-            },
-            rollupOptions: {
-                external: ['fs', 'path', 'url'], // Marcar fs, path y url como externos porque son APIs de Node.js
-            },
-            minify: false,
-            outDir: './dist/cli'
-        }
-    };
 
     let selectedConfig;
     switch (buildTarget) {
@@ -154,9 +129,6 @@ export default ({ mode }: { mode: string }) => {
             break;
         case 'pluginT':
             selectedConfig = pluginTailwindConfig;
-            break;
-        case 'scripts':
-            selectedConfig = cliConfig;
             break;
         default:
             selectedConfig = libraryConfig;

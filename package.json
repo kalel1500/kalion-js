@@ -27,14 +27,10 @@
     "files": [
         "dist"
     ],
-    "bin": {
-        "kalion-js": "dist/cli/index.js"
-    },
     "scripts": {
         "build:library": "vite build",
         "build:pluginV": "cross-env BUILD_TARGET=pluginV vite build",
         "build:pluginT": "cross-env BUILD_TARGET=pluginT vite build",
-        "build:scripts": "cross-env BUILD_TARGET=scripts vite build",
         "build:plugins": "npm run build:pluginV && npm run build:pluginT",
         "build": "tsc && npm run build:library && npm run build:plugins && npm run build:scripts"
     },
