@@ -1,8 +1,31 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.13.0-beta.1...master)
 
-## [v0.12.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...v0.12.0-beta.1) - 2026-05-15
+## [v0.13.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.12.0-beta.0...v0.13.0-beta.1) - 2026-05-22
+
+### Added
+
+* Nueva funcionalidad en las Rutas. Ahora los controladores pueden ser objetos literales. Además de clases instanciables, el primer elemento del callback ahora acepta objetos literales directamente.
+
+### Changed
+
+* (breaking) Varios cambios en la clase FModal: 
+  * Añadir parámetros `initFlowbiteAfterOnShow` y `initFlowbiteAfterOnConfirm` para poder ejecutar las funciones de flowbite necesarias al cargar el modal y al confirmarlo (por si se refresca la página).
+  * Renombrar método `this.destroy` a `this.removeListener`.
+  * Eliminar argumento `id` del método `this.removeListener` (de instancia) y usar el de la clase `this.id`.
+  * Nuevo método estático `removeListener` para poder eliminar el listener del modal sin tener la instancia.
+  * Nuevos métodos `destroy` (uno de instancia y uno estático) para eliminar la instancia del modal. El destroy llama al `removeListener`.
+  * Nuevo parámetro `destroyOnHide` en el objeto `CreationOptions` para poder indicar que se debe destruir el modal al cerrarse.
+  * Nuevo método `hide` para cerrar el modal (y destruirlo `destroy` si está configurada la opción `destroyOnHide`)
+
+### Fixed
+
+* SSelect: Permitir tipo Element en el parámetro `select` de los métodos `basic` y `search`.
+* Usar `g.fetchStrict` en el `SSelect.debouncedSearch()` para que se lance un error si el backend devuelve un estado nok. De esta manera se mostrara en el slimselect.
+* Quitar el `resp?.error` al devolver el mensaje cuando no hay datos ya que esa propiedad no existe y `message` mostraría un OK si no ha fallado el fetch
+
+## [v0.12.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.11.0-beta.1...v0.12.0-beta.0) - 2026-05-15
 
 ### Added
 
@@ -56,7 +79,7 @@
 
 ### Fixed
 
-* Adaptar las clases de los estilos del "slimselect-plugin" a la version "v3.4.3"
+* Adaptar las clases de los estilos del `slimselect-plugin` a la version `v3.4.3`
 * Añadido un listener para quitar la clase `sc` al documento cuando se abre el sidebar de la version móvil.
 * No lanzar una excepción si no se encuentran las cookies y mostrar un `console.warn` en su lugar para poder seguir navegando la página.
 
