@@ -235,6 +235,7 @@ export class FModal {
     }
 
     public static destroy(id: string): void {
+        FModal.removeListener(id);
         const modalInstance = FModal.registryModal.get(id);
         if (modalInstance) {
             modalInstance.destroy();
