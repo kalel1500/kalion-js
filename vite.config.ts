@@ -44,6 +44,7 @@ export default ({ mode }: { mode: string }) => {
                     '@fortawesome/fontawesome-free',
                     '@popperjs/core',
                     'bootstrap',
+                    'flowbite',
                     'laravel-echo',
                     'luxon',
                     'pusher-js',
