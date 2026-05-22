@@ -1,4 +1,4 @@
-import { g, LayoutListenersUseCase, LStorage, Notify, StorageProcessKeys } from '@/app';
+import { DomService, g, LStorage, Notify, StorageProcessKeys } from '@/app';
 
 type Features = keyof typeof UtilitiesServiceProvider.actions;
 
@@ -34,7 +34,10 @@ export class UtilitiesServiceProvider {
             Notify.checkAndRequestPermission();
         },
         startLayoutListeners: () => {
-            LayoutListenersUseCase.new().__invoke();
+            LStorage.checkAndUpdateVersion();
+            DomService.new().startDarkMode();
+            DomService.new().startSidebarState();
+            DomService.new().startSidebarArrowsObserve();
         },
     };
 
