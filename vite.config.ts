@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
                 insertTypesEntry: true,
                 // bundleTypes: true, // Esto unifica los tipos en un solo archivo
                 include: ["src/app/**/*.ts"],
-                exclude: ['src/app/core/infrastructure/utilities/_internal/**'],
+                exclude: ['src/app/_internal/**'],
                 compilerOptions: {
                     declarationMap: true,
                 }
