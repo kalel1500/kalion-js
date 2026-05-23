@@ -6,7 +6,8 @@
     "main": "dist/app/kalion-js.js",
     "types": "dist/app/kalion-js.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "src"
     ],
     "scripts": {
         "build:app": "vite build",
