@@ -68,8 +68,8 @@ export default ({ mode }: { mode: string }) => {
         build: {
             lib: {
                 entry: {
-                    "styles-old": resolve(__dirname, 'src/styles/app-old.css'),
-                    "styles": resolve(__dirname, 'src/styles/app.css'),
+                    "kalionjs-old": resolve(__dirname, 'src/styles/app-old.css'),
+                    "kalionjs": resolve(__dirname, 'src/styles/app.css'),
                     "slimselect": resolve(__dirname, 'src/styles/slim-select/slimselect.css'),
                     "sweetalert": resolve(__dirname, 'src/styles/sweetalert/sweetalert.css'),
                     "tabulator": resolve(__dirname, 'src/styles/tabulator/tabulator.css'),
