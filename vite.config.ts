@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv, normalizePath, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 type StrBoolean = 'true' | 'false';
 type Env = {
