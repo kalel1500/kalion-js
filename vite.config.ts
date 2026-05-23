@@ -88,14 +88,14 @@ export default ({ mode }: { mode: string }) => {
             dts({
                 insertTypesEntry: true,
                 bundleTypes: true,
-                include: ['src/plugins/vite/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
+                include: ['src/plugins/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
             }),
         ],
         build: {
             lib: {
-                entry: resolve(__dirname, 'src/plugins/vite/index.ts'),
+                entry: resolve(__dirname, 'src/plugins/vite-plugin.ts'),
                 name: 'VitePluginKalionJs',
-                fileName: (format) => `index.js`,
+                fileName: (format) => `vite-plugin.js`,
                 formats: ['es'],
             },
             rollupOptions: {
@@ -104,7 +104,7 @@ export default ({ mode }: { mode: string }) => {
                 external: ['fs', 'path', 'vite'],
             },
             minify: false,
-            outDir: resolve(__dirname, "dist/plugins/vite"),
+            outDir: resolve(__dirname, "dist/plugins"),
             emptyOutDir: true,
         }
     };
