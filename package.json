@@ -13,8 +13,7 @@
         "build:app": "vite build",
         "build:styles": "cross-env BUILD_TARGET=styles vite build",
         "build:pluginV": "cross-env BUILD_TARGET=pluginV vite build",
-        "build:pluginT": "cross-env BUILD_TARGET=pluginT vite build",
-        "build:plugins": "npm run build:pluginV && npm run build:pluginT",
+        "build:plugins": "npm run build:pluginV",
         "build:library": "npm run build:app && npm run build:styles",
         "build": "tsc && npm run build:library && npm run build:plugins"
     },

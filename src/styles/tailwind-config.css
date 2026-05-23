@@ -42,6 +42,18 @@
     }
 }
 
+/* Archivos */
+@source "../../../../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../../../../storage/framework/views/*.php";
+@source "../../../../../resources/**/*.blade.php";
+@source "../../../../../resources/**/*.js";
+@source "../../../../../resources/**/*.vue";
+@source "../../../../../resources/**/*.ts";
+
+@source "../../../../../vendor/kalel1500/kalion/resources/**/*.blade.php";
+@source "../../../../../vendor/kalel1500/kalion/resources/**/*.ts";
+@source "../../../../../node_modules/@kalel1500/kalion-js/**/*.js";
+
 
 /*
  Otros estilos:

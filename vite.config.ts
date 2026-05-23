@@ -109,50 +109,11 @@ export default ({ mode }: { mode: string }) => {
             emptyOutDir: true,
         }
     };
-    const pluginTailwindConfig: UserConfig = {
-        plugins: [
-            dts({
-                insertTypesEntry: true,
-                bundleTypes: true,
-                include: ['src/plugins/tailwind/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
-            }),
-            viteStaticCopy({
-                targets: [
-                    {
-                        src: 'src/plugins/tailwind/tailwind.config.js',
-                        dest: normalizePath(resolve(__dirname, "dist/plugins/tailwind")),
-                        rename: {
-                            stripBase: 3
-                        }
-                    }
-                ]
-            })
-        ],
-        build: {
-            lib: {
-                entry: resolve(__dirname, 'src/plugins/tailwind/index.ts'),
-                name: 'TailwindCssPlugin',
-                fileName: (format) => `index.cjs`,
-                formats: ['cjs'],
-            },
-            rollupOptions: {
-                // Marcar fs y path como externos porque son APIs de Node.js
-                // Marcar Vite también como externo, ya que, ser incluido en el bundle del paquete porque estará disponible en la apicación
-                external: ['tailwindcss/plugin', 'flowbite/plugin'],
-            },
-            minify: false,
-            outDir: resolve(__dirname, "dist/plugins/tailwind"),
-            emptyOutDir: true,
-        }
-    };
 
     let selectedConfig;
     switch (buildTarget) {
         case 'pluginV':
             selectedConfig = pluginViteConfig;
-            break;
-        case 'pluginT':
-            selectedConfig = pluginTailwindConfig;
             break;
         case 'styles':
             selectedConfig = stylesConfig;
