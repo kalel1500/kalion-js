@@ -18,12 +18,10 @@ export default ({ mode }: { mode: string }) => {
         plugins: [
             dts({
                 insertTypesEntry: true,
-                // bundleTypes: true, // Esto unifica los tipos en un solo archivo
+                bundleTypes: true, // Esto unifica los tipos en un solo archivo
                 include: ["src/app/**/*.ts"],
                 exclude: ['src/app/_internal/**'],
-                compilerOptions: {
-                    declarationMap: true,
-                }
+                outDirs: 'dist/app',
             }),
         ],
         build: {
@@ -86,9 +84,8 @@ export default ({ mode }: { mode: string }) => {
     const pluginViteConfig: UserConfig = {
         plugins: [
             dts({
-                insertTypesEntry: true,
-                bundleTypes: true,
                 include: ['src/plugins/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
+                entryRoot: 'src/plugins',
             }),
         ],
         build: {

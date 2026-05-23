@@ -5,9 +5,19 @@
     "type": "module",
     "main": "dist/app/kalion-js.js",
     "types": "dist/app/kalion-js.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/app/kalion-js.d.ts",
+            "import": "./dist/app/kalion-js.js"
+        },
+        "./vite-plugin": {
+            "types": "./dist/plugins/vite-plugin.d.ts",
+            "import": "./dist/plugins/vite-plugin.js"
+        },
+        "./css/*.css": "./dist/css/*.css"
+    },
     "files": [
-        "dist",
-        "src"
+        "dist"
     ],
     "scripts": {
         "build:app": "vite build",
