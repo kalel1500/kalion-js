@@ -79,7 +79,7 @@ export default ({ mode }: { mode: string }) => {
             cssCodeSplit: true,
             minify: minify,
             sourcemap: sourcemap,
-            outDir: resolve(__dirname, "dist/styles"),
+            outDir: resolve(__dirname, "dist/css"),
             emptyOutDir: true,
         },
     };
