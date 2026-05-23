@@ -1,6 +1,6 @@
-import { defineConfig, loadEnv, UserConfig } from 'vite';
+import { defineConfig, loadEnv, normalizePath, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import path from 'path';
+import { resolve } from 'path';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 type StrBoolean = 'true' | 'false';
@@ -18,28 +18,22 @@ export default ({ mode }: { mode: string }) => {
     const libraryConfig: UserConfig = {
         plugins: [
             dts({
-                include: ['src/app'], // Incluye los directorios src y types para la generación de tipos
+                insertTypesEntry: true,
+                bundleTypes: true,
+                include: ["src/app/**/*.ts"],
                 exclude: ['src/app/core/infrastructure/utilities/_internal/**'],
-                outDir: 'dist/app/types', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
             }),
         ],
         build: {
             lib: {
-                entry: {
-                    app: path.resolve(__dirname, 'src/app/index.ts'), // Entrada para JavaScript
-                    "styles-old": path.resolve(__dirname, 'src/styles/app-old.css'),
-                    "styles": path.resolve(__dirname, 'src/styles/app.css'),
-                    "slimselect": path.resolve(__dirname, 'src/styles/slim-select/slimselect.css'),
-                    "sweetalert": path.resolve(__dirname, 'src/styles/sweetalert/sweetalert.css'),
-                    "tabulator": path.resolve(__dirname, 'src/styles/tabulator/tabulator.css'),
-                    "tailwind-config": path.resolve(__dirname, 'src/styles/tailwind-config.css'),
+                entry: resolve(__dirname, 'src/app/index.ts'),
+                formats: ['es', 'cjs'],
+                fileName: (format) => {
+                    return `kalion-js.${format === "es" ? "js" : "common.js"}`;
                 },
-                name: 'KalionJs',
-                fileName: (format) => `kalion-js.${format}.js`,
-                formats: ['es']
             },
             rollupOptions: {
-                // Asegúrate de externalizar las dependencias que no quieres incluir en tu paquete
+                // Externalizar las dependencias que no quieres incluir en tu paquete
                 external: [
                     '@fortawesome/fontawesome-free',
                     '@popperjs/core',
@@ -57,27 +51,47 @@ export default ({ mode }: { mode: string }) => {
                     globals: {}
                 }
             },
-            cssCodeSplit: true,
             minify: minify,
             sourcemap: sourcemap,
-            outDir: './dist/app'
+            outDir: resolve(__dirname, "dist/app"),
+            emptyOutDir: true,
         },
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, './src'),
+                '@': resolve(__dirname, './src'),
             }
+        },
+    };
+    const stylesConfig: UserConfig = {
+        build: {
+            lib: {
+                entry: {
+                    "styles-old": resolve(__dirname, 'src/styles/app-old.css'),
+                    "styles": resolve(__dirname, 'src/styles/app.css'),
+                    "slimselect": resolve(__dirname, 'src/styles/slim-select/slimselect.css'),
+                    "sweetalert": resolve(__dirname, 'src/styles/sweetalert/sweetalert.css'),
+                    "tabulator": resolve(__dirname, 'src/styles/tabulator/tabulator.css'),
+                    "tailwind-config": resolve(__dirname, 'src/styles/tailwind-config.css'),
+                },
+            },
+            cssCodeSplit: true,
+            minify: minify,
+            sourcemap: sourcemap,
+            outDir: resolve(__dirname, "dist/styles"),
+            emptyOutDir: true,
         },
     };
     const pluginViteConfig: UserConfig = {
         plugins: [
             dts({
-                include: ['src/plugins/vite'], // Incluye los directorios src y types para la generación de tipos
-                outDir: 'dist/plugins/vite', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+                insertTypesEntry: true,
+                bundleTypes: true,
+                include: ['src/plugins/vite/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
             }),
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/plugins/vite/index.ts'),
+                entry: resolve(__dirname, 'src/plugins/vite/index.ts'),
                 name: 'VitePluginKalionJs',
                 fileName: (format) => `index.js`,
                 formats: ['es'],
@@ -88,27 +102,32 @@ export default ({ mode }: { mode: string }) => {
                 external: ['fs', 'path', 'vite'],
             },
             minify: false,
-            outDir: './dist/plugins/vite'
+            outDir: resolve(__dirname, "dist/plugins/vite"),
+            emptyOutDir: true,
         }
     };
     const pluginTailwindConfig: UserConfig = {
         plugins: [
             dts({
-                include: ['src/plugins/tailwind'], // Incluye los directorios src y types para la generación de tipos
-                outDir: 'dist/plugins/tailwind', // Directorio de salida para los archivos .d.ts || path.resolve(__dirname, 'dist/types')
+                insertTypesEntry: true,
+                bundleTypes: true,
+                include: ['src/plugins/tailwind/**/*.ts'], // Incluye los directorios src y types para la generación de tipos
             }),
             viteStaticCopy({
                 targets: [
                     {
                         src: 'src/plugins/tailwind/tailwind.config.js',
-                        dest: '',
+                        dest: normalizePath(resolve(__dirname, "dist/plugins/tailwind")),
+                        rename: {
+                            stripBase: 3
+                        }
                     }
                 ]
             })
         ],
         build: {
             lib: {
-                entry: path.resolve(__dirname, 'src/plugins/tailwind/index.ts'),
+                entry: resolve(__dirname, 'src/plugins/tailwind/index.ts'),
                 name: 'TailwindCssPlugin',
                 fileName: (format) => `index.cjs`,
                 formats: ['cjs'],
@@ -119,7 +138,8 @@ export default ({ mode }: { mode: string }) => {
                 external: ['tailwindcss/plugin', 'flowbite/plugin'],
             },
             minify: false,
-            outDir: './dist/plugins/tailwind'
+            outDir: resolve(__dirname, "dist/plugins/tailwind"),
+            emptyOutDir: true,
         }
     };
 
@@ -130,6 +150,9 @@ export default ({ mode }: { mode: string }) => {
             break;
         case 'pluginT':
             selectedConfig = pluginTailwindConfig;
+            break;
+        case 'styles':
+            selectedConfig = stylesConfig;
             break;
         default:
             selectedConfig = libraryConfig;
