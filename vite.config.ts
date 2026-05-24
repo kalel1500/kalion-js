@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
                 bundleTypes: true, // Esto unifica los tipos en un solo archivo
                 include: ["src/app/**/*.ts"],
                 exclude: ['src/app/_internal/**'],
-                outDirs: 'dist/app',
+                outDirs: 'dist',
             }),
         ],
         build: {
@@ -53,7 +53,7 @@ export default ({ mode }: { mode: string }) => {
             },
             minify: minify,
             sourcemap: sourcemap,
-            outDir: resolve(__dirname, "dist/app"),
+            outDir: resolve(__dirname, "dist"),
             emptyOutDir: true,
         },
         resolve: {

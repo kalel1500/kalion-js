@@ -3,12 +3,12 @@
     "version": "0.13.1-beta.1",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
-    "main": "dist/app/kalion-js.js",
-    "types": "dist/app/kalion-js.d.ts",
+    "main": "dist/kalion-js.js",
+    "types": "dist/kalion-js.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/app/kalion-js.d.ts",
-            "import": "./dist/app/kalion-js.js"
+            "types": "./dist/kalion-js.d.ts",
+            "import": "./dist/kalion-js.js"
         },
         "./vite-plugin": {
             "types": "./dist/plugins/vite-plugin.d.ts",
