@@ -1,6 +1,58 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.13.1-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.14.0-beta.1...master)
+
+## [v0.14.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.13.1-beta.1...v0.14.0-beta.1) - 2026-05-24
+
+### ⚠️ Breaking Changes
+
+* Se han simplificado algunas rutas de imports:
+  * Estilos
+    * `@import '@kalel1500/kalion-js/dist/app/tabulator.css';`       -> `@import '@kalel1500/kalion-js/css/tabulator.css';`
+    * `@import '@kalel1500/kalion-js/dist/app/sweetalert.css';`      -> `@import '@kalel1500/kalion-js/css/sweetalert.css';`
+    * `@import '@kalel1500/kalion-js/dist/app/slimselect.css';`      -> `@import '@kalel1500/kalion-js/css/slimselect.css';`
+    * `@import '@kalel1500/kalion-js/dist/app/styles.css';`          -> `@import '@kalel1500/kalion-js/css/kalionjs.css';`
+    * `@import '@kalel1500/kalion-js/dist/app/tailwind-config.css';` -> `@import '@kalel1500/kalion-js/css/tailwind-config.css';`
+  * Vite plugin
+    * Antes -> `import { kalionJs } from '@kalel1500/kalion-js/dist/plugins/vite';`
+    * Ahora -> `import { kalionJs } from '@kalel1500/kalion-js/vite-plugin';`
+
+* Se ha eliminado el plugin de vite que se usaba en versiones de Tailwind 3.
+  * Si tenías un archivo `tailwind.config.js` con el import `import { laravelContent, laravelDefaultPlugins } from '@kalel1500/laravel-ts-utils/dist/plugins/tailwind';` ahora debes migrar a Tailwind 4 y usar el `@import '@kalel1500/kalion-js/css/tailwind-config.css';` en el `app.css`
+
+* Se ha eliminado el archivo `tailwind.config.js` del paqute que contenia el array con los archivos que se deben escanear para generar el css de Tailwind y se ha movido dentro de la configuracion del css.
+  * Si tenias esto en tu `app.css`:
+    ```css
+    @import '@kalel1500/kalion-js/dist/app/tailwind-config.css';
+    @config '../../node_modules/@kalel1500/kalion-js/dist/plugins/tailwind/tailwind.config.js';
+    ```
+  * Ahora debes eliminar la segunda línea, ya que el contenido ha pasado al `tailwind-config.css`:
+    ```css
+    @import '@kalel1500/kalion-js/css/tailwind-config.css';
+    ```
+
+### Changed
+
+* vite: Se ha rehecho la compilacion del codigo (vite.config.ts):
+  * Todas las `devDependencies` actualizadas a la última version
+    * Adaptaciones a las nuevas versiones de los paquetes (vite, dts, etc.).
+  * Ahora todos los tipos se compilan en un solo archivo.
+  * Ahora se compila el código en los formatos `es` y `cjs`
+  * Se ha mejorado el `tsconfig.json`
+  * Ahora los estilos se compilan en `dist/css/` en vez de en `dist/app/`
+  * Ahora el código base se compila directamente en `dist` en vez de en app
+  * (breaking) Se elimina el plugin de tailwind, ya que no sirve en Taiwind 4.
+  * (breaking) Se elimina el archivo `tailwind.config.js` y se mueve la info al `tailwind-config.css`
+  * Ahora el plugin de vite se compila en `dist/plugins/vite-plugin.js` en vez de en `dist/plugins/vite/index.js`
+  * Se ha movido y renombrado el plugin de vite de `src/plugins/vite/index.ts` a `src/plugins/vite-plugin.ts`
+  * (breaking) Se han modificado las rutas de importacion:
+    * Estilos de `/dist/styles/...` a `/css/...`
+    * Se ha renombrado el css compilado principal (el del paquete) de `styles` a `kalionjs`
+    * Plugin de vite de `dist/plugins/vite` a `vite-plugin`
+
+### Fixed
+
+* vite: Se ha corregido la ruta exclude en la compilacion de tipos de `app`.
 
 ## [v0.13.1-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.13.0-beta.1...v0.13.1-beta.1) - 2026-05-22
 
@@ -8,7 +60,7 @@
 
 * Refactor interno:
   * Reorganizar la estructura de archivos.
-  * Mover flowbite de las "devDependencies" a las "dependencies".
+  * Mover flowbite de las `devDependencies` a las `dependencies`.
   * Externalizar dependencia de flowbite.
 
 ### Removed
