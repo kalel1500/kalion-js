@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import type { SweetAlertOptions, SweetAlertIcon, SweetAlertPosition, SweetAlertInput } from 'sweetalert2';
+import type { SweetAlertOptions, SweetAlertIcon, SweetAlertInput, SweetAlertResult } from 'sweetalert2';
 import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, HttpMethod, SyncOrAsync } from '@/app';
 
 /** Opciones "extra" para inputModal que no pertenecen a SweetAlert */
@@ -93,7 +93,7 @@ export class SModal {
         }
     }
 
-    static #checkAndExecuteShow(callback: () => Promise<any>): Promise<any> {
+    static #checkAndExecuteShow(callback: () => Promise<any>): Promise<SweetAlertResult> {
         try {
             return callback();
         } catch (e) {
