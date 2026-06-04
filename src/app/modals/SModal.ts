@@ -84,38 +84,34 @@ export class SModal {
 
     // ── Guards ───────────────────────────────────────────────────────────────
 
-    static mustAbortIfIsAlreadyOpen({ isUpdate = false, ignorePendingLoading = false } = {}): void {
+    private static tryModal(
+        callback: () => Promise<SweetAlertResult>,
+        {isUpdate = false, ignorePendingLoading = false} = {}
+    ) {
         if (g.errorModalIsShowed) {
-            throw new CannotOpenModalException('Se ha intentado abrir un modal cuando hay un modal de error abierto');
-        }
-        if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
-            throw new CannotOpenModalWarning('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
-        }
-    }
-
-    static #checkAndExecuteShow(callback: () => Promise<SweetAlertResult>) {
-        try {
-            return callback();
-        } catch (e) {
-            if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
-                g.consoleInfo((e as Error).message);
-            } else {
-                throw e;
-            }
+            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de error abierto');
             return Promise.reject();
         }
+        if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
+            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
+            return Promise.reject();
+        }
+        return callback();
     }
 
-    static #checkAndExecuteUpdate(callback: () => void): void {
-        try {
-            callback();
-        } catch (e) {
-            if (e instanceof CannotOpenModalException || e instanceof CannotOpenModalWarning) {
-                g.consoleInfo((e as Error).message);
-            } else {
-                throw e;
-            }
+    private static tryUpdate(
+        callback: () => void,
+        {isUpdate = false, ignorePendingLoading = false} = {}
+    ) {
+        if (g.errorModalIsShowed) {
+            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de error abierto');
+            return;
         }
+        if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
+            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
+            return;
+        }
+        callback();
     }
 
     // ── Toast base ───────────────────────────────────────────────────────────
@@ -135,8 +131,7 @@ export class SModal {
     // ── Toasts ───────────────────────────────────────────────────────────────
 
     static toastInfo(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return SModal.Toast.fire({
                 icon: 'info',
                 title: 'Your work has been saved',
@@ -146,8 +141,7 @@ export class SModal {
     }
 
     static toastSuccess(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return SModal.Toast.fire({
                 icon: 'success',
                 title: 'Your work has been saved',
@@ -157,8 +151,7 @@ export class SModal {
     }
 
     static toastError(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return SModal.Toast.fire({
                 icon: 'error',
                 title: 'Something error occurred',
@@ -168,8 +161,7 @@ export class SModal {
     }
 
     static toastBottom(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return SModal.Toast.fire({
                 icon: 'success',
                 title: 'Your work has been saved',
@@ -194,8 +186,7 @@ export class SModal {
                          timerNok  = 4000,
                          ...swalOptions
                      }: ToastBothOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return SModal.Toast.fire({
                 icon:  success ? iconOk  : iconNok,
                 title: success ? titleOk : titleNok,
@@ -209,15 +200,13 @@ export class SModal {
     // ── Modales simples ──────────────────────────────────────────────────────
 
     static basic(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return Swal.fire(options);
         });
     }
 
     static success(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return Swal.fire({
                 icon: 'success',
                 title: 'Correcto',
@@ -231,8 +220,7 @@ export class SModal {
     }
 
     static error(options: SweetAlertOptions = {}, ignorePendingLoading = false) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen({ ignorePendingLoading });
+        return this.tryModal(() => {
             return Swal.fire({
                 icon: 'error',
                 title: 'Ups... Algo ha ido mal',
@@ -242,12 +230,11 @@ export class SModal {
                 allowOutsideClick: false,
                 ...options,
             });
-        });
+        }, {ignorePendingLoading});
     }
 
     static confirm(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return Swal.fire({
                 title: 'Confirmar',
                 html: '¿Seguro que quieres realizar la acción?',
@@ -265,8 +252,7 @@ export class SModal {
     }
 
     static loading(options: SweetAlertOptions = {}) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             SModal.isPendingLoading = true;
 
             // Si el caller pasa su propio willOpen, lo envolvemos para
@@ -301,8 +287,7 @@ export class SModal {
                                        footerOnFail,
                                        ...swalOptions
                                    }: AjaxModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             SModal.isPendingLoading = true;
             return Swal.fire({
                 title: 'Calculando...',
@@ -336,8 +321,7 @@ export class SModal {
                                           footerOnFail,
                                           ...swalOptions
                                       }: AjaxModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return Swal.fire({
                 title: 'Confirmar',
                 width: 850,
@@ -375,11 +359,10 @@ export class SModal {
     // ── Update modales ───────────────────────────────────────────────────────
 
     static update({ hideLoading, ...swalOptions }: UpdateModalOptions = {}) {
-        SModal.#checkAndExecuteUpdate(() => {
-            SModal.mustAbortIfIsAlreadyOpen({ isUpdate: true });
+        this.tryUpdate(() => {
             if (hideLoading === true) Swal.hideLoading();
             Swal.update(swalOptions);
-        });
+        }, {isUpdate: true});
     }
 
     static updateSuccess(options: UpdateModalOptions = {}) {
@@ -419,8 +402,7 @@ export class SModal {
                           // El resto son SweetAlert options, con sus defaults
                           ...swalOptions
                       }: InputModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
 
             const inputId   = (swalOptions.inputAttributes?.['data-id'] as string) ?? 'inpName';
             const inputType = (swalOptions.input as string) ?? 'textarea';
@@ -544,8 +526,7 @@ export class SModal {
                           funcParam = {},
                           ...swalOptions
                       }: BladeModalOptions) {
-        return SModal.#checkAndExecuteShow(() => {
-            SModal.mustAbortIfIsAlreadyOpen();
+        return this.tryModal(() => {
             return Swal.fire({
                 width: 850,
                 showConfirmButton: false,
