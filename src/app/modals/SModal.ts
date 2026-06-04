@@ -84,35 +84,25 @@ export class SModal {
 
     // ── Guards ───────────────────────────────────────────────────────────────
 
-    private static tryModal(
-        callback: () => Promise<SweetAlertResult>,
+    private static tryOpen<T>(
+        callback: () => T,
         {isUpdate = false, ignorePendingLoading = false} = {}
-    ) {
+    ): T | Promise<never> {
         if (g.errorModalIsShowed) {
             g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de error abierto');
-            return Promise.reject();
+            const rejected = Promise.reject();
+            rejected.catch(() => {}); // evita UnhandledPromiseRejection
+            return rejected;
         }
         if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
             g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
-            return Promise.reject();
+            const rejected = Promise.reject();
+            rejected.catch(() => {}); // evita UnhandledPromiseRejection
+            return rejected;
         }
         return callback();
     }
 
-    private static tryUpdate(
-        callback: () => void,
-        {isUpdate = false, ignorePendingLoading = false} = {}
-    ) {
-        if (g.errorModalIsShowed) {
-            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de error abierto');
-            return;
-        }
-        if (!ignorePendingLoading && !isUpdate && SModal.isPendingLoading) {
-            g.consoleInfo('Se ha intentado abrir un modal cuando hay un modal de loading pendiente');
-            return;
-        }
-        callback();
-    }
 
     // ── Toast base ───────────────────────────────────────────────────────────
 
@@ -131,7 +121,7 @@ export class SModal {
     // ── Toasts ───────────────────────────────────────────────────────────────
 
     static toastInfo(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return SModal.Toast.fire({
                 icon: 'info',
                 title: 'Your work has been saved',
@@ -141,7 +131,7 @@ export class SModal {
     }
 
     static toastSuccess(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return SModal.Toast.fire({
                 icon: 'success',
                 title: 'Your work has been saved',
@@ -151,7 +141,7 @@ export class SModal {
     }
 
     static toastError(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return SModal.Toast.fire({
                 icon: 'error',
                 title: 'Something error occurred',
@@ -161,7 +151,7 @@ export class SModal {
     }
 
     static toastBottom(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return SModal.Toast.fire({
                 icon: 'success',
                 title: 'Your work has been saved',
@@ -186,13 +176,13 @@ export class SModal {
                          timerNok  = 4000,
                          ...swalOptions
                      }: ToastBothOptions) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return SModal.Toast.fire({
                 icon:  success ? iconOk  : iconNok,
                 title: success ? titleOk : titleNok,
                 timer: success ? timerOk : timerNok,
                 position: 'top-end',
-                ...swalOptions,  // permite sobreescribir icon/title/timer/position/etc.
+                ...swalOptions,
             });
         });
     }
@@ -200,13 +190,13 @@ export class SModal {
     // ── Modales simples ──────────────────────────────────────────────────────
 
     static basic(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire(options);
         });
     }
 
     static success(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire({
                 icon: 'success',
                 title: 'Correcto',
@@ -220,7 +210,7 @@ export class SModal {
     }
 
     static error(options: SweetAlertOptions = {}, ignorePendingLoading = false) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire({
                 icon: 'error',
                 title: 'Ups... Algo ha ido mal',
@@ -234,7 +224,7 @@ export class SModal {
     }
 
     static confirm(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire({
                 title: 'Confirmar',
                 html: '¿Seguro que quieres realizar la acción?',
@@ -252,7 +242,7 @@ export class SModal {
     }
 
     static loading(options: SweetAlertOptions = {}) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             SModal.isPendingLoading = true;
 
             // Si el caller pasa su propio willOpen, lo envolvemos para
@@ -287,7 +277,7 @@ export class SModal {
                                        footerOnFail,
                                        ...swalOptions
                                    }: AjaxModalOptions) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             SModal.isPendingLoading = true;
             return Swal.fire({
                 title: 'Calculando...',
@@ -321,7 +311,7 @@ export class SModal {
                                           footerOnFail,
                                           ...swalOptions
                                       }: AjaxModalOptions) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire({
                 title: 'Confirmar',
                 width: 850,
@@ -359,7 +349,7 @@ export class SModal {
     // ── Update modales ───────────────────────────────────────────────────────
 
     static update({ hideLoading, ...swalOptions }: UpdateModalOptions = {}) {
-        this.tryUpdate(() => {
+        this.tryOpen(() => {
             if (hideLoading === true) Swal.hideLoading();
             Swal.update(swalOptions);
         }, {isUpdate: true});
@@ -402,7 +392,7 @@ export class SModal {
                           // El resto son SweetAlert options, con sus defaults
                           ...swalOptions
                       }: InputModalOptions) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
 
             const inputId   = (swalOptions.inputAttributes?.['data-id'] as string) ?? 'inpName';
             const inputType = (swalOptions.input as string) ?? 'textarea';
@@ -526,7 +516,7 @@ export class SModal {
                           funcParam = {},
                           ...swalOptions
                       }: BladeModalOptions) {
-        return this.tryModal(() => {
+        return this.tryOpen(() => {
             return Swal.fire({
                 width: 850,
                 showConfirmButton: false,
