@@ -1,6 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.14.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.0-beta.0...master)
+
+## [v0.15.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.14.0-beta.1...v0.15.0-beta.0) - 2026-06-04
+
+### Added
+
+* Exportar la función `handleFlowbiteInit`
+
+### Changed
+
+* (breaking): Se eliminan las excepciones `CannotOpenModalException` y `CannotOpenModalWarning`.
+* Tipar los metodos de la clase `SModal` con el tipo de retorno `SweetAlertResult`:
+  * (internal) Refactor interno para mejorar la claridad y el manejo de resultados en los métodos de la clase `SModal`. Se eliminan los metodos internos `mustAbortIfIsAlreadyOpen`, `#checkAndExecuteShow` y `#checkAndExecuteUpdate` y se añade el nuevo `tryOpen`.
 
 ## [v0.14.0-beta.1](https://github.com/kalel1500/kalion-js/compare/v0.13.1-beta.1...v0.14.0-beta.1) - 2026-05-24
 
