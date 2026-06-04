@@ -7,8 +7,6 @@ export * from './broadcasting/Reverb';
 export * from './components/html/Btn';
 export * from './components/html/Icon';
 export * from './components/Component';
-export * from './exceptions/CannotOpenModalException';
-export * from './exceptions/CannotOpenModalWarning';
 export * from './exceptions/InvalidValueException';
 export * from './modals/FModal';
 export * from './modals/SModal';

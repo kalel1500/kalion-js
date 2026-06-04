@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import type { SweetAlertOptions, SweetAlertIcon, SweetAlertInput, SweetAlertResult } from 'sweetalert2';
-import { CannotOpenModalException, CannotOpenModalWarning, FetchResponse, g, HttpMethod, SyncOrAsync } from '@/app';
+import { FetchResponse, g, HttpMethod, SyncOrAsync } from '@/app';
 
 /** Opciones "extra" para inputModal que no pertenecen a SweetAlert */
 interface InputModalExtras {
