@@ -80,7 +80,7 @@ const flowbiteFunctions: Record<InitFlowbiteValues, () => void> = {
     initDatepickers,
 };
 
-function handleFlowbiteInit(initOption?: true | InitFlowbiteValues | InitFlowbiteValues[]): void {
+export function handleFlowbiteInit(initOption?: true | InitFlowbiteValues | InitFlowbiteValues[]): void {
     if (!initOption) return;
 
     if (initOption === true) {
