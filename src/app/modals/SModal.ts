@@ -93,7 +93,7 @@ export class SModal {
         }
     }
 
-    static #checkAndExecuteShow(callback: () => Promise<any>): Promise<SweetAlertResult> {
+    static #checkAndExecuteShow(callback: () => Promise<SweetAlertResult>) {
         try {
             return callback();
         } catch (e) {
