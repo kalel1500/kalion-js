@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.1-beta.0...master)
+
+## [v0.15.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.0-beta.0...v0.15.1-beta.0) - 2026-06-15
+
+### Added
+
+* Nuevo parámetro `onModalChange` en las `CreationOptions` del `FModal` para poder manejar el listener `change` dentro del modal igual que se hace con el `click`.
 
 ## [v0.15.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.14.0-beta.1...v0.15.0-beta.0) - 2026-06-04
 
