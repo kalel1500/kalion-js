@@ -41,6 +41,7 @@ export type CreationOptions = {
     onDeny?: (fModal: FModal) => boolean | Promise<boolean>;
     onShow?: (fModal: FModal) => void;
     onModalClick?: (fModal: FModal, target: HTMLElement) => void;
+    onModalChange?: (fModal: FModal, target: HTMLElement) => void;
     showLoading?: boolean;
     divMessageId?: string;
     initFlowbiteAfterOnShow?: true | InitFlowbiteValues | InitFlowbiteValues[];
@@ -105,7 +106,8 @@ export class FModal {
     public $spinnerElements: NodeListOf<HTMLElement> | null;
     public $messageElements: Record<AlertType, HTMLElement | null>;
 
-    private static registryAbort: Map<string, AbortController> = new Map();
+    private static registryAbortClick: Map<string, AbortController> = new Map();
+    private static registryAbortChange: Map<string, AbortController> = new Map();
     private static registryModal: Map<string, ModalInterface> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
@@ -169,8 +171,10 @@ export class FModal {
         // Limpiar el listener anterior si existe
         this.removeListener();
 
-        const abortController = new AbortController();
-        FModal.registryAbort.set(id, abortController);
+        const abortControllerClick = new AbortController();
+        const abortControllerChange = new AbortController();
+        FModal.registryAbortClick.set(id, abortControllerClick);
+        FModal.registryAbortChange.set(id, abortControllerChange);
         FModal.registryModal.set(id, this.modal);
 
         this.$modalElement?.addEventListener(
@@ -218,7 +222,19 @@ export class FModal {
                     options?.onModalClick(this, target);
                 }
             },
-            { signal: abortController.signal },
+            { signal: abortControllerClick.signal },
+        );
+
+        this.$modalElement?.addEventListener(
+            "change",
+            async (e) => {
+                const target = e.target as HTMLElement;
+
+                if (options?.onModalChange) {
+                    options?.onModalChange(this, target);
+                }
+            },
+            { signal: abortControllerChange.signal },
         );
 
     }
@@ -248,10 +264,15 @@ export class FModal {
     }
 
     public static removeListener(id: string): void {
-        const abortController = FModal.registryAbort.get(id);
-        if (abortController) {
-            abortController.abort();
-            FModal.registryAbort.delete(id);
+        const abortControllerClick = FModal.registryAbortClick.get(id);
+        if (abortControllerClick) {
+            abortControllerClick.abort();
+            FModal.registryAbortClick.delete(id);
+        }
+        const abortControllerChange = FModal.registryAbortChange.get(id);
+        if (abortControllerChange) {
+            abortControllerChange.abort();
+            FModal.registryAbortChange.delete(id);
         }
     }
 
