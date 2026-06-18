@@ -79,8 +79,15 @@ export class g {
                 ...customHeaders,
             };
 
+            const spoofedMethods = ['PUT', 'PATCH', 'DELETE'] as const;
+            const needsSpoofing = isFormData && (spoofedMethods as readonly string[]).includes(type);
+
+            if (needsSpoofing && params instanceof FormData) {
+                params.append('_method', type);
+            }
+
             const fetchParams: RequestInit = {
-                method: type,
+                method: needsSpoofing ? 'POST' : type,
                 headers,
             };
 
