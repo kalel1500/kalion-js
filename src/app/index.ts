@@ -22,6 +22,7 @@ export * from './value-objects/StringVo';
 export * from './Constants';
 export * from './Cookie';
 export * from './DomService';
+export * from './Dropzone';
 export * from './global';
 export * from './Html';
 export * from './index';
