@@ -94,7 +94,7 @@ export class g {
             const result = await response.json() as FetchReturnType<R> | string;
 
             if (typeof result === 'string') {
-                const reason = result === '' ? 'El servidor ha devuelto una respuesta vacia' : result;
+                const reason = result === '' ? 'The server returned an empty response.' : result;
                 return Promise.reject(reason);
             }
 
@@ -105,7 +105,7 @@ export class g {
 
             return Promise.resolve(result);
         } catch (e) {
-            console.error('Error con fetch');
+            console.error('Fetch request failed.');
             return Promise.reject(e);
         }
     }
