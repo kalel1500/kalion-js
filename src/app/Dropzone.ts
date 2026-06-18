@@ -1,12 +1,12 @@
 type params = {
     uploadFiles: (files: FileList) => Promise<void>;
-    dropzone?: string;
-    input?: string;
+    dropzone?: string | HTMLElement;
+    input?: string | HTMLInputElement;
 };
 
 export function startDropzone(params: params) {
-    const dropzone = document.getElementById("dropzone") as HTMLDivElement;
-    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    const dropzone = (typeof params.dropzone === "string" ? document.querySelector(params.dropzone) : params.dropzone) as HTMLDivElement;
+    const fileInput = (typeof params.input === "string" ? document.querySelector(params.input) : params.input) as HTMLInputElement;
 
     // Abrir explorador al hacer clic en el contenedor
     dropzone.addEventListener("click", () => fileInput.click());
