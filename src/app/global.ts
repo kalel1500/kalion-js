@@ -63,25 +63,31 @@ export class g {
         return false;
     }
 
-    private static async fetchBase<R>({
-                                                                url,
-                                                                type = 'GET',
-                                                                params = undefined,
-                                                            }: FetchParams, strict: boolean): Promise<FetchReturnType<R>>
+    private static async fetchBase<R>(
+        { url, type = 'GET', params = undefined }: FetchParams,
+        strict: boolean
+    ): Promise<FetchReturnType<R>>
     {
         try {
-            let fetchParams = {
-                method: type, // *GET, POST, PUT, DELETE, etc.
-                headers: {
-                    'Content-Type': 'application/json', // "Content-Type": "application/x-www-form-urlencoded",
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': __const('token'),
-                },
-            } as RequestInit;
+            const isFormData = params instanceof FormData;
+
+            const headers: Record<string, string> = {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': __const('token') ?? '',
+            };
+
+            if (!isFormData) {
+                headers['Content-Type'] = 'application/json';
+            }
+
+            const fetchParams: RequestInit = {
+                method: type,
+                headers,
+            };
 
             if (type !== 'GET' && params !== undefined) {
-                fetchParams.body = JSON.stringify(params);
+                fetchParams.body = isFormData ? params : JSON.stringify(params);
             }
 
             const response = await fetch(url, fetchParams);
