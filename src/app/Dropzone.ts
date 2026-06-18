@@ -1,13 +1,13 @@
 ﻿export type DropzoneParams = {
-    /** Callback que recibe los archivos seleccionados o soltados. */
+    /** Callback invoked with the selected or dropped files. */
     uploadFiles: (files: FileList) => Promise<void>;
-    /** Selector CSS o elemento HTML que actuará como zona de drop. */
+    /** CSS selector or HTML element to use as the drop zone. */
     dropzone?: string | HTMLElement;
-    /** Selector CSS o elemento input[type="file"]. */
+    /** CSS selector or input[type="file"] element. */
     input?: string | HTMLInputElement;
-    /** Clases CSS que se añaden al dropzone mientras se arrastra un archivo. */
+    /** CSS classes added to the dropzone while a file is being dragged over it. */
     dragClasses?: string[];
-    /** Callback opcional para gestionar errores del upload. */
+    /** Optional callback to handle upload errors. */
     onError?: (error: unknown) => void;
 };
 
@@ -56,9 +56,9 @@ export class Dropzone {
     }
 
     private resolveElement(target: string | HTMLElement | HTMLInputElement | undefined, name: string): Element {
-        if (target === undefined) throw new Error(`[Dropzone] El parámetro "${name}" es obligatorio.`);
+        if (target === undefined) throw new Error(`[Dropzone] The "${name}" parameter is required.`);
         const el = typeof target === "string" ? document.querySelector(target) : target;
-        if (!el) throw new Error(`[Dropzone] No se encontró el elemento para "${name}" con el selector: "${target}".`);
+        if (!el) throw new Error(`[Dropzone] No element found for "${name}" with selector: "${target}".`);
         return el;
     }
 
