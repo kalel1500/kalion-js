@@ -64,7 +64,7 @@ export class g {
     }
 
     private static async fetchBase<R>(
-        { url, type = 'GET', params = undefined }: FetchParams,
+        { url, type = 'GET', params = undefined, headers: customHeaders = {} }: FetchParams,
         strict: boolean
     ): Promise<FetchReturnType<R>>
     {
@@ -75,11 +75,9 @@ export class g {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': __const('token') ?? '',
+                ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
+                ...customHeaders,
             };
-
-            if (!isFormData) {
-                headers['Content-Type'] = 'application/json';
-            }
 
             const fetchParams: RequestInit = {
                 method: type,
@@ -110,14 +108,14 @@ export class g {
         }
     }
 
-    static async fetch<R>({url, type = 'GET', params = undefined}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetch<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase<R>({url, type, params}, false);
+        return await g.fetchBase<R>({url, type, params, headers}, false);
     }
 
-    static async fetchStrict<R>({url, type = 'GET', params = undefined}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetchStrict<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase<R>({url, type, params}, true);
+        return await g.fetchBase<R>({url, type, params, headers}, true);
     }
 
     static async fetchString({url, type = 'GET', params = undefined}: FetchParams): Promise<{ok: boolean, text: string}>

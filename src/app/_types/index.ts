@@ -128,6 +128,7 @@ export interface FetchParams {
     url: string;
     type?: HttpMethod;
     params?: {};
+    headers?: Record<string, string>;
 }
 
 export interface FetchParamsSimple {
