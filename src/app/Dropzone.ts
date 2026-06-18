@@ -2,6 +2,7 @@ type params = {
     uploadFiles: (files: FileList) => Promise<void>;
     dropzone?: string | HTMLElement;
     input?: string | HTMLInputElement;
+    dragClasses?: string[];
 };
 
 export function startDropzone(params: params) {
@@ -16,16 +17,18 @@ export function startDropzone(params: params) {
         dropzone.addEventListener(eventName, (e) => e.preventDefault(), false);
     });
 
-    // Efectos visuales al arrastrar (Utilizando clases de Tailwind 4)
+    // Efectos visuales al arrastrar
+    const dragClasses = params.dragClasses ?? ["border-indigo-500", "bg-indigo-50/20"];
+
     ["dragenter", "dragover"].forEach((eventName) => {
         dropzone.addEventListener(eventName, () => {
-            dropzone.classList.add("border-indigo-500", "bg-indigo-50/20");
+            dropzone.classList.add(...dragClasses);
         });
     });
 
     ["dragleave", "drop"].forEach((eventName) => {
         dropzone.addEventListener(eventName, () => {
-            dropzone.classList.remove("border-indigo-500", "bg-indigo-50/20");
+            dropzone.classList.remove(...dragClasses);
         });
     });
 
