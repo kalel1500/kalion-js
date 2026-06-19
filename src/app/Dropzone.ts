@@ -9,6 +9,8 @@
     dragClasses?: string[];
     /** Optional callback to handle upload errors. */
     onError?: (error: unknown) => void;
+    /** Whether clicking the dropzone opens the file picker. */
+    openPickerOnDropzoneClick?: boolean;
     /** One or more external elements/selectors that also trigger the file picker on click. */
     triggers?: string | HTMLElement | (string | HTMLElement)[];
 };
@@ -19,6 +21,7 @@ export class Dropzone {
     private readonly dragClasses: string[];
     private readonly uploadFiles: (files: FileList) => Promise<void>;
     private readonly onError: (error: unknown) => void;
+    private readonly openPickerOnDropzoneClick: boolean;
     private readonly triggers: HTMLElement[];
 
     private readonly onClickHandler: () => void;
@@ -34,6 +37,7 @@ export class Dropzone {
         this.dragClasses = params.dragClasses ?? [];
         this.uploadFiles = params.uploadFiles;
         this.onError = params.onError ?? ((error) => console.error("[Dropzone]", error));
+        this.openPickerOnDropzoneClick = params.openPickerOnDropzoneClick ?? false;
         this.triggers = this.resolveTriggers(params.triggers);
 
         this.onClickHandler = () => this.fileInput.click();
@@ -73,8 +77,10 @@ export class Dropzone {
     }
 
     private init(): void {
-        // Abrir explorador al hacer clic en el contenedor
-        this.dropzone.addEventListener("click", this.onClickHandler);
+        // Optional click behavior on the dropzone itself
+        if (this.openPickerOnDropzoneClick) {
+            this.dropzone.addEventListener("click", this.onClickHandler);
+        }
 
         // External triggers that also open the file picker
         this.triggers.forEach((trigger) => trigger.addEventListener("click", this.onClickHandler));
@@ -102,7 +108,9 @@ export class Dropzone {
 
     /** Removes all event listeners registered by this instance. */
     destroy(): void {
-        this.dropzone.removeEventListener("click", this.onClickHandler);
+        if (this.openPickerOnDropzoneClick) {
+            this.dropzone.removeEventListener("click", this.onClickHandler);
+        }
         this.triggers.forEach((trigger) => trigger.removeEventListener("click", this.onClickHandler));
 
         ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
