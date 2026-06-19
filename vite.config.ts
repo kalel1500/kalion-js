@@ -18,10 +18,14 @@ export default ({ mode }: { mode: string }) => {
         plugins: [
             dts({
                 insertTypesEntry: true,
-                bundleTypes: true, // Esto unifica los tipos en un solo archivo
+                // bundleTypes: true, // Esto unifica los tipos en un solo archivo
                 include: ["src/app/**/*.ts"],
                 exclude: ['src/app/_internal/**'],
                 outDirs: 'dist',
+                entryRoot: 'src',
+                compilerOptions: {
+                    declarationMap: true,
+                }
             }),
         ],
         build: {

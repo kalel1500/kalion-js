@@ -17,7 +17,8 @@
         "./css/*.css": "./dist/css/*.css"
     },
     "files": [
-        "dist"
+        "dist",
+        "src"
     ],
     "scripts": {
         "build:app": "vite build",
