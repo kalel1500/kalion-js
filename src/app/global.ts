@@ -14,10 +14,22 @@ type Key = string | string[] | null;
 export class g {
     static errorModalIsShowed: boolean = false;
 
-    static resolveElement(target: string | Element | undefined, name: string, context: string = 'g'): Element {
-        if (target === undefined) throw new Error(`[${context}] The "${name}" parameter is required.`);
+    static resolveElement(target: string | Element | undefined, name?: string, context: string = 'g'): Element {
+        const targetName = name ?? 'element';
+
+        if (target === undefined) {
+            throw new Error(`[${context}] The "${targetName}" parameter is required.`);
+        }
+
         const el = typeof target === 'string' ? document.querySelector(target) : target;
-        if (!el) throw new Error(`[${context}] No element found for "${name}" with selector: "${target}".`);
+        if (!el) {
+            const details = typeof target === 'string' ? ` with selector: "${target}".` : '.';
+            const notFoundMessage = name
+                ? `No element found for "${targetName}"${details}`
+                : `No element found${details}`;
+            throw new Error(`[${context}] ${notFoundMessage}`);
+        }
+
         return el;
     }
 
