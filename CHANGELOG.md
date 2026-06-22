@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.2-beta.0...master)
+
+## [v0.15.2-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.1-beta.0...v0.15.2-beta.0) - 2026-06-22
+
+### Added
+
+* Nueva clase `Spinner` para gestionar la visibilidad del spinner del componente `<x-kal::spinner/>` del paquete `kalel1500/kalion` de Laravel.
+* Nueva clase `Dropzone` para manejar zonas de arrastre de archivos.
+
+### Changed
+
+* Se han mejorado los métodos `fetch` (`fetchBase`):
+  * Ahora pueden recibir instancias de `FormData` (para enviar archivos).
+  * Los mensajes de error se han traducido al inglés.
+  * Se ha añadido el nuevo parámetro `headers`.
+  * Suplantar métodos HTTP para envíos de FormData
 
 ## [v0.15.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.0-beta.0...v0.15.1-beta.0) - 2026-06-15
 
