@@ -1,6 +1,6 @@
 {
     "name": "@kalel1500/kalion-js",
-    "version": "0.15.1-beta.0",
+    "version": "0.15.2-beta.0",
     "description": "Utilidades de typescript para Laravel",
     "type": "module",
     "main": "dist/kalion-js.js",
