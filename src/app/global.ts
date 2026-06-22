@@ -13,6 +13,13 @@ type Key = string | string[] | null;
 export class g {
     static errorModalIsShowed: boolean = false;
 
+    static resolveElement(target: string | Element | undefined, name: string, context: string = 'g'): Element {
+        if (target === undefined) throw new Error(`[${context}] The "${name}" parameter is required.`);
+        const el = typeof target === 'string' ? document.querySelector(target) : target;
+        if (!el) throw new Error(`[${context}] No element found for "${name}" with selector: "${target}".`);
+        return el;
+    }
+
     static isNotNull(variable: any): boolean {
         return variable !== null;
     }

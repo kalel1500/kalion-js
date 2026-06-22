@@ -1,4 +1,6 @@
-﻿export type DropzoneParams = {
+﻿import { g } from './global';
+
+export type DropzoneParams = {
     /** Callback invoked with the selected or dropped files. */
     uploadFiles: (files: FileList) => Promise<void>;
     /** CSS selector or HTML element to use as the drop zone. */
@@ -32,8 +34,8 @@ export class Dropzone {
     private readonly onFileChange: () => void;
 
     constructor(params: DropzoneParams) {
-        this.dropzone = this.resolveElement(params.dropzone, "dropzone") as HTMLElement;
-        this.fileInput = this.resolveElement(params.input, "input") as HTMLInputElement;
+        this.dropzone = g.resolveElement(params.dropzone, "dropzone", "Dropzone") as HTMLElement;
+        this.fileInput = g.resolveElement(params.input, "input", "Dropzone") as HTMLInputElement;
         this.dragClasses = params.dragClasses ?? [];
         this.uploadFiles = params.uploadFiles;
         this.onError = params.onError ?? ((error) => console.error("[Dropzone]", error));
@@ -63,17 +65,10 @@ export class Dropzone {
         this.init();
     }
 
-    private resolveElement(target: string | HTMLElement | HTMLInputElement | undefined, name: string): Element {
-        if (target === undefined) throw new Error(`[Dropzone] The "${name}" parameter is required.`);
-        const el = typeof target === "string" ? document.querySelector(target) : target;
-        if (!el) throw new Error(`[Dropzone] No element found for "${name}" with selector: "${target}".`);
-        return el;
-    }
-
     private resolveTriggers(triggers: DropzoneParams["triggers"]): HTMLElement[] {
         if (!triggers) return [];
         const items = Array.isArray(triggers) ? triggers : [triggers];
-        return items.map((t) => this.resolveElement(t, "triggers") as HTMLElement);
+        return items.map((t) => g.resolveElement(t, "triggers", "Dropzone") as HTMLElement);
     }
 
     private init(): void {
