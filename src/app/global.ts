@@ -84,19 +84,19 @@ export class g {
     }
 
     private static async fetchBase<R>(
-        { url, type = 'GET', params = undefined, headers: customHeaders = {} }: FetchParams,
+        { url, type = 'GET', params = undefined, headers = {} }: FetchParams,
         strict: boolean
     ): Promise<FetchReturnType<R>>
     {
         try {
             const isFormData = params instanceof FormData;
 
-            const headers: Record<string, string> = {
+            const finalHeaders: Record<string, string> = {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': __const('token') ?? '',
                 ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
-                ...customHeaders,
+                ...headers,
             };
 
             const spoofedMethods = ['PUT', 'PATCH', 'DELETE'] as const;
@@ -108,7 +108,7 @@ export class g {
 
             const fetchParams: RequestInit = {
                 method: needsSpoofing ? 'POST' : type,
-                headers,
+                headers: finalHeaders,
             };
 
             if (type !== 'GET' && params !== undefined) {
