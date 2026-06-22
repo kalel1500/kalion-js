@@ -31,6 +31,7 @@ export * from './LDate';
 export * from './LStorage';
 export * from './Mutation';
 export * from './Notify';
+export * from './Spinner';
 export * from './SSelect';
 export * from './Test';
 export * from './ThemeSwitcher';
