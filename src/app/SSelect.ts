@@ -1,10 +1,19 @@
 import SlimSelect from "slim-select";
 import type { Settings, Events, Optgroup, Option } from "slim-select";
 import { FetchResponse, g } from '@/app';
+import { ___ } from '@/app/_internal/helpers';
 
 type SlimData = Option | Optgroup;
 type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
 type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">>;
+type DebouncedSearchParams = {
+    source: string | SearchCallback;
+    delay?: number;
+    minLength?: number;
+    fetchLimit?: number;
+    textMinCharacters?: string;
+    textEmptyResults?: string;
+};
 
 const SLIM_EVENT_KEYS = ['search', 'searchFilter', 'beforeChange', 'afterChange', 'beforeClose', 'afterClose', 'beforeOpen', 'afterOpen', 'addable', 'error'] as const;
 
@@ -44,6 +53,15 @@ export class SSelect {
             allowDeselect: true,
             timeoutDelay: 500,
             maxValuesShown: 4,
+            searchPlaceholder: ___('select_search_placeholder'),
+            searchText: ___('select_search_text'),
+            searchingText: ___('select_searching_text'),
+            resultsText: ___('select_results_text'),
+            deselectText: ___('select_deselect_text'),
+            removeText: ___('select_remove_text'),
+            placeholderText: ___('select_placeholder_text'),
+            maxValuesMessage: ___('select_maxValues_message'),
+            addableText: ___('select_addable_text'),
         };
         return new SlimSelect({
             select,
@@ -54,14 +72,21 @@ export class SSelect {
 
     // ─── Helpers ───────────────────────────────────────────────────
 
-    public static debouncedSearch({ source, delay = 500, minLength = 3, fetchLimit = 20 }: { source: string | SearchCallback; delay?: number; minLength?: number; fetchLimit?: number }) {
+    public static debouncedSearch({
+                                      source,
+                                      delay = 500,
+                                      minLength = 3,
+                                      fetchLimit = 20,
+                                      textMinCharacters,
+                                      textEmptyResults,
+    }: DebouncedSearchParams) {
         const searchLogic = async (search: string, currentData: SlimData[]): Promise<SlimData[]> => {
             if (search.length < minLength) {
-                throw new Error(`Search must be at least ${minLength} characters`);
+                throw new Error(textMinCharacters ?? ___('select_debounce_MIN_characters', {min: minLength.toString()}));
             }
 
             if (typeof source === "string") {
-                return await SSelect.fetchStandard(source, search, currentData, fetchLimit);
+                return await SSelect.fetchStandard(source, search, currentData, fetchLimit, textEmptyResults);
             }
 
             return await source(search, currentData);
@@ -70,7 +95,7 @@ export class SSelect {
         return g.debounce(searchLogic, delay);
     }
 
-    private static async fetchStandard(baseUrl: string, search: string, currentData: SlimData[], fetchLimit: number): Promise<SlimData[]> {
+    private static async fetchStandard(baseUrl: string, search: string, currentData: SlimData[], fetchLimit: number, textEmptyResults?: string): Promise<SlimData[]> {
         // Extraemos todos los IDs ya seleccionados para filtrar (aplanamos currentData para obtener solo los valores)
         const selectedValues = currentData.flatMap((d) => ("options" in d ? d.options.map((o) => o.value) : [d.value])).filter((v) => v !== undefined);
 
@@ -87,7 +112,7 @@ export class SSelect {
         const rawData: SlimData[] = resp?.data || [];
 
         if (!rawData.length) {
-            throw new Error("No results found");
+            throw new Error(textEmptyResults ?? ___('select_debounce_empty_results'));
         }
 
         // Filtramos los resultados del backend que ya existan en la selección

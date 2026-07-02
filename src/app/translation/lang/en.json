@@ -8,9 +8,6 @@
     "close": "Close",
     "detail": "Detail",
     "copy": "Copy",
-    "search_placeholder": "search...",
-    "select_placeholder": "select",
-    "select_value_placeholder": "--Select value--",
     "copied_text": "Copied text",
     "confirm_delete_record_NAME": "Are you sure you want to delete the \":name\" record?",
     "confirm_delete_FIELD_NAME": "Are you sure you want to delete the \":name\" :field?",
@@ -42,5 +39,17 @@
     "need_NUMBER_characters": "Need :number characters",
     "a_loader_was_expected_on_the_page": "A loader was expected on the page",
     "check_if_the_loader_was_in_a_div": "Check if the loader was in a div. In that case the div ID is required.",
-    "you_do_not_have_permissions_to_edit": "You do not have permissions to edit"
+    "you_do_not_have_permissions_to_edit": "You do not have permissions to edit",
+
+    "select_search_placeholder": "Search...",
+    "select_search_text": "No Results",
+    "select_searching_text": "Searching...",
+    "select_results_text": "{count} results available",
+    "select_deselect_text": "Clear",
+    "select_remove_text": "Remove",
+    "select_placeholder_text": "Select value",
+    "select_maxValues_message": "{number} selected",
+    "select_addable_text": "Press \"Enter\" to add {value}",
+    "select_debounce_MIN_characters": "Search must be at least :min characters",
+    "select_debounce_empty_results": "No results found"
 }

@@ -75,9 +75,6 @@ export interface DefaultTranslations extends Translation {
     close: string;
     detail: string;
     copy: string;
-    search_placeholder: string;
-    select_placeholder: string;
-    select_value_placeholder: string;
     copied_text: string;
     confirm_delete_record_NAME: string;
     confirm_delete_FIELD_NAME: string;
@@ -110,6 +107,17 @@ export interface DefaultTranslations extends Translation {
     a_loader_was_expected_on_the_page: string;
     check_if_the_loader_was_in_a_div: string;
     you_do_not_have_permissions_to_edit: string;
+    select_search_placeholder: string;
+    select_search_text: string;
+    select_searching_text: string;
+    select_results_text: string;
+    select_deselect_text: string;
+    select_remove_text: string;
+    select_placeholder_text: string;
+    select_maxValues_message: string;
+    select_addable_text: string;
+    select_debounce_MIN_characters: string;
+    select_debounce_empty_results: string;
 }
 
 export enum CheckableProcess {

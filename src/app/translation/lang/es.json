@@ -8,9 +8,6 @@
     "close": "Cerrar",
     "detail": "Detalle",
     "copy": "Copiar",
-    "search_placeholder": "buscar...",
-    "select_placeholder": "seleccionar",
-    "select_value_placeholder": "--Selecciona valor--",
     "copied_text": "Texto copiado",
     "confirm_delete_record_NAME": "¿Seguro que quieres eliminar el registro \":name\"?",
     "confirm_delete_FIELD_NAME": "¿Seguro que quieres eliminar :field \":name\"?",
@@ -42,5 +39,17 @@
     "need_NUMBER_characters": "Necesarios :number caracteres",
     "a_loader_was_expected_on_the_page": "Se esperaba un loader en la página",
     "check_if_the_loader_was_in_a_div": "Comprueba si el loader estaba en un div. En ese caso se requiere el id del div.",
-    "you_do_not_have_permissions_to_edit": "No tienes permisos para editar"
+    "you_do_not_have_permissions_to_edit": "No tienes permisos para editar",
+
+    "select_search_placeholder": "Buscar...",
+    "select_search_text": "Sin datos",
+    "select_searching_text": "Buscando...",
+    "select_results_text": "{count} resultados disponibles",
+    "select_deselect_text": "Limpiar",
+    "select_remove_text": "Eliminar",
+    "select_placeholder_text": "Selecciona un valor",
+    "select_maxValues_message": "{number} seleccionados",
+    "select_addable_text": "Pulsa \"Enter\" para añadir {value}",
+    "select_debounce_MIN_characters": "La búsqueda debe tener al menos :min caracteres",
+    "select_debounce_empty_results": "No se han encontrado resultados"
 }
