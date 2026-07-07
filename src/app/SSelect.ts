@@ -4,7 +4,7 @@ import { FetchResponse, g } from '@/app';
 import { ___ } from '@/app/_internal/helpers';
 
 type SlimData = Option | Optgroup;
-type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
+type SearchCallback = (search: string, currentData: SlimData[]) => Promise<string | SlimData[]>;
 type SlimConfigData = (Partial<Option> | Partial<Optgroup>)[];
 type SelectOptions = Partial<Settings & Events> & { data?: SlimConfigData };
 type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">> & { data?: SlimConfigData };
@@ -94,7 +94,16 @@ export class SSelect {
                 return await SSelect.fetchAndFilterSelected(source, search, currentData, fetchLimit, textEmptyResults);
             }
 
-            return await source(search, currentData);
+            // source es un callback que devuelve URL o datos finales
+            const result = await source(search, currentData);
+
+            // Si es string, es una URL; hacer fetch y filtrado
+            if (typeof result === "string") {
+                return await SSelect.fetchAndFilterSelected(result, search, currentData, fetchLimit, textEmptyResults);
+            }
+
+            // Si es array, son datos ya filtrados; devolverlos directamente
+            return result;
         };
 
         return g.debounce(searchLogic, delay);
