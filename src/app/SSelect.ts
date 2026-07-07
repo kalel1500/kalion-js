@@ -5,7 +5,9 @@ import { ___ } from '@/app/_internal/helpers';
 
 type SlimData = Option | Optgroup;
 type SearchCallback = (search: string, currentData: SlimData[]) => Promise<Optgroup[]>;
-type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">>;
+type SlimConfigData = (Partial<Option> | Partial<Optgroup>)[];
+type SelectOptions = Partial<Settings & Events> & { data?: SlimConfigData };
+type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">> & { data?: SlimConfigData };
 type DebouncedSearchParams = {
     source: string | SearchCallback;
     delay?: number;
@@ -20,11 +22,12 @@ const SLIM_EVENT_KEYS = ['search', 'searchFilter', 'beforeChange', 'afterChange'
 export class SSelect {
     // ─── public API  ──────────────────────────────────────────────
 
-    private static splitOptions(options: Partial<Settings & Events>): { settings: Partial<Settings>; events: Partial<Events> } {
+    private static splitOptions(options: SelectOptions): { settings: Partial<Settings>; events: Partial<Events>; data?: SlimConfigData } {
+        const { data, ...restOptions } = options;
         const settings: Partial<Settings> = {};
         const events: Partial<Events> = {};
 
-        for (const [key, value] of Object.entries(options)) {
+        for (const [key, value] of Object.entries(restOptions)) {
             if ((SLIM_EVENT_KEYS as readonly string[]).includes(key)) {
                 (events as any)[key] = value;
             } else {
@@ -32,20 +35,21 @@ export class SSelect {
             }
         }
 
-        return { settings, events };
+        return { settings, events, data };
     }
 
-    static basic(select: string | Element, options: Partial<Settings & Events> = {}): SlimSelect {
-        const { settings, events } = SSelect.splitOptions(options);
+    static basic(select: string | Element, options: SelectOptions = {}): SlimSelect {
+        const { settings, events, data } = SSelect.splitOptions(options);
         return new SlimSelect({
             select,
+            data,
             settings: { ...settings },
             events: { ...events },
         });
     }
 
     static search(select: string | Element, options: SearchOptions): SlimSelect {
-        const { settings, events } = SSelect.splitOptions(options);
+        const { settings, events, data } = SSelect.splitOptions(options);
         const defaultSettings: Partial<Settings> = {
             keepSearch: true,
             closeOnSelect: false,
@@ -65,6 +69,7 @@ export class SSelect {
         };
         return new SlimSelect({
             select,
+            data,
             settings: { ...defaultSettings, ...settings },
             events: { ...events },
         });
