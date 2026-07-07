@@ -91,7 +91,7 @@ export class SSelect {
             }
 
             if (typeof source === "string") {
-                return await SSelect.fetchStandard(source, search, currentData, fetchLimit, textEmptyResults);
+                return await SSelect.fetchAndFilterSelected(source, search, currentData, fetchLimit, textEmptyResults);
             }
 
             return await source(search, currentData);
@@ -100,7 +100,7 @@ export class SSelect {
         return g.debounce(searchLogic, delay);
     }
 
-    private static async fetchStandard(baseUrl: string, search: string, currentData: SlimData[], fetchLimit: number, textEmptyResults?: string): Promise<SlimData[]> {
+    private static async fetchAndFilterSelected(baseUrl: string, search: string, currentData: SlimData[], fetchLimit: number, textEmptyResults?: string): Promise<SlimData[]> {
         // Extraemos todos los IDs ya seleccionados para filtrar (aplanamos currentData para obtener solo los valores)
         const selectedValues = currentData.flatMap((d) => ("options" in d ? d.options.map((o) => o.value) : [d.value])).filter((v) => v !== undefined);
 
