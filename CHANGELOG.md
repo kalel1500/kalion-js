@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.2-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.3-beta.0...master)
+
+## [v0.15.3-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.2-beta.0...v0.15.3-beta.0) - 2026-07-08
+
+### Changed
+
+* Se han realizado varios cambios en el `SSelect`:
+  * Se han localizado los textos del SlimSelect al español (al usar las traducciones se mostraran en el idioma configurado).
+  * Se ha añadido el parametro "data" en las opciones de los métodos `basic` y `search` para poder pasar datos directamente.
+  * Ahora el parámetro `source` del método `debouncedSearch` puede devolver un `string` con la url aunque sea un callback.
+    * Es decir, puede seguir siendo un string con la url o un callback. Y en caso de ser un callback, puede devolver un string con la url o un array de datos.
 
 ## [v0.15.2-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.1-beta.0...v0.15.2-beta.0) - 2026-06-22
 
