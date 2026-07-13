@@ -47,6 +47,7 @@ export type CreationOptions = {
     initFlowbiteAfterOnShow?: true | InitFlowbiteValues | InitFlowbiteValues[];
     initFlowbiteAfterOnConfirm?: true | InitFlowbiteValues | InitFlowbiteValues[];
     destroyOnHide?: boolean;
+    clearInputsOnHide?: boolean;
 };
 
 export enum AlertType {
@@ -102,6 +103,8 @@ export class FModal {
     public id: string;
     public showLoading: boolean;
     public destroyOnHide: boolean;
+    public clearInputsOnHide: boolean;
+
     public $modalElement: HTMLElement | null;
     public $spinnerElements: NodeListOf<HTMLElement> | null;
     public $messageElements: Record<AlertType, HTMLElement | null>;
@@ -114,6 +117,8 @@ export class FModal {
         this.id = id;
         this.showLoading = options?.showLoading ?? false;
         this.destroyOnHide = options?.destroyOnHide ?? false;
+        this.clearInputsOnHide = options?.clearInputsOnHide ?? true;
+
         this.$modalElement = document.querySelector(`#${id}`);
         this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
         this.$messageElements = {
@@ -147,6 +152,9 @@ export class FModal {
                 onHide: () => {
                     // console.log("modal is hidden");
                     this.clearModal();
+                    if (this.clearInputsOnHide) {
+                        this.clearInputs();
+                    }
                 },
                 onShow: (modal) => {
                     // console.log("modal is shown");
@@ -307,7 +315,9 @@ export class FModal {
     public clearModal() {
         this.restoreSpinner();
         this.hideMessage();
+    }
 
+    public clearInputs() {
         const inputs = this.$modalElement?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
         inputs?.forEach((input) => {
             if (input.type !== "hidden") {
