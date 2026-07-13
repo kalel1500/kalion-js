@@ -155,6 +155,9 @@ export class FModal {
                     if (this.clearInputsOnHide) {
                         this.clearInputs();
                     }
+                    if (this.destroyOnHide) {
+                        this.destroy();
+                    }
                 },
                 onShow: (modal) => {
                     // console.log("modal is shown");
@@ -249,9 +252,6 @@ export class FModal {
 
     public hide() {
         this.modal.hide();
-        if (this.destroyOnHide) {
-            this.destroy();
-        }
     }
 
     public destroy(): void {
