@@ -35,6 +35,7 @@ type InitFlowbiteValues =
     | "initDatepickers";
 
 export type CreationOptions = {
+    title?: string;
     modalOptions?: ModalOptions;
     instanceOptions?: InstanceOptions;
     onConfirm?: (fModal: FModal) => boolean | Promise<boolean>;
@@ -164,6 +165,10 @@ export class FModal {
                 },
                 onShow: (modal) => {
                     // console.log("modal is shown");
+                    if (options?.title !== undefined) {
+                        this.setTitle(options.title);
+                    }
+
                     if (options?.onShow) {
                         options.onShow(this);
 
@@ -350,6 +355,17 @@ export class FModal {
                 input.value = "";
             }
         });
+    }
+
+    public setTitle(title: string) {
+        const $titleElement = this.$modalElement?.querySelector("h3");
+
+        if (!$titleElement) {
+            console.warn(`No h3 title element found in modal ${this.id}.`);
+            return;
+        }
+
+        $titleElement.textContent = title;
     }
 
     public hideSpinner() {
