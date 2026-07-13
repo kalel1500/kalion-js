@@ -1,6 +1,22 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.15.3-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.16.0-beta.0...master)
+
+## [v0.16.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.3-beta.0...v0.16.0-beta.0) - 2026-07-13
+
+### Changed
+
+* Se ha mejorado la clase `FModal`:
+  * Nuevo parámetro `clearInputsOnHide` para poder configurar si se limpian o no los inputs al cerrar el modal.
+  * Ahora el método `create` devuelve la instancia de `FModal` en vez de la instancia del `ModalInterface` de Flowbite.
+    * El show se comporta igual porque se añade un método público `show`.
+  * Nueva prop `isLazyLoaded` para indicar que el contenido se carga con ajax. Si es `true` al cerrar el modal se destruyen las instancias de `SlimSelect` de dentro.
+  * Nueva prop `title` para poder cambiar el título del modal dinámicamente.
+
+### Fixed
+
+* SSelect: Se reutilizan las traducciones que había definidas en el método `search` para el método `basic`.
+* FModal: Ahora se llama al `destroy()` en el `onHide` nativo en vez del hide de `FModal`. Asi se ejecuta siempre aunque se cierre desde fuera.
 
 ## [v0.15.3-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.2-beta.0...v0.15.3-beta.0) - 2026-07-08
 
@@ -8,7 +24,7 @@
 
 * Se han realizado varios cambios en el `SSelect`:
   * Se han localizado los textos del SlimSelect al español (al usar las traducciones se mostraran en el idioma configurado).
-  * Se ha añadido el parametro "data" en las opciones de los métodos `basic` y `search` para poder pasar datos directamente.
+  * Se ha añadido el parametro `data` en las opciones de los métodos `basic` y `search` para poder pasar datos directamente.
   * Ahora el parámetro `source` del método `debouncedSearch` puede devolver un `string` con la url aunque sea un callback.
     * Es decir, puede seguir siendo un string con la url o un callback. Y en caso de ser un callback, puede devolver un string con la url o un array de datos.
 
