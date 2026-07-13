@@ -48,6 +48,7 @@ export type CreationOptions = {
     initFlowbiteAfterOnConfirm?: true | InitFlowbiteValues | InitFlowbiteValues[];
     destroyOnHide?: boolean;
     clearInputsOnHide?: boolean;
+    isLazyLoaded?: boolean;
 };
 
 export enum AlertType {
@@ -104,6 +105,7 @@ export class FModal {
     public showLoading: boolean;
     public destroyOnHide: boolean;
     public clearInputsOnHide: boolean;
+    public isLazyLoaded: boolean;
 
     public $modalElement: HTMLElement | null;
     public $spinnerElements: NodeListOf<HTMLElement> | null;
@@ -118,6 +120,7 @@ export class FModal {
         this.showLoading = options?.showLoading ?? false;
         this.destroyOnHide = options?.destroyOnHide ?? false;
         this.clearInputsOnHide = options?.clearInputsOnHide ?? true;
+        this.isLazyLoaded = options?.isLazyLoaded ?? false;
 
         this.$modalElement = document.querySelector(`#${id}`);
         this.$spinnerElements = this.$modalElement?.querySelectorAll<HTMLElement>(`.fmodal-spinner`) ?? null;
@@ -319,6 +322,25 @@ export class FModal {
     public clearModal() {
         this.restoreSpinner();
         this.hideMessage();
+        if (this.isLazyLoaded) {
+            this.destroySlimSelects();
+        }
+    }
+
+    public destroySlimSelects() {
+        if (!this.$modalElement) return;
+
+        // Buscar todos los selects dentro del modal
+        const selects = this.$modalElement.querySelectorAll<HTMLSelectElement>("select");
+
+        selects.forEach((selectElement) => {
+            // SlimSelect almacena la instancia en la propiedad 'slim' del elemento
+            const slimInstance = (selectElement as any).slim;
+
+            if (slimInstance && typeof slimInstance.destroy === "function") {
+                slimInstance.destroy();
+            }
+        });
     }
 
     public clearInputs() {
