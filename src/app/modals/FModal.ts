@@ -250,6 +250,10 @@ export class FModal {
 
     }
 
+    public show() {
+        this.modal.show();
+    }
+
     public hide() {
         this.modal.hide();
     }
@@ -351,8 +355,7 @@ export class FModal {
     /* STATIC */
 
     public static create(id: string, options?: CreationOptions) {
-        const modal = new FModal(id, options);
-        return modal.modal;
+        return new FModal(id, options);
     }
 
     public static show(id: string, options?: CreationOptions) {
