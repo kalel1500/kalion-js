@@ -19,6 +19,18 @@ type DebouncedSearchParams = {
 
 const SLIM_EVENT_KEYS = ['search', 'searchFilter', 'beforeChange', 'afterChange', 'beforeClose', 'afterClose', 'beforeOpen', 'afterOpen', 'addable', 'error'] as const;
 
+const SHARED_TEXT_SETTINGS: Partial<Settings> = {
+    searchPlaceholder: ___('select_search_placeholder'),
+    searchText: ___('select_search_text'),
+    searchingText: ___('select_searching_text'),
+    resultsText: ___('select_results_text'),
+    deselectText: ___('select_deselect_text'),
+    removeText: ___('select_remove_text'),
+    placeholderText: ___('select_placeholder_text'),
+    maxValuesMessage: ___('select_maxValues_message'),
+    addableText: ___('select_addable_text'),
+};
+
 export class SSelect {
     // ─── public API  ──────────────────────────────────────────────
 
@@ -43,7 +55,7 @@ export class SSelect {
         return new SlimSelect({
             select,
             data,
-            settings: { ...settings },
+            settings: { ...SHARED_TEXT_SETTINGS, ...settings },
             events: { ...events },
         });
     }
@@ -57,15 +69,7 @@ export class SSelect {
             allowDeselect: true,
             timeoutDelay: 500,
             maxValuesShown: 4,
-            searchPlaceholder: ___('select_search_placeholder'),
-            searchText: ___('select_search_text'),
-            searchingText: ___('select_searching_text'),
-            resultsText: ___('select_results_text'),
-            deselectText: ___('select_deselect_text'),
-            removeText: ___('select_remove_text'),
-            placeholderText: ___('select_placeholder_text'),
-            maxValuesMessage: ___('select_maxValues_message'),
-            addableText: ___('select_addable_text'),
+            ...SHARED_TEXT_SETTINGS,
         };
         return new SlimSelect({
             select,
