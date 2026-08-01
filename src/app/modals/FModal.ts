@@ -115,6 +115,7 @@ export class FModal {
     private static registryAbortClick: Map<string, AbortController> = new Map();
     private static registryAbortChange: Map<string, AbortController> = new Map();
     private static registryInstance: Map<string, FModal> = new Map();
+    private static registryByElement: WeakMap<HTMLElement, FModal> = new WeakMap();
 
     public constructor(id: string, options?: CreationOptions) {
         this.id = id;
@@ -195,6 +196,9 @@ export class FModal {
         FModal.registryAbortClick.set(id, abortControllerClick);
         FModal.registryAbortChange.set(id, abortControllerChange);
         FModal.registryInstance.set(id, this);
+        if (this.$modalElement) {
+            FModal.registryByElement.set(this.$modalElement, this);
+        }
 
         this.$modalElement?.addEventListener(
             "click",
@@ -275,7 +279,16 @@ export class FModal {
 
         const instance = FModal.registryInstance.get(id);
         if (instance) {
+            // Destroy Flowbite instance
             instance.modal.destroy();
+
+            // Delete Element
+            const element = instance.$modalElement;
+            if (element) {
+                FModal.registryByElement.delete(element);
+            }
+
+            // Delete instance
             FModal.registryInstance.delete(id);
         }
     }
@@ -400,6 +413,13 @@ export class FModal {
         }
 
         return new FModal(id, options);
+    }
+
+    public static get(target: string | HTMLElement): FModal | undefined {
+        if (typeof target === "string") {
+            return FModal.registryInstance.get(target);
+        }
+        return FModal.registryByElement.get(target);
     }
 
     public static show(id: string, options?: CreationOptions) {
