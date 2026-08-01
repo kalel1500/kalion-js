@@ -423,7 +423,9 @@ export class FModal {
     }
 
     public static show(id: string, options?: CreationOptions) {
-        FModal.create(id, options).show();
+        const instance = FModal.create(id, options);
+        instance.show();
+        return instance;
     }
 
     /* PRIVATE */
