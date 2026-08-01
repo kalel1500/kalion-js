@@ -39,7 +39,7 @@
         "typescript"
     ],
     "author": "kalel1500",
-    "license": "GPL-3.0-or-later",
+    "license": "MPL-2.0",
     "bugs": {
         "url": "https://github.com/kalel1500/kalion-js/issues"
     },
