@@ -114,7 +114,7 @@ export class FModal {
 
     private static registryAbortClick: Map<string, AbortController> = new Map();
     private static registryAbortChange: Map<string, AbortController> = new Map();
-    private static registryModal: Map<string, ModalInterface> = new Map();
+    private static registryInstance: Map<string, FModal> = new Map();
 
     public constructor(id: string, options?: CreationOptions) {
         this.id = id;
@@ -194,7 +194,7 @@ export class FModal {
         const abortControllerChange = new AbortController();
         FModal.registryAbortClick.set(id, abortControllerClick);
         FModal.registryAbortChange.set(id, abortControllerChange);
-        FModal.registryModal.set(id, this.modal);
+        FModal.registryInstance.set(id, this);
 
         this.$modalElement?.addEventListener(
             "click",
@@ -272,10 +272,11 @@ export class FModal {
 
     public static destroy(id: string): void {
         FModal.removeListener(id);
-        const modalInstance = FModal.registryModal.get(id);
-        if (modalInstance) {
-            modalInstance.destroy();
-            FModal.registryModal.delete(id);
+
+        const instance = FModal.registryInstance.get(id);
+        if (instance) {
+            instance.modal.destroy();
+            FModal.registryInstance.delete(id);
         }
     }
 
@@ -393,6 +394,11 @@ export class FModal {
     /* STATIC */
 
     public static create(id: string, options?: CreationOptions) {
+        const existing = FModal.registryInstance.get(id);
+        if (existing) {
+            return existing;
+        }
+
         return new FModal(id, options);
     }
 
