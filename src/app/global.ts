@@ -540,20 +540,6 @@ export class g {
         return results;
     }
 
-    static slugify(text: string, separator: string = '-'): string {
-        if (!text) return '';
-
-        // Normaliza el texto a formato NFD y remueve los diacríticos
-        text = text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
-
-        // Convierte a minúsculas, reemplaza caracteres no alfanuméricos con el separador
-        text = text.toLowerCase()
-            .replace(/[^a-z0-9]+/g, separator) // Reemplaza caracteres no alfanuméricos por el separador
-            .replace(new RegExp(`^${separator}|${separator}$`, 'g'), ''); // Elimina separadores extra
-
-        return text;
-    }
-
     static getHiddenClass()
     {
         return __const('VITE_TS_USE_BOOSTRAP_CLASSES') ? 'd-none' : 'hidden';
