@@ -48,7 +48,7 @@ export class DomService extends Instantiable {
             const isCollapsed = !this.$document.classList.contains('sc');
             const state = SidebarState.fromBoolean(isCollapsed);
             this.$document.classList.toggle('sc', isCollapsed);
-            Cookie.new().setPreference('sidebar_state', state.value);
+            Cookie.setPreference('sidebar_state', state.value);
         });
 
         // Evento para quitar la clase "sc" abrir el sidebar en version móvil

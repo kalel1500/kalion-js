@@ -24,7 +24,7 @@ export class ThemeSwitcher extends Instantiable
 
     getTheme(): Theme | undefined
     {
-        const preferences = Cookie.new().preferences();
+        const preferences = Cookie.preferences();
         if (preferences === null) {
             console.warn('The user preferences cookie could not be found. Defaulting to system theme.');
         }
@@ -74,7 +74,7 @@ export class ThemeSwitcher extends Instantiable
 
     saveAndUpdate(theme: Theme) {
         localStorage.setItem('theme', theme);
-        Cookie.new().setPreference('theme', theme);
+        Cookie.setPreference('theme', theme);
         this.updateTheme(theme);
     }
 
