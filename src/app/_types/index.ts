@@ -26,6 +26,8 @@ export type EnvVariables = {
 
     readonly VITE_TS_STORAGE_VERSION?: string;
     readonly VITE_TS_USE_BOOSTRAP_CLASSES?: string; // notInEnv
+
+    readonly VITE_KALION_COOKIE_USER_SETTINGS_NAME?: string;
 }
 
 // Define una interfaz para la configuración por defecto
@@ -51,6 +53,8 @@ export interface DefaultConstants {
 
     readonly VITE_TS_STORAGE_VERSION: string;
     readonly VITE_TS_USE_BOOSTRAP_CLASSES: boolean;
+
+    readonly VITE_KALION_COOKIE_USER_SETTINGS_NAME: string | undefined;
 }
 
 export interface Translation {
