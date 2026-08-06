@@ -1,9 +1,9 @@
-import { UserPreferences } from '@/app';
+import { UserSettings } from '@/app';
 import { __const } from '@/app/_internal/helpers';
 import { Str } from '@/app/Str';
 
 export class Cookie {
-    protected static cookiePreferencesName: string = __const('VITE_KALION_COOKIE_USER_SETTINGS_NAME') ?? Str.slug(__const('VITE_APP_NAME')) + '-user-settings';
+    protected static settingsName: string = __const('VITE_KALION_COOKIE_USER_SETTINGS_NAME') ?? Str.slug(__const('VITE_APP_NAME')) + '-user-settings';
 
     static get(name: string): string | null
     {
@@ -24,15 +24,15 @@ export class Cookie {
     }
 
 
-    static preferences(): UserPreferences | null
+    static userSettings(): UserSettings | null
     {
-        const cookieValue = this.get(this.cookiePreferencesName);
+        const cookieValue = this.get(this.settingsName);
         return cookieValue ? JSON.parse(cookieValue) : null;
     }
 
-    static setPreferences(preferences: UserPreferences): void
+    static setUserSettings(preferences: UserSettings): void
     {
-        this.set(this.cookiePreferencesName, JSON.stringify(preferences), 30);
+        this.set(this.settingsName, JSON.stringify(preferences), 30);
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.fetch({
@@ -41,11 +41,11 @@ export class Cookie {
         }).then();*/
     }
 
-    static setPreference<K extends keyof UserPreferences>(key: K, value: UserPreferences[K]): void {
-        const preferences = this.preferences();
+    static setUserSetting<K extends keyof UserSettings>(key: K, value: UserSettings[K]): void {
+        const preferences = this.userSettings();
         if (preferences !== null) {
             preferences[key] = value;
-            this.setPreferences(preferences);
+            this.setUserSettings(preferences);
         }
     }
 }

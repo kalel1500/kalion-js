@@ -222,7 +222,7 @@ export enum Theme {
 export type ThemeButtons = Record<Theme, HTMLElement | null>
 
 
-export type UserPreferences = {
+export type UserSettings = {
     version: string;
     theme: Theme;
     sidebar_state: string;
