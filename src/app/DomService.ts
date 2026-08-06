@@ -1,6 +1,5 @@
 import { Cookie, SidebarState, Theme, ThemeSwitcher } from '@/app';
 import { Instantiable } from '@/app/Instantiable';
-import { __const } from '@/app/_internal/helpers';
 
 export class DomService extends Instantiable {
     private $document = document.documentElement;
@@ -49,7 +48,7 @@ export class DomService extends Instantiable {
             const isCollapsed = !this.$document.classList.contains('sc');
             const state = SidebarState.fromBoolean(isCollapsed);
             this.$document.classList.toggle('sc', isCollapsed);
-            Cookie.new().setPreference(__const('VITE_KALION_COOKIE_KEY_USER_PREF_SIDEBAR_STATE'), state.value);
+            Cookie.new().setPreference('sidebar_state', state.value);
         });
 
         // Evento para quitar la clase "sc" abrir el sidebar en version móvil
