@@ -33,6 +33,7 @@ export * from './Mutation';
 export * from './Notify';
 export * from './Spinner';
 export * from './SSelect';
+export * from './Str';
 export * from './Test';
 export * from './ThemeSwitcher';
 export * from './Ttable';
