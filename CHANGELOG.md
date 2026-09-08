@@ -1,6 +1,36 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.16.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.17.0-beta.0...master)
+
+## [v0.17.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.16.0-beta.0...v0.17.0-beta.0) - 2026-09-08
+
+### Added
+
+* Nueva clase `Str` con el método `slug` que imita el de Laravel.
+
+### Changed
+
+* (breaking) Ahora las clases `DomService` y `ThemeSwitcher` ya no extienden de `Instantiable`. Los métodos de `DomService` ahora son estáticos.
+* (breaking) Se ha mejorado la clase `Cookie`: 
+  * Ahora el nombre de la cookie se construye igual que en Laravel. Nueva variable de entorno `VITE_KALION_COOKIE_USER_SETTINGS_NAME` o `appName + -user-settings` por defecto.
+  * Se han hecho estáticos los métodos de la clase `Cookie`.
+  * Se han renombrado los métodos, variables y tipos de `preferences` a `userSettings`.
+* Se ha cambiado licencia a `Mozilla Public License Version 2.0`.
+* Se ha mejorado la clase `FModal`:
+  * Ahora se usa el patron `create` para devolver la instancia si ya existe en vez de crear una nueva y asi que no se vayan acumulando las instancias. Se ha reemplazado el map `registryModal` por el map `registryInstance` para guardar la instancia completa de `FModal`.
+  * Nuevo método estático `get` para poder recuperar una instancia existente. Acepta un `id` o un elemento html.
+  * Ahora el método `show` devuelve la instancia de `FModal` en vez de un void.
+
+### Removed
+
+* Se elimina la clase `Instantiable`.
+* Se elimina `g.slugify`. Ahora se debe usar `Str.slug()`.
+* Se han eliminado variables de entorno de las keys de las preferencias del usuario.
+
+### Fixed
+
+* Se han cambiado las variables estáticas que usan `__const()` a métodos, ya que si no siempre tendrán el valor por defecto.
+* Se ha añadido `white-space: pre-line` a la clase `swal2-html-container` para que el html de los modales respete los saltos de linea
 
 ## [v0.16.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.15.3-beta.0...v0.16.0-beta.0) - 2026-07-13
 
