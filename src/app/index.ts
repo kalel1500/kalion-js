@@ -25,7 +25,6 @@ export * from './DomService';
 export * from './Dropzone';
 export * from './global';
 export * from './Html';
-export * from './index';
 export * from './LDate';
 export * from './LStorage';
 export * from './Mutation';
