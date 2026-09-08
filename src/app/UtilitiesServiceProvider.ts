@@ -35,9 +35,9 @@ export class UtilitiesServiceProvider {
         },
         startLayoutListeners: () => {
             LStorage.checkAndUpdateVersion();
-            DomService.new().startDarkMode();
-            DomService.new().startSidebarState();
-            DomService.new().startSidebarArrowsObserve();
+            DomService.startDarkMode();
+            DomService.startSidebarState();
+            DomService.startSidebarArrowsObserve();
         },
     };
 

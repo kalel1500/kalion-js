@@ -1,10 +1,9 @@
 import { Cookie, SidebarState, Theme, ThemeSwitcher } from '@/app';
-import { Instantiable } from '@/app/Instantiable';
 
-export class DomService extends Instantiable {
-    private $document = document.documentElement;
+export class DomService {
+    private static $document = document.documentElement;
 
-    startDarkMode() {
+    public static startDarkMode() {
 
         const themeSwitcher = new ThemeSwitcher();
 
@@ -29,7 +28,7 @@ export class DomService extends Instantiable {
         }
     }
 
-    startSidebarState() {
+    public static startSidebarState() {
         /*// Clave personalizada para almacenar el estado del sidebar según la ruta actual
         const getSidebarKey = (routeName: string | undefined) => `sidebar-collapsed-${routeName}`;*/
 
@@ -58,7 +57,7 @@ export class DomService extends Instantiable {
         });
     }
 
-    startSidebarArrowsObserve()
+    public static startSidebarArrowsObserve()
     {
         const targetNode = document.getElementById("drawer-navigation")?.firstElementChild as HTMLElement | null | undefined;
 
