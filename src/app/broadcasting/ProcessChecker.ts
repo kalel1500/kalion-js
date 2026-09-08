@@ -16,9 +16,11 @@ export class ProcessChecker
         reverb: document.querySelector<HTMLDivElement>('#reverbErrorMessage'),
         queue: document.querySelector<HTMLDivElement>('#queueErrorMessage'),
     };
-    public static routes = {
-        reverb: route(__const('routeName_checkReverb')),
-        queue: route(__const('routeName_checkQueue')),
+    public static routes = () => {
+        return {
+            reverb: route(__const('routeName_checkReverb')),
+            queue: route(__const('routeName_checkQueue')),
+        };
     };
 
     public static STORAGE = {
@@ -94,7 +96,7 @@ export class ProcessChecker
         let processResult = false;
         g.addSpinner(ProcessChecker.divMessage[processName]);
         try {
-            const result = fromResult ?? await g.fetchStrict<FetchResponseOrBroadcasting>({url: ProcessChecker.routes[processName]});
+            const result = fromResult ?? await g.fetchStrict<FetchResponseOrBroadcasting>({url: ProcessChecker.routes()[processName]});
 
             let success = result.ok && result.success;
 

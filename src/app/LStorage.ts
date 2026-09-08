@@ -3,7 +3,7 @@ import { __const } from '@/app/_internal/helpers';
 
 export class LStorage {
 
-    static readonly VERSION = __const('VITE_TS_STORAGE_VERSION'); // Cambia este valor para invalidar el localStorage
+    static readonly VERSION = () => __const('VITE_TS_STORAGE_VERSION'); // Cambia este valor para invalidar el localStorage
     static readonly VERSION_KEY = 'config-version';
 
     static setItem(key: string, value: string) {
@@ -23,10 +23,10 @@ export class LStorage {
     }
 
     static checkAndUpdateVersion() {
-        const savedVersion = localStorage.getItem(LStorage.VERSION_KEY);
-        if (savedVersion !== LStorage.VERSION) {
+        const savedVersion = localStorage.getItem(this.VERSION_KEY);
+        if (savedVersion !== this.VERSION()) {
             localStorage.clear();
-            localStorage.setItem(LStorage.VERSION_KEY, LStorage.VERSION);
+            localStorage.setItem(this.VERSION_KEY, this.VERSION());
         }
     }
 
