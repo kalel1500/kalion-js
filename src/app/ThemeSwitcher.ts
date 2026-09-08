@@ -22,11 +22,11 @@ export class ThemeSwitcher
 
     getTheme(): Theme | undefined
     {
-        const preferences = Cookie.userSettings();
-        if (preferences === null) {
-            console.warn('The user preferences cookie could not be found. Defaulting to system theme.');
+        const settings = Cookie.userSettings();
+        if (settings === null) {
+            console.warn('The user settings cookie could not be found. Defaulting to system theme.');
         }
-        return preferences?.theme;
+        return settings?.theme;
     }
 
     init() {

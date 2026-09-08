@@ -30,22 +30,22 @@ export class Cookie {
         return cookieValue ? JSON.parse(cookieValue) : null;
     }
 
-    static setUserSettings(preferences: UserSettings): void
+    static setUserSettings(settings: UserSettings): void
     {
-        this.set(this.settingsName, JSON.stringify(preferences), 30);
+        this.set(this.settingsName, JSON.stringify(settings), 30);
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.fetch({
-            url: route('kalion.ajax.cookie.update', {_query: {preferences: serializedPreferences}}),
+            url: route('kalion.ajax.cookie.update', {_query: {settings: serializedSettings}}),
             type: 'PUT'
         }).then();*/
     }
 
     static setUserSetting<K extends keyof UserSettings>(key: K, value: UserSettings[K]): void {
-        const preferences = this.userSettings();
-        if (preferences !== null) {
-            preferences[key] = value;
-            this.setUserSettings(preferences);
+        const settings = this.userSettings();
+        if (settings !== null) {
+            settings[key] = value;
+            this.setUserSettings(settings);
         }
     }
 }
