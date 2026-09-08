@@ -1,6 +1,6 @@
-import { Cookie, Instantiable, Theme, ThemeButtons } from '@/app';
+import { Cookie, Theme, ThemeButtons } from '@/app';
 
-export class ThemeSwitcher extends Instantiable
+export class ThemeSwitcher
 {
     private $document = document.documentElement;
     private mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -12,8 +12,6 @@ export class ThemeSwitcher extends Instantiable
 
     constructor()
     {
-        super();
-
         // Validar que los Botones existen
         /*Object.values(this.buttons).forEach(button => {
             if (button === null) {

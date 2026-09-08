@@ -6,7 +6,7 @@ export class DomService extends Instantiable {
 
     startDarkMode() {
 
-        const themeSwitcher = ThemeSwitcher.new();
+        const themeSwitcher = new ThemeSwitcher();
 
         // Aplicar estado inicial del tema oscuro
         themeSwitcher.init();
