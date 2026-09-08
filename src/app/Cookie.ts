@@ -3,7 +3,7 @@ import { __const } from '@/app/_internal/helpers';
 import { Str } from '@/app/Str';
 
 export class Cookie {
-    protected static settingsName: string = __const('VITE_KALION_COOKIE_USER_SETTINGS_NAME') ?? Str.slug(__const('VITE_APP_NAME')) + '-user-settings';
+    protected static settingsName = () => __const('VITE_KALION_COOKIE_USER_SETTINGS_NAME') ?? Str.slug(__const('VITE_APP_NAME')) + '-user-settings';
 
     static get(name: string): string | null
     {
@@ -26,13 +26,13 @@ export class Cookie {
 
     static userSettings(): UserSettings | null
     {
-        const cookieValue = this.get(this.settingsName);
+        const cookieValue = this.get(this.settingsName());
         return cookieValue ? JSON.parse(cookieValue) : null;
     }
 
     static setUserSettings(settings: UserSettings): void
     {
-        this.set(this.settingsName, JSON.stringify(settings), 30);
+        this.set(this.settingsName(), JSON.stringify(settings), 30);
 
         // Otra opción es atacar al endpoint para que sea el backend el que modifique la cookie:
         /*g.fetch({
