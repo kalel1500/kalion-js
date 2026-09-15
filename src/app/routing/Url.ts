@@ -20,10 +20,6 @@ export class Url {
         return key === param || key.startsWith(`${param}[`);
     }
 
-    private static hasParam(searchParams: URLSearchParams, param: string): boolean {
-        return Array.from(searchParams.keys()).some(key => this.isParamOrChild(key, param));
-    }
-
     private static removeParam(searchParams: URLSearchParams, param: string): void {
         Array.from(searchParams.keys()).forEach(key => {
             if (this.isParamOrChild(key, param)) searchParams.delete(key);
@@ -63,16 +59,15 @@ export class Url {
     public static withQueryParams(
         url: string | URL,
         queryParams: QueryParams,
-        preserveExisting = false,
+        prepend = false,
     ): string {
         const updatedUrl = this.toUrl(url);
 
-        if (preserveExisting) {
+        if (prepend) {
             const searchParams = new URLSearchParams();
             Object.entries(queryParams).forEach(([key, value]) => {
-                if (!this.hasParam(updatedUrl.searchParams, key)) {
-                    this.appendParam(searchParams, key, value);
-                }
+                this.removeParam(updatedUrl.searchParams, key);
+                this.appendParam(searchParams, key, value);
             });
             updatedUrl.searchParams.forEach((value, key) => searchParams.append(key, value));
             updatedUrl.search = searchParams.toString();
@@ -96,9 +91,9 @@ export class Url {
 
     public static updateCurrentQueryParams(
         queryParams: QueryParams,
-        preserveExisting = false,
+        prepend = false,
     ): void {
-        this.updateUrl(this.withQueryParams(window.location.href, queryParams, preserveExisting));
+        this.updateUrl(this.withQueryParams(window.location.href, queryParams, prepend));
     }
 
     public static removeCurrentQueryParams(paramsToDelete: string[]): void {
