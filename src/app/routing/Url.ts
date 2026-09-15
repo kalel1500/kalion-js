@@ -1,5 +1,4 @@
-import { g } from '@/app';
-import { Filter } from 'tabulator-tables';
+import type { Filter } from 'tabulator-tables';
 
 type QueryParams = Record<string, unknown>
 
@@ -100,22 +99,26 @@ export class Url {
         this.updateUrl(this.withoutQueryParams(window.location.href, paramsToDelete));
     }
 
-    public static getEncodedFilters(): string | null {
-        return new URL(window.location.href).searchParams.get('filters');
-    }
+    public static getFilters(): Filter[] | null {
+        const filters = new Map<number, Partial<Filter>>();
+        const searchParams = new URL(window.location.href).searchParams;
 
-    public static getDecodedFilters(): Filter[] | null {
-        const filters = Url.getEncodedFilters();
-        let decodedFilters = null;
-        if (filters) {
-            try {
-                decodedFilters = decodeURIComponent(filters);
-                decodedFilters = JSON.parse(decodedFilters);
-            } catch (e) {
-                g.catchCode({error: e});
-                return null;
-            }
-        }
-        return decodedFilters;
+        searchParams.forEach((value, key) => {
+            const match = key.match(/^filter\[(\d+)]\[(field|type|value)]$/);
+            if (!match) return;
+
+            const index = Number(match[1]);
+            const property = match[2] as keyof Filter;
+            const filter = filters.get(index) ?? {};
+
+            Object.assign(filter, { [property]: value });
+            filters.set(index, filter);
+        });
+
+        if (filters.size === 0) return null;
+
+        return Array.from(filters.entries())
+            .sort(([firstIndex], [secondIndex]) => firstIndex - secondIndex)
+            .map(([, filter]) => filter as Filter);
     }
 }
