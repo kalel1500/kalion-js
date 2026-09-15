@@ -8,8 +8,12 @@ export class Url {
         return window.location.href;
     }
 
-    private static updateUrl(url: URL): void {
-        window.history.pushState({}, '', url.toString());
+    private static updateUrl(url: string): void {
+        window.history.pushState({}, '', url);
+    }
+
+    private static toUrl(url: string | URL): URL {
+        return new URL(url.toString(), window.location.href);
     }
 
     private static isParamOrChild(key: string, param: string): boolean {
@@ -56,35 +60,49 @@ export class Url {
         searchParams.append(key, String(value));
     }
 
-    public static addParamsToUrl(objectQueryParams: QueryParams, onStart = false): void {
-        const url = new URL(window.location.href);
+    public static withQueryParams(
+        url: string | URL,
+        queryParams: QueryParams,
+        preserveExisting = false,
+    ): string {
+        const updatedUrl = this.toUrl(url);
 
-        if (onStart) {
+        if (preserveExisting) {
             const searchParams = new URLSearchParams();
-            Object.entries(objectQueryParams).forEach(([key, value]) => {
-                if (!this.hasParam(url.searchParams, key)) {
+            Object.entries(queryParams).forEach(([key, value]) => {
+                if (!this.hasParam(updatedUrl.searchParams, key)) {
                     this.appendParam(searchParams, key, value);
                 }
             });
-            url.searchParams.forEach((value, key) => searchParams.append(key, value));
-            url.search = searchParams.toString();
-            this.updateUrl(url);
-            return;
+            updatedUrl.searchParams.forEach((value, key) => searchParams.append(key, value));
+            updatedUrl.search = searchParams.toString();
+            return updatedUrl.toString();
         }
 
-        Object.entries(objectQueryParams).forEach(([key, value]) => {
-            this.removeParam(url.searchParams, key);
-            this.appendParam(url.searchParams, key, value);
+        Object.entries(queryParams).forEach(([key, value]) => {
+            this.removeParam(updatedUrl.searchParams, key);
+            this.appendParam(updatedUrl.searchParams, key, value);
         });
 
-        this.updateUrl(url);
+        return updatedUrl.toString();
     }
 
-    public static removeParamsUrl(paramsToDelete: string[]): void {
-        const url = new URL(window.location.href);
-        paramsToDelete.forEach(param => this.removeParam(url.searchParams, param));
+    public static withoutQueryParams(url: string | URL, paramsToDelete: string[]): string {
+        const updatedUrl = this.toUrl(url);
+        paramsToDelete.forEach(param => this.removeParam(updatedUrl.searchParams, param));
 
-        this.updateUrl(url);
+        return updatedUrl.toString();
+    }
+
+    public static updateCurrentQueryParams(
+        queryParams: QueryParams,
+        preserveExisting = false,
+    ): void {
+        this.updateUrl(this.withQueryParams(window.location.href, queryParams, preserveExisting));
+    }
+
+    public static removeCurrentQueryParams(paramsToDelete: string[]): void {
+        this.updateUrl(this.withoutQueryParams(window.location.href, paramsToDelete));
     }
 
     public static getEncodedFilters(): string | null {
