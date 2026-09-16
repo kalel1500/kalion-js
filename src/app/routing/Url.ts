@@ -100,25 +100,48 @@ export class Url {
     }
 
     public static getFilters(): Filter[] | null {
-        const filters = new Map<number, Partial<Filter>>();
+        type ParsedFilter = Partial<Pick<Filter, 'field' | 'type'>> & {
+            scalarValue?: string;
+            arrayValues: Map<number, string>;
+        };
+
+        const filters = new Map<number, ParsedFilter>();
         const searchParams = new URL(window.location.href).searchParams;
+        const pattern = /^filter\[(\d+)]\[(field|type|value)](?:\[(\d+)])?$/;
 
         searchParams.forEach((value, key) => {
-            const match = key.match(/^filter\[(\d+)]\[(field|type|value)]$/);
+            const match = key.match(pattern);
             if (!match) return;
 
             const index = Number(match[1]);
-            const property = match[2] as keyof Filter;
-            const filter = filters.get(index) ?? {};
+            const property = match[2];
+            const valueIndex = match[3];
+            const filter = filters.get(index) ?? { arrayValues: new Map<number, string>() };
 
-            Object.assign(filter, { [property]: value });
+            if (property === 'field') filter.field = value;
+            else if (property === 'type') filter.type = value as Filter['type'];
+            else if (valueIndex === undefined) filter.scalarValue = value;
+            else filter.arrayValues.set(Number(valueIndex), value);
+
             filters.set(index, filter);
         });
 
-        if (filters.size === 0) return null;
-
-        return Array.from(filters.entries())
+        const parsedFilters = Array.from(filters.entries())
             .sort(([firstIndex], [secondIndex]) => firstIndex - secondIndex)
-            .map(([, filter]) => filter as Filter);
+            .flatMap(([, filter]) => {
+                if (!filter.field || !filter.type) return [];
+
+                const arrayValue = Array.from(filter.arrayValues.entries())
+                    .sort(([firstIndex], [secondIndex]) => firstIndex - secondIndex)
+                    .map(([, value]) => value);
+
+                return [{
+                    field: filter.field,
+                    type: filter.type,
+                    value: arrayValue.length ? arrayValue : (filter.scalarValue ?? ''),
+                }];
+            });
+
+        return parsedFilters.length ? parsedFilters : null;
     }
 }
