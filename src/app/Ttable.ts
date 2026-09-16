@@ -11,6 +11,7 @@ import {
 } from 'tabulator-tables';
 import {
     Component,
+    FetchResponse,
     FetchParamsSimple,
     g,
     NullHTMLButtonElement,
@@ -21,7 +22,7 @@ import {
 import { SSelect } from '@/app/SSelect';
 import type { DebouncedSearchParams, SlimConfigData } from '@/app/SSelect';
 
-type HeaderFilterSlimSelectCommonOptions = {
+export type HeaderFilterSlimSelectCommonOptions = {
     showSearch?: boolean;
     maxValuesShown?: number;
     closeOnSelect?: boolean;
@@ -38,6 +39,11 @@ export type HeaderFilterSlimSelectStaticOptions = HeaderFilterSlimSelectCommonOp
 export type HeaderFilterSlimSelectRemoteOptions = HeaderFilterSlimSelectCommonOptions & DebouncedSearchParams & {
     data?: never;
     formatInitialValue?: (value: string) => string;
+    hydrateInitialValues?: boolean;
+    initialValuesSource?: string;
+    initialValuesParam?: string;
+    loadInitialData?: (values: string[]) => Promise<SlimConfigData>;
+    onInitialDataError?: (error: unknown, values: string[]) => void;
 };
 
 export type HeaderFilterSlimSelectOptions =
@@ -466,7 +472,9 @@ export class Ttable {
             }
 
             onRendered(() => {
+                let isHydrating = false;
                 const afterChange = (newValues: {value?: string}[]) => {
+                    if (isHydrating) return;
                     const values = newValues.map(value => value.value).filter((value): value is string => Boolean(value));
                     success(values.length ? values : '');
                 };
@@ -499,6 +507,27 @@ export class Ttable {
                     control.style.cssText += options.controlStyle
                         ?? 'font-size:0.7rem;padding:2px 6px;min-height:unset;line-height:1.4;';
                 }
+
+                if (
+                    Ttable.isRemoteHeaderFilterSlimSelect(options)
+                    && initialValues.length
+                    && (options.hydrateInitialValues || options.loadInitialData)
+                ) {
+                    void Ttable.resolveHeaderFilterInitialData(options, initialValues)
+                        .then(initialData => {
+                            if (!select.isConnected) return;
+                            if (!Ttable.haveSameValues(slimSelect.getSelected(), initialValues)) return;
+
+                            isHydrating = true;
+                            try {
+                                slimSelect.setData(Ttable.appendMissingInitialOptions(initialData, initialValues, options));
+                                slimSelect.setSelected(initialValues, false);
+                            } finally {
+                                isHydrating = false;
+                            }
+                        })
+                        .catch(error => Ttable.handleHeaderFilterInitialDataError(error, initialValues, options));
+                }
             });
 
             return select;
@@ -507,11 +536,104 @@ export class Ttable {
 
     private static toHeaderFilterValues(value: unknown): string[] {
         if (value === null || value === undefined || value === '') return [];
-        return (Array.isArray(value) ? value : [value]).map(String);
+        const values = Array.isArray(value) ? value : [value];
+        const uniqueValues = new Set<string>();
+        values.forEach(item => {
+            if (item === null || item === undefined) return;
+            const normalizedValue = String(item);
+            if (normalizedValue !== '') uniqueValues.add(normalizedValue);
+        });
+        return [...uniqueValues];
     }
 
     private static isRemoteHeaderFilterSlimSelect(options: HeaderFilterSlimSelectOptions): options is HeaderFilterSlimSelectRemoteOptions {
         return 'source' in options && options.source !== undefined;
+    }
+
+    private static async resolveHeaderFilterInitialData(
+        options: HeaderFilterSlimSelectRemoteOptions,
+        initialValues: string[],
+    ): Promise<SlimConfigData> {
+        const initialData = options.loadInitialData
+            ? await options.loadInitialData([...initialValues])
+            : await Ttable.fetchHeaderFilterInitialData(options, initialValues);
+
+        if (!Array.isArray(initialData)) {
+            throw new TypeError('Los datos iniciales del filtro SlimSelect deben ser un array.');
+        }
+        return initialData;
+    }
+
+    private static async fetchHeaderFilterInitialData(
+        options: HeaderFilterSlimSelectRemoteOptions,
+        initialValues: string[],
+    ): Promise<SlimConfigData> {
+        const source = options.initialValuesSource
+            ?? (typeof options.source === 'string' ? options.source : undefined);
+        if (!source) {
+            throw new Error('La hidratación inicial de SlimSelect necesita initialValuesSource o loadInitialData.');
+        }
+
+        const url = new URL(source, window.location.origin);
+        initialValues.forEach(value => url.searchParams.append(options.initialValuesParam ?? 'selected[]', value));
+
+        const response = await g.fetchStrict<FetchResponse<SlimConfigData>>({url: url.toString()});
+        if (!response.success) {
+            throw new Error(response.message || 'No se pudieron obtener los datos iniciales del filtro SlimSelect.');
+        }
+        if (!Array.isArray(response.data)) {
+            throw new TypeError('La respuesta de hidratación de SlimSelect no contiene un array en data.');
+        }
+        return response.data;
+    }
+
+    private static appendMissingInitialOptions(
+        initialData: SlimConfigData,
+        initialValues: string[],
+        options: HeaderFilterSlimSelectRemoteOptions,
+    ): SlimConfigData {
+        const resolvedValues = Ttable.getSlimConfigValues(initialData);
+        const fallbackOptions = initialValues
+            .filter(value => !resolvedValues.has(value))
+            .map(value => ({value, text: options.formatInitialValue?.(value) ?? value}));
+        return [...initialData, ...fallbackOptions];
+    }
+
+    private static getSlimConfigValues(data: SlimConfigData): Set<string> {
+        const values = new Set<string>();
+        data.forEach(item => {
+            if ('options' in item && Array.isArray(item.options)) {
+                item.options.forEach(option => {
+                    if (option.value !== undefined && option.value !== '') values.add(String(option.value));
+                });
+                return;
+            }
+            if ('value' in item && item.value !== undefined && item.value !== '') values.add(String(item.value));
+        });
+        return values;
+    }
+
+    private static haveSameValues(currentValues: string[], expectedValues: string[]): boolean {
+        if (currentValues.length !== expectedValues.length) return false;
+        const currentSet = new Set(currentValues.map(String));
+        return currentSet.size === expectedValues.length && expectedValues.every(value => currentSet.has(value));
+    }
+
+    private static handleHeaderFilterInitialDataError(
+        error: unknown,
+        initialValues: string[],
+        options: HeaderFilterSlimSelectRemoteOptions,
+    ): void {
+        if (!options.onInitialDataError) {
+            console.error('No se pudieron hidratar las etiquetas iniciales del filtro SlimSelect.', error);
+            return;
+        }
+
+        try {
+            options.onInitialDataError(error, [...initialValues]);
+        } catch (callbackError) {
+            console.error('El callback onInitialDataError del filtro SlimSelect ha fallado.', callbackError);
+        }
     }
 
     static headerFilterParams_listBoolean = {values: {0: 'No', 1: 'Si'}};
