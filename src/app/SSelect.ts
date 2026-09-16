@@ -3,12 +3,12 @@ import type { Settings, Events, Optgroup, Option } from "slim-select";
 import { FetchResponse, g } from '@/app';
 import { ___ } from '@/app/_internal/helpers';
 
-type SlimData = Option | Optgroup;
-type SearchCallback = (search: string, currentData: SlimData[]) => Promise<string | SlimData[]>;
-type SlimConfigData = (Partial<Option> | Partial<Optgroup>)[];
+export type SlimData = Option | Optgroup;
+export type SearchCallback = (search: string, currentData: SlimData[]) => Promise<string | SlimData[]>;
+export type SlimConfigData = (Partial<Option> | Partial<Optgroup>)[];
 type SelectOptions = Partial<Settings & Events> & { data?: SlimConfigData };
 type SearchOptions = { search: Events["search"] } & Partial<Omit<Settings & Events, "search">> & { data?: SlimConfigData };
-type DebouncedSearchParams = {
+export type DebouncedSearchParams = {
     source: string | SearchCallback;
     delay?: number;
     minLength?: number;

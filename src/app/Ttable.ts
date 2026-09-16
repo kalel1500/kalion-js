@@ -18,6 +18,31 @@ import {
     TableSettingEvents,
     ValidationRules,
 } from '@/app';
+import { SSelect } from '@/app/SSelect';
+import type { DebouncedSearchParams, SlimConfigData } from '@/app/SSelect';
+
+type HeaderFilterSlimSelectCommonOptions = {
+    showSearch?: boolean;
+    maxValuesShown?: number;
+    closeOnSelect?: boolean;
+    allowDeselect?: boolean;
+    controlClassName?: string;
+    controlStyle?: string;
+};
+
+export type HeaderFilterSlimSelectStaticOptions = HeaderFilterSlimSelectCommonOptions & {
+    data: SlimConfigData;
+    source?: never;
+};
+
+export type HeaderFilterSlimSelectRemoteOptions = HeaderFilterSlimSelectCommonOptions & DebouncedSearchParams & {
+    data?: never;
+    formatInitialValue?: (value: string) => string;
+};
+
+export type HeaderFilterSlimSelectOptions =
+    | HeaderFilterSlimSelectStaticOptions
+    | HeaderFilterSlimSelectRemoteOptions;
 
 export class Ttable {
     readonly tableId: string | HTMLElement;
@@ -419,6 +444,74 @@ export class Ttable {
         if (typeof value === 'string' && value) return [value, value];
         if (!Array.isArray(value)) return ['', ''];
         return [String(value[0] ?? ''), String(value[1] ?? '')];
+    }
+
+    /**
+     * Crea un filtro múltiple SlimSelect a partir de datos estáticos o de una fuente de búsqueda remota.
+     */
+    static headerFilterSlimSelect(options: HeaderFilterSlimSelectOptions): Editor {
+        return (cell, onRendered, success) => {
+            const select = document.createElement('select');
+            select.multiple = true;
+
+            const initialValues = Ttable.toHeaderFilterValues(cell.getValue());
+            if (Ttable.isRemoteHeaderFilterSlimSelect(options)) {
+                initialValues.forEach(value => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = options.formatInitialValue?.(value) ?? value;
+                    option.selected = true;
+                    select.appendChild(option);
+                });
+            }
+
+            onRendered(() => {
+                const afterChange = (newValues: {value?: string}[]) => {
+                    const values = newValues.map(value => value.value).filter((value): value is string => Boolean(value));
+                    success(values.length ? values : '');
+                };
+                const commonOptions = {
+                    showSearch: options.showSearch ?? Ttable.isRemoteHeaderFilterSlimSelect(options),
+                    maxValuesShown: options.maxValuesShown ?? 1,
+                    closeOnSelect: options.closeOnSelect ?? false,
+                    allowDeselect: options.allowDeselect ?? true,
+                    afterChange,
+                };
+                const slimSelect = Ttable.isRemoteHeaderFilterSlimSelect(options)
+                    ? SSelect.search(select, {
+                        ...commonOptions,
+                        search: SSelect.debouncedSearch({
+                            source: options.source,
+                            delay: options.delay,
+                            minLength: options.minLength,
+                            fetchLimit: options.fetchLimit,
+                            textMinCharacters: options.textMinCharacters,
+                            textEmptyResults: options.textEmptyResults,
+                        }),
+                    })
+                    : SSelect.basic(select, {...commonOptions, data: options.data});
+
+                if (initialValues.length) slimSelect.setSelected(initialValues, false);
+
+                const control = select.parentElement?.querySelector<HTMLElement>('.ss-main');
+                if (control) {
+                    if (options.controlClassName) control.classList.add(...options.controlClassName.split(/\s+/).filter(Boolean));
+                    control.style.cssText += options.controlStyle
+                        ?? 'font-size:0.7rem;padding:2px 6px;min-height:unset;line-height:1.4;';
+                }
+            });
+
+            return select;
+        };
+    }
+
+    private static toHeaderFilterValues(value: unknown): string[] {
+        if (value === null || value === undefined || value === '') return [];
+        return (Array.isArray(value) ? value : [value]).map(String);
+    }
+
+    private static isRemoteHeaderFilterSlimSelect(options: HeaderFilterSlimSelectOptions): options is HeaderFilterSlimSelectRemoteOptions {
+        return 'source' in options && options.source !== undefined;
     }
 
     static headerFilterParams_listBoolean = {values: {0: 'No', 1: 'Si'}};
