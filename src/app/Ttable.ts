@@ -1,5 +1,6 @@
 import {
     CellComponent,
+    Editor,
     EventCallBackMethods,
     JSONRecord,
     LabelValue,
@@ -362,6 +363,63 @@ export class Ttable {
     }
 
     /*-----headerFilterParams-----------------------------------------------------------------------------------------*/
+
+    /**
+     * Comprueba si un filtro de rango de fechas no contiene ninguna fecha.
+     */
+    static isDateRangeEmpty(value: unknown): boolean {
+        const [start, end] = Ttable.toDateRange(value);
+        return !start && !end;
+    }
+
+    /**
+     * Crea un filtro de cabecera con fechas inicial y final.
+     * El valor enviado por Tabulator tiene la forma [desde, hasta].
+     */
+    static headerFilterDateRange(): Editor {
+        return (cell, _onRendered, success, cancel) => {
+            const container = document.createElement('div');
+            container.style.cssText = 'display:flex;gap:2px;width:100%;';
+
+            const [initialStart, initialEnd] = Ttable.toDateRange(cell.getValue());
+            const start = Ttable.createDateRangeInput('Desde', initialStart);
+            const end = Ttable.createDateRangeInput('Hasta', initialEnd);
+            container.append(start, end);
+
+            const submit = () => {
+                if (start.value && end.value && start.value > end.value) {
+                    [start.value, end.value] = [end.value, start.value];
+                }
+                success([start.value, end.value]);
+            };
+
+            [start, end].forEach(input => {
+                input.addEventListener('change', submit);
+                input.addEventListener('keydown', event => {
+                    if (event.key === 'Enter') submit();
+                    if (event.key === 'Escape') cancel(cell.getValue());
+                });
+            });
+
+            return container;
+        };
+    }
+
+    private static createDateRangeInput(title: string, value: string): HTMLInputElement {
+        const input = document.createElement('input');
+        input.type = 'date';
+        input.title = title;
+        input.setAttribute('aria-label', title);
+        input.value = value;
+        input.style.cssText = 'padding:2px;width:50%;min-width:0;box-sizing:border-box;font-size:0.65rem;';
+        return input;
+    }
+
+    private static toDateRange(value: unknown): [string, string] {
+        if (typeof value === 'string' && value) return [value, value];
+        if (!Array.isArray(value)) return ['', ''];
+        return [String(value[0] ?? ''), String(value[1] ?? '')];
+    }
 
     static headerFilterParams_listBoolean = {values: {0: 'No', 1: 'Si'}};
 
