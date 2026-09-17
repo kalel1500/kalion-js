@@ -1,8 +1,43 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.17.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...master)
+
+## [v0.18.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.17.0-beta.0...v0.18.0-beta.0) - 2026-09-15
+
+### Added
+
+* `Ttable`: nuevos filtros de cabecera reutilizables para rangos de fechas y selecciones múltiples con `SlimSelect`. El filtro `SlimSelect` admite datos estáticos, búsqueda remota e hidratación asíncrona de las etiquetas de valores restaurados.
+
+### Changed
+
+* Se ha rehecho la gestion de las instancias de `FModal`:
+  * `FModal.create()` reutiliza la instancia registrada y reemplaza sus opciones en cada llamada, evitando que las siguientes aperturas conserven callbacks o contexto anteriores. Se añade el método público `updateOptions()` y solo se recrea el `Modal` interno de Flowbite cuando cambian opciones estructurales.
+  * (breaking) Se elimina `CreationOptions.instanceOptions`: el identificador y la estrategia `override` de Flowbite pasan a ser invariantes internos de `FModal` para mantener sincronizados ambos registros de instancias.
+* (breaking) Se ha rehecho la clase `Url`:
+  * Ahora la gestión de query params ahora conserva intacta la ruta de Laravel/Ziggy y el resto de parámetros existentes.
+  * `addParamsToUrl()` y `removeParamsUrl()` se sustituyen por `updateCurrentQueryParams()` y `removeCurrentQueryParams()`.
+  * Se añaden los métodos puros `withQueryParams()` y `withoutQueryParams()`, que reciben una URL y devuelven el string modificado sin actualizar el navegador.
+  * El parámetro `onStart` se renombra a `prepend`: los valores recibidos siempre sustituyen a los existentes y, cuando es `true`, se colocan al principio de la query string.
+  * Los valores complejos como arrays u objetos se serializan con corchetes codificados en la query string.
+  * `getEncodedFilters()` y `getDecodedFilters()` se sustituyen por `getFilters()`, que reconstruye los filtros de Tabulator desde los parámetros anidados de la URL.
+
+### Removed
+
+* Se eliminan varios métodos de la clase `Url`:
+  * `addParamsToUrl()`
+  * `removeParamsUrl()`
+  * `getEncodedFilters()`
+  * `getDecodedFilters()`
+
+### Fixed
+
+* `FModal.create()` ahora actualiza las opciones de la instancia existente. Esto corrige un problema que había al abrir el mismo modal con datos diferentes, ya que al guardar la instancia completa se abría siempre el primero.
+* `FModal.destroy()` elimina también la instancia del registro interno de Flowbite y limpia correctamente el estado visual si el modal estaba abierto.
 
 ## [v0.17.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.16.0-beta.0...v0.17.0-beta.0) - 2026-09-08
+
+> [!WARNING]
+> ⚠️ ATENCIÓN: Esta versión introduce un error crítico en la clase `FModal`. Al usar los métodos `show` o `create` de un modal que ya estaba abierto, se pierde el contexto de los callbacks y se ejecutan los del primer modal abierto. Se recomienda actualizar a la versión `v0.18.0-beta.0` para corregir este problema.
 
 ### Added
 
