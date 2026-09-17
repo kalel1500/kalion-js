@@ -439,6 +439,7 @@ export class Ttable {
     private static createDateRangeInput(title: string, value: string): HTMLInputElement {
         const input = document.createElement('input');
         input.type = 'date';
+        input.classList.add('dark:scheme-dark');
         input.title = title;
         input.setAttribute('aria-label', title);
         input.value = value;
