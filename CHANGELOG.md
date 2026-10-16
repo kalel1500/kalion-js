@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.1-beta.0...master)
+
+## [v0.18.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...v0.18.1-beta.0) - 2026-10-17
+
+### Changed
+
+* Se ha rediseñado por completo el motor de peticiones HTTP en la clase `g`:
+  * **Spoofing Universal de Métodos**: El mecanismo de *Method Spoofing* (`_method`) ahora se aplica a todas las peticiones `PUT`, `PATCH` y `DELETE` de manera automática, sin importar si los parámetros se envían como `FormData` o como objetos JSON planos. Esto previene fallos de desbordamiento de payload o conexiones cortadas por el servidor web (errores 500 vacíos) al usar verbos nativos.
+  * **Estrategia de Lectura Defensiva**: Se sustituye el uso de `response.json()` nativo por una lectura previa mediante `response.text()` combinada con un `JSON.parse` controlado. Esto evita excepciones fatales no capturadas cuando el servidor devuelve un cuerpo vacío o código HTML (pantallas de error de Laravel), transformándolos en rechazos de promesa limpios y depurables.
+  * **Mejoras del Sistema de Tipado (TS)**: El tipo condicional `FetchReturnType<R>` ahora propaga y conserva correctamente el tipo genérico personalizado provisto en las llamadas (`g.fetchStrict<T>`) para habilitar el autocompletado nativo del nodo `data`. Se añade un valor por defecto `= DataType` tanto al tipo condicional como a las firmas de los métodos `fetchBase`, `fetch` y `fetchStrict` para mantener compatibilidad absoluta con llamadas genéricas no tipadas sin romper proyectos existentes.
 
 ## [v0.18.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.17.0-beta.0...v0.18.0-beta.0) - 2026-09-15
 
