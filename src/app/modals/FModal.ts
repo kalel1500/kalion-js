@@ -372,8 +372,16 @@ export class FModal {
     public clearInputs() {
         const inputs = this.$modalElement?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
         inputs?.forEach((input) => {
-            // Ignorar inputs ocultos, radios y checkboxes para no destruir sus valores lógicos
-            if (input.type !== "hidden" && input.type !== "radio" && input.type !== "checkbox") {
+            // Ignorar inputs ocultos
+            if (input.type === "hidden") return;
+
+            // Gestionar elementos de selección (checkbox y radio)
+            if (input.type === "radio" || input.type === "checkbox") {
+                const htmlInputElement = input as HTMLInputElement;
+                // Restablece el estado basándose en si tenía el atributo 'checked' en el HTML original
+                htmlInputElement.checked = htmlInputElement.defaultChecked;
+            } else {
+                // Limpiar inputs de texto, textareas, etc.
                 input.value = "";
             }
         });
