@@ -1,6 +1,7 @@
 import type {
-    CatchParams,
-    FetchParams, FetchReturnType,
+    ApiObject,
+    CatchParams, DataType,
+    FetchParams, FetchReturnType, HttpMethod,
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
@@ -83,13 +84,27 @@ export class g {
         return false;
     }
 
-    private static async fetchBase<R>(
+    private static async fetchBase<R = DataType>(
         { url, type = 'GET', params = undefined, headers = {} }: FetchParams,
         strict: boolean
     ): Promise<FetchReturnType<R>>
     {
         try {
             const isFormData = params instanceof FormData;
+
+            const spoofedMethods: HttpMethod[] = ['PUT', 'PATCH', 'DELETE'];
+            const needsSpoofing = spoofedMethods.includes(type);
+
+            // Tipamos finalParams dinámicamente según el flujo de spoofing
+            let finalParams: ApiObject | FormData | undefined = params;
+
+            if (needsSpoofing && params !== undefined) {
+                if (isFormData) {
+                    (params as FormData).append('_method', type);
+                } else if (typeof params === 'object') {
+                    finalParams = { ...params, _method: type };
+                }
+            }
 
             const finalHeaders: Record<string, string> = {
                 'Accept': 'application/json',
@@ -99,28 +114,27 @@ export class g {
                 ...headers,
             };
 
-            const spoofedMethods = ['PUT', 'PATCH', 'DELETE'] as const;
-            const needsSpoofing = isFormData && (spoofedMethods as readonly string[]).includes(type);
-
-            if (needsSpoofing && params instanceof FormData) {
-                params.append('_method', type);
-            }
-
             const fetchParams: RequestInit = {
                 method: needsSpoofing ? 'POST' : type,
                 headers: finalHeaders,
             };
 
-            if (type !== 'GET' && params !== undefined) {
-                fetchParams.body = isFormData ? params : JSON.stringify(params);
+            if (type !== 'GET' && finalParams !== undefined) {
+                fetchParams.body = isFormData ? (finalParams as FormData) : JSON.stringify(finalParams);
             }
 
             const response = await fetch(url, fetchParams);
-            const result = await response.json() as FetchReturnType<R> | string;
 
-            if (typeof result === 'string') {
-                const reason = result === '' ? 'The server returned an empty response.' : result;
-                return Promise.reject(reason);
+            const text = await response.text();
+            if (!text.trim()) {
+                return Promise.reject(`The server returned an empty response with status ${response.status}.`);
+            }
+
+            let result: FetchReturnType<R>;
+            try {
+                result = JSON.parse(text) as FetchReturnType<R>;
+            } catch (jsonError) {
+                return Promise.reject(`Invalid JSON response: ${text}`);
             }
 
             result.ok = response.ok;
@@ -135,12 +149,12 @@ export class g {
         }
     }
 
-    static async fetch<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetch<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
         return await g.fetchBase<R>({url, type, params, headers}, false);
     }
 
-    static async fetchStrict<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetchStrict<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
         return await g.fetchBase<R>({url, type, params, headers}, true);
     }
