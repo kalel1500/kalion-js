@@ -1,5 +1,4 @@
 import type {
-    ApiObject,
     CatchParams, DataType,
     FetchParams, FetchReturnType, HttpMethod,
     ValidationInternalData,
