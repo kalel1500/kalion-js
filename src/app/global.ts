@@ -117,11 +117,17 @@ export class g {
             }
 
             const response = await fetch(url, fetchParams);
-            const result = await response.json() as FetchReturnType<R> | string;
 
-            if (typeof result === 'string') {
-                const reason = result === '' ? 'The server returned an empty response.' : result;
-                return Promise.reject(reason);
+            const text = await response.text();
+            if (!text.trim()) {
+                return Promise.reject(`The server returned an empty response with status ${response.status}.`);
+            }
+
+            let result: FetchReturnType<R>;
+            try {
+                result = JSON.parse(text) as FetchReturnType<R>;
+            } catch (jsonError) {
+                return Promise.reject(`Invalid JSON response: ${text}`);
             }
 
             result.ok = response.ok;
