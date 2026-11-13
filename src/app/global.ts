@@ -100,8 +100,8 @@ export class g {
                 ...headers,
             };
 
-            const spoofedMethods = ['PUT', 'PATCH', 'DELETE'] as const;
-            const needsSpoofing = isFormData && (spoofedMethods as readonly string[]).includes(type);
+            const spoofedMethods: HttpMethod[] = ['PUT', 'PATCH', 'DELETE'];
+            const needsSpoofing = isFormData && spoofedMethods.includes(type);
 
             if (needsSpoofing && params instanceof FormData) {
                 params.append('_method', type);
