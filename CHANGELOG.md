@@ -1,8 +1,24 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.2-beta.0...master)
 
-## [v0.18.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...v0.18.1-beta.0) - 2026-10-17
+## [v0.18.2-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.18.1-beta.0...v0.18.2-beta.0) - 2026-11-14
+
+### Added
+
+* `Ttable`: cancelación automática de la petición HTTP anterior cuando Tabulator lanza una nueva carga remota (filtro, orden, paginación, búsqueda global...):
+  * Nueva clase `AbortableAjaxRequest`, que aporta un `ajaxRequestFunc` con un `AbortController` propio por tabla. Reutiliza el `urlGenerator` de Tabulator (respeta `ajaxURLGenerator` y la serialización por defecto de `page|size|sort|filter`). La petición abortada queda pendiente para que Tabulator la ignore y no muestre el cartel `"Error"`.
+  * `Ttable` inyecta ese `ajaxRequestFunc` automáticamente. Un `ajaxRequestFunc` explícito en las opciones tiene prioridad.
+  * Nuevo parámetro `abortPreviousRequest = true` en el constructor de `Ttable` para desactivar este comportamiento.
+  * Nuevo método `Ttable.abortPendingRequest()` para cortar la petición en vuelo manualmente.
+* `FetchParams`: nueva propiedad opcional `signal?: AbortSignal`, soportada por `g.fetch` y `g.fetchStrict`.
+* Nuevo método `g.isAbortError()` para detectar errores de tipo `AbortError`.
+
+### Changed
+
+* `g.fetch` / `g.fetchStrict`: ya no se muestra `console.error('Fetch request failed.')` cuando la petición se cancela con un `AbortError` (la promesa se sigue rechazando con el error).
+
+## [v0.18.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...v0.18.1-beta.0) - 2026-11-13
 
 ### Changed
 
