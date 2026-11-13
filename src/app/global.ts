@@ -1,6 +1,7 @@
 import type {
-    CatchParams,
-    FetchParams, FetchReturnType,
+    ApiObject,
+    CatchParams, DataType,
+    FetchParams, FetchReturnType, HttpMethod,
     ValidationInternalData,
     ValidationResponse,
     ValidationRules,
@@ -83,7 +84,7 @@ export class g {
         return false;
     }
 
-    private static async fetchBase<R>(
+    private static async fetchBase<R = DataType>(
         { url, type = 'GET', params = undefined, headers = {} }: FetchParams,
         strict: boolean
     ): Promise<FetchReturnType<R>>
@@ -135,12 +136,12 @@ export class g {
         }
     }
 
-    static async fetch<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetch<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
         return await g.fetchBase<R>({url, type, params, headers}, false);
     }
 
-    static async fetchStrict<R>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetchStrict<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
     {
         return await g.fetchBase<R>({url, type, params, headers}, true);
     }

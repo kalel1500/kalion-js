@@ -129,7 +129,7 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export interface FetchParams {
     url: string;
     type?: HttpMethod;
-    params?: {};
+    params?: ApiObject | FormData;
     headers?: Record<string, string>;
 }
 
@@ -172,7 +172,7 @@ export interface FetchBroadcastingResponse<T = DataType> extends FetchResponse {
 
 export type FetchResponseOrBroadcasting<T = DataType> = FetchResponse<T> | FetchBroadcastingResponse<T>;
 
-export type FetchReturnType<R> = R extends FetchResponse<any> ? R : FetchResponse;
+export type FetchReturnType<R = DataType> = R extends FetchResponse<any> ? R : FetchResponse<R>;
 
 export type Nullish = null | undefined;
 export type StrOrNullish = string | Nullish;
