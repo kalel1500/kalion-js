@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion-js/compare/v0.18.1-beta.0...master)
+
+## [v0.18.1-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.18.0-beta.0...v0.18.1-beta.0) - 2026-10-17
+
+### Changed
+
+* Se han modificado los métodos `fetch` de la clase `g`:
+  * **Estrategia de Lectura Defensiva**: Se sustituye el uso de `response.json()` nativo por una lectura previa mediante `response.text()` combinada con un `JSON.parse` controlado. Esto evita excepciones fatales no capturadas cuando el servidor devuelve un cuerpo vacío o código HTML (pantallas de error de Laravel), transformándolos en rechazos de promesa limpios y depurables.
+  * **Mejoras del Sistema de Tipado (TS)**: El tipo condicional `FetchReturnType<R>` ahora propaga y conserva correctamente el tipo genérico personalizado provisto en las llamadas (`g.fetchStrict<T>`) para habilitar el autocompletado nativo del nodo `data`. Se añade un valor por defecto `= DataType` tanto al tipo condicional como a las firmas de los métodos `fetchBase`, `fetch` y `fetchStrict` para mantener compatibilidad absoluta con llamadas genéricas no tipadas sin romper proyectos existentes.
+
+### Fixed
+
+* `fetch`: el *Method Spoofing* con `FormData` ya no añade el campo `_method` si ya existe, evitando duplicarlo al reutilizar el mismo `FormData` en varias peticiones.
+* Correcciones en el método `clearInputs` de la clase `FModal`: 
+  * No destruir los valores de `radios` y `checkboxes`.
+  * Devolver a su estado original los `checkbox` y `radio`.
 
 ## [v0.18.0-beta.0](https://github.com/kalel1500/kalion-js/compare/v0.17.0-beta.0...v0.18.0-beta.0) - 2026-09-15
 
