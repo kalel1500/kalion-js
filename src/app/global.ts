@@ -83,8 +83,13 @@ export class g {
         return false;
     }
 
+    static isAbortError(e: unknown): boolean
+    {
+        return e instanceof DOMException && e.name === 'AbortError';
+    }
+
     private static async fetchBase<R = DataType>(
-        { url, type = 'GET', params = undefined, headers = {} }: FetchParams,
+        { url, type = 'GET', params = undefined, headers = {}, signal }: FetchParams,
         strict: boolean
     ): Promise<FetchReturnType<R>>
     {
@@ -110,6 +115,7 @@ export class g {
             const fetchParams: RequestInit = {
                 method: needsSpoofing ? 'POST' : type,
                 headers: finalHeaders,
+                signal,
             };
 
             if (type !== 'GET' && params !== undefined) {
@@ -137,19 +143,19 @@ export class g {
 
             return Promise.resolve(result);
         } catch (e) {
-            console.error('Fetch request failed.');
+            if (!g.isAbortError(e)) console.error('Fetch request failed.');
             return Promise.reject(e);
         }
     }
 
-    static async fetch<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetch<R = DataType>({url, type = 'GET', params = undefined, headers = {}, signal}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase<R>({url, type, params, headers}, false);
+        return await g.fetchBase<R>({url, type, params, headers, signal}, false);
     }
 
-    static async fetchStrict<R = DataType>({url, type = 'GET', params = undefined, headers = {}}: FetchParams): Promise<FetchReturnType<R>>
+    static async fetchStrict<R = DataType>({url, type = 'GET', params = undefined, headers = {}, signal}: FetchParams): Promise<FetchReturnType<R>>
     {
-        return await g.fetchBase<R>({url, type, params, headers}, true);
+        return await g.fetchBase<R>({url, type, params, headers, signal}, true);
     }
 
     static async fetchString({url, type = 'GET', params = undefined}: FetchParams): Promise<{ok: boolean, text: string}>

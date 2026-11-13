@@ -19,6 +19,7 @@ export * from './value-objects/IntVo';
 export * from './value-objects/SidebarState';
 export * from './value-objects/StringVo';
 
+export * from './AbortableAjaxRequest';
 export * from './Constants';
 export * from './Cookie';
 export * from './DomService';

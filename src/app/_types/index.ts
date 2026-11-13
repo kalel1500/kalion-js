@@ -131,6 +131,7 @@ export interface FetchParams {
     type?: HttpMethod;
     params?: ApiObject | FormData;
     headers?: Record<string, string>;
+    signal?: AbortSignal;
 }
 
 export interface FetchParamsSimple {

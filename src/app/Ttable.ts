@@ -21,6 +21,7 @@ import {
 } from '@/app';
 import { SSelect } from '@/app/SSelect';
 import type { DebouncedSearchParams, SlimConfigData } from '@/app/SSelect';
+import { AbortableAjaxRequest } from '@/app/AbortableAjaxRequest';
 
 export type HeaderFilterSlimSelectCommonOptions = {
     showSearch?: boolean;
@@ -55,17 +56,33 @@ export class Ttable {
     table: Tabulator;
     isEditable = false;
     readonly orderFieldName: string;
+    private readonly ajaxRequest = new AbortableAjaxRequest();
 
-    constructor(tableId: string | HTMLElement, options: Options, settingEvents: TableSettingEvents, orderFieldName?: string) {
+    constructor(
+        tableId: string | HTMLElement,
+        options: Options,
+        settingEvents: TableSettingEvents,
+        orderFieldName?: string,
+        abortPreviousRequest = true,
+    ) {
         this.tableId = tableId;
         this.orderFieldName = orderFieldName ?? 'order';
 
-        this.table = new Tabulator(this.tableId, options);
+        // Un ajaxRequestFunc explícito en las opciones tiene prioridad
+        const finalOptions: Options = abortPreviousRequest
+            ? { ajaxRequestFunc: this.ajaxRequest.requestFunc, ...options }
+            : options;
+
+        this.table = new Tabulator(this.tableId, finalOptions);
         Object.entries(settingEvents).forEach(entry => {
             const key = entry[0] as keyof EventCallBackMethods;
             const value = entry[1];
             this.table.on(key, value);
         });
+    }
+
+    abortPendingRequest(): void {
+        this.ajaxRequest.abort();
     }
 
     isEditableCell(cell: CellComponent) {
