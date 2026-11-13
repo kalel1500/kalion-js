@@ -103,7 +103,8 @@ export class g {
             const spoofedMethods: HttpMethod[] = ['PUT', 'PATCH', 'DELETE'];
             const needsSpoofing = isFormData && spoofedMethods.includes(type);
 
-            if (needsSpoofing && params instanceof FormData) {
+            // Method spoofing con FormData: PHP no parsea multipart/form-data en métodos distintos de POST. Con JSON, Laravel lee el body nativamente en PUT/PATCH/DELETE, así que se envía el verbo real.
+            if (needsSpoofing && params instanceof FormData && !params.has('_method')) {
                 params.append('_method', type);
             }
 
