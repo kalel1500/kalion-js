@@ -141,10 +141,7 @@ export class Ttable {
         pagination: true,
         paginationMode: 'local',
         paginationSize: 30,
-        paginationCounter: (pageSize, currentRow, currentPage, totalRows, totalPages) => {
-            const finalCurrentRow = currentRow + (pageSize - 1);
-            return `Mostrando ${currentRow} - ${finalCurrentRow} filas de ${totalRows}`;
-        },
+        paginationCounter:"rows",
         ajaxResponse: (url, params, response) => {
             /*let data = response.data;
             let regVisibles = (data.per_page < data.total) ? data.per_page : data.total;
