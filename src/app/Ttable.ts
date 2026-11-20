@@ -143,6 +143,9 @@ export class Ttable {
         paginationSize: 30,
         paginationCounter:"rows",
         ajaxResponse: (url, params, response) => response.data,
+        dataReceiveParams: {
+            "last_row":"total", // change last_row parameter name to "total" (Laravel paginator returns total)
+        } ,
         footerElement: `<span class="mx-1" id="footerinfo"></span>`,
         langs: {
             'es-es': {
